@@ -32,4 +32,5 @@ Solve puzzles
 
 
 1.5 Definitions, acronyms and abbreviations 
+User = Any user of the program
 Main user = The player sitting at the host computer
