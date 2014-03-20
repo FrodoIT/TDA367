@@ -1,0 +1,72 @@
+Meeting Agenda
+
+  Date: 03-18
+
+  Facilitator: -
+
+  Participants: Anna Nylander, Ivar Josefsson, André Samuelsson, Alma Ottedag
+
+1. Objectives (5 min) Resolve any issues preventing the team to 
+  continue (this should be possible to verify at next meeting, 
+  short clear description, use issues from project site). 
+
+Determine what project the group should do. Achieve a preliminary shared vision of
+
+2. Reports (15 min) From previous meetings, (un)solved issues, 
+
+None, first meeting
+
+3. Discussion items (35 min) 
+Vi vill helst att spelet är realtime baserat. Att göra ett “dumt” actionspel tycker inte heller gruppen är intressant, vi lutar åt att göra ett spel som är pusselbaserat. Tidsbegränsning kanske? Spelet ska vara multiplayer, server baserat eller P2P lämnas till senare. Spelet ska stödja att ha flera nivåer men vi behöver inte implementera mer än en nivå preliminärt. 
+
+Om vi ska ha nätverkande så blir det svårt att göra ett pusselspel, fokus blir kluvet och det blir svårt och tidskrävande att göra. Då vi vill behålla nätverksdelen så väljer vi att ta bort pusselbiten.
+
+We need to determine project, we had the following ideas
+Brainstorming
+Pussel:
+Portal
+topdown med att putta klossar
+Pussel med hjälp av acceleration (Android)
+Action:
+Bossfighter
+Defense - Sealhunter inspirerat 
+Skjuta - Versus 1v1
+- Bomberman - Det blir kul
+Annat:
+- Advance Wars 2
+- Luigi’s Mansion (hjälte och monster)
+- Roguelike
+- Kortspel
+2d till Android - spec?
+
+Rollspel
+Werewolf simulator
+Live rollspel
+-Skogshuggar simulator (Tejp)
+-Visual Novel 
+
+Utility applications
+Visual Novel Creator <3          
+
+
+4. Outcomes and assignments (5 min) 
+
+We are going to make a 2d game for the computer, we are not going to program for 
+
+Multiplayer adventure game (Binding of Isaac) with puzzle elements aswell as tactical elements. The game will be in pseudo 3d with networking capabilities. The game will have a fixed view with portals to move between rooms. 
+
+5. Wrap up 
+
+Next meeting:
+We need to prepare use cases for the first version of the project, that is to be done by week 3 LP4. 
+
+We need the following:
+In order of importance:
+A player character that can move
+In a room
+Second player can connect
+Offensive action
+Enemies
+
+
+
