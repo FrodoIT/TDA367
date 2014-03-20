@@ -12,56 +12,61 @@ Meeting Agenda
 
 Determine what project the group should do. Achieve a preliminary shared vision of
 
+
 2. Reports (15 min) From previous meetings, (un)solved issues, 
 
 None, first meeting
 
-3. Discussion items (35 min) 
-Vi vill helst att spelet är realtime baserat. Att göra ett “dumt” actionspel tycker inte heller gruppen är intressant, vi lutar åt att göra ett spel som är pusselbaserat. Tidsbegränsning kanske? Spelet ska vara multiplayer, server baserat eller P2P lämnas till senare. Spelet ska stödja att ha flera nivåer men vi behöver inte implementera mer än en nivå preliminärt. 
 
-Om vi ska ha nätverkande så blir det svårt att göra ett pusselspel, fokus blir kluvet och det blir svårt och tidskrävande att göra. Då vi vill behålla nätverksdelen så väljer vi att ta bort pusselbiten.
+3. Discussion items (35 min) 
+We want to make a realtime based game, but not just a "stupid" actiongame where you blow things up with a weapon. 
+We're more intrested in creating a game which leans more towards puzzles. (maybe with a timelimit?) The game will
+be a networked multiplayer game. Whether we use a server or P2P is uncertain. The game should also support different
+levels.
+
+We're not sure if maybe networking and puzzle is a bad combination due to the devided focus. 
 
 We need to determine project, we had the following ideas
 Brainstorming
-Pussel:
+Puzzle:
 Portal
-topdown med att putta klossar
-Pussel med hjälp av acceleration (Android)
+topdown with pushing objects
+Puzzel using the accelerator (Android)
 Action:
 Bossfighter
-Defense - Sealhunter inspirerat 
-Skjuta - Versus 1v1
-- Bomberman - Det blir kul
-Annat:
+Defense - Sealhunter inspiered 
+Shoot - Versus 1v1
+- Bomberman
+Other:
 - Advance Wars 2
-- Luigi’s Mansion (hjälte och monster)
+- Luigi’s Mansion (hero vs monster)
 - Roguelike
-- Kortspel
-2d till Android - spec?
+- Cardgame
 
-Rollspel
+Roleplay
 Werewolf simulator
-Live rollspel
--Skogshuggar simulator (Tejp)
+Live roleplay
+-lumberjack simulator
 -Visual Novel 
 
 Utility applications
-Visual Novel Creator <3          
+Visual Novel Creator         
 
 
 4. Outcomes and assignments (5 min) 
 
-We are going to make a 2d game for the computer, we are not going to program for 
+We finally succeeded in decided what project we want to make. We're aiming for our game to be a 
+2D topdown (pokemon/zelda view) multiplayer adveture game containing puzzle elements as well as action. One could compare it to 
+the classical "The legend of Zelda" games for NES except our game will only be inside 1 dungeon and it will
+allow several players. The game will also have fixed rooms with doors or portals between them.
 
-Multiplayer adventure game (Binding of Isaac) with puzzle elements aswell as tactical elements. The game will be in pseudo 3d with networking capabilities. The game will have a fixed view with portals to move between rooms. 
 
 5. Wrap up 
 
 Next meeting:
 We need to prepare use cases for the first version of the project, that is to be done by week 3 LP4. 
 
-We need the following:
-In order of importance:
+To do in order of importance:
 A player character that can move
 In a room
 Second player can connect
