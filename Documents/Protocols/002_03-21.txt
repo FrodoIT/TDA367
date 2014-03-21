@@ -1,0 +1,48 @@
+Meeting Agenda
+
+  Date 03-21
+
+  Facilitator - 
+
+  Participants Anna Nylander, André Samuelsson, Ivar Josefsson, Alma Ottedag
+
+1. Objectives (5 min)
+ We need a clear vision of the game. Our game is at the moment very vaguely defined. 
+ We’re going to finish writing use cases for the game.
+ Finish the first iteration of the analysis model.
+ 
+
+2. Reports (15 min) 
+We’ve had trouble with UseCases, they were very timeconsuming but it’s pretty much solved now, it does need a finishing touch.
+
+We’ve changed our priority on networking. At first we wanted to implement it pretty early on, but after our meeting with our facilitator we’ve changed that to a medium to low priority. The reason was that it’s very likely that we would build our game around networking. We actually want it the other way around.
+
+We’ve also started working on a git repository and getting to know the rebase function for merging branches. Furthermore we’ve added tags to our meeting sessions. 
+
+Our group has started to get Maven on Eclipse working and the Graphics engine Slick 2D (we decided to use this during the meeting with the facilitator, Adam also recommended it to us.)
+
+3. Discussion items (35 min) 
+
+   
+What graphics engine should we use André got a personal recommendation to use PlayN but the facillitator recommended Slick2D in the last meeting so we decide to use it. It also comes with an level editor, so thats nice.
+
+First we defined the “topdown” concept so everyone agrees upon what is acctually are.
+
+We then decided to make a first try at an analysis model for the project.
+
+  
+
+4. Outcomes and assignments (5 min) 
+André should Create a Java-project.
+Everyone should fix Maven and Slick2D, and then implement them into the project.
+
+Extract the basic UML needed to get started with programming. (Create an implementation model from the analysis model)
+
+Alma should catch up on missed progress (due to auxilliary work)
+
+Discuss and decide the “theme” of the game over an Skype-meeting on sunday (23 March).
+
+5. Wrap up 
+
+
+Next meeting is on Tuesday (03-25)
