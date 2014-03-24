@@ -24,7 +24,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/slick.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="file:/home/tejp/Documents/GitRepos/TDA367/slick2d-javadoc/"/>
+			<attribute name="javadoc_location" value="jar:platform:/resource/TisButAScratch/lib/slick2djavadoc.zip!/javadoc"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
