@@ -1,5 +1,7 @@
 *.class
 .metadata
+#.classpath if stuff doesn't work. unrem this line.
+
 # Package Files #
 #*.jar
 *.war
