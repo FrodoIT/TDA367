@@ -1,0 +1,44 @@
+Meeting Agenda
+
+  Date: 3/25/2014
+
+  Facilitator: -
+
+  Participants: André Samuelsson, Ivar Josefsson, Alma Ottedag
+
+1. Objectives (5 min) 
+Nothing.
+
+
+2. Reports (15 min) From previous meetings, (un)solved issues, 
+  etc. , see also 4 
+
+Apart from the last fix the game is ready to be written. Slick2D is implented and ready to be used. We have also created a preliminary UML which will be continously improved. 
+
+We also developed the game theme, so that there is a clear setting for the game.
+
+ Unfortunately the meeting last Sunday was not held, but the group solved several issues with implementing slick2d instead.
+
+
+3. Discussion items (35 min) 
+
+  (a) Setting up UML from the Use Cases?
+
+  (b) Writing easy tests for the simple classes?
+
+  (c) Writing the RAD 2.0-3?
+
+4. Outcomes and assignments (5 min) 
+
+Finish basic UML, begin implementing simple code. Study Slick2D API and explore Slick2d tutorials.  
+
+Everyone will work together on this, until Thursday when the next meeting is to be held. 
+
+
+5. Wrap up 
+
+ No unresolved issues for the time being...
+
+  (b) Next meeting Thursday the 27th of March.
+
+
