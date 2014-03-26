@@ -55,21 +55,21 @@ public class Player implements ICharacter{
 		//TODO: add method for diagonal movements.
 		switch(direction){
 		case NORTH: 
-			position.move(0, -movementSpeed);
+			position.move((int) position.getX(), (int) position.getY()-movementSpeed);
 		case NORTHWEST:
-			position.move(2, -movementSpeed);
+			position.move((int) position.getX()+2, (int) position.getY()-movementSpeed);
 		case WEST:
-			position.move(-movementSpeed, 0);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY());
 		case SOUTHWEST:
-			position.move(-movementSpeed, 2);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
 		case SOUTH:
-			position.move(0, movementSpeed);
+			position.move((int) position.getX(), (int) position.getY()+movementSpeed);
 		case SOUTHEAST:
-			position.move(2, movementSpeed);
+			position.move((int) position.getX()+2, (int) position.getY()+movementSpeed);
 		case EAST:
-			position.move(movementSpeed, 0);
+			position.move((int) position.getX()+movementSpeed, (int) position.getY());
 		case NORTHEAST:
-			position.move(-movementSpeed, 2);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
 		}
 	}
 	@Override
