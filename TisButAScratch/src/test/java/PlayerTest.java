@@ -30,6 +30,11 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public void testGetMovementSpeed() {
+		assertTrue(player.getMovementSpeed() == 5);
+	}
+	
+	@Test
 	public void testGetDamage() {
 		assertTrue(player.getDamage() == 2);
 	}
@@ -50,8 +55,6 @@ public class PlayerTest {
 		player.move(Direction.WEST);
 		assertTrue(player.getPos.equals(new Point(10, 10)));
 	}
-	
-	
 	
 	
 }
