@@ -6,7 +6,7 @@ import java.util.TreeSet;
 public class Room {
 	private Dimension dimension = new Dimension();
 	private Set<IObject> iObjectSet = new TreeSet<IObject>();
-	private Set<Character> characterSet = new TreeSet<Character>();
+	private Set<Npc> characterSet = new TreeSet<Npc>();
 	private Set<Player> playerSet = new TreeSet<Player>();
 	private boolean isCompleted = false;
 	
@@ -22,7 +22,7 @@ public class Room {
 		if(x<0 || y<0 || x>dimension.width || y>dimension.height){
 			return false;
 		}
-		for(Character c: characterSet){
+		for(Npc c: characterSet){
 			if(c.getPosition().getX() == x && c.getPosition().getY() == y){
 				return false;
 			}
@@ -34,7 +34,7 @@ public class Room {
 	public ICharacter areaUnderAttack(int x, int y){
 		//Checks if any character is located at the specified position.
 		//TODO nu kan inte spelare skadas eftersom de aldrig kollas.
-		for(Character c: characterSet){
+		for(Npc c: characterSet){
 			if(c.getPosition().getX() == x && c.getPosition().getY() == y){
 				return c;
 			}
