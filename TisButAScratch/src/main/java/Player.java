@@ -56,20 +56,28 @@ public class Player implements ICharacter{
 		switch(direction){
 		case NORTH: 
 			position.move((int) position.getX(), (int) position.getY()-movementSpeed);
+			break;
 		case NORTHWEST:
 			position.move((int) position.getX()+2, (int) position.getY()-movementSpeed);
+			break;
 		case WEST:
 			position.move((int) position.getX()-movementSpeed, (int) position.getY());
+			break;
 		case SOUTHWEST:
 			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
+			break;
 		case SOUTH:
 			position.move((int) position.getX(), (int) position.getY()+movementSpeed);
+			break;
 		case SOUTHEAST:
 			position.move((int) position.getX()+2, (int) position.getY()+movementSpeed);
+			break;
 		case EAST:
 			position.move((int) position.getX()+movementSpeed, (int) position.getY());
+			break;
 		case NORTHEAST:
 			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
+			break;
 		}
 	}
 	@Override
