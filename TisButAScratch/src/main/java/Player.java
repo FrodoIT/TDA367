@@ -7,7 +7,6 @@ public class Player implements ICharacter{
 	private Point position;
 	private IWeapon weapon;
 	private final int movementSpeed;
-	private Room currentoom;
 
 	public Player(){
 		movementSpeed = 5;
@@ -21,7 +20,6 @@ public class Player implements ICharacter{
 		health = 30;
 		weapon = new Knuckles();
 		this.position = position;
-		room = new Room();
 	}
 
 	public void interact(){
@@ -55,21 +53,29 @@ public class Player implements ICharacter{
 		//TODO: add method for diagonal movements.
 		switch(direction){
 		case NORTH: 
-			position.move(0, -movementSpeed);
+			position.move((int) position.getX(), (int) position.getY()-movementSpeed);
+			break;
 		case NORTHWEST:
-			position.move(2, -movementSpeed);
+			position.move((int) position.getX()+2, (int) position.getY()-movementSpeed);
+			break;
 		case WEST:
-			position.move(-movementSpeed, 0);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY());
+			break;
 		case SOUTHWEST:
-			position.move(-movementSpeed, 2);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
+			break;
 		case SOUTH:
-			position.move(0, movementSpeed);
+			position.move((int) position.getX(), (int) position.getY()+movementSpeed);
+			break;
 		case SOUTHEAST:
-			position.move(2, movementSpeed);
+			position.move((int) position.getX()+2, (int) position.getY()+movementSpeed);
+			break;
 		case EAST:
-			position.move(movementSpeed, 0);
+			position.move((int) position.getX()+movementSpeed, (int) position.getY());
+			break;
 		case NORTHEAST:
-			position.move(-movementSpeed, 2);
+			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
+			break;
 		}
 	}
 	@Override
