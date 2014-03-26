@@ -17,6 +17,11 @@ public class Room {
 		return !playerList.isEmpty();
 	}
 	
+	public void collitionDetection(){
+		//check player-npc and then player iobject
+	}
+	
+	public 
 	
 	
 	
