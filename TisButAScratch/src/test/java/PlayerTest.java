@@ -21,7 +21,7 @@ public class PlayerTest {
 	@Test
 	public void testGetPos() {
 		Player player = new Player();
-		assertTrue(player.equals(new Point(10, 10)));
+		assertTrue(player.getPosition().equals(new Point(10, 10)));
 		player = new Player(new Point (25, 25));
 		assertTrue(player.getPosition().equals(new Point(25, 25)));		
 	}
