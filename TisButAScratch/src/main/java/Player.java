@@ -7,7 +7,6 @@ public class Player implements ICharacter{
 	private Point position;
 	private IWeapon weapon;
 	private final int movementSpeed;
-	private Room currentRoom;
 
 	public Player(){
 		movementSpeed = 5;
@@ -21,7 +20,6 @@ public class Player implements ICharacter{
 		health = 30;
 		weapon = new Knuckles();
 		this.position = position;
-		currentRoom = new Room();
 	}
 
 	public void interact(){
