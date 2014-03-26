@@ -4,16 +4,15 @@ import java.awt.Point;
 public class Player implements ICharacter{
 
 	private int health;
-	private int damage;
 	private Point position;
 	private IWeapon weapon;
 	private final int movementSpeed;
+	private Room currentoom;
 
 	public Player(){
 		movementSpeed = 5;
 		health = 30;
 		weapon = new Knuckles();
-		damage = getDamage();
 		position = new Point(10,10);	
 	}
 
@@ -21,21 +20,30 @@ public class Player implements ICharacter{
 		movementSpeed = 5;
 		health = 30;
 		weapon = new Knuckles();
-		damage = getDamage();
 		this.position = position;
+		room = new Room();
 	}
 
+	public void interact(){
+		//TODO.
+	}
+	
 	@Override
 	public int getHealth() {
 		return health;
 	}
+	
+	public int getRange() {
+		return weapon.getRange();
+	}
+	
 	@Override
 	public Point getPosition() {
 		return position;
 	}
 	@Override
 	public int getDamage() {
-		return damage;
+		return weapon.getDamage();
 	}
 	
 	public IWeapon getWeapon(){
