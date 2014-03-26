@@ -1,5 +1,5 @@
 
-public class Sword implements Weapon{
+public class Sword implements IWeapon{
 	private final int damage;
 	private final int range;
 	

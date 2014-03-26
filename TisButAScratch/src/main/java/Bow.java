@@ -1,5 +1,5 @@
 
-public class Bow implements Weapon{
+public class Bow implements IWeapon{
 
 	private final int damage;
 	private final int range;
