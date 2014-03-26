@@ -6,15 +6,11 @@ import org.junit.Test;
 
 
 public class PlayerTest {
-	Player player;
-	
-	@Before
-	public void before() {
-		player = new Player();
-	}
+
 	
 	@Test
 	public void testPlayer() {
+		Player player = new Player();
 	}
 
 	@Test
@@ -24,37 +20,40 @@ public class PlayerTest {
 	
 	@Test
 	public void testGetPos() {
+		Player player = new Player();
 		assertTrue(player.equals(new Point(10, 10)));
-		Player player = new Player(new Point (25, 25));
-		assertTrue(player.getPos().equals(new Point(25, 25)));		
+		player = new Player(new Point (25, 25));
+		assertTrue(player.getPosition().equals(new Point(25, 25)));		
 	}
 	
 	@Test
 	public void testGetMovementSpeed() {
+		Player player = new Player();
 		assertTrue(player.getMovementSpeed() == 5);
 	}
 	
 	@Test
 	public void testGetDamage() {
+		Player player = new Player();
 		assertTrue(player.getDamage() == 2);
 	}
 	
 	@Test
 	public void testGetRange() {
+		Player player = new Player();
 		assertTrue(player.getRange() == 1);
 	}
 	
 	@Test
 	public void testMove() {
+		Player player = new Player();
 		player.move(Direction.SOUTH);
-		assertTrue(player.getPos.equals(new Point(10, 10+player.getMovementSpeed())));
+		assertTrue(player.getPosition().equals(new Point(10, 10+player.getMovementSpeed())));
 		player.move(Direction.NORTH);
-		assertTrue(player.getPos.equals(new Point(10, 10)));
+		assertTrue(player.getPosition().equals(new Point(10, 10)));
 		player.move(Direction.EAST);
-		assertTrue(player.getPos.equals(new Point(10+player.getMovementSpeed(), 10)));
+		assertTrue(player.getPosition().equals(new Point(10+player.getMovementSpeed(), 10)));
 		player.move(Direction.WEST);
-		assertTrue(player.getPos.equals(new Point(10, 10)));
+		assertTrue(player.getPosition().equals(new Point(10, 10)));
 	}
-	
-	
 }
