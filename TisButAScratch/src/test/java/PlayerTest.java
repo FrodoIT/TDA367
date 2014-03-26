@@ -42,11 +42,11 @@ public class PlayerTest {
 	@Test
 	public void testMove() {
 		player.move(Direction.SOUTH);
-		assertTrue(player.getPos.equals(new Point(10, 20)));
-		player.move(Direction.EAST);
-		assertTrue(player.getPos.equals(new Point(20, 20)));
+		assertTrue(player.getPos.equals(new Point(10, 10+player.getMovementSpeed())));
 		player.move(Direction.NORTH);
-		assertTrue(player.getPos.equals(new Point(20, 10)));
+		assertTrue(player.getPos.equals(new Point(10, 10)));
+		player.move(Direction.EAST);
+		assertTrue(player.getPos.equals(new Point(10+player.getMovementSpeed(), 10)));
 		player.move(Direction.WEST);
 		assertTrue(player.getPos.equals(new Point(10, 10)));
 	}
