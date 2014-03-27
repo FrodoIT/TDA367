@@ -1,7 +1,9 @@
 package model;
 import java.awt.Point;
 
-
+/**
+ * @author Alma Ottedag
+ */
 public class Player implements ICharacter{
 
 	private int health;
@@ -9,6 +11,11 @@ public class Player implements ICharacter{
 	private IWeapon weapon;
 	private final int movementSpeed;
 
+    /**
+     * Default constructor for Player.
+     * Default health is currently 30pts.
+     * Default position is at x = 10, y = 10.
+     */
 	public Player(){
 		movementSpeed = 5;
 		health = 30;
@@ -16,6 +23,10 @@ public class Player implements ICharacter{
 		position = new Point(10,10);	
 	}
 
+    /**
+     * Constructor for Player with a specific starting position.
+     * @param position The position of the character given as a Point.
+     */
 	public Player(Point position){
 		movementSpeed = 5;
 		health = 30;
@@ -48,7 +59,8 @@ public class Player implements ICharacter{
 	public IWeapon getWeapon(){
 		return weapon;
 	}
-	
+
+
 	@Override
 	public void move(Direction direction) {
 		//TODO: add method for diagonal movements.

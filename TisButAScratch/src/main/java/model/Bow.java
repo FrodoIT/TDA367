@@ -1,5 +1,7 @@
 package model;
-
+/**
+ * @author Alma Ottedag
+ */
 public class Bow implements IWeapon{
 
 	private final int damage;
