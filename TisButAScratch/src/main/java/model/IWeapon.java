@@ -1,3 +1,4 @@
+package model;
 
 public interface IWeapon {	
 	public int getDamage();

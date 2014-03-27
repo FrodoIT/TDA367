@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import model.Sword;
+
 import org.junit.Test;
 
 

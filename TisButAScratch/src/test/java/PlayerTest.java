@@ -2,6 +2,9 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
+import model.Direction;
+import model.Player;
+
 import org.junit.Test;
 
 

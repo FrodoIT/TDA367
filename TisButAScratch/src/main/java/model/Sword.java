@@ -1,12 +1,18 @@
+package model;
 
-public class Knuckles implements IWeapon {
+public class Sword implements IWeapon{
 	private final int damage;
 	private final int range;
-
-	public Knuckles(){
-		damage = 2;
+	
+	public Sword(){
+		damage = 5;
 		range = 1;
 	}
+	public Sword(int damage, int range){
+		this.damage = damage;
+		this.range = range;
+	}
+	
 	@Override
 	public int getDamage() {
 		return damage;
@@ -16,5 +22,5 @@ public class Knuckles implements IWeapon {
 	public int getRange() {
 		return range;
 	}
-
+	
 }
