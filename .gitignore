@@ -1,6 +1,6 @@
 *.class
 .metadata
-#.classpath if stuff doesn't work. unrem this line.
+.classpath if stuff doesn't work. unrem this line.
 
 # Package Files #
 #*.jar
@@ -16,5 +16,5 @@
 .DS_Store
 
 # Maven
-TisButAScratch/log/
-TisButAScratch/target/
+**/log/
+**/target/
