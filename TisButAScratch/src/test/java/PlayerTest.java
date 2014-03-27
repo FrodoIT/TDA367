@@ -7,7 +7,11 @@ import model.Player;
 
 import org.junit.Test;
 
-
+/**
+ * 
+ * @author Ivar 'Cannonbait' Josefsson
+ *
+ */
 public class PlayerTest {
 
 	
