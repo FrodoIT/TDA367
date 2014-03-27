@@ -3,6 +3,7 @@ import java.awt.Point;
 
 /**
  * @author Alma Ottedag
+ * revised 2014-03-27 Ivar Josefsson
  */
 public class Player implements ICharacter{
 
@@ -56,40 +57,64 @@ public class Player implements ICharacter{
 		return weapon.getDamage();
 	}
 	
+	@Override
 	public IWeapon getWeapon(){
 		return weapon;
 	}
+	
+	/**
+	 * Calculates the new coordinates the with movement in the defined direction.
+	 * @param direction determines the coordinate changes.
+	 * @return A point containing the position we would get when moving in the defined direction
+	 */
+	public Point calculateNewPosition(Direction direction) {
+		int xChange;
+		int yChange;
+		switch(direction){
+		case NORTH: 
+			xChange = 0;
+			yChange = -movementSpeed;
+			break;
+		case NORTHWEST:
+			xChange = -movementSpeed;
+			yChange = -movementSpeed;
+			break;
+		case WEST:
+			xChange = -movementSpeed;
+			yChange = 0;
+			break;
+		case SOUTHWEST:
+			xChange = -movementSpeed;
+			yChange = movementSpeed;
+			break;
+		case SOUTH:
+			xChange = 0;
+			yChange = movementSpeed;
+			break;
+		case SOUTHEAST:
+			xChange = movementSpeed;
+			yChange = movementSpeed;
+			break;
+		case EAST:
+			xChange = movementSpeed;
+			yChange = 0;
+			break;
+		case NORTHEAST:
+			xChange = movementSpeed;
+			yChange = -movementSpeed;
+			break;
+		default:
+			xChange = 0;
+			yChange = 0;
+		}
+		return new Point((int)position.getX()+xChange, (int)position.getY()+yChange);
+	}
+	
 
 
 	@Override
 	public void move(Direction direction) {
-		//TODO: add method for diagonal movements.
-		switch(direction){
-		case NORTH: 
-			position.move((int) position.getX(), (int) position.getY()-movementSpeed);
-			break;
-		case NORTHWEST:
-			position.move((int) position.getX()+2, (int) position.getY()-movementSpeed);
-			break;
-		case WEST:
-			position.move((int) position.getX()-movementSpeed, (int) position.getY());
-			break;
-		case SOUTHWEST:
-			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
-			break;
-		case SOUTH:
-			position.move((int) position.getX(), (int) position.getY()+movementSpeed);
-			break;
-		case SOUTHEAST:
-			position.move((int) position.getX()+2, (int) position.getY()+movementSpeed);
-			break;
-		case EAST:
-			position.move((int) position.getX()+movementSpeed, (int) position.getY());
-			break;
-		case NORTHEAST:
-			position.move((int) position.getX()-movementSpeed, (int) position.getY()+2);
-			break;
-		}
+		position = calculateNewPosition(direction);
 	}
 	@Override
 	public int getMovementSpeed() {

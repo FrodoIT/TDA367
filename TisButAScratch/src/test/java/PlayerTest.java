@@ -52,6 +52,12 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public void testCalculateNewPosition() {
+		Player player = new Player();
+		assertTrue(player.calculateNewPosition(Direction.SOUTH).equals(new Point(10, 10+player.getMovementSpeed())));
+	}
+	
+	@Test
 	public void testMove() {
 		Player player = new Player();
 		player.move(Direction.SOUTH);
