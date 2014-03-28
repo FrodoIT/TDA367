@@ -3,6 +3,7 @@ import java.awt.Point;
 
 /**
  * @author Alma Ottedag
+ * revised 2014-03-27 by Ivar Josefsson
  */
 
 public interface ICharacter {
@@ -10,6 +11,9 @@ public interface ICharacter {
 	public Point getPosition();
 	public int getDamage();
 	public int getMovementSpeed();
+	public IWeapon getWeapon();
+	
+	
 
     /**
      * Moves the character once in the given direction.
