@@ -1,23 +1,33 @@
 package model;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.Set;
 import java.util.TreeSet;
 
-
+/**
+ * Represents a single room and the contents in it.
+ * @author Anna Chikki Nylander
+ * Revised Ivar Cannonbait Josefsson 2014-03-28
+ *
+ */
 public class Room {
-	private Dimension dimension = new Dimension();
+	private Dimension dimension;
 	private Set<IObject> iObjectSet = new TreeSet<IObject>();
-	private Set<Npc> characterSet = new TreeSet<Npc>();
+	//private Set<Npc> characterSet = new TreeSet<Npc>();
 	private Set<Player> playerSet = new TreeSet<Player>();
 	private boolean isCompleted = false;
+	private Player player;
 	
 	public Room(){
-		
+		//TODO Player should be added separately with another method.
+		dimension = new Dimension(640, 480);
+		player = new Player(new Point((int)(dimension.getWidth()/2), (int)(dimension.getHeight()/2)));
 	}
 	public boolean isCompleted(){
 		return isCompleted;
 	}
 	
+	/*
 	public boolean validatePosition(int x, int y){
 		//check if the position is ok for a player to move to.
 		if(x<0 || y<0 || x>dimension.width || y>dimension.height){
@@ -31,6 +41,7 @@ public class Room {
 		return true;
 				
 	}
+	
 	
 	public ICharacter areaUnderAttack(int x, int y){
 		//Checks if any character is located at the specified position.
@@ -57,8 +68,33 @@ public class Room {
 		}
 		return null; 
 	}
+	*/
+	
+	private void movePlayer(Direction direction){
+		if (allowedPosition(player.calculateNewPosition(direction))){
+			player.move(direction);
+		}
+	}
+	
+	/**
+	 * Called to determine if a position is allowed in the room.
+	 * @param point the position we want to check
+	 * @return true if position is allowed, false otherwise
+	 */
+	private boolean allowedPosition(Point point){
+		if (point.getX()<0 || point.getY()<0 || dimension.getWidth() < point.getX() || dimension.getHeight() < point.getY()){
+			return false;
+		}
+		return true;
+	}
 	
 	
+	public void update (Direction direction){
+		movePlayer(direction);
+	}
 	
+	public Point getPlayerPosition() {
+		return player.getPosition();
+	}
 	
 }
