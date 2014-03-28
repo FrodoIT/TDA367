@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Point;
+import java.util.List;
  
 /**
  * Contains the internal representation of the game.
@@ -17,6 +18,10 @@ public class Model {
 	}
 	
 	public void update () {
+		
+	}
+	
+	public void recievePlayerInput(PlayerCommand command) {
 		
 	}
 	
