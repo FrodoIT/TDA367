@@ -6,7 +6,11 @@ import org.newdawn.slick.SlickException;
 import view.View;
 import controller.Controller;
 
-
+/**
+ * 
+ * @author Ivar Cannonbait Josefsson
+ *
+ */
 public class main {
 	public static void main (String[] args) throws SlickException{
 		Model model = new Model();

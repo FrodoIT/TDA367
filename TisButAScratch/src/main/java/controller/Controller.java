@@ -12,6 +12,11 @@ import org.newdawn.slick.SlickException;
 
 import view.View;
 
+/**
+ * Runs the main loop and delegates to the defined Model and View.
+ * @author Cannonbait
+ *
+ */
 public class Controller implements Game{
 	
 	View view;

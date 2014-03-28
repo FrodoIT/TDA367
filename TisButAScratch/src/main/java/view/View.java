@@ -9,6 +9,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+/**
+ * The class responsible for rendering the game on the screen.
+ * @author Ivar Cannonbait Josefsson
+ *
+ */
 public class View {
 	
 	Model model;
