@@ -64,39 +64,39 @@ public class Player implements ICharacter{
 	 * @param direction determines the coordinate changes.
 	 * @return A point containing the position we would get when moving in the defined direction
 	 */
-	public Point calculateNewPosition(Direction direction) {
+	public Point calculateNewPosition(PlayerCommand direction) {
 		int xChange;
 		int yChange;
 		switch(direction){
-		case NORTH: 
+		case GO_NORTH: 
 			xChange = 0;
 			yChange = -movementSpeed;
 			break;
-		case NORTHWEST:
+		case GO_NORTHWEST:
 			xChange = -movementSpeed;
 			yChange = -movementSpeed;
 			break;
-		case WEST:
+		case GO_WEST:
 			xChange = -movementSpeed;
 			yChange = 0;
 			break;
-		case SOUTHWEST:
+		case GO_SOUTHWEST:
 			xChange = -movementSpeed;
 			yChange = movementSpeed;
 			break;
-		case SOUTH:
+		case GO_SOUTH:
 			xChange = 0;
 			yChange = movementSpeed;
 			break;
-		case SOUTHEAST:
+		case GO_SOUTHEAST:
 			xChange = movementSpeed;
 			yChange = movementSpeed;
 			break;
-		case EAST:
+		case GO_EAST:
 			xChange = movementSpeed;
 			yChange = 0;
 			break;
-		case NORTHEAST:
+		case GO_NORTHEAST:
 			xChange = movementSpeed;
 			yChange = -movementSpeed;
 			break;
@@ -110,7 +110,7 @@ public class Player implements ICharacter{
 
 
 	@Override
-	public void move(Direction direction) {
+	public void move(PlayerCommand direction) {
 		position = calculateNewPosition(direction);
 	}
 	@Override

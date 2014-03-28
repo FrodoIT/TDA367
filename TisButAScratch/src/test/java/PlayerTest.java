@@ -2,7 +2,7 @@ import static org.junit.Assert.*;
 
 import java.awt.Point;
 
-import model.Direction;
+import model.PlayerCommand;
 import model.Player;
 
 import org.junit.Test;
@@ -54,19 +54,19 @@ public class PlayerTest {
 	@Test
 	public void testCalculateNewPosition() {
 		Player player = new Player();
-		assertTrue(player.calculateNewPosition(Direction.SOUTH).equals(new Point(10, 10+player.getMovementSpeed())));
+		assertTrue(player.calculateNewPosition(PlayerCommand.SOUTH).equals(new Point(10, 10+player.getMovementSpeed())));
 	}
 	
 	@Test
 	public void testMove() {
 		Player player = new Player();
-		player.move(Direction.SOUTH);
+		player.move(PlayerCommand.SOUTH);
 		assertTrue(player.getPosition().equals(new Point(10, 10+player.getMovementSpeed())));
-		player.move(Direction.NORTH);
+		player.move(PlayerCommand.NORTH);
 		assertTrue(player.getPosition().equals(new Point(10, 10)));
-		player.move(Direction.EAST);
+		player.move(PlayerCommand.EAST);
 		assertTrue(player.getPosition().equals(new Point(10+player.getMovementSpeed(), 10)));
-		player.move(Direction.WEST);
+		player.move(PlayerCommand.WEST);
 		assertTrue(player.getPosition().equals(new Point(10, 10)));
 	}
 }

@@ -70,7 +70,7 @@ public class Room {
 	}
 	*/
 	
-	private void movePlayer(Direction direction){
+	private void movePlayer(PlayerCommand direction){
 		if (allowedPosition(player.calculateNewPosition(direction))){
 			player.move(direction);
 		}
@@ -89,7 +89,7 @@ public class Room {
 	}
 	
 	
-	public void update (Direction direction){
+	public void update (PlayerCommand direction){
 		movePlayer(direction);
 	}
 	

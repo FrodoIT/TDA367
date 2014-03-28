@@ -20,5 +20,5 @@ public interface ICharacter {
      * Takes into consideration movement speed.
      * @param direction Direction of the movement.
      */
-	public void move(Direction direction);
+	public void move(PlayerCommand direction);
 }
