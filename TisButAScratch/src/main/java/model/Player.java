@@ -18,10 +18,7 @@ public class Player implements ICharacter{
      * Default position is at x = 10, y = 10.
      */
 	public Player(){
-		movementSpeed = 5;
-		health = 30;
-		weapon = new Knuckles();
-		position = new Point(10,10);	
+		this(new Point(320, 240));	
 	}
 
     /**
@@ -29,7 +26,7 @@ public class Player implements ICharacter{
      * @param position The position of the character given as a Point.
      */
 	public Player(Point position){
-		movementSpeed = 5;
+		movementSpeed = 2;
 		health = 30;
 		weapon = new Knuckles();
 		this.position = position;
