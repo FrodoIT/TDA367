@@ -1,6 +1,6 @@
 *.class
 .metadata
-.classpath if stuff doesn't work. unrem this line.
+.classpath
 
 # Package Files #
 #*.jar
@@ -18,3 +18,4 @@
 # Maven
 **/log/
 **/target/
+**/pom.properties
