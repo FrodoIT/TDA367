@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.awt.Point;
 
+import model.Knuckles;
 import model.Npc;
 import model.Sword;
 
@@ -50,20 +51,25 @@ public class NpcTest {
 		assertTrue(npc.getHealth() == 100);
 	}
 	@Test
-	public void testGetMovementSpeed() {
+	public void testDefaultMovementSpeed() {
 		npc = new Npc();
-		assertTrue(npc.getMovementSpeed() == 2);
+		assertTrue(npc.getMovementSpeed() == 1);
+	}
+	@Test
+	public void testGetMovementSpeed(){
+		npc = new Npc(new Point(10,10), new Sword(), 100, 3);
+		assertTrue(npc.getMovementSpeed() == 3);
 	}
 
 	@Test
 	public void testGetDamage() {
-		npc = new Npc();
+		npc = new Npc(new Point(10,10), new Knuckles(), 100, 3);
 		assertTrue(npc.getDamage() == 2);
 	}
 
 	@Test
 	public void testGetRange() {
-		npc = new Npc();
+		npc = new Npc(new Point(10,10), new Sword(), 100, 3);
 		assertTrue(npc.getRange() == 1);
 	}
 
