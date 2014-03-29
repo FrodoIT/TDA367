@@ -5,6 +5,7 @@ import java.awt.Point;
 
 import model.Model;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -25,7 +26,8 @@ public class View {
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
 		Point pos = model.getPlayerPosition();
-		g.drawString("Gubbe", (float)pos.getX(), (float)pos.getY());
+		g.setColor(Color.red);
+		g.fillOval(pos.x-5, pos.y-5, 10, 10);
 	}
 
 }
