@@ -14,8 +14,6 @@ public class Model {
 	PlayerInput input;
 	
 	public Model(){
-		//TODO init map
-		room = new Room();
 		input = new PlayerInput();
 	}
 	
@@ -29,5 +27,9 @@ public class Model {
 	
 	public Point getPlayerPosition() {
 		return room.getPlayerPosition();
+	}
+	
+	public void addRoom(Room room) {
+		this.room = room; //TODO add to roomlist later, we only need one room atm
 	}
 }

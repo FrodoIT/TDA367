@@ -1,9 +1,9 @@
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
-import model.MoveCommand;
 import model.Room;
 
 import org.junit.Test;
@@ -15,9 +15,22 @@ import org.junit.Test;
  */
 public class RoomTest {
 
+	private int [][] roomMap =
+		{
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+		};
+	
 	@Test
 	public void testRoom() {
-		Room room = new Room();
+		Room room = new Room(roomMap, new Dimension(16, 9), new Dimension(32, 32));
 		assertTrue(room.getPlayerPosition().equals(new Point(320, 240)));
 	}
 
@@ -29,7 +42,7 @@ public class RoomTest {
 
 	@Test
 	public void testGetPlayerPosition() {
-		Room room = new Room();
+		Room room = new Room(roomMap, new Dimension(16, 9), new Dimension(32, 32));
 		assertTrue(room.getPlayerPosition().equals(new Point(320, 240)));
 	}
 

@@ -11,17 +11,26 @@ import java.util.TreeSet;
  *
  */
 public class Room {
-	private Dimension dimension;
+	
+	// Map is constructed by a grid of tiles
+	private Dimension gridDim;
+	// These tiles have the dimension
+	private Dimension tileDim;
+	
 	private Set<IObject> iObjectSet = new TreeSet<IObject>();
 	//private Set<Npc> characterSet = new TreeSet<Npc>();
 	private Set<Player> playerSet = new TreeSet<Player>();
 	private boolean isCompleted = false;
 	private Player player;
 	
-	public Room(){
+	private int[][] mapRepresentation;
+	
+	public Room(int[][] mapRepresentation, Dimension gridDim, Dimension tileDim){
 		//TODO Player should be added separately with another method.
-		dimension = new Dimension(640, 480);
-		player = new Player(new Point((int)(dimension.getWidth()/2), (int)(dimension.getHeight()/2)));
+		this.mapRepresentation = mapRepresentation;
+		this.gridDim = gridDim;
+		this.tileDim = tileDim;
+		player = new Player(new Point((int)(gridDim.getWidth()/2), (int)(gridDim.getHeight()/2)));
 	}
 	public boolean isCompleted(){
 		return isCompleted;
@@ -82,12 +91,43 @@ public class Room {
 	 * @return true if position is allowed, false otherwise
 	 */
 	private boolean allowedPosition(Point point){
-		if (point.getX()<0 || point.getY()<0 || dimension.getWidth() < point.getX() || dimension.getHeight() < point.getY()){
+		
+		Point gridPoint = pixelPosToGrid(point);
+		if (point.getX() < 0
+				|| point.getY() < 0
+				|| getMapWidth() < point.getX()
+				|| getMapHeight() < point.getY()
+				|| mapRepresentation[gridPoint.x][gridPoint.y] != 0){
 			return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * 
+	 * @return: the total height of the map in pixels
+	 */
+	private double getMapHeight() {
+		return gridDim.getHeight() * tileDim.getHeight();
+	}
+	
+	/**
+	 * 
+	 * @return: the total width of the map in pixels
+	 */
+	private double getMapWidth() {
+		return gridDim.getWidth() * tileDim.getWidth();
+	}
+	
+	/**
+	 * 
+	 * @param pixelPoint, a point on the map in pixels
+	 * @return the corresponding grid tile in which the pixel is located
+	 */
+	private Point pixelPosToGrid(Point pixelPoint) {
+		return new Point( (int)(pixelPoint.x / tileDim.getWidth()),
+						  (int)(pixelPoint.y / tileDim.getHeight()) );
+	}
 	
 	public void update (PlayerInput input){
 		movePlayer(input.getMoveInput());

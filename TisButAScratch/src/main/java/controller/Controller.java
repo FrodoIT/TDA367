@@ -22,6 +22,7 @@ public class Controller implements Game{
 	private View view;
 	private Model model;
 	private PlayerInputController inputController;
+	private RoomController roomController;
 	
 	public Controller(View view, Model model){
 		this.view = view;
@@ -43,12 +44,13 @@ public class Controller implements Game{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
-		
+		roomController = new RoomController(model, view, "res/spawn.tmx");
 	}
 
 	@Override
 	public void render(GameContainer container, Graphics g)
 			throws SlickException {
+		roomController.render();
 		view.render(container, g);
 	}
 
