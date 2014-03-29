@@ -34,4 +34,10 @@ public class PlayerInput {
 	public void setMoveInput(MoveCommand moveValue) {
 		moveInput = moveValue;
 	}
+	
+	public void resetInput() {
+		attackInput = false;
+		interactInput = false;
+		moveInput = MoveCommand.NONE;
+	}
 }

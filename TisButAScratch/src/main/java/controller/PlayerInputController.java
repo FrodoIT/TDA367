@@ -15,30 +15,41 @@ public class PlayerInputController {
 	}
 
 	public void update(Input input) {
+		PlayerInput playerInput = new PlayerInput();
 		if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)){
 			//Move South-west
-			model.queuePlayerInput(MoveCommand.SOUTHWEST);
+			playerInput.setMoveInput(MoveCommand.SOUTHWEST);
 		} else if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_RIGHT)){
 			//Move South-east
-			model.queuePlayerInput(MoveCommand.SOUTHEAST);
+			playerInput.setMoveInput(MoveCommand.SOUTHEAST);
 		} else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)){
 			//Move North-west
-			model.queuePlayerInput(MoveCommand.NORTHWEST);
+			playerInput.setMoveInput(MoveCommand.NORTHWEST);
 		} else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)){
 			//Move North-east
-			model.queuePlayerInput(MoveCommand.NORTHEAST);
+			playerInput.setMoveInput(MoveCommand.NORTHEAST);
 		} else if(input.isKeyDown(Input.KEY_DOWN)){
 			//Move South
-			model.queuePlayerInput(MoveCommand.SOUTH);
+			playerInput.setMoveInput(MoveCommand.SOUTH);
 		} else if(input.isKeyDown(Input.KEY_UP)){
 			//Move North
-			model.queuePlayerInput(MoveCommand.NORTH);
+			playerInput.setMoveInput(MoveCommand.NORTH);
 		} else if(input.isKeyDown(Input.KEY_LEFT)){
 			//Move West
-			model.queuePlayerInput(MoveCommand.WEST);
+			playerInput.setMoveInput(MoveCommand.WEST);
 		} else if(input.isKeyDown(Input.KEY_RIGHT)){
 			//Move East
-			model.queuePlayerInput(MoveCommand.EAST);
+			playerInput.setMoveInput(MoveCommand.EAST);
 		}
+		//Attack & Interact commands can be sent at the same time as movement command
+		if (input.isKeyDown(Input.KEY_X)){
+			playerInput.setAttackInput(true);
+		}
+		if (input.isKeyDown(Input.KEY_Z)){
+			playerInput.setInteractInput(true);
+		}
+		
+		model.queuePlayerInput(playerInput);
+		
 	}
 }

@@ -11,25 +11,20 @@ import java.util.List;
 public class Model {
 	
 	Room room;
-	MoveCommand command;
+	PlayerInput input;
 	
 	public Model(){
 		//TODO init map
 		room = new Room();
-		command = MoveCommand.NONE;
+		input = new PlayerInput();
 	}
 	
 	public void update () {
-		room.update(command);
-		clearQueuedInput();
+		room.update(input);
 	}
 	
-	public void queuePlayerInput(MoveCommand command) {
-		this.command = command;
-	}
-	
-	private void clearQueuedInput() {
-		command = MoveCommand.NONE;
+	public void queuePlayerInput(PlayerInput input) {
+		this.input = input;
 	}
 	
 	public Point getPlayerPosition() {

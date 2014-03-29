@@ -35,9 +35,8 @@ public class RoomTest {
 
 	@Test
 	public void testUpdate() {
-		Room room = new Room();
-		room.update(MoveCommand.SOUTH);
-		assertTrue(room.getPlayerPosition().equals(new Point(320, 242)));
+		fail("Not yet implemented");
+		
 	}
 
 }

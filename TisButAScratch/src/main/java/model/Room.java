@@ -89,8 +89,8 @@ public class Room {
 	}
 	
 	
-	public void update (MoveCommand direction){
-		movePlayer(direction);
+	public void update (PlayerInput input){
+		movePlayer(input.getMoveInput());
 	}
 	
 	public Point getPlayerPosition() {
