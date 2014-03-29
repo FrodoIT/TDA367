@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import model.PlayerInput;
 import model.Room;
 
 import org.junit.Test;
@@ -45,7 +46,6 @@ public class RoomTest {
 	@Test
 	public void testUpdate() {
 		Room room = new Room(roomMap, new Dimension(16, 9), new Dimension(32, 32));
-		room.update(PlayerCommand.GO_SOUTH);
 		assertTrue(room.getPlayerPosition().equals(new Point(320, 242)));
 	}
 
