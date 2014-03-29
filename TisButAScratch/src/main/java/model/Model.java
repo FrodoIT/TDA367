@@ -28,7 +28,7 @@ public class Model {
 		this.command = command;
 	}
 	
-	public void clearQueuedInput() {
+	private void clearQueuedInput() {
 		command = PlayerCommand.NONE;
 	}
 	
