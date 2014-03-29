@@ -19,9 +19,9 @@ import view.View;
  */
 public class Controller implements Game{
 	
-	View view;
-	Model model;
-	PlayerInputController inputController;
+	private View view;
+	private Model model;
+	private PlayerInputController inputController;
 	
 	public Controller(View view, Model model){
 		this.view = view;
