@@ -43,7 +43,9 @@ public class PlayerInputController {
 		} else if(input.isKeyDown(205)){
 			//Move East
 			model.recievePlayerInput(PlayerCommand.GO_EAST);
-		} else if(input.isKeyDown(44)){
+		}
+		//TODO: Should be possible to attack at the same time as moving.
+		else if(input.isKeyDown(44)){
 			model.recievePlayerInput(PlayerCommand.INTERACT);
 			//Z for interact.
 		} else if(input.isKeyDown(45)){
