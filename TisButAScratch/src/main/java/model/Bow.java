@@ -1,5 +1,9 @@
 package model;
 /**
+ * The weapon Bow:
+ * A long-ranged weapon with the following stats:
+ * Damage = 4
+ * Range = 10
  * @author Alma Ottedag
  */
 public class Bow implements IWeapon{

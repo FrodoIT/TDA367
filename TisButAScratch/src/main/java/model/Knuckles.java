@@ -1,5 +1,9 @@
 package model;
 /**
+ * The weapon Knuckles:
+ * The default starting-weapon for all characters with the following stats:
+ * Damage = 2
+ * Range = 1
  * @author Alma Ottedag
  */
 public class Knuckles implements IWeapon {
