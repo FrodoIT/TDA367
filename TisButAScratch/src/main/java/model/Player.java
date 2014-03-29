@@ -64,7 +64,7 @@ public class Player implements ICharacter{
 	 * @param direction determines the coordinate changes.
 	 * @return A point containing the position we would get when moving in the defined direction
 	 */
-	public Point calculateNewPosition(PlayerCommand direction) {
+	public Point calculateNewPosition(MoveCommand direction) {
 		int xChange;
 		int yChange;
 		switch(direction){
@@ -110,7 +110,7 @@ public class Player implements ICharacter{
 
 
 	@Override
-	public void move(PlayerCommand direction) {
+	public void move(MoveCommand direction) {
 		position = calculateNewPosition(direction);
 	}
 	@Override

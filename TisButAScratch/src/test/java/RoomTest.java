@@ -3,7 +3,7 @@ import static org.junit.Assert.fail;
 
 import java.awt.Point;
 
-import model.PlayerCommand;
+import model.MoveCommand;
 import model.Room;
 
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class RoomTest {
 	@Test
 	public void testUpdate() {
 		Room room = new Room();
-		room.update(PlayerCommand.GO_SOUTH);
+		room.update(MoveCommand.GO_SOUTH);
 		assertTrue(room.getPlayerPosition().equals(new Point(320, 242)));
 	}
 
