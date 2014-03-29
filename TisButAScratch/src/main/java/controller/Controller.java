@@ -21,10 +21,12 @@ public class Controller implements Game{
 	
 	View view;
 	Model model;
+	PlayerInputController inputController;
 	
 	public Controller(View view, Model model){
 		this.view = view;
 		this.model = model;
+		inputController = new PlayerInputController(model);
 	}
 
 	@Override
@@ -53,6 +55,7 @@ public class Controller implements Game{
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
+		inputController.update(container.getInput());
 		model.update();
 
 	}
