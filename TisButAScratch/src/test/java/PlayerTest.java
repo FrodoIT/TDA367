@@ -54,19 +54,19 @@ public class PlayerTest {
 	@Test
 	public void testCalculateNewPosition() {
 		Player player = new Player(new Point(10, 10));
-		assertTrue(player.calculateNewPosition(MoveCommand.GO_SOUTH).equals(new Point(10, 10+player.getMovementSpeed())));
+		assertTrue(player.calculateNewPosition(MoveCommand.SOUTH).equals(new Point(10, 10+player.getMovementSpeed())));
 	}
 	
 	@Test
 	public void testMove() {
 		Player player = new Player(new Point(10, 10));
-		player.move(MoveCommand.GO_SOUTH);
+		player.move(MoveCommand.SOUTH);
 		assertTrue(player.getPosition().equals(new Point(10, 10+player.getMovementSpeed())));
-		player.move(MoveCommand.GO_NORTH);
+		player.move(MoveCommand.NORTH);
 		assertTrue(player.getPosition().equals(new Point(10, 10)));
-		player.move(MoveCommand.GO_EAST);
+		player.move(MoveCommand.EAST);
 		assertTrue(player.getPosition().equals(new Point(10+player.getMovementSpeed(), 10)));
-		player.move(MoveCommand.GO_WEST);
+		player.move(MoveCommand.WEST);
 		assertTrue(player.getPosition().equals(new Point(10, 10)));
 	}
 }

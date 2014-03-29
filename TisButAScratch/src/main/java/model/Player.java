@@ -68,35 +68,35 @@ public class Player implements ICharacter{
 		int xChange;
 		int yChange;
 		switch(direction){
-		case GO_NORTH: 
+		case NORTH: 
 			xChange = 0;
 			yChange = -movementSpeed;
 			break;
-		case GO_NORTHWEST:
+		case NORTHWEST:
 			xChange = -movementSpeed;
 			yChange = -movementSpeed;
 			break;
-		case GO_WEST:
+		case WEST:
 			xChange = -movementSpeed;
 			yChange = 0;
 			break;
-		case GO_SOUTHWEST:
+		case SOUTHWEST:
 			xChange = -movementSpeed;
 			yChange = movementSpeed;
 			break;
-		case GO_SOUTH:
+		case SOUTH:
 			xChange = 0;
 			yChange = movementSpeed;
 			break;
-		case GO_SOUTHEAST:
+		case SOUTHEAST:
 			xChange = movementSpeed;
 			yChange = movementSpeed;
 			break;
-		case GO_EAST:
+		case EAST:
 			xChange = movementSpeed;
 			yChange = 0;
 			break;
-		case GO_NORTHEAST:
+		case NORTHEAST:
 			xChange = movementSpeed;
 			yChange = -movementSpeed;
 			break;
