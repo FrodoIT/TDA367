@@ -24,7 +24,7 @@ public class Model {
 		clearQueuedInput();
 	}
 	
-	public void recievePlayerInput(PlayerCommand command) {
+	public void queuePlayerInput(PlayerCommand command) {
 		this.command = command;
 	}
 	
