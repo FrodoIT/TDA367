@@ -14,39 +14,39 @@ public class PlayerInputTest {
 	}
 
 	@Test
-	public void setMoveInputTest(){
+	public void testSetMoveInput(){
 		pInput.setMoveInput(MoveCommand.EAST);
 		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
 		pInput.setMoveInput(MoveCommand.NONE);
 	}
 	
 	@Test
-	public void setAttackInputTest(){
+	public void testSetAttackInput(){
 		pInput.setAttackInput(true);
 		assertTrue(pInput.getAttackInput());
 		pInput.setAttackInput(false);
 	}
 	
 	@Test
-	public void setInteractInputTest(){
+	public void testSetInteractInput(){
 		pInput.setInteractInput(true);
 		assertTrue(pInput.getInteractInput());
 		pInput.setInteractInput(false);
 	}
 	
 	@Test
-	public void getAttackInputTest() {
+	public void testGetAttackInput() {
 		pInput.setAttackInput(true);
 		assertTrue(pInput.getAttackInput());
 	}
 	@Test
-	public void getMoveInputTest(){
+	public void testGetMoveInput(){
 		pInput.setMoveInput(MoveCommand.EAST);
 		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
 	}
 	
 	@Test
-	public void getInteractInputTest(){
+	public void testGetInteractInput(){
 		pInput.setInteractInput(true);
 		assertTrue(pInput.getInteractInput());
 	}

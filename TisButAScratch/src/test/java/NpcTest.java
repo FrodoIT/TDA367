@@ -41,6 +41,15 @@ public class NpcTest {
 	}
 
 	@Test
+	public void testGetHealth(){
+		npc.setHealth(10);
+		assertTrue(npc.getHealth() == 10);
+	}
+	public void testsetHealth(){
+		npc.setHealth(100);
+		assertTrue(npc.getHealth() == 100);
+	}
+	@Test
 	public void testGetMovementSpeed() {
 		npc = new Npc();
 		assertTrue(npc.getMovementSpeed() == 2);
