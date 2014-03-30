@@ -70,10 +70,12 @@ public class Room {
 		player.setPosition(allowedPosition(player.getPosition(), newPosition));
 	}
 	
+	
 	/**
-	 * Called to determine if a position is allowed in the room.
-	 * @param point the position we want to check
-	 * @return true if position is allowed, false otherwise
+	 * Called to determine the best allowed position
+	 * @param fromPosition the position we start from
+	 * @param toPosition the position we want to end at
+	 * @return the best allowed position
 	 */
 	private Point allowedPosition(Point fromPosition, Point toPosition){
 		int oldX = (int)fromPosition.getX();
@@ -83,10 +85,10 @@ public class Room {
 		int returnX = oldX;
 		int returnY = oldY;
 		
-		if (0 < toPosition.getX() && toPosition.getX() < getMapWidth() && (!mapCollision(newX, oldY) || !mapCollision(newX, newY))){
+		if (0 < newX && newX < getMapWidth() && (!mapCollision(newX, oldY) || !mapCollision(newX, newY))){
 			returnX = newX;
 		}
-		if (0 < toPosition.getY() && toPosition.getY() < getMapHeight() && (!mapCollision(oldX, newY) || !mapCollision(newX, newY))){
+		if (0 < newY && newY < getMapHeight() && (!mapCollision(oldX, newY) || !mapCollision(newX, newY))){
 			returnY = newY;
 		}
 		return new Point(returnX, returnY);
