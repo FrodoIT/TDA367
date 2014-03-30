@@ -14,13 +14,5 @@ public interface ICharacter {
 	public int getDamage();
 	public int getMovementSpeed();
 	public IWeapon getWeapon();
-	
-	
-
-    /**
-     * Moves the character once in the given direction.
-     * Takes into consideration movement speed.
-     * @param direction Direction of the movement.
-     */
-	public void move(MoveCommand direction);
+	public void setPosition(Point position);
 }

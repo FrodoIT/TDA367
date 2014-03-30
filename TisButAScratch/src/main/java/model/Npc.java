@@ -7,7 +7,7 @@ import java.awt.Point;
  * @author Ivar
  *
  */
-public class Npc {
+public class Npc implements ICharacter{
 
 	private Point position;
 	private IWeapon weapon;
@@ -59,6 +59,8 @@ public class Npc {
 		this.movementSpeed = moveSpeed;
 	}
 	
+	//Getters
+	
 	/**
 	 * Call to get a Point with the position of the NPC
 	 * @return a copy of the pointer holding the position
@@ -67,8 +69,8 @@ public class Npc {
 		return new Point((int)position.getX(), (int)position.getY());
 	}
 	
-	public int getMovementSpeed() {
-		return movementSpeed;
+	public IWeapon getWeapon() {
+		return weapon;
 	}
 	
 	public int getDamage() {
@@ -79,5 +81,26 @@ public class Npc {
 		return weapon.getRange();
 	}
 	
+	public int getHealth() {
+		return health;
+	}
+	
+	public int getMovementSpeed() {
+		return movementSpeed;
+	}
+	
+	
+	
+	//Setters
+	public void setPosition(Point position) {
+		this.position = new Point((int)position.getX(), (int)position.getY());
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	
+
 	
 }

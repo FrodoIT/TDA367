@@ -109,10 +109,19 @@ public class Player implements ICharacter{
 	
 
 
-	@Override
 	public void move(MoveCommand direction) {
 		position = calculateNewPosition(direction);
 	}
+	
+	/**
+	 * Makes a copy of the supplied point and set the position of the Player to those coordinates
+	 * @param position
+	 */
+	public void setPosition(Point position) {
+		position = new Point((int)position.getX(), (int)position.getY());
+	}
+	
+	
 	@Override
 	public int getMovementSpeed() {
 		return movementSpeed;
