@@ -81,9 +81,7 @@ public class Room {
 	
 	private void movePlayer(MoveCommand direction){
 		Point newPosition = player.calculateNewPosition(direction);
-		if (allowedPosition(newPosition)){
-			player.setPosition(newPosition);
-		}
+		player.setPosition(allowedPosition(player.getPosition(), newPosition));
 	}
 	
 	/**
@@ -91,17 +89,28 @@ public class Room {
 	 * @param point the position we want to check
 	 * @return true if position is allowed, false otherwise
 	 */
-	private boolean allowedPosition(Point point){
+	private Point allowedPosition(Point fromPosition, Point toPosition){
+		int newX = (int)fromPosition.getX();
+		int newY = (int)fromPosition.getY();
 		
+		/*
 		Point gridPoint = pixelPosToGrid(point);
 		if (point.getX() < 0
 				|| point.getY() < 0
 				|| getMapWidth() < point.getX()
 				|| getMapHeight() < point.getY()
 				|| mapRepresentation[gridPoint.x][gridPoint.y] != 0){
-			return false;
+		
 		}
-		return true;
+		*/
+		if (0 < toPosition.getX() && toPosition.getX() < getMapWidth()){
+			newX = (int)toPosition.getX();
+		}
+		if (0 < toPosition.getY() && toPosition.getY() < getMapHeight()){
+			newY = (int)toPosition.getY();
+		}
+		return new Point(newX, newY);
+		
 	}
 	
 	/**
