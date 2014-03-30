@@ -108,7 +108,7 @@ public class Player implements ICharacter{
 	}
 	
 
-
+	//TODO Should be removed and setPosition should be used instead
 	public void move(MoveCommand direction) {
 		position = calculateNewPosition(direction);
 	}
@@ -118,7 +118,7 @@ public class Player implements ICharacter{
 	 * @param position
 	 */
 	public void setPosition(Point position) {
-		position = new Point((int)position.getX(), (int)position.getY());
+		this.position = new Point((int)position.getX(), (int)position.getY());
 	}
 	
 	
