@@ -80,8 +80,9 @@ public class Room {
 	*/
 	
 	private void movePlayer(MoveCommand direction){
-		if (allowedPosition(player.calculateNewPosition(direction))){
-			player.move(direction);
+		Point newPosition = player.calculateNewPosition(direction);
+		if (allowedPosition(newPosition)){
+			player.setPosition(newPosition);
 		}
 	}
 	
