@@ -37,20 +37,6 @@ public class Room {
 	}
 	
 	/*
-	public boolean validatePosition(int x, int y){
-		//check if the position is ok for a player to move to.
-		if(x<0 || y<0 || x>dimension.width || y>dimension.height){
-			return false;
-		}
-		for(Npc c: characterSet){
-			if(c.getPosition().getX() == x && c.getPosition().getY() == y){
-				return false;
-			}
-		}
-		return true;
-				
-	}
-	
 	
 	public ICharacter areaUnderAttack(int x, int y){
 		//Checks if any character is located at the specified position.
@@ -90,27 +76,31 @@ public class Room {
 	 * @return true if position is allowed, false otherwise
 	 */
 	private Point allowedPosition(Point fromPosition, Point toPosition){
-		int newX = (int)fromPosition.getX();
-		int newY = (int)fromPosition.getY();
+		int oldX = (int)fromPosition.getX();
+		int oldY = (int)fromPosition.getY();
+		int newX = (int)toPosition.getX();
+		int newY = (int)toPosition.getY();
+		int returnX = oldX;
+		int returnY = oldY;
 		
-		/*
-		Point gridPoint = pixelPosToGrid(point);
-		if (point.getX() < 0
-				|| point.getY() < 0
-				|| getMapWidth() < point.getX()
-				|| getMapHeight() < point.getY()
-				|| mapRepresentation[gridPoint.x][gridPoint.y] != 0){
+		if (0 < toPosition.getX() && toPosition.getX() < getMapWidth() && (!mapCollision(newX, oldY) || !mapCollision(newX, newY))){
+			returnX = newX;
+		}
+		if (0 < toPosition.getY() && toPosition.getY() < getMapHeight() && (!mapCollision(oldX, newY) || !mapCollision(newX, newY))){
+			returnY = newY;
+		}
+		return new Point(returnX, returnY);
 		
-		}
-		*/
-		if (0 < toPosition.getX() && toPosition.getX() < getMapWidth()){
-			newX = (int)toPosition.getX();
-		}
-		if (0 < toPosition.getY() && toPosition.getY() < getMapHeight()){
-			newY = (int)toPosition.getY();
-		}
-		return new Point(newX, newY);
-		
+	}
+	
+	/**
+	 * Checks if there's a collision at the given coordinates
+	 * @param x is the coordinate on the X axis
+	 * @param y is the coordinate on the Y axis
+	 * @return true if there is a collision
+	 */
+	private boolean mapCollision(int x, int y){
+		return mapRepresentation[pixelToGridX(x)][pixelToGridY(y)] != 0;
 	}
 	
 	/**
@@ -129,14 +119,23 @@ public class Room {
 		return gridDim.getWidth() * tileDim.getWidth();
 	}
 	
+	
 	/**
-	 * 
-	 * @param pixelPoint, a point on the map in pixels
-	 * @return the corresponding grid tile in which the pixel is located
+	 * Calculates what tileID a pixel belongs as an X coordinate
+	 * @param pixel to calculate from
+	 * @return the tileID as an integer
 	 */
-	private Point pixelPosToGrid(Point pixelPoint) {
-		return new Point( (int)(pixelPoint.x / tileDim.getWidth()),
-						  (int)(pixelPoint.y / tileDim.getHeight()) );
+	private int pixelToGridX(int pixel) {
+		return (int)(pixel/tileDim.getWidth());
+	}
+	
+	/**
+	 * Calculates what tileID a pixel belongs as an Y coordinate
+	 * @param pixel to calculate from
+	 * @return the tileID as an integer
+	 */
+	private int pixelToGridY(int pixel) {
+		return (int)(pixel/tileDim.getHeight());
 	}
 	
 	public void update (PlayerInput input){
