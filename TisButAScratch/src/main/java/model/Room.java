@@ -84,23 +84,18 @@ public class Room {
 		int newY = (int)toPosition.getY();
 		int returnX = oldX;
 		int returnY = oldY;
-		
-		System.out.println("Old position = "+ oldX + ":" + oldY);
-		System.out.println("New position = "+ newX + ":" + newY);
-		System.out.println("Max position = "+ getMapWidth() + ":" + getMapHeight());
-		
+				
 		//TODO: It is possible to get stuck inside an object, either X or Y coordinate should get preference
-		if (0 < newX && newX < getMapWidth() && !mapCollision(newX, oldY)){
+		if (0 <= newX && newX <= getMapWidth() && !mapCollision(newX, oldY)){
 			returnX = newX;
 		}
-		if (0 < newY && newY < getMapHeight() && !mapCollision(oldX, newY)){
-			//TODO Causes ArrayIndexOutOfBoundsException in mapCollision
+		if (0 <= newY && newY <= getMapHeight() && !mapCollision(oldX, newY)){
+			//TODO Causes ArrayIndexOutOfBoundsException in mapCollision trying to index a mapTile that does not exist
 			if (!(!mapCollision(newX, oldY) && !mapCollision(oldX, newY) && mapCollision(newX,newY)));{
 				returnY = newY;
 			}
 			
 		}
-		System.out.println("Returned position = "+ returnX + ":" + returnY);
 		return new Point(returnX, returnY);
 		
 	}
@@ -112,12 +107,14 @@ public class Room {
 	 * @return true if there is a collision
 	 */
 	private boolean mapCollision(int x, int y){
-		//TODO This should not be needed 
+		//TODO The catch part will trigger when player is on the edge of the map.
 		try {
 			return mapRepresentation[pixelToGridX(x)][pixelToGridY(y)] != 0;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
+		
+
 		
 	}
 	
