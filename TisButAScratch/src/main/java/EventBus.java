@@ -1,4 +1,4 @@
-import interfaces.WrapperListener;
+import interfaces.EventWrapper;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -12,7 +12,7 @@ import java.util.TreeSet;
  *
  */
 public class EventBus implements Observer{
-	private Set<WrapperListener> subscribers = new TreeSet<WrapperListener>();
+	private Set<EventWrapper> subscribers = new TreeSet<EventWrapper>();
 	private EventBus eventBus=null;
 	
 	private EventBus(){
@@ -26,11 +26,11 @@ public class EventBus implements Observer{
 		return eventBus;
 		
 	}
-	public void addSubscriber(WrapperListener listener){
+	public void addSubscriber(EventWrapper listener){
 		subscribers.add(listener);
 	}
 	
-	public void removeSubsriber(WrapperListener listener){
+	public void removeSubsriber(EventWrapper listener){
 		subscribers.remove(listener);
 	}
 

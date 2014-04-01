@@ -1,6 +1,6 @@
 package view;
 
-import interfaces.Wrapper;
+import interfaces.EventWrapper;
 
 
 /**
@@ -8,12 +8,11 @@ import interfaces.Wrapper;
  * @author Alma Ottedag, Ivar Josefsson
  *
  */
-public class ViewWrapper extends View implements Wrapper{
+public class ViewWrapper extends View implements EventWrapper{
 
 	@Override
-	public void notifyListenerC() {
-		// TODO Auto-generated method stub
+	public void fireEvent(int id, Object obj) {
 		
 	}
-	
+
 }
