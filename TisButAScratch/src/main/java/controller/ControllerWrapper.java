@@ -1,6 +1,6 @@
 package controller;
 
-import interfaces.EventWrapper;
+import eventhandler.EventWrapper;
 
 /**
  * Wrapper for the Controller listening to events coming from the EventBus.
@@ -10,7 +10,7 @@ import interfaces.EventWrapper;
 public class ControllerWrapper extends Controller implements EventWrapper{
 
 	@Override
-	public void fireEvent(int id, Object obj) {
+	public void doEvent(int id, Object obj) {
 		
 	}
 

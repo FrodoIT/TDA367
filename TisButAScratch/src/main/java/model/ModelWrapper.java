@@ -1,6 +1,6 @@
 package model;
 
-import interfaces.EventWrapper;
+import eventhandler.EventWrapper;
 
 /**
  * Wrapper for the whole Model listening to events coming from the EventBus.
@@ -10,7 +10,7 @@ import interfaces.EventWrapper;
 public class ModelWrapper extends Model implements EventWrapper{
 
 	@Override
-	public void fireEvent(int id, Object obj) {
+	public void doEvent(int id, Object obj) {
 		
 	}
 

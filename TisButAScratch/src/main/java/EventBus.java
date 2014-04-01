@@ -1,9 +1,7 @@
-import interfaces.EventWrapper;
-
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 import java.util.TreeSet;
+
+import eventhandler.EventWrapper;
 
 /**
  * EventBus as a Singleton 
@@ -34,9 +32,10 @@ public class EventBus{
 		subscribers.remove(listener);
 	}
 
-	public void fireEvent(int id, Object arg0) {
-		// TODO Auto-generated method stub
-		
+	public void fireEvent(int id, Object obj) {
+		for (EventWrapper s: subscribers){
+			s.doEvent(id, obj);
+		}
 	}
 	
 	

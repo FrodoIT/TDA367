@@ -1,6 +1,6 @@
 package view;
 
-import interfaces.EventWrapper;
+import eventhandler.EventWrapper;
 
 
 /**
@@ -11,7 +11,7 @@ import interfaces.EventWrapper;
 public class ViewWrapper extends View implements EventWrapper{
 
 	@Override
-	public void fireEvent(int id, Object obj) {
+	public void doEvent(int id, Object obj) {
 		
 	}
 

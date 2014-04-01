@@ -1,4 +1,4 @@
-package interfaces;
+package eventhandler;
 
 /**
  * 
@@ -8,6 +8,6 @@ package interfaces;
  */
 public interface EventWrapper {
 	
-	public void fireEvent(int id, Object obj);
+	public void doEvent(int id, Object obj);
 	
 }
