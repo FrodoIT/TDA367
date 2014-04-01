@@ -2,29 +2,36 @@ import interfaces.WrapperListener;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import model.ModelWrapper;
-import view.ViewWrapper;
-import controller.ControllerWrapper;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
- * 
+ * EventBus as a Singleton 
  * @author Alma Ottedag, Ivar Josefsson
+ * @revisedBy Anna Nylander
  *
  */
 public class EventBus implements Observer{
-	private ModelWrapper wModel;
-	private ControllerWrapper wController;
-	private ViewWrapper wView;
+	private Set<WrapperListener> subscribers = new TreeSet<WrapperListener>();
+	private EventBus eventBus=null;
 	
-	public EventBus(ModelWrapper wModel, ControllerWrapper wController, ViewWrapper wView){
-		this.wModel = wModel;
-		this.wView = wView;
-		this.wController = wController;
+	private EventBus(){
+		//TODO implement usage of the annotation @singleton instead.
 	}
 	
-	public void addSubscriber(WrapperListener listener){
+	public EventBus getInstance(){
+		if (eventBus==null){
+			eventBus= new EventBus();
+		}
+		return eventBus;
 		
+	}
+	public void addSubscriber(WrapperListener listener){
+		subscribers.add(listener);
+	}
+	
+	public void removeSubsriber(WrapperListener listener){
+		subscribers.remove(listener);
 	}
 
 	@Override
