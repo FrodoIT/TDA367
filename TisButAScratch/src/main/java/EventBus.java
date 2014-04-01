@@ -11,7 +11,7 @@ import java.util.TreeSet;
  * @revisedBy Anna Nylander
  *
  */
-public class EventBus implements Observer{
+public class EventBus{
 	private Set<EventWrapper> subscribers = new TreeSet<EventWrapper>();
 	private EventBus eventBus=null;
 	
@@ -34,8 +34,7 @@ public class EventBus implements Observer{
 		subscribers.remove(listener);
 	}
 
-	@Override
-	public void update(Observable arg0, Object arg1) {
+	public void fireEvent(int id, Object arg0) {
 		// TODO Auto-generated method stub
 		
 	}
