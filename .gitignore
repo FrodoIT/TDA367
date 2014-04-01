@@ -11,6 +11,7 @@
 .classpath
 .project
 .settings/
+.META-INF/
 
 # Mac
 .DS_Store
