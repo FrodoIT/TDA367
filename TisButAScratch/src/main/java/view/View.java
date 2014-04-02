@@ -13,7 +13,7 @@ import org.newdawn.slick.Graphics;
 /**
  * 
  * @author André Samuelsson
- *
+ * 
  */
 
 public class View {
@@ -27,7 +27,7 @@ public class View {
 		this.model = model;
 	}
 	
-	public void render(Container c, Graphics g) {
+	public void render(GameContainer c, Graphics g) {
 		roomMap.get(model.getActiveRoom()).render(c, g);
 		
 		for (PlayerView playerView : playerViewList) {
