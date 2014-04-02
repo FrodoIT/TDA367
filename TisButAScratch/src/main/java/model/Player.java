@@ -2,7 +2,11 @@ package model;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-
+/**
+ * Logical representation of the Player in the game.
+ * @author Anna Nylander
+ *
+ */
 public class Player {
 	private Point position;
 	private int health;
@@ -75,6 +79,12 @@ public class Player {
 	
 	public PlayerInput getPlayerInput(){
 		return playerinput;
+	}
+	public int getID(){
+		return id;
+	}
+	public Rectangle getHitBox(){
+		return hitBox;
 	}
 	
 }
