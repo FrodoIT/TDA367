@@ -18,7 +18,7 @@ public class Room {
 	private List<Player> players;
 	private int[][] collisionMap;
 	
-	public Room(int[][] mapRepresentation, Dimension tileDim){
+	public Room(int[][] collisionMap, Dimension tileDim){
 		//TODO Player should be added separately with another method.
 	
 		this.collisionMap = collisionMap;
