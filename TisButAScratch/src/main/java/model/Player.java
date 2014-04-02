@@ -5,14 +5,17 @@ import java.awt.Rectangle;
 
 public class Player {
 	private Point position;
-	private int Health;
+	private int health;
 	private Rectangle hitBox;
 	private int id;
 	private PlayerInput playerinput;
-	private int movementSpeed;
+	private int movementSpeed=10;
 	
 	public Player(PlayerInput playerinput){
 		this.playerinput=playerinput;
+		position=new Point(0,0);
+		movementSpeed = 2;
+		health = 30;
 	}
 	
 	public void move(MoveDirection direction){
@@ -56,13 +59,18 @@ public class Player {
 	}
 	
 	public void takeDamage(int dmg){
-		//TODO implement the method
+		health=health-dmg;
 	}
-	public void interract(){
-		//TODO implemnt the method
+	public int getHealth() {
+		return health;
 	}
-	public void attack(){
-		//TODO implement the mehtod
+	
+	public Point getPosition() {
+		return position;
+	}
+
+	public int getMovementSpeed() {
+		return movementSpeed;
 	}
 	
 	public Point getPosition() {

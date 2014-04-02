@@ -1,5 +1,4 @@
 package model;
-
 public interface PlayerInput {
 	public boolean getAttackInput();
 	public boolean getInteractInput();
