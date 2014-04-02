@@ -8,7 +8,7 @@
 *.ear
 
 # Eclipse
-.classpath
+**/.classpath
 .project
 .settings/
 .META-INF/
