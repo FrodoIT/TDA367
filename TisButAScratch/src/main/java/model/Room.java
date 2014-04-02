@@ -40,7 +40,7 @@ public class Room {
 	 * Removes the specified player from the Room
 	 * @param player
 	 */
-	public void leaveRoom(Player player){
+	public void exitRoom(Player player){
 		players.remove(player);
 	}
 	
