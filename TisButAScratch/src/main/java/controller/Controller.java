@@ -44,8 +44,10 @@ public class Controller implements Game{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-
-		RoomView roomView = new RoomView(room,map);
+		
+		TempRoomFactory trf = new TempRoomFactory();
+		
+		RoomView roomView = new RoomView(trf.getRoom(), trf.getTiledMap());
 		
 	}
 	@Override

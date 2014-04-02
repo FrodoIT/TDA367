@@ -20,7 +20,6 @@ public class Model {
 	public Model(){
 		roomList = new ArrayList<Room>();
 		playerList = new ArrayList<Player>();
-		activeRoom = new Room(null, null, null);
 	}
 	
 	//methods
