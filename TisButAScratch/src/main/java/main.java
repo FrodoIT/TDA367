@@ -9,6 +9,7 @@ import controller.Controller;
 /**
  * 
  * @author Alma Ottedag, Ivar Josefsson
+ * @revisedBy Anna Nylander
  *
  */
 public class main {

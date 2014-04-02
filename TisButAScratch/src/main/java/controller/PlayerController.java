@@ -10,8 +10,8 @@ import org.newdawn.slick.Input;
 import view.View;
 
 /**
- * 
- * @author Alma Ottedag
+ * Class to collect input for the player.
+ * @author Anna Nylander
  *
  */
 public class PlayerController implements PlayerInput{

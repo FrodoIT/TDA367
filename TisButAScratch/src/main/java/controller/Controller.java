@@ -13,7 +13,12 @@ import org.newdawn.slick.tiled.TiledMap;
 import view.RoomView;
 import view.View;
 
-
+/**
+ * The main controller class to control updates, rendering, initiating and
+ * delegate tasks to other controllers.
+ * @author Anna Nylander
+ *
+ */
 public class Controller implements Game{
 	private Model model;
 	private View view;
@@ -28,7 +33,7 @@ public class Controller implements Game{
 	}
 	
 	@Override
-	public void init(GameContainer arg0) throws SlickException {
+	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
 		try {
 			map = new TiledMap("res/spawn.tmx");
@@ -40,7 +45,7 @@ public class Controller implements Game{
 		
 	}
 	@Override
-	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
+	public void render(GameContainer container, Graphics g) throws SlickException {
 		view.render(container, g);
 		
 	}
