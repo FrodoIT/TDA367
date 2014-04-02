@@ -1,7 +1,7 @@
 package controller;
 
 import model.Model;
-import model.MoveCommand;
+import model.MoveDirection;
 import model.PlayerInput;
 
 import org.newdawn.slick.Input;
@@ -23,28 +23,28 @@ public class PlayerInputController {
 		PlayerInput playerInput = new PlayerInput();
 		if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)){
 			//Move South-west
-			playerInput.setMoveInput(MoveCommand.SOUTHWEST);
+			playerInput.setMoveInput(MoveDirection.SOUTHWEST);
 		} else if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_RIGHT)){
 			//Move South-east
-			playerInput.setMoveInput(MoveCommand.SOUTHEAST);
+			playerInput.setMoveInput(MoveDirection.SOUTHEAST);
 		} else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)){
 			//Move North-west
-			playerInput.setMoveInput(MoveCommand.NORTHWEST);
+			playerInput.setMoveInput(MoveDirection.NORTHWEST);
 		} else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)){
 			//Move North-east
-			playerInput.setMoveInput(MoveCommand.NORTHEAST);
+			playerInput.setMoveInput(MoveDirection.NORTHEAST);
 		} else if(input.isKeyDown(Input.KEY_DOWN)){
 			//Move South
-			playerInput.setMoveInput(MoveCommand.SOUTH);
+			playerInput.setMoveInput(MoveDirection.SOUTH);
 		} else if(input.isKeyDown(Input.KEY_UP)){
 			//Move North
-			playerInput.setMoveInput(MoveCommand.NORTH);
+			playerInput.setMoveInput(MoveDirection.NORTH);
 		} else if(input.isKeyDown(Input.KEY_LEFT)){
 			//Move West
-			playerInput.setMoveInput(MoveCommand.WEST);
+			playerInput.setMoveInput(MoveDirection.WEST);
 		} else if(input.isKeyDown(Input.KEY_RIGHT)){
 			//Move East
-			playerInput.setMoveInput(MoveCommand.EAST);
+			playerInput.setMoveInput(MoveDirection.EAST);
 		}
 		//Attack & Interact commands can be sent at the same time as movement command
 		if (input.isKeyDown(Input.KEY_X)){

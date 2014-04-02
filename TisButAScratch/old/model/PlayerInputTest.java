@@ -13,9 +13,9 @@ public class PlayerInputTest {
 
 	@Test
 	public void setMoveInputTest(){
-		pInput.setMoveInput(MoveCommand.EAST);
-		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
-		pInput.setMoveInput(MoveCommand.NONE);
+		pInput.setMoveInput(MoveDirection.EAST);
+		assertTrue(pInput.getMoveInput().equals(MoveDirection.EAST));
+		pInput.setMoveInput(MoveDirection.NONE);
 	}
 	
 	@Test
@@ -39,8 +39,8 @@ public class PlayerInputTest {
 	}
 	@Test
 	public void getMoveInputTest(){
-		pInput.setMoveInput(MoveCommand.EAST);
-		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
+		pInput.setMoveInput(MoveDirection.EAST);
+		assertTrue(pInput.getMoveInput().equals(MoveDirection.EAST));
 	}
 	
 	@Test

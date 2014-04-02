@@ -3,12 +3,12 @@ package model;
 public class PlayerInput {
 	private boolean attackInput;
 	private boolean interactInput;
-	private MoveCommand moveInput;
+	private MoveDirection moveInput;
 	
 	public PlayerInput() {
 		attackInput = false;
 		interactInput = false;
-		moveInput = MoveCommand.NONE;
+		moveInput = MoveDirection.NONE;
 	}
 	
 	public boolean getAttackInput() {
@@ -19,7 +19,7 @@ public class PlayerInput {
 		return interactInput;
 	}
 	
-	public MoveCommand getMoveInput() {
+	public MoveDirection getMoveInput() {
 		return moveInput;
 	}
 	
@@ -31,13 +31,13 @@ public class PlayerInput {
 		interactInput = interactValue;
 	}
 	
-	public void setMoveInput(MoveCommand moveValue) {
+	public void setMoveInput(MoveDirection moveValue) {
 		moveInput = moveValue;
 	}
 	
 	public void resetInput() {
 		attackInput = false;
 		interactInput = false;
-		moveInput = MoveCommand.NONE;
+		moveInput = MoveDirection.NONE;
 	}
 }

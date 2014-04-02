@@ -1,6 +1,6 @@
 package controller;
 
-import model.MoveCommand;
+import model.MoveDirection;
 import model.Model;
 
 import org.newdawn.slick.Game;

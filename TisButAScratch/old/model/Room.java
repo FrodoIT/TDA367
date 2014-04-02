@@ -65,7 +65,7 @@ public class Room {
 	}
 	*/
 	
-	private void movePlayer(MoveCommand direction){
+	private void movePlayer(MoveDirection direction){
 		Point newPosition = player.calculateNewPosition(direction);
 		player.setPosition(allowedPosition(player.getPosition(), newPosition));
 	}

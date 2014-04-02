@@ -1,7 +1,7 @@
 
 
 import static org.junit.Assert.*;
-import model.MoveCommand;
+import model.MoveDirection;
 import model.PlayerInput;
 
 import org.junit.Test;
@@ -15,9 +15,9 @@ public class PlayerInputTest {
 
 	@Test
 	public void testSetMoveInput(){
-		pInput.setMoveInput(MoveCommand.EAST);
-		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
-		pInput.setMoveInput(MoveCommand.NONE);
+		pInput.setMoveInput(MoveDirection.EAST);
+		assertTrue(pInput.getMoveInput().equals(MoveDirection.EAST));
+		pInput.setMoveInput(MoveDirection.NONE);
 	}
 	
 	@Test
@@ -41,8 +41,8 @@ public class PlayerInputTest {
 	}
 	@Test
 	public void testGetMoveInput(){
-		pInput.setMoveInput(MoveCommand.EAST);
-		assertTrue(pInput.getMoveInput().equals(MoveCommand.EAST));
+		pInput.setMoveInput(MoveDirection.EAST);
+		assertTrue(pInput.getMoveInput().equals(MoveDirection.EAST));
 	}
 	
 	@Test
