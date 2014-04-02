@@ -64,4 +64,8 @@ public class Player {
 	public void attack(){
 		//TODO implement the mehtod
 	}
+	
+	public Point getPosition() {
+		return new Point(position);
+	}
 }
