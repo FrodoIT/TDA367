@@ -73,7 +73,4 @@ public class Player {
 		return movementSpeed;
 	}
 	
-	public Point getPosition() {
-		return new Point(position);
-	}
 }
