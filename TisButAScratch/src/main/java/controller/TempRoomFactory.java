@@ -1,6 +1,8 @@
 package controller;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Room;
 
@@ -33,9 +35,11 @@ public class TempRoomFactory {
 	}
 	
 	
-	public Room getRoom() {
+	public List<Room> getRooms() {
 		
-		return room;
+		List<Room> rooms = new ArrayList<Room>();
+		rooms.add(room);
+		return rooms;
 	}
 	
 	public TiledMap getTiledMap() {

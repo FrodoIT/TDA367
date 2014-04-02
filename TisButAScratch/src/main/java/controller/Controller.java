@@ -33,7 +33,6 @@ public class Controller implements Game{
 		this.view = view;
 		this.model = model;
 		playerControllerList=new ArrayList<PlayerController>();
-		playerControllerList.add(new PlayerController(model));
 	}
 	
 	@Override
@@ -47,8 +46,10 @@ public class Controller implements Game{
 		
 		TempRoomFactory trf = new TempRoomFactory();
 		
-		RoomView roomView = new RoomView(trf.getRoom(), trf.getTiledMap());
+		RoomView roomView = new RoomView(trf.getRooms().get(0), trf.getTiledMap());
+		model.setMap(trf.getRooms());
 		
+		playerControllerList.add(new PlayerController(model));
 	}
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
