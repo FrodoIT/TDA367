@@ -8,6 +8,7 @@ public class Model {
 	
 	//variables
 	private List<Room> roomList;
+	private Room activeRoom;
 	
 	//methods
 	public Player addPlayer(PlayerInput input){
@@ -19,6 +20,10 @@ public class Model {
 	}
 	public void setMap(MapInterface map){
 		//TODO: Not yet implemented.
+	}
+	
+	public Room getActiveRoom() {
+		return activeRoom;
 	}
 	
 }
