@@ -17,7 +17,7 @@ public class PlayerView {
 	
 	private Player player;
 	
-	public PlayerView(Graphics g, Player player) {
+	public PlayerView(Player player) {
 		this.player = player;
 	}
 	
