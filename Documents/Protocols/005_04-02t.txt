@@ -1,0 +1,47 @@
+Meeting Agenda
+
+  Date: 04-02 16:05
+
+  Facilitator: Adam Waldenberg
+
+  Participants: Anna Nylander, Ivar Josefsson, André Samuelsson, Alma Ottedag
+
+1. Objectives (5 min) 
+
+We have to decide how the core of the program is to be implemented. This includes in detail all the necessary classes, what methods the classes will need and how they are used. Decide who will implement which part of the project so we get some work done. :)
+
+2. Reports (15 min) From previous meetings, (un)solved issues, 
+
+We have not yet written anything new in the RAD or SDD, however note that this would be difficult at the time due to lack of implementation of the actual application. Therefore the focus lies in the implementation until the next meeting, although some changes still have to be made.
+
+We got off to a bad start, André and Ivar should be more careful . We should discuss things through before we start implementing. After realising the amount that had been implemented by André and Ivar during the weekend the group decided to move all the current files to a folder named “old” and start from scratch.
+
+We have still not managed to link together Slick2d and Maven properly and we’ve had several problems with gitignore. We might need help to get those two working as they should and Adam have promised to help us.
+
+The application has gone through several stages of refactoring, therefore the current covered work is not entirely representative to the total effort put in. This will however facilitate future development of the application.
+
+3. Discussion items (35 min) 
+ Who does what:
+
+We have to delegate tasks to all group members such that  there is less confusion concerning who implements what in the code. Otherwise the group will risk being idle for an unnecessarily long period of time.
+
+André: Implement the ‘view’’ package.
+
+Alma: Implement the ‘model’ package, especially the ‘Model’ class.
+Anna: Implement most of the controller package (everything but the worldcontroller)
+
+Ivar: Implement the ‘Room’ class.
+
+This should be finished until tomorrow for the meeting with Adam (2014-04-03, 11:00). 
+
+
+4. Outcomes and assignments (5 min) 
+Everyone works with their allocated tasks, then continue to the RAD and SDD.
+
+
+5. Wrap up 
+
+We need to improve documentation.
+Sequence diagram.
+
+  Next meeting will be tomorrow afternoon (2014-04-03)
