@@ -32,8 +32,6 @@ public class Player {
 			int deltaX;
 			int deltaY;
 			
-			System.out.println(direction);
-			
 			switch(direction){
 			case NORTH:
 				deltaX=0;
