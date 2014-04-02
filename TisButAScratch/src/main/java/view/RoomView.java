@@ -15,7 +15,7 @@ import org.newdawn.slick.tiled.TiledMap;
 public class RoomView {
 	//variables
 	private Room room;
-	TiledMap map;
+	private TiledMap map;
 	
 	public RoomView(Room room, TiledMap map) {
 		this.room = room;

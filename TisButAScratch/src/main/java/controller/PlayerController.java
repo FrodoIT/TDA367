@@ -8,6 +8,7 @@ import model.PlayerInput;
 import org.newdawn.slick.Input;
 
 import view.PlayerView;
+import view.View;
 
 /**
  * Class to collect input for the player.
@@ -16,18 +17,23 @@ import view.PlayerView;
  */
 public class PlayerController implements PlayerInput{
 	private Model model;
+	private View view;
 	private Player player;
+	private PlayerView playerView;
 	private MoveDirection moveDirection;
 	private boolean attack, interact;
 	
-	public PlayerController(Model model){
+	public PlayerController(Model model, View view){
 		this.model=model;
+		this.view = view;
 		addPlayer();
 	}
 	
 	private void addPlayer(){
 		player=model.addPlayer(this);
-		new PlayerView(player);
+		playerView = new PlayerView(player);
+		view.addPlayerView(playerView);
+		
 	}
 	
 	public void removePlayer(){

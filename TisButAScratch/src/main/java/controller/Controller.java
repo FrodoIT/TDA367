@@ -47,9 +47,10 @@ public class Controller implements Game{
 		TempRoomFactory trf = new TempRoomFactory();
 		
 		RoomView roomView = new RoomView(trf.getRooms().get(0), trf.getTiledMap());
+		view.setRoomView(roomView);
 		model.setMap(trf.getRooms());
 		
-		playerControllerList.add(new PlayerController(model));
+		playerControllerList.add(new PlayerController(model, view));
 	}
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
