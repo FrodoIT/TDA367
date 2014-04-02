@@ -18,12 +18,11 @@ public class Room {
 	// These tiles have the dimension
 	private Dimension tileDim;
 	private List<Player> players;
+	private int[][] collisionMap;
 	
-	private int[][] mapRepresentation;
-	
-	public Room(int[][] mapRepresentation, Dimension gridDim, Dimension tileDim){
+	public Room(int[][] collisionMap, Dimension gridDim, Dimension tileDim){
 		//TODO Player should be added separately with another method.
-		this.mapRepresentation = mapRepresentation;
+		this.collisionMap = collisionMap;
 		this.gridDim = gridDim;
 		this.tileDim = tileDim;
 		players = new ArrayList();
@@ -33,7 +32,7 @@ public class Room {
 	 * Adds the specified player from the Room
 	 * @param player
 	 */
-	public void addPlayer(Player player){
+	public void enterRoom(Player player){
 		players.add(player);
 	}
 	
@@ -41,15 +40,15 @@ public class Room {
 	 * Removes the specified player from the Room
 	 * @param player
 	 */
-	public void removePlayer(Player player){
+	public void leaveRoom(Player player){
 		players.remove(player);
 	}
 	
 	
 	
 	private void movePlayer(Player player){
-		//Point newPosition = player.calculateNewPosition(player.);
-		//player.setPosition(allowedPosition(player.getPosition(), newPosition));
+		Point newPosition = player.calculateMovementPosition();
+		player.setPosition(allowedPosition(player.getPosition(), newPosition));
 	}
 	
 	
@@ -67,7 +66,6 @@ public class Room {
 		int returnX = oldX;
 		int returnY = oldY;
 				
-		//TODO: It is possible to get stuck inside an object, either X or Y coordinate should get preference
 		if (0 <= newX && newX <= getMapWidth() && !mapCollision(newX, oldY)){
 			returnX = newX;
 		}
@@ -91,7 +89,7 @@ public class Room {
 	private boolean mapCollision(int x, int y){
 		//TODO The catch part will trigger when player is on the edge of the map.
 		try {
-			return mapRepresentation[pixelToGridX(x)][pixelToGridY(y)] != 0;
+			return collisionMap[pixelToGridX(x)][pixelToGridY(y)] != 0;
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
@@ -136,6 +134,5 @@ public class Room {
 		for (Player player:players){
 			movePlayer(player);
 		}
-		
 	}	
 }

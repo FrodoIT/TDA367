@@ -12,19 +12,22 @@ public class Player {
 	private int health;
 	private Rectangle hitBox;
 	private int id;
-	private PlayerInput playerinput;
+	private PlayerInput playerInput;
 	private int movementSpeed=10;
 	
-	public Player(PlayerInput playerinput){
-		this.playerinput=playerinput;
+	public Player(PlayerInput playerInput){
+		this.playerInput=playerInput;
 		position=new Point(0,0);
 		movementSpeed = 2;
 		health = 30;
 	}
 	
-	public void move(MoveDirection direction){
-		position=calculateNewPosition(direction);
+	
+	public Point calculateMovementPosition(){
+		return calculateNewPosition(playerInput.getMoveInput());
 	}
+	
+	
 	public Point calculateNewPosition(MoveDirection direction){
 			int deltaX;
 			int deltaY;
@@ -72,19 +75,25 @@ public class Player {
 	public Point getPosition() {
 		return new Point(position);
 	}
+	
 
 	public int getMovementSpeed() {
 		return movementSpeed;
 	}
 	
 	public PlayerInput getPlayerInput(){
-		return playerinput;
+		return playerInput;
 	}
 	public int getID(){
 		return id;
 	}
 	public Rectangle getHitBox(){
 		return hitBox;
+	}
+	
+	//Setter
+	public void setPosition(Point newPosition){
+		position.setLocation(newPosition);
 	}
 	
 }
