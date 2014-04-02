@@ -1,17 +1,29 @@
 package view;
 
+import java.awt.Point;
+
 import model.Player;
 
-import org.newdawn.slick.Renderable;
+import org.newdawn.slick.AppletGameContainer.Container;
+import org.newdawn.slick.Graphics;
 
-public class PlayerView implements Renderable
-{
+/**
+ * 
+ * @author André Samuelsson
+ *
+ */
+
+public class PlayerView {
+	
 	private Player player;
-
-	@Override
-	public void draw(float x, float y) {
-		// TODO Auto-generated method stub
-		
+	
+	public PlayerView(Graphics g, Player player) {
+		this.player = player;
+	}
+	
+	public void render(Container c, Graphics g) {
+		Point p = player.getPosition();
+		g.fillOval(p.x -5 , p.y -5, 10, 10);
 	}
 	
 

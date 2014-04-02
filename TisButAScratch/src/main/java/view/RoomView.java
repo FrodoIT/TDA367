@@ -2,16 +2,28 @@ package view;
 
 import model.Room;
 
-import org.newdawn.slick.Renderable;
+import org.newdawn.slick.AppletGameContainer.Container;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.tiled.TiledMap;
 
-public class RoomView implements Renderable {
+/**
+ * 
+ * @author André Samuelsson
+ *
+ */
+
+public class RoomView {
 	//variables
 	private Room room;
-
-	@Override
-	public void draw(float x, float y) {
-		// TODO Auto-generated method stub
-		
+	TiledMap map;
+	
+	public RoomView(Room room, TiledMap map) {
+		this.room = room;
+		this.map = map;
+	}
+	
+	public void render(Container c, Graphics g) {
+		map.render(0, 0);
 	}
 
 }
