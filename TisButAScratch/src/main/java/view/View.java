@@ -28,10 +28,10 @@ public class View {
 	}
 	
 	public void render(Container c, Graphics g) {
-		roomMap.get(model.getActiveRoom()).render();
+		roomMap.get(model.getActiveRoom()).render(c, g);
 		
 		for (PlayerView playerView : playerViewList) {
-			playerView.render();
+			playerView.render(c, g);
 		}
 	}
 	
