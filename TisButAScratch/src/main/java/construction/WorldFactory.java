@@ -5,10 +5,14 @@ package construction;
  *
  */
 public class WorldFactory {
-	
-private MapInterface map;
 
-public void createRoom(){
-	//Todo: 
-}
+	private MapInterface map;
+
+	public void createRoom(){
+		//TODO: Not yet implemented.
+	}
+	
+	public MapInterface getMap(){
+		return map;
+	}
 }

@@ -1,7 +1,7 @@
 package construction;
 /**
  * Interface for all Map creators.
- * @author Alma Ottedag
+ * @author 
  *
  */
 public interface MapInterface {
