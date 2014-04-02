@@ -13,17 +13,15 @@ import java.util.TreeSet;
  */
 public class Room {
 	
-	// Map is constructed by a grid of tiles
-	private Dimension gridDim;
 	// These tiles have the dimension
 	private Dimension tileDim;
 	private List<Player> players;
 	private int[][] collisionMap;
 	
-	public Room(int[][] collisionMap, Dimension gridDim, Dimension tileDim){
+	public Room(int[][] mapRepresentation, Dimension tileDim){
 		//TODO Player should be added separately with another method.
+	
 		this.collisionMap = collisionMap;
-		this.gridDim = gridDim;
 		this.tileDim = tileDim;
 		players = new ArrayList();
 	}
@@ -100,7 +98,7 @@ public class Room {
 	 * @return: the total height of the map in pixels
 	 */
 	private double getMapHeight() {
-		return gridDim.getHeight() * tileDim.getHeight();
+		return collisionMap[0].length * tileDim.getHeight();
 	}
 	
 	/**
@@ -108,7 +106,7 @@ public class Room {
 	 * @return: the total width of the map in pixels
 	 */
 	private double getMapWidth() {
-		return gridDim.getWidth() * tileDim.getWidth();
+		return collisionMap.length * tileDim.getWidth();
 	}
 	
 	
