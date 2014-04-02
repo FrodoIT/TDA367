@@ -66,6 +66,8 @@ public class PlayerController implements PlayerInput{
 		} else if(input.isKeyDown(Input.KEY_RIGHT)){
 			//Move East
 			setMoveInput(MoveDirection.EAST);
+		}else{
+			setMoveInput(MoveDirection.NONE);
 		}
 		//Attack & Interact commands can be sent at the same time as movement command
 		if (input.isKeyDown(Input.KEY_X)){
