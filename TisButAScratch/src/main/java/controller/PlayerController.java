@@ -77,6 +77,8 @@ public class PlayerController implements PlayerInput{
 			setInteractInput(true);
 		}
 		
+		System.out.println("Move" + getMoveInput());
+		
 		
 	}
 	public void setAttackInput(boolean attack){

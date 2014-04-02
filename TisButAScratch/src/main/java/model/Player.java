@@ -32,32 +32,41 @@ public class Player {
 			int deltaX;
 			int deltaY;
 			
+			System.out.println(direction);
+			
 			switch(direction){
 			case NORTH:
 				deltaX=0;
 				deltaY=-movementSpeed;
+				break;
 			case SOUTH:
 				deltaX=0;
-				deltaY=+movementSpeed;				
+				deltaY=+movementSpeed;
+				break;
 			case WEST:
 				deltaX=-movementSpeed;
 				deltaY=0;
+				break;
 			case EAST:
 				deltaX=+movementSpeed;
 				deltaY=0;
+				break;
 			case NORTHWEST:
 				deltaX=-movementSpeed;
 				deltaY=-movementSpeed;
+				break;
 			case NORTHEAST:
 				deltaX=+movementSpeed;
 				deltaY=-movementSpeed;
+				break;
 			case SOUTHWEST:
 				deltaX=-movementSpeed;
 				deltaY=+movementSpeed;
+				break;
 			case SOUTHEAST:
 				deltaX=+movementSpeed;
 				deltaY=+movementSpeed;
-
+				break;
 			default:
 				deltaX = 0;
 				deltaY = 0;
