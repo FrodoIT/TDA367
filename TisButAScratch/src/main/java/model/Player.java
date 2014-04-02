@@ -66,11 +66,15 @@ public class Player {
 	}
 	
 	public Point getPosition() {
-		return position;
+		return new Point(position);
 	}
 
 	public int getMovementSpeed() {
 		return movementSpeed;
+	}
+	
+	public PlayerInput getPlayerInput(){
+		return playerinput;
 	}
 	
 }
