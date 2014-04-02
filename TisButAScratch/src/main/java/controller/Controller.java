@@ -1,8 +1,11 @@
 package controller;
 
+import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Model;
+import model.Room;
 
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
@@ -29,6 +32,7 @@ public class Controller implements Game{
 	public Controller(Model model, View view){
 		this.view = view;
 		this.model = model;
+		playerControllerList=new ArrayList<PlayerController>();
 		playerControllerList.add(new PlayerController(model));
 	}
 	
@@ -40,8 +44,8 @@ public class Controller implements Game{
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		
-		RoomView roomView = new RoomView(map);
+
+		RoomView roomView = new RoomView(room,map);
 		
 	}
 	@Override
