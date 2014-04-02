@@ -1,10 +1,13 @@
 package controller;
 
+import model.Model;
 import model.MoveDirection;
 import model.Player;
 import model.PlayerInput;
 
 import org.newdawn.slick.Input;
+
+import view.View;
 
 /**
  * 
@@ -12,14 +15,24 @@ import org.newdawn.slick.Input;
  *
  */
 public class PlayerController implements PlayerInput{
-	private Controller controller;
+	private Model model;
 	private Player player;
 	private MoveDirection moveDirection;
 	private boolean attack, interact;
 	
-	public PlayerController(){
-		
+	public PlayerController(Model model){
+		this.model=model;
+		addPlayer();
 	}
+	
+	private void addPlayer(){
+		model.addPlayer(this);
+	}
+	
+	public void removePlayer(){
+		model.removePlayer(player);
+	}
+	
 	
 	public void registerInput(Input input){
 		if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)){
@@ -58,22 +71,22 @@ public class PlayerController implements PlayerInput{
 		
 	}
 	public void setAttackInput(boolean attack){
-	//TODO finish method	
+		this.attack=attack;
 	}
 	public void setInteractInput(boolean interact){
-		//TODO finish method	
+		this.interact=interact;
 	}
 	public void setMoveInput(MoveDirection direction){
-		//TODO finish method
+		this.moveDirection=direction;
 	}
 	
 	public boolean getAttackInput(){
-		//TODO finish method
+		return attack;
 	}
 	public boolean getInteractInput(){
-		//TODO finish method
+		return interact;
 	}
 	public MoveDirection getMoveInput(){
-		//TODO finish method
+		return moveDirection;
 	}
 }

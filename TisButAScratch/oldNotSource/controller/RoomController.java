@@ -42,13 +42,7 @@ public class RoomController {
 		}
 		
 		roomView = new RoomView(map);
-		model.addRoom(
-				new Room(
-						mapRepresentation,
-						new Dimension(map.getWidth(), map.getHeight() ),
-						new Dimension(map.getTileWidth(), map.getTileHeight() )
-						)
-				);
+		
 	}
 	
 	/**
