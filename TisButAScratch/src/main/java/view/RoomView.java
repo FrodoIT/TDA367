@@ -2,7 +2,7 @@ package view;
 
 import model.Room;
 
-import org.newdawn.slick.AppletGameContainer.Container;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -22,7 +22,7 @@ public class RoomView {
 		this.map = map;
 	}
 	
-	public void render(Container c, Graphics g) {
+	public void render(GameContainer c, Graphics g) {
 		map.render(0, 0);
 	}
 

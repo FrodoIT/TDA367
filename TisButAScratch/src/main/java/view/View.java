@@ -7,7 +7,7 @@ import java.util.Map;
 import model.Model;
 import model.Room;
 
-import org.newdawn.slick.AppletGameContainer.Container;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
 /**
