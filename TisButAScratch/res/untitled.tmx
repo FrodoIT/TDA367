@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="19" y="19"/>
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC9WQywqAIBBFtUApobD29gf9/+c1wgjDRZ0eqxZnoTJn7jUZY9IPsMRAjI1zj4ORdxMxEwFcQfEfDV/kGQuze2XfnXzoKbMjk/dtwq8xga9kC41MJ4DvEToFkSfjCA++Xr4InbCXE06vZEuKK7MwK6P5eriKT/LUtyi+t86W642v95dffYWa6wK8gLmLsAQAAA==
+  </data>
+ </layer>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQOQG56EzKPETGq6B5d51HYfueaRmr6IMQ9b+iIGAABLCLaLsAQAAA==
+  </data>
+ </layer>
+</map>
