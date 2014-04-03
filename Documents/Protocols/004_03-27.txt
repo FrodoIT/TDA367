@@ -1,0 +1,39 @@
+Meeting Agenda
+
+  Date:  27/3 -2014
+
+  Facilitator:
+
+  Participants: André Samuelsson, Ivar Josefsson, Alma Ottedag
+
+1. Objectives (5 min) Resolve any issues preventing the team to 
+  continue (this should be possible to verify at next meeting, 
+  short clear description, use issues from project site). 
+
+2. Reports (15 min)
+
+No issues so far.
+
+3. Discussion items (35 min) 
+
+  (a) How do we do...? 
+
+How do we implement MVC using Slick2D?
+
+	Each module (player, enemy or object) has its own controller with a view and model. 
+We will have one main controller who initialises each module controller. 
+
+For example: The player controller takes the input from the keys and sends it to the model. 
+
+The update loop - will be found in the main controller. The update-function will delegate to the other controler to run. Then the controller tells the model to update it’s gamestate.
+
+
+4. Outcomes and assignments (5 min) 
+
+Everyone should look in the RAD and SDD and write something on their own, we will then come together and wrap it up and complete things that hasn’t been written.
+
+
+
+5. Wrap up 
+
+Next meeting will be on Monday (27/3)
