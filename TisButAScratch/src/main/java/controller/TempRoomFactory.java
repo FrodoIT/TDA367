@@ -16,7 +16,7 @@ public class TempRoomFactory {
 	
 	public TempRoomFactory() {
 		try {
-			map = new TiledMap("res/spawn.tmx");
+			map = new TiledMap("res/untitled.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -31,7 +31,7 @@ public class TempRoomFactory {
 			}
 		}
 		
-		room = new Room(mapRepresentation, new Dimension(map.getWidth(), map.getHeight()));
+		room = new Room(mapRepresentation, new Dimension(map.getTileWidth(), map.getTileHeight()));
 	}
 	
 	
