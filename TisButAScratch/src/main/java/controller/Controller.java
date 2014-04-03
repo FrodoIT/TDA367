@@ -38,12 +38,7 @@ public class Controller implements Game{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
-		try {
-			map = new TiledMap("res/spawn.tmx");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		
+
 		TempRoomFactory trf = new TempRoomFactory();
 		
 		RoomView roomView = new RoomView(trf.getRooms().get(0), trf.getTiledMap());
