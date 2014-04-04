@@ -1,0 +1,51 @@
+Meeting Agenda
+
+  Date: 04-04 14:40
+
+  Facilitator: Adam Waldenberg
+
+  Participants: Anna Nylander, Alma Ottedag, Ivar Josefsson, André Samuelsson
+
+1. Objectives (5 min) 
+Fine tuning the maven repository. Especially for André because everyone else has got the program working.
+We also need to decide where to go from the first iteration. 
+
+2. Reports (15 min) From previous meetings, (un)solved issues, 
+
+The documentation has been improved and the SDD has been created and implemented.
+
+Everyone has helped creating the new core of the application, especially in terms of refactorisation.
+
+We have succeeded in creating a running program with a simple yet concise code structure.
+
+We still need to create a sequence diagram over the application.
+
+The communication within the group is still in need of improvement but has gone through positive changes since the start of iteration one.
+
+
+3. Discussion items (35 min) 
+
+How do we construct iteration two?
+First off we’re going to divied future iterations in weeks. From Friday to Friday.
+To be done to this iteration:
+What tileset should be used
+Fix collision detection using interface instead of current hashmap
+Fix area collision instead of point collision.
+Very basic animations should be implemented. 
+Implement Enemies, following the player as directly as possible, no attacks or damage. 
+
+Add tests for parts of the model.4
+Priority lies in adding npcs to a single room. 
+(Consider movement patterns)
+
+4. Outcomes and assignments (5 min) 
+
+Anna & André: Tileset + animation, enemy movement patterns. At least one test class per person.
+
+Alma & Ivar:  collision detection using interface & area collission detection. At least one testclass per person. Implementation of enemy: (AI) the view, any interfaces needed.
+
+André & Ivar: Should fix test suite.
+
+5. Wrap up 
+
+Next meeting will be monday 07 april at about 16.00.
