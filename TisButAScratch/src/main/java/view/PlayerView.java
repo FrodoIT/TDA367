@@ -29,7 +29,7 @@ public class PlayerView {
 	private Image [] movementSouth = new Image[3];
 	private Image [] movementWest = new Image[3];
 	private Image [] movementEast = new Image[3];
-	private int [] duration = {10, 10, 10};
+	private int [] duration = {100, 100, 100};
 	private Animation sprite, north, south, west, east;
 		
 	public PlayerView(Player player) {
