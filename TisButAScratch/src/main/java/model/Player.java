@@ -8,18 +8,17 @@ import java.awt.Rectangle;
  *
  */
 public class Player {
-	private Point position;
 	private int health;
-	private Rectangle hitBox;
+	private Rectangle unitTile;
 	private int id;
 	private PlayerInput playerInput;
 	private int movementSpeed=10;
 	
-	public Player(PlayerInput playerInput){
+	public Player(PlayerInput playerInput, Rectangle unitTile){
 		this.playerInput=playerInput;
-		position=new Point(0,0);
 		movementSpeed = 2;
-		health = 30;
+                this.unitTile = (Rectangle)unitTile.clone();
+                
 	}
 	
 	
@@ -69,7 +68,7 @@ public class Player {
 				deltaX = 0;
 				deltaY = 0;
 			}
-			return new Point((int)position.getX()+deltaX, (int)position.getY()+deltaY);
+			return new Point((int)getPosition().getX()+deltaX, (int)getPosition().getY()+deltaY);
 	}
 	
 	public void takeDamage(int dmg){
@@ -80,7 +79,7 @@ public class Player {
 	}
 	
 	public Point getPosition() {
-		return new Point(position);
+		return new Point(unitTile.getLocation());
 	}
 	
 
@@ -94,13 +93,13 @@ public class Player {
 	public int getID(){
 		return id;
 	}
-	public Rectangle getHitBox(){
-		return hitBox;
+	public Rectangle getUnitTile(){
+		return unitTile;
 	}
-	
-	//Setter
+
+        
 	public void setPosition(Point newPosition){
-		position.setLocation(newPosition);
+		unitTile.setLocation(newPosition);
 	}
 	
 }

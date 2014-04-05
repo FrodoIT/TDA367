@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import construction.MapInterface;
+import java.awt.Rectangle;
 /**
  * 
  * @author Alma Ottedag
@@ -24,7 +25,7 @@ public class Model {
 	
 	//methods
 	public Player addPlayer(PlayerInput input){
-		Player newPlayer = new Player(input);
+		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32));
 		playerList.add(newPlayer);
 		activeRoom.enterRoom(newPlayer);
 		return newPlayer;
