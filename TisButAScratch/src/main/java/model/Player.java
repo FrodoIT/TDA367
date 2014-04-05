@@ -9,16 +9,16 @@ import java.awt.Rectangle;
  */
 public class Player {
 	private int health;
+        private int id;
+        private int movementSpeed;
 	private Rectangle unitTile;
-	private int id;
-	private PlayerInput playerInput;
-	private int movementSpeed=10;
+        private PlayerInput playerInput;
 	
 	public Player(PlayerInput playerInput, Rectangle unitTile){
 		this.playerInput=playerInput;
 		movementSpeed = 2;
-                this.unitTile = (Rectangle)unitTile.clone();
-                
+                //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
+                this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
 	}
 	
 	
@@ -79,6 +79,7 @@ public class Player {
 	}
 	
 	public Point getPosition() {
+                //Copy to protect from unintentional modification
 		return new Point(unitTile.getLocation());
 	}
 	
@@ -96,10 +97,9 @@ public class Player {
 	public Rectangle getUnitTile(){
 		return unitTile;
 	}
-
         
 	public void setPosition(Point newPosition){
-		unitTile.setLocation(newPosition);
+		unitTile.setLocation(new Point(newPosition));
 	}
 	
 }
