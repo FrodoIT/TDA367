@@ -55,22 +55,22 @@ public class Room {
 
 		int oldX = (int)unitTile.getX();
 		int oldY = (int)unitTile.getY();
-		int newXLeft = (int)unitTile.getX();
-		int newXRight = (int)unitTile.getX() + (int)unitTile.getWidth();
-		int newYUp = (int)unitTile.getY();
-		int newYDown = (int)unitTile.getY() + (int)unitTile.getHeight();
+		int newX = (int)toPosition.getX();
+		int newXRight = (int)toPosition.getX() + (int)unitTile.getWidth();
+		int newY = (int)toPosition.getY();
+		int newYDown = (int)toPosition.getY() + (int)unitTile.getHeight();
 		int returnX = oldX;
 		int returnY = oldY;
 		
 		//Check if both new X positions are allowed
-		if(0 <= newXLeft && newXRight < getMapWidth()){
-			returnX = newXLeft;
+		if(0 < newX && newXRight < getMapWidth()){
+			returnX = newX;
 		}
 			//Set new X position
 		
 		//Check if both new Y position are allowed
-		if(0 <= newYUp && newYDown < getMapHeight()){
-			returnY = newYUp;
+		if(0 < newY && newYDown < getMapHeight()){
+			returnY = newY;
 				}
 			//Check that special case no present where not both allowed
 				//Set new Y position
