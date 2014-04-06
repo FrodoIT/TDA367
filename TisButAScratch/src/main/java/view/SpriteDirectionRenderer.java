@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import model.MoveDirection;
-import model.PlayerInput;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
