@@ -8,9 +8,11 @@ package view;
 
 import java.awt.Point;
 import model.INpc;
+import model.MoveDirection;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.tiled.TiledMap;
 
@@ -20,20 +22,18 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class NpcView{
     private TiledMap tiledMap;
-	
-	private Image [] movementNorth = new Image[3];
-	private Image [] movementSouth = new Image[3];
-	private Image [] movementWest = new Image[3];
-	private Image [] movementEast = new Image[3];
-	private int [] duration = {100, 100, 100};
-	private Animation sprite, north, south, west, east;
-        
-    public NpcView(TiledMap tiledMap){
-        
+    private SpriteDirectionRenderer spriteHandler;
+    
+    public NpcView(String imagePath){
+        try {
+            spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath) );
+        } catch (SlickException e) {
+            e.printStackTrace();
+        }
     }
     
     public void render(Point pos, Graphics g){
-        g.draw(new Circle((float)pos.getX(), (float)pos.getY(), 13));
+            spriteHandler.render(g, MoveDirection.NONE, pos.x, pos.y);
 
     }
     

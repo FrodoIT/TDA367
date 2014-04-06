@@ -20,11 +20,11 @@ public class View {
 	private RoomView roomView;
 	
 	private List<PlayerView> playerViewList = new ArrayList<PlayerView>();
-    private Map<Integer, String> npcViews;
+        private Map<Integer, NpcView> npcViews;
 	
 	public View(Model model) {
 		this.model = model;
-        npcViews = new TreeMap<Integer, String>();
+        npcViews = new TreeMap<Integer, NpcView>();
 	}
 	
 	public void render(GameContainer c, Graphics g) {
@@ -43,9 +43,10 @@ public class View {
 	public void addPlayerView(PlayerView playerView) {
 		playerViewList.add(playerView);
 	}
-    public void addNpcView(int id, String imagePath){
-
-    }
+        
+        public void addNpcView(int id, String imagePath){
+                npcViews.put(id, new NpcView(imagePath));
+        }
 	
 	public void removePLayerView(PlayerView playerView) {
 		playerViewList.remove(playerView);
