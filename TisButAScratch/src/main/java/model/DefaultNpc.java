@@ -13,6 +13,7 @@ public class DefaultNpc implements INpc{
 	private Rectangle unitTile;
 	private IWeapon weapon;
 	private int health;
+        private final int typeID;
 	private int movementSpeed;
 
 
@@ -21,6 +22,7 @@ public class DefaultNpc implements INpc{
 		this.weapon = weapon;
 		this.health = health;
 		this.movementSpeed = moveSpeed;
+                typeID = 0;
 	}
         
         public void update(Point playerPos){
@@ -74,7 +76,7 @@ public class DefaultNpc implements INpc{
 
     @Override
     public int getType() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return typeID;
     }
 
 	
