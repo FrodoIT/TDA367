@@ -25,15 +25,15 @@ public class NpcView{
     private SpriteDirectionRenderer spriteHandler;
     
     public NpcView(String imagePath){
-        try {
-            spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath) );
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath) );
+//        } catch (SlickException e) {
+//            e.printStackTrace();
+//        }
     }
     
     public void render(Point pos, Graphics g){
-            spriteHandler.render(g, MoveDirection.NONE, pos.x, pos.y);
+            g.draw(new Circle((float)pos.getX(), (float)pos.getY(), 10));
 
     }
     

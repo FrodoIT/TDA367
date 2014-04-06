@@ -21,6 +21,7 @@ public class Room {
 		this.map = collisionMap;
 		players = new ArrayList();
                 npcs = new ArrayList();
+                npcs.add(new MonsterType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
 	}
 	
 	/**

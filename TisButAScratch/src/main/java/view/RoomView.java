@@ -20,21 +20,19 @@ public class RoomView {
 	//variables
 	private Room room;
 	private TiledMap map;
-        private Map npcIDs;
+        private Map npcViews;
 	
-	public RoomView(Room room, TiledMap map) {
+	public RoomView(Room room, TiledMap map, Map<Integer, NpcView> npcViews) {
 		this.room = room;
 		this.map = map;
-                npcIDs = new HashMap<Integer, NpcView>();
-                npcIDs.put(0, new NpcView(null));
+                this.npcViews = npcViews;
 	}
         
 	public void render(GameContainer c, Graphics g) {
 		map.render(0, 0);
-                
                 for(INpc npc : room.getNpcs()){
-                    if(npcIDs.containsKey(npc.getID())){
-                        ((NpcView)npcIDs.get(npc.getID())).render(npc.getPosition(), g);
+                    if(npcViews.containsKey(npc.getID())){
+                        ((NpcView)npcViews.get(npc.getID())).render(npc.getPosition(), g);
                     }
                 }
                 

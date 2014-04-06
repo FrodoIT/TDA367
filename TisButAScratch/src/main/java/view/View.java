@@ -7,6 +7,7 @@ import model.Room;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class View {
 	
 	public View(Model model) {
 		this.model = model;
-        npcViews = new TreeMap<Integer, NpcView>();
+                npcViews = new TreeMap<Integer, NpcView>();
 	}
 	
 	public void render(GameContainer c, Graphics g) {
@@ -35,6 +36,10 @@ public class View {
 		}
 	}
 	
+        public void addRoomView(Room room, TiledMap map){
+            roomView = new RoomView(room, map, npcViews);
+        }
+        
 	//TODO rename this method accordingly
 	public void setRoomView(RoomView roomView) {
 		this.roomView = roomView; 
