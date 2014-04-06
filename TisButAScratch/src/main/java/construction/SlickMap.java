@@ -18,13 +18,15 @@ import model.IMap;
  */
 public class SlickMap implements IMap{
 	private final TiledMap map;
+	private final int collisionIndex;
 	
     public SlickMap(TiledMap map){
         this.map = map;
+        collisionIndex = map.getLayerIndex("collision");
     }
     
     public boolean isColliding(Point point) {
-        return false;
+         return (map.getTileId((int)point.getX() / map.getTileWidth(), (int)point.getY() / map.getTileHeight(), collisionIndex) != 0);
     }
 
     public int getHeight() {
