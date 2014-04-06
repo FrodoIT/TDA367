@@ -1,10 +1,12 @@
 package controller;
 
+import construction.EnemyFactory;
 import construction.TempRoomFactory;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.INpc;
 import model.Model;
 import model.Room;
 
@@ -29,6 +31,7 @@ public class Controller implements Game{
 	private List<PlayerController> playerControllerList;
 	private List<WorldController> worldControllerList;	
 	private TiledMap map;
+
 	
 	public Controller(Model model, View view){
 		this.view = view;
@@ -39,14 +42,17 @@ public class Controller implements Game{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
-
 		TempRoomFactory trf = new TempRoomFactory();
-		
 		RoomView roomView = new RoomView(trf.getRooms().get(0), trf.getTiledMap());
 		view.setRoomView(roomView);
 		model.setMap(trf.getRooms());
-		
 		playerControllerList.add(new PlayerController(model, view));
+
+        EnemyFactory enemyFactory = new EnemyFactory();
+        for(INpc enemy : enemyFactory.getEnemies()){
+            view.addNpcView(enemy.getID(), enemy.getImagePath());
+        }
+
 	}
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {

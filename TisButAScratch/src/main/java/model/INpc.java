@@ -13,7 +13,7 @@ import java.awt.Point;
  * @author Ivar
  */
 public interface INpc extends ICharacter{
-    public int getType();
     public void update(Point playerPos);
-    
+    public int getID();
+    public String getImagePath();
 }
