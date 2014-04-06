@@ -62,16 +62,18 @@ public class Room {
 		int returnX = oldX;
 		int returnY = oldY;
 		
-		//Check if both new X positions are allowed
-		if(0 < newX && newXRight < getMapWidth()){
+		//Check if new X position is allowed
+		if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Point(newX, oldY))){
 			returnX = newX;
 		}
-			//Set new X position
+		//Set new X position
 		
-		//Check if both new Y position are allowed
-		if(0 < newY && newYDown < getMapHeight()){
+		//Check if new Y position is allowed
+		if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Point(oldX, newY))){
+
 			returnY = newY;
-				}
+
+        }
 			//Check that special case no present where not both allowed
 				//Set new Y position
 		
@@ -89,8 +91,14 @@ public class Room {
 	 * @param y is the coordinate on the Y axis
 	 * @return true if there is a collision
 	 */
-	private boolean mapCollision(int x, int y){
-                return map.isColliding(new Point(x,y));
+	private boolean mapCollision(Rectangle objectToPlace, Point placeToPut){
+
+        Point northWest = new Point((int)placeToPut.getX(), (int)placeToPut.getY());
+        Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()), (int)placeToPut.getY());
+        Point southWest = new Point((int)placeToPut.getX(), (int)(placeToPut.getY() + objectToPlace.getHeight()));
+        Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()), (int)(placeToPut.getY() + objectToPlace.getHeight()));
+
+        return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
 	}
 	
 	/**
