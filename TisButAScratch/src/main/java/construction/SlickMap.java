@@ -8,6 +8,7 @@ package construction;
 
 import java.awt.Point;
 
+import org.lwjgl.Sys;
 import org.newdawn.slick.tiled.TiledMap;
 
 import model.IMap;
@@ -26,10 +27,15 @@ public class SlickMap implements IMap{
     }
     
     public boolean isColliding(Point point) {
-         return (map.getTileId((int)point.getX() / map.getTileWidth(), (int)point.getY() / map.getTileHeight(), collisionIndex) != 0);
+    	try {
+    		return (map.getTileId((int)point.getX() / map.getTileWidth(), (int)point.getY() / map.getTileHeight(), collisionIndex) != 0);
+    	}catch(IndexOutOfBoundsException e){
+    		return false;
+    	}
     }
 
     public int getHeight() {
+    	
         return map.getHeight()*map.getTileHeight();
     }
 

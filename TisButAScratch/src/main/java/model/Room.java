@@ -54,18 +54,18 @@ public class Room {
 	 * @return the best allowed position
 	 */
 	private Point allowedPosition(Point fromPosition, Point toPosition){
+
 		int oldX = (int)fromPosition.getX();
 		int oldY = (int)fromPosition.getY();
 		int newX = (int)toPosition.getX();
 		int newY = (int)toPosition.getY();
 		int returnX = oldX;
 		int returnY = oldY;
-				
-		if (0 <= newX && newX <= getMapWidth() && !mapCollision(newX, oldY)){
+		//TODO: Make the horisontal outer map restriction a denied new position.(Currently causes IndexOutOfBoundsException).		
+		if (0 <= newX && newX < getMapWidth() && !mapCollision(newX, oldY)){
 			returnX = newX;
 		}
-		if (0 <= newY && newY <= getMapHeight() && !mapCollision(oldX, newY)){
-			//TODO Causes ArrayIndexOutOfBoundsException in mapCollision trying to index a mapTile that does not exist
+		if (0 <= newY && newY < getMapHeight() && !mapCollision(oldX, newY)){
 			if (!(!mapCollision(newX, oldY) && !mapCollision(oldX, newY) && mapCollision(newX,newY)));{
 				returnY = newY;
 			}
@@ -88,7 +88,7 @@ public class Room {
 	 * 
 	 * @return: the total height of the map in pixels
 	 */
-	private double getMapHeight() {
+	private int getMapHeight() {
 		return map.getHeight();
 	}
 	
@@ -96,7 +96,7 @@ public class Room {
 	 * 
 	 * @return: the total width of the map in pixels
 	 */
-	private double getMapWidth() {
+	private int getMapWidth() {
 		return map.getWidth();
 	}
 	
