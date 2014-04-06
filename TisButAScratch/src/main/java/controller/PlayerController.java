@@ -20,7 +20,7 @@ public class PlayerController implements IPlayerInput {
 	private View view;
 	private Player player;
 	private PlayerView playerView;
-	private MoveDirection moveDirection;
+	private MoveDirection moveDirection = MoveDirection.NONE;
 	private boolean attack, interact;
 	
 	public PlayerController(Model model, View view){
