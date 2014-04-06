@@ -8,10 +8,9 @@ package construction;
 
 import java.awt.Point;
 
-import org.lwjgl.Sys;
-import org.newdawn.slick.tiled.TiledMap;
-
 import model.IMap;
+
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  *

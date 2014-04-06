@@ -1,10 +1,7 @@
 package model;
-import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Represents a single room and the contents in it.
@@ -61,7 +58,7 @@ public class Room {
 		int newY = (int)toPosition.getY();
 		int returnX = oldX;
 		int returnY = oldY;
-		//TODO: Make the horisontal outer map restriction a denied new position.(Currently causes IndexOutOfBoundsException).		
+		//TODO: Make the horizontal outer map restriction a denied new position.(Currently causes IndexOutOfBoundsException).		
 		if (0 <= newX && newX < getMapWidth() && !mapCollision(newX, oldY)){
 			returnX = newX;
 		}
