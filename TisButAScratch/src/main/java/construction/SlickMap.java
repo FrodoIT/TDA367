@@ -7,6 +7,9 @@
 package construction;
 
 import java.awt.Point;
+
+import org.newdawn.slick.tiled.TiledMap;
+
 import model.IMap;
 
 /**
@@ -14,9 +17,10 @@ import model.IMap;
  * @author Ivar
  */
 public class SlickMap implements IMap{
-
-    public SlickMap(){
-        
+	private final TiledMap map;
+	
+    public SlickMap(TiledMap map){
+        this.map = map;
     }
     
     public boolean isColliding(Point point) {
@@ -24,11 +28,11 @@ public class SlickMap implements IMap{
     }
 
     public int getHeight() {
-        return 512;
+        return map.getHeight()*map.getTileHeight();
     }
 
     public int getWidth() {
-        return 512;
+        return map.getWidth()*map.getTileWidth();
     }
     
 }

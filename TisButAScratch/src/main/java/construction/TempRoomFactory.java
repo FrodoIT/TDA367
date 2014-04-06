@@ -1,6 +1,5 @@
 package construction;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,17 +25,7 @@ public class TempRoomFactory {
 			e.printStackTrace();
 		}
 		
-		int collisionLayerIndex = map.getLayerIndex("collision");
-
-		int[][] mapRepresentation = new int[ map.getWidth() ][ map.getHeight() ];
-
-		for (int x = 0 ; x < map.getWidth() ; x++ ) {
-			for (int y = 0 ; y < map.getHeight() ; y++ ) {
-				mapRepresentation[x][y] = map.getTileId(x, y, collisionLayerIndex);
-			}
-		}
-		
-		this.room = new Room(new SlickMap());
+		this.room = new Room(new SlickMap(map));
 	}
 	
 	public TiledMap getTiledMap() {
