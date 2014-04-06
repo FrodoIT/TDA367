@@ -1,5 +1,6 @@
 package controller;
 
+import construction.TempRoomFactory;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;

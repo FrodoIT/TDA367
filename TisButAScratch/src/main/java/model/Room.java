@@ -81,7 +81,7 @@ public class Room {
 	 * @return true if there is a collision
 	 */
 	private boolean mapCollision(int x, int y){
-                return map.collisionAt(new Point(x,y));
+                return map.isColliding(new Point(x,y));
 	}
 	
 	/**

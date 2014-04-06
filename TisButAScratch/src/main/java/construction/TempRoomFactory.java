@@ -1,6 +1,8 @@
 package construction;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Room;
 
@@ -19,7 +21,7 @@ public class TempRoomFactory {
 	
 	public TempRoomFactory() {
 		try {
-			map = new TiledMap("res/spawn.tmx");
+			map = new TiledMap("res/untitled.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -34,12 +36,20 @@ public class TempRoomFactory {
 			}
 		}
 		
-		this.room = new Room(mapRepresentation, new Dimension(map.getTileWidth(), map.getTileHeight()));
+		this.room = new Room(new SlickMap());
 	}
 	
 	public TiledMap getTiledMap() {
 		
-		return null;
+		return map;
+	}
+        
+        	
+	public List<Room> getRooms() {
+		
+		List<Room> rooms = new ArrayList<Room>();
+		rooms.add(room);
+		return rooms;
 	}
 	
 	public Room getRoom() {
