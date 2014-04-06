@@ -92,7 +92,7 @@ public class PlayerView {
 			sprite=east;
 		}
 		
-		g.drawAnimation(sprite, p.x-16, p.y-16);
+		g.drawAnimation(sprite, p.x, p.y);
 	}
 	
 
