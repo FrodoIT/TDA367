@@ -112,7 +112,10 @@ public class Room {
 	
 	public void update(){
 		for (Player player:players){
-			movePlayer(player);
+			movePlayer(player);       
 		}
+                for (INpc npc : npcs){
+                    npc.update(players.get(0).getPosition());
+                }
 	}	
 }

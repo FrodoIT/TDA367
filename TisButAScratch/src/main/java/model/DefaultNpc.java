@@ -22,6 +22,14 @@ public class DefaultNpc implements INpc{
 		this.health = health;
 		this.movementSpeed = moveSpeed;
 	}
+        
+        public void update(Point playerPos){
+            move(playerPos);
+        }
+        
+        public void move(Point playerPos){
+            //TODO: Movement logic
+        }
 	
 	//Getters
 	
