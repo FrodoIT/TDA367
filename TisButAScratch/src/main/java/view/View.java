@@ -1,9 +1,6 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import model.Model;
 import model.Room;
@@ -20,17 +17,17 @@ import org.newdawn.slick.Graphics;
 public class View {
 	
 	private Model model;
-//	private Map<Room, RoomView> roomMap = new HashMap<Room, RoomView>();
 	private RoomView roomView;
 	
 	private List<PlayerView> playerViewList = new ArrayList<PlayerView>();
+    private Map<Integer, String> npcViews;
 	
 	public View(Model model) {
 		this.model = model;
+        npcViews = new TreeMap<Integer, String>();
 	}
 	
 	public void render(GameContainer c, Graphics g) {
-//		roomMap.get(model.getActiveRoom()).render(c, g);
 		roomView.render(c, g);
 		
 		for (PlayerView playerView : playerViewList) {
@@ -46,6 +43,9 @@ public class View {
 	public void addPlayerView(PlayerView playerView) {
 		playerViewList.add(playerView);
 	}
+    public void addNpcView(int id, String imagePath){
+
+    }
 	
 	public void removePLayerView(PlayerView playerView) {
 		playerViewList.remove(playerView);

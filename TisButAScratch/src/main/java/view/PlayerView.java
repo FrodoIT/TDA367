@@ -2,12 +2,11 @@ package view;
 
 import java.awt.Point;
 
+import model.IPlayerInput;
 import model.MoveDirection;
 import model.Player;
-import model.PlayerInput;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -78,7 +77,7 @@ public class PlayerView {
 	
 	public void render(GameContainer c, Graphics g) {
 		Point p = player.getPosition();
-		PlayerInput playerInput = player.getPlayerInput();
+		IPlayerInput playerInput = player.getPlayerInput();
 		sprite=south;
 		MoveDirection input= playerInput.getMoveInput();
 		
