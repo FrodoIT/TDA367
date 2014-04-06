@@ -11,5 +11,6 @@ package model;
  * @author Ivar
  */
 public interface INpc extends ICharacter{
+    public int getType();
     
 }

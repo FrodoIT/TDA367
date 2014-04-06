@@ -12,13 +12,14 @@ import java.util.List;
 public class Room {
 	
 	private List<Player> players;
+        private List<INpc> npcs;
 	private IMap map;
 	
 	public Room(IMap collisionMap){
-		//TODO Player should be added separately with another method.
-	
 		this.map = collisionMap;
 		players = new ArrayList();
+                npcs = new ArrayList();
+                npcs.add(new DefaultNpc(new Rectangle(50, 50, 32, 32), new Knuckles(), 2, 1));
 	}
 	
 	/**
@@ -28,7 +29,9 @@ public class Room {
 	public void enterRoom(Player player){
 		players.add(player);
 	}
-	
+        public List<INpc> getNpcs(){
+            return npcs;
+        }
 	/**
 	 * Removes the specified player from the Room
 	 * @param player
@@ -53,7 +56,7 @@ public class Room {
 	 */
 	private Point allowedPosition(Rectangle unitTile, Point toPosition){
 
-		int oldX = (int)unitTile.getX();
+            int oldX = (int)unitTile.getX();
 		int oldY = (int)unitTile.getY();
 		int newX = (int)toPosition.getX();
 		int newXRight = (int)toPosition.getX() + (int)unitTile.getWidth();
@@ -66,21 +69,11 @@ public class Room {
 		if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Point(newX, oldY))){
 			returnX = newX;
 		}
-		//Set new X position
 		
 		//Check if new Y position is allowed
 		if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Point(oldX, newY))){
-
 			returnY = newY;
-
-        }
-			//Check that special case no present where not both allowed
-				//Set new Y position
-		
-		
-		
-		//TODO: Make the horizontal outer map restriction a denied new position.(Currently causes IndexOutOfBoundsException).		
-		
+                }
 		return new Point(returnX, returnY);
 		
 	}
