@@ -1,5 +1,6 @@
 package model;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,33 +41,44 @@ public class Room {
 	
 	private void movePlayer(Player player){
 		Point newPosition = player.calculateMovementPosition();
-		player.setPosition(allowedPosition(player.getPosition(), newPosition));
+		player.setPosition(allowedPosition(player.getUnitTile(), newPosition));
 	}
 	
 	
 	/**
 	 * Called to determine the best allowed position
-	 * @param fromPosition the position we start from
+	 * @param unitTile the position we start from
 	 * @param toPosition the position we want to end at
 	 * @return the best allowed position
 	 */
-	private Point allowedPosition(Point fromPosition, Point toPosition){
+	private Point allowedPosition(Rectangle unitTile, Point toPosition){
 
-		int oldX = (int)fromPosition.getX();
-		int oldY = (int)fromPosition.getY();
-		int newX = (int)toPosition.getX();
-		int newY = (int)toPosition.getY();
+		int oldX = (int)unitTile.getX();
+		int oldY = (int)unitTile.getY();
+		int newXLeft = (int)unitTile.getX();
+		int newXRight = (int)unitTile.getX() + (int)unitTile.getWidth();
+		int newYUp = (int)unitTile.getY();
+		int newYDown = (int)unitTile.getY() + (int)unitTile.getHeight();
 		int returnX = oldX;
 		int returnY = oldY;
+		
+		//Check if both new X positions are allowed
+		if(0 <= newXLeft && newXRight < getMapWidth()){
+			returnX = newXLeft;
+		}
+			//Set new X position
+		
+		//Check if both new Y position are allowed
+		if(0 <= newYUp && newYDown < getMapHeight()){
+			returnY = newYUp;
+				}
+			//Check that special case no present where not both allowed
+				//Set new Y position
+		
+		
+		
 		//TODO: Make the horizontal outer map restriction a denied new position.(Currently causes IndexOutOfBoundsException).		
-		if (0 <= newX && newX < getMapWidth() && !mapCollision(newX, oldY)){
-			returnX = newX;
-		}
-		if (0 <= newY && newY < getMapHeight() && !mapCollision(oldX, newY)){
-			if (!(!mapCollision(newX, oldY) && !mapCollision(oldX, newY) && mapCollision(newX,newY)));{
-				returnY = newY;
-			}
-		}
+		
 		return new Point(returnX, returnY);
 		
 	}
