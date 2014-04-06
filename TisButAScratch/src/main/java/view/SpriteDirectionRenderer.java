@@ -16,10 +16,7 @@ public class SpriteDirectionRenderer {
 	
 	private final Map<MoveDirection, Animation> moveAnimations = new HashMap<MoveDirection, Animation>();
 	private final Map<MoveDirection, Image> lookDirections = new HashMap<MoveDirection, Image>();
-	private final Image [] movementSouth;
-	private final Image [] movementEast;
-	private final Image [] movementNorth;
-	private final Image [] movementWest;
+
 	private final int[] duration;
 	private Animation sprite, north, south, west, east;
 	
@@ -36,13 +33,13 @@ public class SpriteDirectionRenderer {
 			throw new IllegalArgumentException("Number of pictures for sprites must be equally many for each direciton");
 
 		this.map = map;
-		
-		movementSouth = new Image[nbrOfSprites/4];
-		movementEast = new Image[nbrOfSprites/4];
-		movementNorth = new Image[nbrOfSprites/4];
-		movementWest = new Image[nbrOfSprites/4];
-		
+
 		imagesPerDirection = nbrOfSprites / 4;
+
+		Image [] movementSouth = new Image[imagesPerDirection];
+		Image [] movementEast = new Image[imagesPerDirection];
+		Image [] movementNorth = new Image[imagesPerDirection];
+		Image [] movementWest = new Image[imagesPerDirection];
 		
 		setupMovementDirectionSprite(movementSouth, SOUTH);
 		setupMovementDirectionSprite(movementEast, EAST);
