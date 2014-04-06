@@ -13,16 +13,13 @@ import java.util.TreeSet;
  */
 public class Room {
 	
-	// These tiles have the dimension
-	private Dimension tileDim;
 	private List<Player> players;
-	private int[][] collisionMap;
+	private IMap map;
 	
-	public Room(int[][] collisionMap, Dimension tileDim){
+	public Room(IMap collisionMap){
 		//TODO Player should be added separately with another method.
 	
-		this.collisionMap = collisionMap;
-		this.tileDim = tileDim;
+		this.map = collisionMap;
 		players = new ArrayList();
 	}
 	
@@ -72,7 +69,6 @@ public class Room {
 			if (!(!mapCollision(newX, oldY) && !mapCollision(oldX, newY) && mapCollision(newX,newY)));{
 				returnY = newY;
 			}
-			
 		}
 		return new Point(returnX, returnY);
 		
@@ -85,12 +81,7 @@ public class Room {
 	 * @return true if there is a collision
 	 */
 	private boolean mapCollision(int x, int y){
-		//TODO The catch part will trigger when player is on the edge of the map.
-		try {
-			return collisionMap[pixelToGridX(x)][pixelToGridY(y)] != 0;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			return false;
-		}
+                return map.collisionAt(new Point(x,y));
 	}
 	
 	/**
@@ -98,7 +89,7 @@ public class Room {
 	 * @return: the total height of the map in pixels
 	 */
 	private double getMapHeight() {
-		return collisionMap[0].length * tileDim.getHeight();
+		return map.getHeight();
 	}
 	
 	/**
@@ -106,26 +97,7 @@ public class Room {
 	 * @return: the total width of the map in pixels
 	 */
 	private double getMapWidth() {
-		return collisionMap.length * tileDim.getWidth();
-	}
-	
-	
-	/**
-	 * Calculates what tileID a pixel belongs as an X coordinate
-	 * @param pixel to calculate from
-	 * @return the tileID as an integer
-	 */
-	private int pixelToGridX(int pixel) {
-		return (int)(pixel/tileDim.getWidth());
-	}
-	
-	/**
-	 * Calculates what tileID a pixel belongs as an Y coordinate
-	 * @param pixel to calculate from
-	 * @return the tileID as an integer
-	 */
-	private int pixelToGridY(int pixel) {
-		return (int)(pixel/tileDim.getHeight());
+		return map.getWidth();
 	}
 	
 	public void update(){
