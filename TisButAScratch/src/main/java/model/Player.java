@@ -12,9 +12,9 @@ public class Player {
         private int id;
         private int movementSpeed;
 	private Rectangle unitTile;
-        private PlayerInput playerInput;
+        private IPlayerInput playerInput;
 	
-	public Player(PlayerInput playerInput, Rectangle unitTile){
+	public Player(IPlayerInput playerInput, Rectangle unitTile){
 		this.playerInput=playerInput;
 		movementSpeed = 2;
                 //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
@@ -88,7 +88,7 @@ public class Player {
 		return movementSpeed;
 	}
 	
-	public PlayerInput getPlayerInput(){
+	public IPlayerInput getPlayerInput(){
 		return playerInput;
 	}
 	public int getID(){

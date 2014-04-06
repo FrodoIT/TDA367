@@ -1,9 +1,9 @@
 package controller;
 
+import model.IPlayerInput;
 import model.Model;
 import model.MoveDirection;
 import model.Player;
-import model.PlayerInput;
 
 import org.newdawn.slick.Input;
 
@@ -15,7 +15,7 @@ import view.View;
  * @author Anna Nylander
  *
  */
-public class PlayerController implements PlayerInput{
+public class PlayerController implements IPlayerInput {
 	private Model model;
 	private View view;
 	private Player player;

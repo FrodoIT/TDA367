@@ -3,7 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import construction.MapInterface;
 import java.awt.Rectangle;
 /**
  * 
@@ -24,7 +23,7 @@ public class Model {
 	}
 	
 	//methods
-	public Player addPlayer(PlayerInput input){
+	public Player addPlayer(IPlayerInput input){
 		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32));
 		playerList.add(newPlayer);
 		activeRoom.enterRoom(newPlayer);
