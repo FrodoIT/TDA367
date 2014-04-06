@@ -1,5 +1,7 @@
 package view;
 
+import java.util.HashMap;
+import java.util.Map;
 import model.INpc;
 import model.Room;
 
@@ -18,17 +20,22 @@ public class RoomView {
 	//variables
 	private Room room;
 	private TiledMap map;
+        private Map npcIDs;
 	
 	public RoomView(Room room, TiledMap map) {
 		this.room = room;
 		this.map = map;
+                npcIDs = new HashMap<Integer, NpcView>();
+                npcIDs.put(0, new NpcView(null));
 	}
         
 	public void render(GameContainer c, Graphics g) {
 		map.render(0, 0);
                 
                 for(INpc npc : room.getNpcs()){
-                    g.draw(new Circle((float)npc.getPosition().getX(), (float)npc.getPosition().getY(), 13));
+                    if(npcIDs.containsKey(npc.getType())){
+                        ((NpcView)npcIDs.get(npc.getType())).render(npc.getPosition(), g);
+                    }
                 }
                 
                 
