@@ -7,7 +7,7 @@ import java.awt.Point;
  * @author Ivar
  *
  */
-public class Npc implements ICharacter{
+public class DefaultNpc implements INpc{
 
 	private Point position;
 	private IWeapon weapon;
@@ -22,7 +22,7 @@ public class Npc implements ICharacter{
 	 * health = 10
 	 * moveSpeed = 1
 	 */
-	public Npc() {
+	public DefaultNpc() {
 		this (new Point(320, 240), new Knuckles(), 10, 1);
 	}
 	
@@ -33,7 +33,7 @@ public class Npc implements ICharacter{
 	 * health = 10
 	 * moveSpeed = 1
 	 */
-	public Npc(Point pos) {
+	public DefaultNpc(Point pos) {
 		this (pos, new Knuckles(), 10, 1);
 	}
 	
@@ -44,15 +44,15 @@ public class Npc implements ICharacter{
 	 * health = 10
 	 * moveSpeed = 1
 	 */
-	public Npc(Point pos, IWeapon weapon) {
+	public DefaultNpc(Point pos, IWeapon weapon) {
 		this (pos, weapon, 10, 1);
 	}
 	
-	public Npc(Point pos, IWeapon weapon, int health) {
+	public DefaultNpc(Point pos, IWeapon weapon, int health) {
 		this (pos, weapon, health, 1);
 	}
 	
-	public Npc(Point pos, IWeapon weapon, int health, int moveSpeed){
+	public DefaultNpc(Point pos, IWeapon weapon, int health, int moveSpeed){
 		position = new Point((int)pos.getX(), (int)pos.getY());
 		this.weapon = weapon;
 		this.health = health;

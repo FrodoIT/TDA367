@@ -6,38 +6,38 @@ import static org.junit.Assert.fail;
 import java.awt.Point;
 
 import model.Knuckles;
-import model.Npc;
+import model.DefaultNpc;
 import model.Sword;
 
 import org.junit.Test;
 
 public class NpcTest {
 
-	private Npc npc;
+	private DefaultNpc npc;
 
 	public NpcTest(){
-		npc = new Npc();
+		npc = new DefaultNpc();
 	}
 
 	@Test
 	public void testNpcPoint() {
-		npc = new Npc(new Point(30, 30));
+		npc = new DefaultNpc(new Point(30, 30));
 	}
 
 	@Test
 	public void testNpcPointAndWeapon(){
-		npc = new Npc(new Point(10,10), new Sword());
+		npc = new DefaultNpc(new Point(10,10), new Sword());
 	}
 
 	public void testNpcPointWeaponHealthMovespeed(){
-		npc = new Npc(new Point(10,10), new Sword(), 100, 3);
+		npc = new DefaultNpc(new Point(10,10), new Sword(), 100, 3);
 	}
 
 	@Test
 	public void testGetPos() {
-		npc = new Npc();
+		npc = new DefaultNpc();
 		assertTrue(npc.getPosition().equals(new Point(320, 240)));
-		npc = new Npc(new Point (25, 25));
+		npc = new DefaultNpc(new Point (25, 25));
 		assertTrue(npc.getPosition().equals(new Point(25, 25)));		
 	}
 
@@ -52,24 +52,24 @@ public class NpcTest {
 	}
 	@Test
 	public void testDefaultMovementSpeed() {
-		npc = new Npc();
+		npc = new DefaultNpc();
 		assertTrue(npc.getMovementSpeed() == 1);
 	}
 	@Test
 	public void testGetMovementSpeed(){
-		npc = new Npc(new Point(10,10), new Sword(), 100, 3);
+		npc = new DefaultNpc(new Point(10,10), new Sword(), 100, 3);
 		assertTrue(npc.getMovementSpeed() == 3);
 	}
 
 	@Test
 	public void testGetDamage() {
-		npc = new Npc(new Point(10,10), new Knuckles(), 100, 3);
+		npc = new DefaultNpc(new Point(10,10), new Knuckles(), 100, 3);
 		assertTrue(npc.getDamage() == 2);
 	}
 
 	@Test
 	public void testGetRange() {
-		npc = new Npc(new Point(10,10), new Sword(), 100, 3);
+		npc = new DefaultNpc(new Point(10,10), new Sword(), 100, 3);
 		assertTrue(npc.getRange() == 1);
 	}
 
