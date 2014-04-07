@@ -35,8 +35,6 @@ public class RoomView {
                         ((NpcView)npcViews.get(npc.getID())).render(npc.getPosition(), g);
                     }
                 }
-                
-                
 	}
 
 }

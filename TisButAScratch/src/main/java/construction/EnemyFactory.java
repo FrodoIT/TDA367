@@ -14,7 +14,7 @@ public class EnemyFactory {
 
     public EnemyFactory(){
         npcs = new ArrayList<INpc>();
-        npcs.add(new MonsterType(new Rectangle(32,32), new Knuckles(), 4, 2, "res/monster.tmx", 0));
+        npcs.add(new MonsterType(new Rectangle(32,32), new Knuckles(), 4, 2, "res/playerSprite.tmx", 0));
     }
 
     public List<INpc> getEnemies(){

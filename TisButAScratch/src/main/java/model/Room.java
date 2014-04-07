@@ -88,10 +88,10 @@ public class Room {
 	 */
 	private boolean mapCollision(Rectangle objectToPlace, Point placeToPut){
 
-        Point northWest = new Point((int)placeToPut.getX(), (int)placeToPut.getY());
-        Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()), (int)placeToPut.getY());
-        Point southWest = new Point((int)placeToPut.getX(), (int)(placeToPut.getY() + objectToPlace.getHeight()));
-        Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()), (int)(placeToPut.getY() + objectToPlace.getHeight()));
+        Point northWest = new Point((int)placeToPut.getX() + 1, (int)placeToPut.getY()+1);
+        Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)placeToPut.getY()+1);
+        Point southWest = new Point((int)placeToPut.getX() + 1, (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
+        Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
 
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
 	}
