@@ -32,8 +32,8 @@ public class NpcView{
         }
     }
     
-    public void render(Point pos, Graphics g){
-            spriteHandler.render(g, MoveDirection.NONE, pos.x, pos.y);
+    public void render(INpc npc, Graphics g){
+            spriteHandler.render(g, npc.getMoveDirection(), npc.getPosition().x, npc.getPosition().y);
 
     }
     

@@ -32,7 +32,7 @@ public class RoomView {
 		map.render(0, 0);
                 for(INpc npc : room.getNpcs()){
                     if(npcViews.containsKey(npc.getID())){
-                        ((NpcView)npcViews.get(npc.getID())).render(npc.getPosition(), g);
+                        ((NpcView)npcViews.get(npc.getID())).render(npc, g);
                     }
                 }
 	}
