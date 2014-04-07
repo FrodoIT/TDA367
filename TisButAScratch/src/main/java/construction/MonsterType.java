@@ -86,14 +86,22 @@ public class MonsterType implements INpc {
             
             if(diffX == 0 && diffY == 0){
                 setMoveDirection(MoveDirection.NONE);
-            }else if(-45 <= theta && theta <= 45 && 0 <= diffX){
+            }else if(-22.5 <= theta && theta <= 22.5 && 0 <= diffX){
                 setMoveDirection(MoveDirection.EAST);
-            }else if(theta < -45){
-                setMoveDirection(MoveDirection.NORTH);
-            }else if(45 < theta){
-                setMoveDirection(MoveDirection.SOUTH);
-            }else{
+            }else if(-22.5 <= theta && theta <= 22.5 && diffX < 0){
                 setMoveDirection(MoveDirection.WEST);
+            }else if(22.5 <= theta && theta <= 67.5 && 0 <= diffX){
+                setMoveDirection(MoveDirection.SOUTHEAST);
+            }else if(-67.5 <= theta && theta <= -22.5 && diffX < 0){
+                setMoveDirection(MoveDirection.SOUTHWEST);
+            }else if(-67.5 <= theta && theta <= -22.5 && 0 <= diffX){
+                setMoveDirection(MoveDirection.NORTHEAST);
+            }else if(22.5 <= theta && theta <= 67.5 && diffX < 0){
+                setMoveDirection(MoveDirection.NORTHWEST);
+            }else if(theta < -67.5){
+                setMoveDirection(MoveDirection.NORTH);
+            }else if(67.5 < theta){
+                setMoveDirection(MoveDirection.SOUTH);
             }
        }
        
