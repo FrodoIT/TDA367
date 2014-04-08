@@ -1,0 +1,31 @@
+Meeting Agenda
+
+  Date: 04-08 13:49
+
+  Facilitator: Adam Waldenberg
+
+  Participants: Alma Ottedag, Anna Nylander, André Samuelsson
+
+1. Objectives (5 min) What to do next, how to resolve the AI npc movement issue, using reflection and file reading. How to create AI. 
+
+2. Reports (15 min)
+André hasn’t got eclipse working yet. But he is instead trying to get intellij working.
+
+Reminder:
+No tests has been made yet. But we have time untill Friday according to meeting 006.
+
+We have made the animation work for the player and an npc. Npcs have been implemented and a structure for future implementation of movement patterns has been created (Strategy pattern for AI and file reading from xlm for the npc specifications).
+
+3. Discussion items (35 min) 
+How to use reflections and the Strategy pattern. Coupling a plugin with an npc and access the npc-layer from tiled.
+
+All npcs will be created through a unique plugin, in which file reading for npc variables will be done as well as creating or saving a movement pattern. This makes the npcs very flexible and still allows for easy creation of new npcs via its xml file.
+
+4. Outcomes and assignments (5 min) 
+
+Everyone:  learn how to use reflections, and each create his/her own plugin (npc) until the next meeting on Thursday. (As much as we can, such that everyone at least has an idea of how this works). Begin writing test classes.
+
+5. Wrap up 
+
+  Next meeting: Thursday the 10th of april, reading week 4.
+
