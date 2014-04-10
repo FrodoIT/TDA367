@@ -1,4 +1,4 @@
-package scratch.model;
+package scratch.model.weapons;
 /**
  * The weapon Bow:
  * A long-ranged weapon with the following stats:

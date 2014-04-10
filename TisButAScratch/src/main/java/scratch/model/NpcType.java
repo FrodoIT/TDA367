@@ -3,7 +3,7 @@ package scratch.model;
 import java.awt.Point;
 import java.awt.Rectangle;
 import scratch.model.INpc;
-import scratch.model.IWeapon;
+import scratch.model.weapons.IWeapon;
 import scratch.model.MoveDirection;
 
 /**

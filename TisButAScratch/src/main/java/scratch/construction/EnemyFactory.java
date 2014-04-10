@@ -1,9 +1,8 @@
 package scratch.construction;
 
 import scratch.model.INpc;
-import scratch.model.Knuckles;
 import scratch.model.NpcType;
-
+import scratch.model.weapons.Knuckles;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

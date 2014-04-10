@@ -1,4 +1,4 @@
-package scratch.model;
+package scratch.model.weapons;
 /**
  * The weapon Knuckles:
  * The default starting-weapon for all characters with the following stats:

@@ -1,4 +1,4 @@
-package scratch.model;
+package scratch.model.weapons;
 /**
  * The weapon Sword:
  * A short-ranged weapon with the following stats:
