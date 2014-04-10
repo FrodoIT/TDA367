@@ -31,7 +31,7 @@ public class SpriteDirectionRenderer {
 	public SpriteDirectionRenderer(TiledMap map) {
 		int nbrOfSprites = map.getWidth();
 		if (nbrOfSprites % 4 != 0)
-			throw new IllegalArgumentException("Number of pictures for sprites must be equally many for each direciton", null);
+			throw new IllegalArgumentException();
 
 		this.map = map;
 
