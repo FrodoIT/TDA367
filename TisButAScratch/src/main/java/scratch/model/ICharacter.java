@@ -1,6 +1,8 @@
 package scratch.model;
+
 import scratch.model.weapons.IWeapon;
-import java.awt.Point;
+
+import java.awt.*;
 
 /**
  * The interface for all Characters. Every character has a given 
@@ -11,12 +13,13 @@ import java.awt.Point;
 
 public interface ICharacter {
 	public int getHealth();
-	public void takeDamage(int dmg);
-	public Point getPosition();
-	public int getDamage();
 	public int getMovementSpeed();
+	public void takeDamage(int dmg);
+	public int getDamage();
 	public IWeapon getWeapon();
+	public Point getPosition();
 	public void setPosition(Point position);
+	public Rectangle getUnitTile();
 	//Called by room to se where the caracter WANTS to go.
 	public Point calculateMovementPosition();
 }

@@ -41,13 +41,10 @@ public class Room {
 		players.remove(player);
 	}
 	
-	
-	
-	private void movePlayer(Player player){
-		Point newPosition = player.calculateMovementPosition();
-		player.setPosition(allowedPosition(player.getUnitTile(), newPosition));
+	private void moveCharacter(ICharacter character) {
+		Point newPosition = character.calculateMovementPosition();
+		character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
 	}
-	
 	
 	/**
 	 * Called to determine the best allowed position
@@ -113,7 +110,7 @@ public class Room {
 	
 	public void update(){
 		for (Player player:players){
-			movePlayer(player);       
+			moveCharacter(player);
 		}
                 for (INpc npc : npcs){
                     npc.update(players.get(0).getPosition());

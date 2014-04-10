@@ -70,16 +70,30 @@ public class NpcType implements INpc {
 	public int getMovementSpeed() {
 		return movementSpeed;
 	}
-	
-	
-	
+
+	@Override
+	public void takeDamage(int dmg) {
+
+	}
+
+
 	//Setters
 	public void setPosition(Point position) {
                 calculateMoveDirection(position);
 		unitTile.setLocation(position);
 	}
-          
-       private void calculateMoveDirection(Point newPosition){
+
+	@Override
+	public Rectangle getUnitTile() {
+		return null;
+	}
+
+	@Override
+	public Point calculateMovementPosition() {
+		return null;
+	}
+
+	private void calculateMoveDirection(Point newPosition){
             double diffX = newPosition.x - unitTile.x;
             double diffY = newPosition.y - unitTile.y;
             double theta = Math.atan(diffY / diffX)*180/Math.PI;
