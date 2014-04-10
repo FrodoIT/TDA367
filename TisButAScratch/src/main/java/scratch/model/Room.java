@@ -1,5 +1,5 @@
 package scratch.model;
-import scratch.construction.MonsterType;
+import scratch.construction.NpcType;
 
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -21,7 +21,7 @@ public class Room {
 		this.map = collisionMap;
 		players = new ArrayList();
                 npcs = new ArrayList();
-                npcs.add(new MonsterType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
+                npcs.add(new NpcType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
 	}
 	
 	/**

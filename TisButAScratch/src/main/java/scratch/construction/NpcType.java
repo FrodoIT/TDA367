@@ -11,7 +11,7 @@ import scratch.model.MoveDirection;
  * @author Ivar
  *
  */
-public class MonsterType implements INpc {
+public class NpcType implements INpc {
 
 	private Rectangle unitTile;
 	private IWeapon weapon;
@@ -21,7 +21,7 @@ public class MonsterType implements INpc {
         private final int id;
         private MoveDirection moveDirection;
 
-	public MonsterType(Rectangle unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id){
+	public NpcType(Rectangle unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id){
             this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
             this.weapon = weapon;
             this.health = health;
