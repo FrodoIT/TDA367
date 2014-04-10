@@ -1,5 +1,7 @@
 package scratch.model;
 
+import scratch.model.weapons.IWeapon;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 /**

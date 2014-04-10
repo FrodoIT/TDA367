@@ -107,13 +107,14 @@ public class Room {
 	private int getMapWidth() {
 		return map.getWidth();
 	}
-	
+
 	public void update(){
 		for (Player player:players){
 			moveCharacter(player);
 		}
-                for (INpc npc : npcs){
-                    npc.update(players.get(0).getPosition());
-                }
-	}	
+		for (INpc npc : npcs){
+			moveCharacter(npc);
+			//npc.update(players.get(0).getPosition());
+		}
+	}
 }
