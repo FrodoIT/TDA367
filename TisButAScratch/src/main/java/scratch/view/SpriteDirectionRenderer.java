@@ -89,8 +89,7 @@ public class SpriteDirectionRenderer {
 	private void setupMovementDirectionSprite(Image[] spriteDirection, int index) {
 		int layerIndex = map.getLayerIndex("sprite");
 		int startCount = index * imagesPerDirection;
-		int endCount = startCount + imagesPerDirection;
-		
+
 		for (int i = 0 ; i < spriteDirection.length ; i++) {
 			spriteDirection[i] = map.getTileImage(i + startCount, 0, layerIndex);
 		}

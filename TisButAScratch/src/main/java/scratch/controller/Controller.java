@@ -28,9 +28,7 @@ public class Controller implements Game{
 	private View view;
 	private List<PlayerController> playerControllerList;
 	private List<WorldController> worldControllerList;	
-	private TiledMap map;
 
-	
 	public Controller(Model model, View view){
 		this.view = view;
 		this.model = model;

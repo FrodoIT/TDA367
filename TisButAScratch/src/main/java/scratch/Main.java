@@ -17,7 +17,7 @@ import scratch.controller.Controller;
 public class Main {
 	public static void main (String[] args) throws SlickException{
 		Model model = new Model();
-		View view = new View(model);
+		View view = new View();
 		AppGameContainer app = new AppGameContainer(new Controller(model, view));
 		app.start();
 	}

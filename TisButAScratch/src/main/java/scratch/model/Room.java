@@ -58,26 +58,26 @@ public class Room {
 	 */
 	private Point allowedPosition(Rectangle unitTile, Point toPosition){
 
-            int oldX = (int)unitTile.getX();
-		int oldY = (int)unitTile.getY();
 		int newX = (int)toPosition.getX();
-		int newXRight = (int)toPosition.getX() + (int)unitTile.getWidth();
+		int newXRight = newX + (int)unitTile.getWidth();
 		int newY = (int)toPosition.getY();
-		int newYDown = (int)toPosition.getY() + (int)unitTile.getHeight();
+		int newYDown = newY + (int)unitTile.getHeight();
+		int oldX = (int)unitTile.getX();
+		int oldY = (int)unitTile.getY();
 		int returnX = oldX;
 		int returnY = oldY;
-		
+
 		//Check if new X position is allowed
 		if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Point(newX, oldY))){
 			returnX = newX;
 		}
-		
+
 		//Check if new Y position is allowed
 		if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Point(oldX, newY))){
 			returnY = newY;
-                }
+		}
 		return new Point(returnX, returnY);
-		
+
 	}
 	
 	/**

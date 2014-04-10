@@ -11,18 +11,13 @@ import java.awt.Rectangle;
  */
 public class Model {
 	
-	//variables
-	private List<Room> roomList;
-	private List<Player> playerList;
+	private List<Room> roomList = new ArrayList<Room>();
+	private List<Player> playerList = new ArrayList<Player>();
 	private Room activeRoom;
 	
-	//constructor
 	public Model(){
-		roomList = new ArrayList<Room>();
-		playerList = new ArrayList<Player>();
 	}
 	
-	//methods
 	public Player addPlayer(IPlayerInput input){
 		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32), playerList.size());
 		playerList.add(newPlayer);
