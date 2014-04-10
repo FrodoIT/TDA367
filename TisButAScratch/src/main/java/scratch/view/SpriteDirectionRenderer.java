@@ -17,8 +17,8 @@ public class SpriteDirectionRenderer {
 	private final Map<MoveDirection, Animation> moveAnimations = new HashMap<MoveDirection, Animation>();
 	private final Map<MoveDirection, Image> lookDirections = new HashMap<MoveDirection, Image>();
 
-	private final int[] duration;
-	private Animation sprite, north, south, west, east;
+
+	private Animation sprite;
 	
 	//TODO the logic which lastMoveInput is used for can use sprite instead.
 	// but the logic for matching MoveDirection with the repective animation needs to be done at one place or another
@@ -45,18 +45,18 @@ public class SpriteDirectionRenderer {
 		setupMovementDirectionSprite(movementEast, EAST);
 		setupMovementDirectionSprite(movementNorth, NORTH);
 		setupMovementDirectionSprite(movementWest, WEST);
-		
-		duration = new int[imagesPerDirection];
+
+		int[] duration = new int[imagesPerDirection];
 		for (int i = 0 ; i < imagesPerDirection ; i ++) {
 			duration[i] = 100; 
 			// TODO duration = 100 can't be used always. if many images is used to show
 			//one direction then it would be wiser to let the duration depend on the number of images
 		}
-		
-		north = new Animation(movementNorth, duration, true);
-		south = new Animation(movementSouth, duration, true);
-		west = new Animation(movementWest, duration, true);
-		east = new Animation(movementEast, duration, true);
+
+		Animation north = new Animation(movementNorth, duration, true);
+		Animation south = new Animation(movementSouth, duration, true);
+		Animation west = new Animation(movementWest, duration, true);
+		Animation east = new Animation(movementEast, duration, true);
 		sprite = south;
 
 		
