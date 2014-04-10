@@ -18,7 +18,7 @@ public class RoomView {
 	//variables
 	private Room room;
 	private TiledMap map;
-        private Map npcViews;
+        private Map<Integer, NpcView> npcViews;
 	
 	public RoomView(Room room, TiledMap map, Map<Integer, NpcView> npcViews) {
 		this.room = room;
@@ -30,8 +30,9 @@ public class RoomView {
 		map.render(0, 0);
                 
                 for(INpc npc : room.getNpcs()){
-                    if(npcViews.containsKey(npc.getID())){
-                        ((NpcView)npcViews.get(npc.getID())).render(npc, g);
+                    int id = npc.getID();
+                    if(npcViews.containsKey(id)){
+                        npcViews.get(id).render(npc, g);
                     }
                 }
 	}
