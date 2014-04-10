@@ -1,4 +1,4 @@
-package scratch.construction;
+package scratch.model;
 
 import java.awt.Point;
 import java.awt.Rectangle;

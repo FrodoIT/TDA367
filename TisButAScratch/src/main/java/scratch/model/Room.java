@@ -1,5 +1,4 @@
 package scratch.model;
-import scratch.construction.NpcType;
 
 import java.awt.Point;
 import java.awt.Rectangle;
