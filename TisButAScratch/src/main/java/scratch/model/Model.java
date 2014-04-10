@@ -11,18 +11,23 @@ import java.awt.Rectangle;
  */
 public class Model {
 	
-	private List<Room> roomList = new ArrayList<Room>();
-	private List<Player> playerList = new ArrayList<Player>();
+	private List<Player> playerList;
 	private Room activeRoom;
 	
 	public Model(){
+            playerList = new ArrayList<Player>();
+            activeRoom = null;
+            
 	}
 	
 	public Player addPlayer(IPlayerInput input){
+            if (activeRoom != null){
 		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32), playerList.size());
 		playerList.add(newPlayer);
 		activeRoom.enterRoom(newPlayer);
 		return newPlayer;
+            }
+            return null;
 	}
 	public void removePlayer(Player player){
 		playerList.remove(player);
@@ -31,7 +36,6 @@ public class Model {
 	public void setMap(List<Room> gameMapRooms){
 		//TODO: will need to be further implemented later.
 		//set the active room. Currently there should only be one.
-		roomList = gameMapRooms;
 		activeRoom = gameMapRooms.get(0);
 	}
 	

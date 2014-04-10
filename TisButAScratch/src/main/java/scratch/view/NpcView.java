@@ -16,7 +16,6 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author Ivar
  */
 public class NpcView{
-    private TiledMap tiledMap;
     private SpriteDirectionRenderer spriteHandler;
     
     public NpcView(String imagePath){

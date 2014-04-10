@@ -19,7 +19,6 @@ public class PlayerController implements IPlayerInput {
 	private Model model;
 	private View view;
 	private Player player;
-	private PlayerView playerView;
 	private MoveDirection moveDirection = MoveDirection.NONE;
 	private boolean attack, interact;
 	
@@ -36,7 +35,6 @@ public class PlayerController implements IPlayerInput {
 	
 	public void removePlayer(){
 		model.removePlayer(player);
-		view.removePlayerView(playerView);
 	}
 	
 	

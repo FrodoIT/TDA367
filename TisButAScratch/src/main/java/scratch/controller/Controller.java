@@ -27,7 +27,6 @@ public class Controller implements Game{
 	private Model model;
 	private View view;
 	private List<PlayerController> playerControllerList;
-	private List<WorldController> worldControllerList;	
 
 	public Controller(Model model, View view){
 		this.view = view;
@@ -70,9 +69,7 @@ public class Controller implements Game{
 	public List<PlayerController> getPlayerControllerList(){
 		return playerControllerList;
 	}
-	public List<WorldController> getWorldControllerList(){
-		return worldControllerList;
-	}
+
 	@Override
 	public boolean closeRequested() {
 		return true;
