@@ -11,9 +11,12 @@ import java.awt.Point;
 
 public interface ICharacter {
 	public int getHealth();
+	public void takeDamage(int dmg);
 	public Point getPosition();
 	public int getDamage();
 	public int getMovementSpeed();
 	public IWeapon getWeapon();
 	public void setPosition(Point position);
+	//Called by room to se where the caracter WANTS to go.
+	public Point calculateMovementPosition();
 }
