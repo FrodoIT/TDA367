@@ -24,7 +24,7 @@ public class Model {
 	
 	//methods
 	public Player addPlayer(IPlayerInput input){
-		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32));
+		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32), playerList.size());
 		playerList.add(newPlayer);
 		activeRoom.enterRoom(newPlayer);
 		return newPlayer;

@@ -27,7 +27,7 @@ public class PlayerView {
 		animationSetUp();
 	}
 	
-	public void animationSetUp(){
+	private final void animationSetUp(){
 		//TODO should probably be moved to another class later
 		//we fetch the sprite through a tiledmap (like we do with the room map)
 		

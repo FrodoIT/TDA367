@@ -9,14 +9,15 @@ import java.awt.Rectangle;
  */
 public class Player {
 	private int health;
-        private int id;
+        private final int id;
         private int movementSpeed;
 	private Rectangle unitTile;
         private IPlayerInput playerInput;
 	
-	public Player(IPlayerInput playerInput, Rectangle unitTile){
+	public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
 		this.playerInput=playerInput;
 		movementSpeed = 2;
+		this.id = id;
                 //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
                 this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
 	}

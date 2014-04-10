@@ -31,13 +31,12 @@ public class PlayerController implements IPlayerInput {
 	
 	private void addPlayer(){
 		player=model.addPlayer(this);
-		playerView = new PlayerView(player);
-		view.addPlayerView(playerView);
-		
+		view.addPlayerView(player);
 	}
 	
 	public void removePlayer(){
 		model.removePlayer(player);
+		view.removePlayerView(playerView);
 	}
 	
 	
