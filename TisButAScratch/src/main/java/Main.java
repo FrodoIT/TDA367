@@ -12,7 +12,7 @@ import controller.Controller;
  * @revisedBy Anna Nylander
  *
  */
-public class main {
+public class Main {
 	public static void main (String[] args) throws SlickException{
 		Model model = new Model();
 		View view = new View(model);
