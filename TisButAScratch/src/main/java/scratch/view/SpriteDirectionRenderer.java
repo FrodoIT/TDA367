@@ -1,5 +1,6 @@
 package scratch.view;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,8 +15,8 @@ public class SpriteDirectionRenderer {
 
 	private static final int SOUTH = 0, EAST = 1, NORTH = 2, WEST = 3;
 	
-	private final Map<MoveDirection, Animation> moveAnimations = new HashMap<MoveDirection, Animation>();
-	private final Map<MoveDirection, Image> lookDirections = new HashMap<MoveDirection, Image>();
+	private final Map<MoveDirection, Animation> moveAnimations = new EnumMap<>(MoveDirection.class);
+	private final Map<MoveDirection, Image> lookDirections = new EnumMap<>(MoveDirection.class);
 
 
 	private Animation sprite;
@@ -30,7 +31,7 @@ public class SpriteDirectionRenderer {
 	public SpriteDirectionRenderer(TiledMap map) {
 		int nbrOfSprites = map.getWidth();
 		if (nbrOfSprites % 4 != 0)
-			throw new IllegalArgumentException("Number of pictures for sprites must be equally many for each direciton");
+			throw new IllegalArgumentException("Number of pictures for sprites must be equally many for each direciton", null);
 
 		this.map = map;
 
