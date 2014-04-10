@@ -1,0 +1,81 @@
+Meeting Agenda
+
+  Date: 2014-04-10  12:55
+
+  Facilitator: Adam Waldenberg
+
+  Participants: André Samuelsson, Ivar Josefsson, Alma Ottedag
+
+1. Objectives (5 min) Resolve any issues preventing the team to 
+  continue (this should be possible to verify at next meeting, 
+  short clear description, use issues from project site). 
+
+Delegate work between the group members regarding the implementation of reflections. 
+This is how the pluginloader will be used and precicely what we will put in the plugins.
+What, when and how.
+
+2. Reports (15 min) From previous meetings, (un)solved issues, 
+  etc. , see also 4 
+We have all learned how to use reflections independently, such that everyone knows the basics and can use their newly acquired skills in our project.
+
+
+3. Discussion items (35 min)
+
+How do we implement reflections (plugins) 
+ 
+We create ONE AI to begin with, doing only one movement. For example going towards the player or a point with a certain speed. (Possibly create ONE movement for each plugin, thereof creating the possibility to pair up AI with a decorator pattern, to create more advanced AI.)
+
+When we use the NPC factory, is it going to read everything one at a time or room-wise?
+- Probably going to be in the constructor of the Room. We need to read from the map to get collission, from a certain npc layer. (The collission layer is a layer with zeroes and ones for where there is collision.) We need one layer for interactiveObjects and one for NPCS. 
+
+We need to implement attacks and interaction for the player and attacks for the npc.  The room needs to know what is being attacked. (area is attacked/has been. ex. define attack using rectangle and intersects?)
+
+We also want to be able to load monsters from the map (tile layer) and, then see how we implement it when we have lots of enemies  (we can’t have One tile for every single enemy). (for now everything in the same layer is the same monster/npc). ← One layer for every npc with an ID. 
+
+We will probably postpone interactiveobjects until next week.
+
+If we use plugins for interactiveobjects we use it like for npc and make it really simple. (so it’s easy to expand later?).
+
+What we can do is implement the logic for pushing a button (model) resulting in the spawning of an npc.
+
+For now we implement attack for the NPC in the MonsterType class, not in plugin (not high on priority list).
+The room updates the player → player’s attack
+Via plugin with behaviours (generic behaviour) which has something to do with the room, something to do with the player (follow player), and one behavipour with generic that … In all, the generic defines what the plugin acts on.
+
+for each unit, → perform action.
+calculateMovement takes a parameter Action (much like playerInput, “i want to go where and do this/that”) (tell don’t ask). 
+
+Until 
+What do we start with?
+Priority list:
+Follow FindBugs and PMD recommendations
+Npc movement (AI plugin)
+Npc collision (Map)
+Player attack
+NPC collision (Player)
+NPC-s represented and loaded from map.
+XML file plugin
+Player interact
+NPC attack
+
+Until when?
+Monday is when.
+
+
+4. Outcomes and assignments (5 min) 
+	André & Ivar & Alma & Anna- findbugs. Everybody fix.
+We are relying on everybody’s high motivation and regular expression of dissastisfaction when work is not done in order to keep the project moving forward. 
+FILL IN WHENEVER YOU DO… things:
+Ivar -
+Alma -
+André -
+Anna - 
+
+
+Issue tracker Git-hub? : bug-tracker, “This is bork , you fix this!”.
+
+5. Wrap up 
+Next meeting: Monday~ 
+
+
+
