@@ -82,8 +82,8 @@ public class Room {
 	
 	/**
 	 * Checks if there's a collision at the given coordinates
-	 * @param x is the coordinate on the X axis
-	 * @param y is the coordinate on the Y axis
+	 * @param objectToPlace A "hitbox" of the object to place at placeToPut
+	 * @param placeToPut the place to put objectToPlace at
 	 * @return true if there is a collision
 	 */
 	private boolean mapCollision(Rectangle objectToPlace, Point placeToPut){
