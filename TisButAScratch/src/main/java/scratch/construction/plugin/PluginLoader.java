@@ -20,44 +20,48 @@ import scratch.utils.FileScanner;
  * @author Ivar
  */
 public class PluginLoader {
-    public static final String pluginPath = "";
+    public static final String pluginPath = "/home/pippin/repo01/datafiles/TDA367/TisButAScratch/target/classes/scratch/construction/plugin/exported/";
     
-    private static List<Class<?>> getPluginClasses (Class annotationType) throws ClassNotFoundException{
+    private static List<Class<?>> getPluginClasses (Class annotationType) {
         List<File> files = FileScanner.getFiles(new File(pluginPath));
         PluginClassLoader pluginClassLoader = new PluginClassLoader();
         List<Class<?>> classList = new ArrayList<Class<?>>();
-        for(File file: files){
+        for(File file: files) {
             String fileName = file.getName();
             String strippedName = fileName.substring(0, fileName.indexOf(".class"));
-            try{
+            try {
                 Class loadedClass = pluginClassLoader.loadClass(strippedName);
-                if(loadedClass.getAnnotation(annotationType) != null){
+                if(loadedClass.getAnnotation(annotationType) != null) {
                     classList.add(loadedClass);
                 }
-            }catch(ClassNotFoundException e){
+            }catch(ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
         return classList;
     }
     
-    private static Map<Integer, Pluggable<?>> getPluginsFromPluginClasses(List<Class<?>> classList) throws InstantiationException{
+    private static Map<Integer, Pluggable<?>> getPluginsFromPluginClasses(List<Class<?>> classList) {
         Map<Integer, Pluggable<?>> map =  new HashMap<Integer, Pluggable<?>>();
-        for(Class<?> aClass : classList ){
+        for(Class<?> aClass : classList ) {
             Object newInstance = null;            
             
             try {
                 newInstance = aClass.newInstance();
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(PluginLoader.class.getName()).log(Level.SEVERE, null, ex);
-            } catch(InstantiationException exc){
+            } catch(InstantiationException exc) {
                 exc.printStackTrace();
             }
             
-            if(newInstance != null){
+            if(newInstance != null) {
                 map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
             }
         }
         return map;
+    }
+
+    public static Map<Integer,Pluggable<?>> loadPlugins() {
+         return getPluginsFromPluginClasses(getPluginClasses(AIPlugin.class));
     }
 }
