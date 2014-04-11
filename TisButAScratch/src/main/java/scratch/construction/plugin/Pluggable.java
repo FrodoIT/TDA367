@@ -13,5 +13,5 @@ import java.awt.Point;
  * @author Ivar
  */
 public interface Pluggable<T> {
-    public Point calculateNewPosition(Point playerPosition);
+    public T get();
 }
