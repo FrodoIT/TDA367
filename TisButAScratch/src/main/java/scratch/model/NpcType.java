@@ -2,6 +2,10 @@ package scratch.model;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+
+import scratch.construction.plugin.PluginClassLoader;
+import scratch.construction.plugin.PluginLoader;
+import scratch.construction.plugin.exported.SimpleMovePlugin;
 import scratch.model.weapons.IWeapon;
 
 /**
@@ -17,10 +21,10 @@ public class NpcType implements INpc {
 	private int movementSpeed;
 	private final String imagePath;
 	private final int id;
-    private INPCMove movementPattern;
 	private MoveDirection moveDirection;
         private boolean hostile;
         private boolean alive;
+    private INPCMove movementPattern;
 
 	public NpcType(Rectangle unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id){
 		this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
@@ -51,11 +55,6 @@ public class NpcType implements INpc {
         public boolean isHostile(){
             return hostile;
         }
-
-    @Override
-    public void setMovementPattern(INPCMove npcMove) {
-        this.movementPattern = npcMove;
-    }
 
     /**
 	 * Call to get a Point with the position of the NPC
@@ -105,10 +104,9 @@ public class NpcType implements INpc {
 		return unitTile;
 	}
 
-	@Override
-	public Point calculateMovementPosition() {
-		//TODO Replace this with plugin logic
-		return new Point(getPosition().x+1, getPosition().y);
+    @Override
+	public Point calculateMovementPosition(IRoomData roomData) {
+       return movementPattern.calculateNewPosition(roomData, this);
 	}
 
 	private void calculateMoveDirection(Point newPosition){
@@ -145,7 +143,7 @@ public class NpcType implements INpc {
 		return moveDirection;
 	}
 
-	public void setHealth(int health) {
+	public void setHealth(int health){
 		this.health = health;
 	}
 
@@ -156,4 +154,9 @@ public class NpcType implements INpc {
 	public String getImagePath(){
 		return imagePath;
 	}
+
+    @Override
+    public void setMovementPattern(INPCMove movementPattern) {
+        this.movementPattern = movementPattern;
+    }
 }

@@ -7,6 +7,7 @@ import scratch.model.weapons.IWeapon;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
+ * TODO: Add logic for colission detection here through IRoomData.
  *
  */
 public class Player implements ICharacter {
@@ -30,7 +31,7 @@ public class Player implements ICharacter {
 	}
 
 	@Override
-	public Point calculateMovementPosition(){
+	public Point calculateMovementPosition(IRoomData roomData){
 		return calculateNewPosition(playerInput.getMoveInput());
 	}
         

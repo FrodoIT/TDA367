@@ -21,6 +21,6 @@ public interface ICharacter {
 	public void setPosition(Point position);
 	public Rectangle getUnitTile();
 	//Called by room to se where the caracter WANTS to go.
-	public Point calculateMovementPosition();
+	public Point calculateMovementPosition(IRoomData roomData);
         public boolean alive();
 }

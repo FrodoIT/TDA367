@@ -56,7 +56,7 @@ public class Room implements IRoomData{
 
 	private void updateCharacter(ICharacter character) {
 		if (character.alive()){
-                    Point newPosition = character.calculateMovementPosition();
+                    Point newPosition = character.calculateMovementPosition(this);
                     character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
                     takeDamage(character);
                 }
