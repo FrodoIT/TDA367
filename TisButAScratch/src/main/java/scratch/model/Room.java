@@ -4,13 +4,14 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import scratch.model.weapons.Knuckles;
 
 /**
  * Represents a single room and the contents in it.
  * @author Ivar Josefsson
  *
  */
-public class Room {
+public class Room implements IRoomData{
 
 	private List<Player> players;
 	private List<INpc> npcs;
@@ -20,7 +21,7 @@ public class Room {
 		this.map = collisionMap;
 		players = new ArrayList();
 		npcs = new ArrayList();
-		npcs.add(new NpcType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
+		npcs.add(new NpcType(new Rectangle(50,50,32,32), new Knuckles(), 1, 1, null, 0));
 	}
 
 	/**
@@ -41,10 +42,26 @@ public class Room {
 		players.remove(player);
 	}
 
-	private void moveCharacter(ICharacter character) {
-		Point newPosition = character.calculateMovementPosition();
-		character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
+	private void updateCharacter(ICharacter character) {
+		if (character.alive()){
+                    Point newPosition = character.calculateMovementPosition();
+                    character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
+                    takeDamage(character);
+                }
+
 	}
+        
+        private boolean takeDamage(ICharacter character){
+            if (character instanceof Player){
+                for (INpc npc:npcs){
+                    if (npc.isHostile() && npc.getUnitTile().intersects(character.getUnitTile())){
+                        character.takeDamage(npc.getDamage());
+                        
+                    }
+                }
+            }
+            return false;
+        }
 
 	/**
 	 * Called to determine the best allowed position
@@ -110,11 +127,20 @@ public class Room {
 
 	public void update(){
 		for (Player player:players){
-			moveCharacter(player);
+			updateCharacter(player);
 		}
 		for (INpc npc : npcs){
-			moveCharacter(npc);
-			//npc.update(players.get(0).getPosition());
+			updateCharacter(npc);
 		}
 	}
+
+    @Override
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    @Override
+    public IMap getMap() {
+        return map;
+    }
 }

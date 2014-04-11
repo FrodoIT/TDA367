@@ -22,4 +22,5 @@ public interface ICharacter {
 	public Rectangle getUnitTile();
 	//Called by room to se where the caracter WANTS to go.
 	public Point calculateMovementPosition();
+        public boolean alive();
 }

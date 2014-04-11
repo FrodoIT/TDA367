@@ -1,9 +1,9 @@
 package scratch.model;
 
-import scratch.model.weapons.IWeapon;
-
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.Date;
+import scratch.model.weapons.IWeapon;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
@@ -15,11 +15,16 @@ public class Player implements ICharacter {
 	private int movementSpeed;
 	private Rectangle unitTile;
 	private IPlayerInput playerInput;
+        private Date tookDamageAtTime;
+        private boolean alive;
 
 	public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
 		this.playerInput=playerInput;
 		movementSpeed = 2;
 		this.id = id;
+                this.health = 10;
+                tookDamageAtTime = new Date();
+                alive = true;
 		//TODO: Can we rely on clone here? Not certain that the copy will be deep enough
 		this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
 	}
@@ -28,6 +33,11 @@ public class Player implements ICharacter {
 	public Point calculateMovementPosition(){
 		return calculateNewPosition(playerInput.getMoveInput());
 	}
+        
+        @Override
+        public boolean alive() {
+            return alive;
+        }
 
 
 	public Point calculateNewPosition(MoveDirection direction){
@@ -74,9 +84,21 @@ public class Player implements ICharacter {
 		return new Point((int)getPosition().getX()+deltaX, (int)getPosition().getY()+deltaY);
 	}
 
+        /**
+         * The player will take damage if enough time has passed since last time he took damage
+         * @param dmg is the amount of damage the npc should take
+         * @return true if the NPC is still alive.
+         */
 	@Override
 	public void takeDamage(int dmg){
-		health=health-dmg;
+		Date moment = new Date();
+                if (Math.abs(tookDamageAtTime.getTime() - moment.getTime()) > Constants.TIME_BETWEEN_DAMAGE_INSTANCE){
+                    tookDamageAtTime = moment;
+                    health=health-dmg;
+                }
+                if (health< 0){
+                    alive = false;
+                }
 	}
 
 	@Override

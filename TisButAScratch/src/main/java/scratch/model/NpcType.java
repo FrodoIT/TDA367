@@ -18,6 +18,8 @@ public class NpcType implements INpc {
 	private final String imagePath;
 	private final int id;
 	private MoveDirection moveDirection;
+        private boolean hostile;
+        private boolean alive;
 
 	public NpcType(Rectangle unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id){
 		this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
@@ -27,12 +29,27 @@ public class NpcType implements INpc {
 		this.imagePath = imagePath;
 		this.id = id;
 		moveDirection = MoveDirection.NONE;
+                hostile = true;
+                alive = true;
 	}
 
 
 	public void update(Point playerPos){
 
 	}
+        
+        @Override
+        public boolean alive() {
+            return alive;
+        }
+        
+        /**
+         * Call to determine if NPC is hostile
+         * @return 
+         */
+        public boolean isHostile(){
+            return hostile;
+        }
 
 	/**
 	 * Call to get a Point with the position of the NPC
@@ -62,9 +79,14 @@ public class NpcType implements INpc {
 		return movementSpeed;
 	}
 
-	@Override
+	/**
+         * The NPC will take damage if enough time has passed since last time he took damage
+         * @param dmg is the amount of damage the npc should take
+         * @return true if the NPC is still alive.
+         */
+        @Override
 	public void takeDamage(int dmg) {
-
+            //TODO
 	}
 
 	public void setPosition(Point position) {
