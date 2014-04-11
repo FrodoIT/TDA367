@@ -1,5 +1,8 @@
 package scratch.model;
 
+import scratch.construction.EnemyFactory;
+import scratch.model.weapons.Knuckles;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -21,8 +24,17 @@ public class Room implements IRoomData{
 		this.map = collisionMap;
 		players = new ArrayList();
 		npcs = new ArrayList();
-		npcs.add(new NpcType(new Rectangle(50,50,32,32), new Knuckles(), 1, 1, null, 0));
-	}
+
+        EnemyFactory enemyFactory = new EnemyFactory();
+
+        for (Rectangle rectangle : map.getNPCRectangles()) {
+            enemyFactory.createEnemy(rectangle);
+        }
+
+        for (INpc iNpc : enemyFactory.getEnemies()) {
+            npcs.add(iNpc);
+        }
+    }
 
 	/**
 	 * Adds the specified player from the Room
@@ -48,9 +60,8 @@ public class Room implements IRoomData{
                     character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
                     takeDamage(character);
                 }
+        }
 
-	}
-        
         private boolean takeDamage(ICharacter character){
             if (character instanceof Player){
                 for (INpc npc:npcs){
@@ -63,7 +74,7 @@ public class Room implements IRoomData{
             return false;
         }
 
-	/**
+    /**
 	 * Called to determine the best allowed position
 	 * @param unitTile the position we start from
 	 * @param toPosition the position we want to end at

@@ -17,6 +17,7 @@ public class NpcType implements INpc {
 	private int movementSpeed;
 	private final String imagePath;
 	private final int id;
+    private INPCMove movementPattern;
 	private MoveDirection moveDirection;
         private boolean hostile;
         private boolean alive;
@@ -51,7 +52,12 @@ public class NpcType implements INpc {
             return hostile;
         }
 
-	/**
+    @Override
+    public void setMovementPattern(INPCMove npcMove) {
+        this.movementPattern = npcMove;
+    }
+
+    /**
 	 * Call to get a Point with the position of the NPC
 	 * @return a copy of the pointer holding the position
 	 */

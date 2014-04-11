@@ -6,11 +6,11 @@
 
 package scratch.construction;
 
-import java.awt.Point;
-
+import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IMap;
 
-import org.newdawn.slick.tiled.TiledMap;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -41,5 +41,15 @@ public class SlickMap implements IMap{
     public int getWidth() {
         return map.getWidth()*map.getTileWidth();
     }
-    
+
+    @Override
+    public java.util.List<Rectangle> getNPCRectangles() {
+        //TODO implement this correcly. should load from tiled map. with layer npc
+        java.util.List<Rectangle> npcRectangles = new ArrayList<>();
+
+        npcRectangles.add(new Rectangle(32, 32, 32, 32));
+
+        return npcRectangles;
+    }
+
 }
