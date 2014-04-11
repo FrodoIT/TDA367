@@ -76,6 +76,6 @@ public class Controller implements Game{
 	}
 	@Override
 	public String getTitle() {
-		return "This but a Scratch";
+		return "'Tis but a Scratch";
 	}
 }
