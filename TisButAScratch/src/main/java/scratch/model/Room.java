@@ -11,18 +11,18 @@ import java.util.List;
  *
  */
 public class Room {
-	
+
 	private List<Player> players;
-        private List<INpc> npcs;
+	private List<INpc> npcs;
 	private IMap map;
-	
+
 	public Room(IMap collisionMap){
 		this.map = collisionMap;
 		players = new ArrayList();
-                npcs = new ArrayList();
-                npcs.add(new NpcType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
+		npcs = new ArrayList();
+		npcs.add(new NpcType(new Rectangle(50,50,32,32), null, 1, 1, null, 0));
 	}
-	
+
 	/**
 	 * Adds the specified player from the Room
 	 * @param player
@@ -30,9 +30,9 @@ public class Room {
 	public void enterRoom(Player player){
 		players.add(player);
 	}
-        public List<INpc> getNpcs(){
-            return npcs;
-        }
+	public List<INpc> getNpcs(){
+		return npcs;
+	}
 	/**
 	 * Removes the specified player from the Room
 	 * @param player
@@ -40,12 +40,12 @@ public class Room {
 	public void exitRoom(Player player){
 		players.remove(player);
 	}
-	
+
 	private void moveCharacter(ICharacter character) {
 		Point newPosition = character.calculateMovementPosition();
 		character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
 	}
-	
+
 	/**
 	 * Called to determine the best allowed position
 	 * @param unitTile the position we start from
@@ -75,7 +75,7 @@ public class Room {
 		return new Point(returnX, returnY);
 
 	}
-	
+
 	/**
 	 * Checks if there's a collision at the given coordinates
 	 * @param objectToPlace A "hitbox" of the object to place at placeToPut
@@ -84,24 +84,24 @@ public class Room {
 	 */
 	private boolean mapCollision(Rectangle objectToPlace, Point placeToPut){
 
-        Point northWest = new Point((int)placeToPut.getX() + 1, (int)placeToPut.getY()+1);
-        Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)placeToPut.getY()+1);
-        Point southWest = new Point((int)placeToPut.getX() + 1, (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
-        Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
+		Point northWest = new Point((int)placeToPut.getX() + 1, (int)placeToPut.getY()+1);
+		Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)placeToPut.getY()+1);
+		Point southWest = new Point((int)placeToPut.getX() + 1, (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
+		Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
 
-        return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
+		return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return: the total height of the map in pixels
 	 */
 	private int getMapHeight() {
 		return map.getHeight();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return: the total width of the map in pixels
 	 */
 	private int getMapWidth() {
