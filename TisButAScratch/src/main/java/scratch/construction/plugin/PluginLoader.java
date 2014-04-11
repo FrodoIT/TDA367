@@ -20,7 +20,7 @@ import scratch.utils.FileScanner;
  * @author Ivar
  */
 public class PluginLoader {
-    public static final String pluginPath = "/home/pippin/repo01/datafiles/TDA367/TisButAScratch/target/classes/scratch/construction/plugin/exported/";
+    public static final String pluginPath = "target/classes/scratch/construction/plugin/exported/";
     
     private static List<Class<?>> getPluginClasses (Class annotationType) {
         List<File> files = FileScanner.getFiles(new File(pluginPath));
