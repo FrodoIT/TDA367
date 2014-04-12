@@ -3,6 +3,7 @@ package scratch.controller;
 import scratch.construction.EnemyFactory;
 import scratch.construction.TempRoomFactory;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +38,10 @@ public class Controller implements Game{
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
-                
+
                 EnemyFactory enemyFactory = new EnemyFactory();
+                enemyFactory.createEnemy(new Rectangle(32,32));
+
                 for(INpc enemy : enemyFactory.getEnemies()){
                     view.addNpcView(enemy.getID(), enemy.getImagePath());
                 }
