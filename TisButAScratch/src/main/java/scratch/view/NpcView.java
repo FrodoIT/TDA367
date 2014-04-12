@@ -17,7 +17,7 @@ import org.newdawn.slick.tiled.TiledMap;
  */
 public class NpcView{
     private SpriteDirectionRenderer spriteHandler;
-    
+
     public NpcView(String imagePath){
         try {
             spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath) );
@@ -25,11 +25,11 @@ public class NpcView{
             e.printStackTrace();
         }
     }
-    
+
     public void render(INpc npc, Graphics g){
-            spriteHandler.render(g, npc.getMoveDirection(), npc.getPosition().x, npc.getPosition().y);
+        spriteHandler.render(g, npc.getMoveDirection(), npc.getPosition().getX(), npc.getPosition().getY());
 
     }
-    
-    
+
+
 }

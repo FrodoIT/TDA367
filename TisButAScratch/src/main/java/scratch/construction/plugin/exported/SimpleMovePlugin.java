@@ -11,6 +11,9 @@ import scratch.model.Vector2D;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * Moves NPC toward the Player.
+ */
 @AIPlugin(id = 1)
 public class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
 
@@ -21,9 +24,9 @@ public class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
 
     @Override
     public Vector2D calculateNewPosition(IRoomData roomData, INpc npc) {
-        Point playerPos = roomData.getPlayers().get(0).getPosition();
-        Point npcPos = npc.getPosition();
-        Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.x, npcPos.y), new Point2D.Double(playerPos.x, playerPos.y)).getNormalisedVector();
+        Vector2D playerPos = roomData.getPlayers().get(0).getPosition();
+        Vector2D npcPos = npc.getPosition();
+        Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()), new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
         int moveSpeed = npc.getMovementSpeed();
         return new Vector2D((npcPos.getX() + directionVector.getX()) * moveSpeed, (npcPos.getY() + directionVector.getY()) * moveSpeed);
 

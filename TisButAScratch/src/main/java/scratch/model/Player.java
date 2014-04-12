@@ -2,6 +2,7 @@ package scratch.model;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.util.Date;
 import scratch.model.weapons.IWeapon;
 /**
@@ -14,7 +15,7 @@ public class Player implements ICharacter {
 	private int health;
 	private final int id;
 	private int movementSpeed;
-	private Rectangle unitTile;
+	private Rectangle2D.Double unitTile;
 	private IPlayerInput playerInput;
         private Date tookDamageAtTime;
         private boolean alive;
@@ -27,7 +28,7 @@ public class Player implements ICharacter {
                 tookDamageAtTime = new Date();
                 alive = true;
 		//TODO: Can we rely on clone here? Not certain that the copy will be deep enough
-		this.unitTile = new Rectangle((int)unitTile.getX(), (int)unitTile.getY(), (int)unitTile.getWidth(), (int)unitTile.getHeight());
+		this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
 	}
 
 	@Override
@@ -108,9 +109,9 @@ public class Player implements ICharacter {
 	}
 
 	@Override
-	public Point getPosition() {
+	public Vector2D getPosition() {
 		//Copy to protect from unintentional modification
-		return new Point(unitTile.getLocation());
+		return new Vector2D(unitTile.getX(), unitTile.getY());
 	}
 
 	@Override
@@ -137,14 +138,14 @@ public class Player implements ICharacter {
 	}
 
 	@Override
-	public Rectangle getUnitTile(){
+	public Rectangle2D.Double getUnitTile(){
 		return unitTile;
 	}
 
 	@Override
 	public void setPosition(Vector2D newPosition){
         //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
-		unitTile.setLocation(new Point((int)newPosition.getX(),(int) newPosition.getY()));
+		unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
 	}
 
 }
