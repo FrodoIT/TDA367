@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.Date;
 import scratch.model.weapons.IWeapon;
-import scratch.model.weapons.Knuckles;
+import scratch.model.weapons.DefaultWeapon;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
@@ -31,7 +31,7 @@ public class Player implements ICharacter {
                 alive = true;
 		//TODO: Can we rely on clone here? Not certain that the copy will be deep enough
 		this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
-                weapon = new Knuckles();
+                weapon = new DefaultWeapon();
 	}
 
 	@Override

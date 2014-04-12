@@ -3,18 +3,18 @@ package scratch.model.weapons;
 import java.awt.geom.Rectangle2D;
 
 /**
- * The weapon Knuckles:
- * The default starting-weapon for all characters with the following stats:
- * Damage = 2
- * Range = 1
+ * The weapon DefaultWeapon:
+ The default starting-weapon for all characters with the following stats:
+ Damage = 2
+ Range = 1
  * @author Alma Ottedag
  */
-public class Knuckles implements IWeapon {
+public class DefaultWeapon implements IWeapon {
 	private final int damage;
 	private final int range;
         private final Rectangle2D.Double attackArea;
 
-	public Knuckles(){
+	public DefaultWeapon(){
 		damage = 2;
 		range = 1;
                 attackArea = new Rectangle2D.Double(0, 0, 3, 3);

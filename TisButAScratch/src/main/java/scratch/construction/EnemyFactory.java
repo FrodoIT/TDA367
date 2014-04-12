@@ -5,7 +5,7 @@ import scratch.construction.plugin.PluginLoader;
 import scratch.model.INPCMove;
 import scratch.model.INpc;
 import scratch.model.NpcType;
-import scratch.model.weapons.Knuckles;
+import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class EnemyFactory {
 
     public void createEnemy(Rectangle rect) {
         //TODO this needs refactoring. for example all monsters have same id (1)
-        NpcType npc = new NpcType(rect, new Knuckles(), 1, 1, "/res/playerSprite.tmx", 1, (INPCMove) aiMoves.get(1).get());
+        NpcType npc = new NpcType(rect, new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 1, (INPCMove) aiMoves.get(1).get());
         npcs.add(npc);
     }
 }
