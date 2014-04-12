@@ -1,14 +1,12 @@
 package scratch.construction;
 
-import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
-import scratch.construction.plugin.PluginClassLoader;
 import scratch.construction.plugin.PluginLoader;
-import scratch.construction.plugin.exported.SimpleMovePlugin;
 import scratch.model.INPCMove;
 import scratch.model.INpc;
 import scratch.model.NpcType;
 import scratch.model.weapons.Knuckles;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
