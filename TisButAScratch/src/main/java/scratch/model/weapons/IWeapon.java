@@ -9,4 +9,5 @@ public interface IWeapon {
 	public int getDamage();
 	public int getRange();
         public Rectangle2D.Double getAttackArea();
+        public boolean attack();
 }
