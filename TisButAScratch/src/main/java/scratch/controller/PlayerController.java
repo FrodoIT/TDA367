@@ -70,10 +70,14 @@ public class PlayerController implements IPlayerInput {
 		//Attack & Interact commands can be sent at the same time as movement command
 		if (input.isKeyDown(Input.KEY_X)){
 			setAttackInput(true);
-		}
+		} else {
+                        setAttackInput(false);
+                }
 		if (input.isKeyDown(Input.KEY_Z)){
 			setInteractInput(true);
-		}
+		} else {
+                        setInteractInput(false);
+                }
             } else {
                 resetInput();
             }
