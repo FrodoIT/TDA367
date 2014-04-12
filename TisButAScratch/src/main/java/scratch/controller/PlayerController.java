@@ -39,6 +39,7 @@ public class PlayerController implements IPlayerInput {
 	
 	
 	public void registerInput(Input input){
+            if(player.alive()){
 		if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)){
 			//Move South-west
 			setMoveInput(MoveDirection.SOUTHWEST);
@@ -73,26 +74,45 @@ public class PlayerController implements IPlayerInput {
 		if (input.isKeyDown(Input.KEY_Z)){
 			setInteractInput(true);
 		}
-		
+            } else {
+                resetInput();
+            }
 		
 	}
+        
+        
+        @Override
 	public void setAttackInput(boolean attack){
 		this.attack=attack;
 	}
+        @Override
 	public void setInteractInput(boolean interact){
 		this.interact=interact;
 	}
+        @Override
 	public void setMoveInput(MoveDirection direction){
 		this.moveDirection=direction;
 	}
 	
+        @Override
 	public boolean getAttackInput(){
 		return attack;
 	}
+        @Override
 	public boolean getInteractInput(){
 		return interact;
 	}
+        @Override
 	public MoveDirection getMoveInput(){
 		return moveDirection;
 	}
+        
+        @Override
+        public void resetInput(){
+            attack = false;
+            interact = false;
+            moveDirection = MoveDirection.NONE;
+        }
+        
+
 }

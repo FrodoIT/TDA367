@@ -6,4 +6,5 @@ public interface IPlayerInput {
 	public void setAttackInput(boolean attack);
 	public void setInteractInput(boolean interact);
 	public void setMoveInput(MoveDirection direction);
+        public void resetInput();
 }
