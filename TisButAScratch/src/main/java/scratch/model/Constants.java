@@ -11,5 +11,5 @@ package scratch.model;
  * @author Cannonbait
  */
 public class Constants {
-    public static int TIME_BETWEEN_DAMAGE_INSTANCE = 500;
+    public static final int TIME_BETWEEN_DAMAGE_INSTANCE = 500;
 }
