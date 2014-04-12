@@ -9,6 +9,7 @@ import scratch.model.IRoomData;
 import scratch.model.Vector2D;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 @AIPlugin(id = 1)
 public class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
@@ -19,14 +20,12 @@ public class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
     }
 
     @Override
-    public Point calculateNewPosition(IRoomData roomData, INpc npc) {
-        return new Point(npc.getPosition().x +1, npc.getPosition().y);
-        /*
+    public Vector2D calculateNewPosition(IRoomData roomData, INpc npc) {
         Point playerPos = roomData.getPlayers().get(0).getPosition();
         Point npcPos = npc.getPosition();
-        Vector2D directionVector = new Vector2D(npcPos, playerPos).getNormalisedVector();
+        Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.x, npcPos.y), new Point2D.Double(playerPos.x, playerPos.y)).getNormalisedVector();
         int moveSpeed = npc.getMovementSpeed();
-        return new Point((int)(npcPos.getX()+directionVector.getX())*moveSpeed, (int)(npcPos.getY() + directionVector.getY())*moveSpeed);
-        */
+        return new Vector2D((npcPos.getX() + directionVector.getX()) * moveSpeed, (npcPos.getY() + directionVector.getY()) * moveSpeed);
+
     }
 }

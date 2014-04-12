@@ -8,6 +8,7 @@ package scratch.construction;
 
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IMap;
+import scratch.model.Vector2D;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ public class SlickMap implements IMap{
         collisionIndex = map.getLayerIndex("collision");
     }
     
-    public boolean isColliding(Point point) {
+    public boolean isColliding(Vector2D coordinate) {
     	try {
-    		return (map.getTileId((int)point.getX() / map.getTileWidth(), (int)point.getY() / map.getTileHeight(), collisionIndex) != 0);
+    		return (map.getTileId((int) coordinate.getX() / map.getTileWidth(),(int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
     	}catch(IndexOutOfBoundsException e){
     		return false;
     	}

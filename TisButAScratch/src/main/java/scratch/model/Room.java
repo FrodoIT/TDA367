@@ -1,13 +1,10 @@
 package scratch.model;
 
 import scratch.construction.EnemyFactory;
-import scratch.model.weapons.Knuckles;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import scratch.model.weapons.Knuckles;
 
 /**
  * Represents a single room and the contents in it.
@@ -56,7 +53,7 @@ public class Room implements IRoomData{
 
 	private void updateCharacter(ICharacter character) {
 		if (character.alive()){
-                    Point newPosition = character.calculateMovementPosition(this);
+                    Vector2D newPosition = character.calculateMovementPosition(this);
                     character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
                     takeDamage(character);
                 }
@@ -80,28 +77,27 @@ public class Room implements IRoomData{
 	 * @param toPosition the position we want to end at
 	 * @return the best allowed position
 	 */
-	private Point allowedPosition(Rectangle unitTile, Point toPosition){
+	private Vector2D allowedPosition(Rectangle unitTile, Vector2D toPosition){
 
-		int newX = (int)toPosition.getX();
-		int newXRight = newX + (int)unitTile.getWidth();
-		int newY = (int)toPosition.getY();
-		int newYDown = newY + (int)unitTile.getHeight();
-		int oldX = (int)unitTile.getX();
-		int oldY = (int)unitTile.getY();
-		int returnX = oldX;
-		int returnY = oldY;
+		double newX = toPosition.getX();
+		double newXRight = newX + unitTile.getWidth();
+		double newY = toPosition.getY();
+		double newYDown = newY + unitTile.getHeight();
+	    double oldX = unitTile.getX();
+		double oldY = unitTile.getY();
+		double returnX = oldX;
+		double returnY = oldY;
 
 		//Check if new X position is allowed
-		if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Point(newX, oldY))){
+		if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))){
 			returnX = newX;
 		}
 
 		//Check if new Y position is allowed
-		if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Point(oldX, newY))){
+		if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))){
 			returnY = newY;
 		}
-		return new Point(returnX, returnY);
-
+		return new Vector2D(returnX, returnY);
 	}
 
 	/**
@@ -110,12 +106,12 @@ public class Room implements IRoomData{
 	 * @param placeToPut the place to put objectToPlace at
 	 * @return true if there is a collision
 	 */
-	private boolean mapCollision(Rectangle objectToPlace, Point placeToPut){
+	private boolean mapCollision(Rectangle objectToPlace, Vector2D placeToPut){
 
-		Point northWest = new Point((int)placeToPut.getX() + 1, (int)placeToPut.getY()+1);
-		Point northEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)placeToPut.getY()+1);
-		Point southWest = new Point((int)placeToPut.getX() + 1, (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
-		Point southEast = new Point((int)(placeToPut.getX() + objectToPlace.getWidth()-1), (int)(placeToPut.getY() + objectToPlace.getHeight()-1));
+		Vector2D northWest = new Vector2D (placeToPut.getX() + 1, placeToPut.getY() + 1);
+		Vector2D northEast = new Vector2D (placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
+		Vector2D southWest = new Vector2D(placeToPut.getX()+ 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+		Vector2D southEast = new Vector2D (placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
 
 		return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
 	}

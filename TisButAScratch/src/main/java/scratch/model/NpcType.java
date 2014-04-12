@@ -3,9 +3,6 @@ package scratch.model;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import scratch.construction.plugin.PluginClassLoader;
-import scratch.construction.plugin.PluginLoader;
-import scratch.construction.plugin.exported.SimpleMovePlugin;
 import scratch.model.weapons.IWeapon;
 
 /**
@@ -38,11 +35,6 @@ public class NpcType implements INpc {
                 alive = true;
 	}
 
-
-	public void update(Point playerPos){
-
-	}
-        
         @Override
         public boolean alive() {
             return alive;
@@ -94,9 +86,9 @@ public class NpcType implements INpc {
             //TODO
 	}
 
-	public void setPosition(Point position) {
+	public void setPosition(Vector2D position) {
 		calculateMoveDirection(position);
-		unitTile.setLocation(position);
+		unitTile.setLocation(new Point((int)position.getX(), (int)position.getY()));
 	}
 
 	@Override
@@ -105,13 +97,13 @@ public class NpcType implements INpc {
 	}
 
     @Override
-	public Point calculateMovementPosition(IRoomData roomData) {
+	public Vector2D calculateMovementPosition(IRoomData roomData) {
        return movementPattern.calculateNewPosition(roomData, this);
 	}
 
-	private void calculateMoveDirection(Point newPosition){
-		double diffX = newPosition.x - unitTile.x;
-		double diffY = newPosition.y - unitTile.y;
+	private void calculateMoveDirection(Vector2D newPosition){
+		double diffX = newPosition.getX() - unitTile.x;
+		double diffY = newPosition.getY() - unitTile.y;
 		double theta = Math.atan(diffY / diffX)*180/Math.PI;
 
 		if(diffX == 0 && diffY == 0){

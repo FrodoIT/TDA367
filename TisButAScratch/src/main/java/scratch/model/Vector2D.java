@@ -1,22 +1,21 @@
 package scratch.model;
 
-import java.awt.*;
+import java.awt.geom.Point2D;
 
-/**
- * Remember that the direction uses Math.atan which does not work the way you would expect.
- * At the moment the normalised vector's decimals are cut off, therefore it might not work as expected either...
- */
 public class Vector2D {
-    private final Point vectorinfo;
+    private final Point2D.Double vectorInfo;
 
-    private final double magnitude, x, y;
+    private final double magnitude;
 
-    public Vector2D(Point startPoint, Point endPoint){
-        vectorinfo = new Point();
-        vectorinfo.setLocation(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
-        this.magnitude = Math.sqrt((vectorinfo.x) * (vectorinfo.x) + (vectorinfo.y) * (vectorinfo.y));
-        x = vectorinfo.getX();
-        y = vectorinfo.getY();
+    public Vector2D(Point2D.Double startPoint, Point2D.Double endPoint){
+        vectorInfo = new Point2D.Double(endPoint.x - startPoint.x, endPoint.y - startPoint.y);
+        this.magnitude = Math.sqrt((vectorInfo.x) * (vectorInfo.x) + (vectorInfo.y) * (vectorInfo.y));
+    }
+
+    //Position vector. Used instead of Point.
+    public Vector2D(double x, double y){
+        vectorInfo = new Point2D.Double(x, y);
+        magnitude = Math.sqrt(x*x + y*y);
     }
 
     public double getMagnitude() {
@@ -24,14 +23,15 @@ public class Vector2D {
     }
 
     public Vector2D getNormalisedVector() {
-        return new Vector2D( new Point(0,0) , new Point((int)(vectorinfo.getX() /magnitude ),(int)(vectorinfo.getY()/magnitude)));
+        return new Vector2D(new Point2D.Double(0,0), new Point2D.Double(vectorInfo.x / magnitude , vectorInfo.y / magnitude));
     }
 
     public double getX() {
-        return x;
+        return vectorInfo.x;
     }
 
     public double getY() {
-        return y;
+        return vectorInfo.y;
     }
+
 }

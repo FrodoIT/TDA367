@@ -18,9 +18,9 @@ public interface ICharacter {
 	public int getDamage();
 	public IWeapon getWeapon();
 	public Point getPosition();
-	public void setPosition(Point position);
+	public void setPosition(Vector2D position);
 	public Rectangle getUnitTile();
 	//Called by room to se where the caracter WANTS to go.
-	public Point calculateMovementPosition(IRoomData roomData);
+	public Vector2D calculateMovementPosition(IRoomData roomData);
         public boolean alive();
 }

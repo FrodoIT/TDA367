@@ -31,7 +31,7 @@ public class Player implements ICharacter {
 	}
 
 	@Override
-	public Point calculateMovementPosition(IRoomData roomData){
+	public Vector2D calculateMovementPosition(IRoomData roomData){
 		return calculateNewPosition(playerInput.getMoveInput());
 	}
         
@@ -41,7 +41,7 @@ public class Player implements ICharacter {
         }
 
 
-	public Point calculateNewPosition(MoveDirection direction){
+	public Vector2D calculateNewPosition(MoveDirection direction){
 		int deltaX;
 		int deltaY;
 
@@ -82,7 +82,7 @@ public class Player implements ICharacter {
 				deltaX = 0;
 				deltaY = 0;
 		}
-		return new Point((int)getPosition().getX()+deltaX, (int)getPosition().getY()+deltaY);
+		return new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
 	}
 
         /**
@@ -142,8 +142,9 @@ public class Player implements ICharacter {
 	}
 
 	@Override
-	public void setPosition(Point newPosition){
-		unitTile.setLocation(new Point(newPosition));
+	public void setPosition(Vector2D newPosition){
+        //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
+		unitTile.setLocation(new Point((int)newPosition.getX(),(int) newPosition.getY()));
 	}
 
 }

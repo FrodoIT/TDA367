@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.List;
 
 public interface IMap {
-    public boolean isColliding(Point point);
+    public boolean isColliding(Vector2D coordinate);
     public int getHeight();
     public int getWidth();
     public List<Rectangle> getNPCRectangles();
