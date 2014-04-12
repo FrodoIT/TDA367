@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.util.Date;
 import scratch.model.weapons.IWeapon;
+import scratch.model.weapons.Knuckles;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
@@ -19,6 +20,7 @@ public class Player implements ICharacter {
 	private IPlayerInput playerInput;
         private Date tookDamageAtTime;
         private boolean alive;
+        private IWeapon weapon;
 
 	public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
 		this.playerInput=playerInput;
@@ -29,6 +31,7 @@ public class Player implements ICharacter {
                 alive = true;
 		//TODO: Can we rely on clone here? Not certain that the copy will be deep enough
 		this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
+                weapon = new Knuckles();
 	}
 
 	@Override
@@ -126,8 +129,13 @@ public class Player implements ICharacter {
 
 	@Override
 	public IWeapon getWeapon() {
-		return null;
+		return weapon;
 	}
+        
+        @Override
+        public boolean isAttacking(){
+            return playerInput.getAttackInput();
+        }
 
 	public IPlayerInput getPlayerInput(){
 		return playerInput;
@@ -147,5 +155,10 @@ public class Player implements ICharacter {
         //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
 		unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
 	}
+        
+        @Override
+        public Rectangle2D.Double getAttackArea(){
+            return weapon.getAttackArea();
+        }
 
 }

@@ -23,5 +23,7 @@ public interface ICharacter {
 	public Rectangle2D.Double getUnitTile();
 	//Called by room to se where the caracter WANTS to go.
 	public Vector2D calculateMovementPosition(IRoomData roomData);
+        public Rectangle2D.Double getAttackArea();
         public boolean alive();
+        public boolean isAttacking();
 }

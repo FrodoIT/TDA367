@@ -154,5 +154,15 @@ public class NpcType implements INpc {
         this.movementPattern = movementPattern;
     }
     
-
+    @Override
+    public Rectangle2D.Double getAttackArea(){
+        //TODO
+        return null;
+    }
+    
+    @Override
+    public boolean isAttacking(){
+        //TODO
+        return false;
+    }
 }
