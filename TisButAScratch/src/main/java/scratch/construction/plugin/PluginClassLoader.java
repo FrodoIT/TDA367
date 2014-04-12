@@ -32,7 +32,7 @@ public class PluginClassLoader extends ClassLoader{
             return Files.readAllBytes(f.toPath());
         } catch (IOException e){
             e.printStackTrace();
-            return null;
+            return new byte[0];
         }
        
         
