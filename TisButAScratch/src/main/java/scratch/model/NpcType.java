@@ -110,31 +110,22 @@ public class NpcType implements INpc {
 
         if(diffX == 0 && diffY == 0){
             setMoveDirection(MoveDirection.NONE);
-            System.out.println("None");
         }else if(-22.5 <= theta && theta <= 22.5 && 0 <= diffX){
             setMoveDirection(MoveDirection.EAST);
-            System.out.println("E");
         }else if(-22.5 <= theta && theta <= 22.5 && diffX < 0){
             setMoveDirection(MoveDirection.WEST);
-            System.out.println("W");
         }else if(22.5 <= theta && theta <= 67.5 && 0 <= diffX){
             setMoveDirection(MoveDirection.SOUTHEAST);
-            System.out.println("SE");
         }else if(-67.5 <= theta && theta <= -22.5 && diffX < 0){
             setMoveDirection(MoveDirection.SOUTHWEST);
-            System.out.println("SW");
         }else if(-67.5 <= theta && theta <= -22.5 && 0 <= diffX){
             setMoveDirection(MoveDirection.NORTHEAST);
-            System.out.println("NE");
         }else if(22.5 <= theta && theta <= 67.5 && diffX < 0){
             setMoveDirection(MoveDirection.NORTHWEST);
-            System.out.println("NW");
         }else if(theta < -67.5 && 0 < diffX || 67.5 < theta && diffX < 0){
             setMoveDirection(MoveDirection.NORTH);
-            System.out.println("N");
         }else if(67.5 < theta || theta < -67.5){
             setMoveDirection(MoveDirection.SOUTH);
-            System.out.println("S");
         }
     }
 
@@ -162,4 +153,6 @@ public class NpcType implements INpc {
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;
     }
+    
+
 }
