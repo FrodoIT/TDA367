@@ -67,6 +67,7 @@ public class Room implements IRoomData{
                     character.takeDamage(npc.getDamage());
                 }
             }
+            character.attack();
         }
         return false;
     }

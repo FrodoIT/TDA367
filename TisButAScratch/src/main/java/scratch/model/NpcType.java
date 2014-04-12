@@ -160,9 +160,13 @@ public class NpcType implements INpc {
         return null;
     }
     
+    /**
+     * Give NPC opportunity to execute an attack
+     * @return null if no attack is done, otherwise the area that the NPC attacks
+     */
     @Override
-    public boolean isAttacking(){
+    public Rectangle2D.Double attack(){
         //TODO
-        return false;
+        return null;
     }
 }

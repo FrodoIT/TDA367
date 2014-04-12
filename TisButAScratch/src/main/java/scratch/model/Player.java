@@ -21,7 +21,7 @@ public class Player implements ICharacter {
         private Date tookDamageAtTime;
         private boolean alive;
         private IWeapon weapon;
-
+        
 	public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
 		this.playerInput=playerInput;
 		movementSpeed = 2;
@@ -132,9 +132,16 @@ public class Player implements ICharacter {
 		return weapon;
 	}
         
+        /**
+         * Give Player opportunity to execute an attack
+         * @return null if no attack is done, otherwise the area that the NPC attacks
+         */
         @Override
-        public boolean isAttacking(){
-            return playerInput.getAttackInput();
+        public Rectangle2D.Double attack(){
+            if (playerInput.getAttackInput() && weapon.attack()){
+                return new Rectangle2D.Double(unitTile.x, unitTile.y, weapon.getAttackArea().width, weapon.getAttackArea().height);
+            }
+            return null;
         }
 
 	public IPlayerInput getPlayerInput(){

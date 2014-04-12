@@ -25,5 +25,5 @@ public interface ICharacter {
 	public Vector2D calculateMovementPosition(IRoomData roomData);
         public Rectangle2D.Double getAttackArea();
         public boolean alive();
-        public boolean isAttacking();
+        public Rectangle2D.Double attack();
 }
