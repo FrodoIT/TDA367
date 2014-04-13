@@ -38,7 +38,7 @@ public class NpcType implements INpc {
 
     @Override
     public boolean alive() {
-        return alive;
+        return health > 0;
     }
 
     /**
