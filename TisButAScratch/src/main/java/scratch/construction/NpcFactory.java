@@ -9,23 +9,33 @@ import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EnemyFactory {
+public class NpcFactory {
     private List<INpc> npcs;
     private Map<Integer, Pluggable<?>> aiMoves = PluginLoader.loadPlugins();
-    public EnemyFactory(){
-        npcs = new ArrayList<INpc>();
+    public NpcFactory(){
+        npcs = new ArrayList<>();
+        loadNpcs();
     }
 
-    public List<INpc> getEnemies() {
-        return npcs;
+    public INpc createEnemy(int id) {
+        for(INpc npc : npcs){
+            if(npc.getID() == id){
+                return npc.copy();
+            }
+        }
+        return npcs.get(0).copy();
     }
 
-    public void createEnemy(Rectangle2D.Double rect) {
+    private void loadNpcs() {
         //TODO this needs refactoring. for example all monsters have same id (1)
-        NpcType npc = new NpcType(rect, new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 1, (INPCMove) aiMoves.get(1).get());
-        npcs.add(npc);
+        npcs.add(new NpcType(new Rectangle2D.Double(32,32,32,32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, (INPCMove) aiMoves.get(1).get()));
+    }
+
+    public List<INpc> getNpcs(){
+        return npcs;
     }
 }

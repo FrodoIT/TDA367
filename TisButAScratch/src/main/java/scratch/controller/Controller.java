@@ -1,11 +1,10 @@
 package scratch.controller;
 
-import scratch.construction.EnemyFactory;
+import scratch.construction.NpcFactory;
 import scratch.construction.TempRoomFactory;
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import scratch.model.INpc;
@@ -15,7 +14,6 @@ import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 
 import scratch.view.View;
 
@@ -40,13 +38,12 @@ public class Controller implements Game{
 	public void init(GameContainer container) throws SlickException {
 		container.setTargetFrameRate(60);
 
-                EnemyFactory enemyFactory = new EnemyFactory();
-                enemyFactory.createEnemy(new Rectangle2D.Double(32, 32, 32, 32 ));
+                NpcFactory npcFactory = new NpcFactory();
 
-                for(INpc enemy : enemyFactory.getEnemies()){
+                for(INpc enemy : npcFactory.getNpcs()){
                     view.addNpcView(enemy.getID(), enemy.getImagePath());
                 }
-                
+
 		TempRoomFactory trf = new TempRoomFactory();
                 view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
 		model.setMap(trf.getRooms());

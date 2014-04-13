@@ -13,6 +13,7 @@ import java.awt.Point;
  * @author Ivar
  */
 public interface INpc extends ICharacter{
+    public INpc copy();
     public int getID();
     public MoveDirection getMoveDirection();
     public String getImagePath();

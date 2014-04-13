@@ -1,6 +1,6 @@
 package scratch.model;
 
-import scratch.construction.EnemyFactory;
+import scratch.construction.NpcFactory;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -16,20 +16,14 @@ public class Room implements IRoomData{
     private List<Player> players;
     private List<INpc> npcs;
     private IMap map;
-    private EnemyFactory enemyFactory = new EnemyFactory();
+    private NpcFactory npcFactory = new NpcFactory();
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
         npcs = new ArrayList();
 
-        for (Rectangle2D.Double rectangle : map.getNPCRectangles()) {
-            enemyFactory.createEnemy(rectangle);
-        }
-        //TODO: what have we dooooooooooone~
-        for (INpc iNpc : enemyFactory.getEnemies()) {
-            npcs.add(iNpc);
-        }
+        npcs.add(npcFactory.createEnemy(0));
 
     }
 

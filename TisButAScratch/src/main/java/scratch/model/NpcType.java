@@ -2,6 +2,7 @@ package scratch.model;
 
 import java.awt.geom.Rectangle2D;
 
+import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
 /**
@@ -143,6 +144,11 @@ public class NpcType implements INpc {
 
     public void setHealth(int health){
         this.health = health;
+    }
+
+    @Override
+    public INpc copy() {
+        return new NpcType(new Rectangle2D.Double(32,32,32,32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, movementPattern) ;
     }
 
     public int getID(){
