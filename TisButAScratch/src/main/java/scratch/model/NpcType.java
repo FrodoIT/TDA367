@@ -1,6 +1,5 @@
 package scratch.model;
 
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import scratch.model.weapons.IWeapon;
@@ -94,6 +93,11 @@ public class NpcType implements INpc {
     @Override
     public Rectangle2D.Double getUnitTile() {
         return unitTile;
+    }
+
+    @Override
+    public boolean interact() {
+        return false;
     }
 
     @Override

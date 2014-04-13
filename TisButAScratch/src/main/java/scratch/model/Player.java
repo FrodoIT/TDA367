@@ -162,9 +162,8 @@ public class Player implements ICharacter {
     public Rectangle2D.Double getAttackArea(){
         return weapon.getAttackArea();
     }
-
-    public void interact(){
-        //TODO: Create after there is an object to interact with.
+    @Override
+    public boolean interact(){
+       return playerInput.getInteractInput();
     }
-
 }

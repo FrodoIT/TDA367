@@ -2,7 +2,6 @@ package scratch.model;
 
 import scratch.construction.EnemyFactory;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,21 +16,21 @@ public class Room implements IRoomData{
     private List<Player> players;
     private List<INpc> npcs;
     private IMap map;
+    private EnemyFactory enemyFactory = new EnemyFactory();
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
         npcs = new ArrayList();
 
-        EnemyFactory enemyFactory = new EnemyFactory();
-
         for (Rectangle2D.Double rectangle : map.getNPCRectangles()) {
             enemyFactory.createEnemy(rectangle);
         }
-
+        //TODO: what have we dooooooooooone~
         for (INpc iNpc : enemyFactory.getEnemies()) {
             npcs.add(iNpc);
         }
+
     }
 
     /**
@@ -57,6 +56,7 @@ public class Room implements IRoomData{
             Vector2D newPosition = character.calculateMovementPosition(this);
             character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
             takeDamage(character);
+
         }
     }
 
@@ -67,6 +67,7 @@ public class Room implements IRoomData{
                     character.takeDamage(npc.getDamage());
                 }
             }
+            //TODO: WHAT. Nu gör den ju inte ett smack...? attack ska ju vara området som tar skada eller? ..
             character.attack();
         }
         return false;
@@ -140,6 +141,7 @@ public class Room implements IRoomData{
         for (INpc npc : npcs){
             updateCharacter(npc);
         }
+
     }
 
     @Override

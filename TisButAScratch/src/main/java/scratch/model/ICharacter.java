@@ -21,6 +21,7 @@ public interface ICharacter {
 	public Vector2D getPosition();
 	public void setPosition(Vector2D position);
 	public Rectangle2D.Double getUnitTile();
+    public boolean interact();
 	//Called by room to se where the caracter WANTS to go.
 	public Vector2D calculateMovementPosition(IRoomData roomData);
         public Rectangle2D.Double getAttackArea();
