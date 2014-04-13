@@ -7,7 +7,7 @@ import scratch.model.INpc;
 import scratch.model.NpcType;
 import scratch.model.weapons.DefaultWeapon;
 
-import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class EnemyFactory {
         return npcs;
     }
 
-    public void createEnemy(Rectangle rect) {
+    public void createEnemy(Rectangle2D.Double rect) {
         //TODO this needs refactoring. for example all monsters have same id (1)
         NpcType npc = new NpcType(rect, new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 1, (INPCMove) aiMoves.get(1).get());
         npcs.add(npc);

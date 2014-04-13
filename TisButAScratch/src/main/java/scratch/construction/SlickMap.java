@@ -10,7 +10,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
 
-import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 /**
@@ -44,11 +44,11 @@ public class SlickMap implements IMap{
     }
 
     @Override
-    public java.util.List<Rectangle> getNPCRectangles() {
+    public java.util.List<Rectangle2D.Double> getNPCRectangles() {
         //TODO implement this correcly. should load from tiled map. with layer npc
-        java.util.List<Rectangle> npcRectangles = new ArrayList<>();
+        java.util.List<Rectangle2D.Double> npcRectangles = new ArrayList<>();
 
-        npcRectangles.add(new Rectangle(32, 32, 32, 32));
+        npcRectangles.add(new Rectangle2D.Double(32, 32, 32, 32));
 
         return npcRectangles;
     }

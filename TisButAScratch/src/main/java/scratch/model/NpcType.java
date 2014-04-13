@@ -23,7 +23,7 @@ public class NpcType implements INpc {
     private boolean alive;
     private INPCMove movementPattern;
 
-    public NpcType(Rectangle unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
+    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
