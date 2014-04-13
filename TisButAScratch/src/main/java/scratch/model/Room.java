@@ -25,7 +25,7 @@ public class Room implements IRoomData{
 
         EnemyFactory enemyFactory = new EnemyFactory();
 
-        for (Rectangle rectangle : map.getNPCRectangles()) {
+        for (Rectangle2D.Double rectangle : map.getNPCRectangles()) {
             enemyFactory.createEnemy(rectangle);
         }
 
