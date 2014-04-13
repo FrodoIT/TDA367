@@ -19,7 +19,6 @@ public class Player implements ICharacter {
     private Rectangle2D.Double unitTile;
     private IPlayerInput playerInput;
     private Date tookDamageAtTime;
-    private boolean alive;
     private IWeapon weapon;
 
     public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
@@ -28,7 +27,6 @@ public class Player implements ICharacter {
         this.id = id;
         this.health = 10;
         tookDamageAtTime = new Date();
-        alive = true;
         //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         weapon = new DefaultWeapon();
@@ -41,7 +39,7 @@ public class Player implements ICharacter {
 
     @Override
     public boolean alive() {
-        return alive;
+        return health > 0;
     }
 
 
@@ -100,9 +98,6 @@ public class Player implements ICharacter {
         if (Math.abs(tookDamageAtTime.getTime() - moment.getTime()) > Constants.TIME_BETWEEN_DAMAGE_INSTANCE){
             tookDamageAtTime = moment;
             health=health-dmg;
-        }
-        if (health< 0){
-            alive = false;
         }
     }
 
