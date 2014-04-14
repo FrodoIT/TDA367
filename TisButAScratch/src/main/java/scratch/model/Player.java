@@ -12,11 +12,11 @@ import java.util.Date;
  * TODO: Add logic for colission detection here through IRoomData.
  *
  */
-public class Player implements ICharacter {
+public final class Player implements ICharacter {
     private int health;
     private final int id;
-    private int movementSpeed;
-    private Rectangle2D.Double unitTile;
+    private final int movementSpeed;
+    private final Rectangle2D.Double unitTile;
     private IPlayerInput playerInput;
     private Date tookDamageAtTime;
     private IWeapon weapon;

@@ -4,7 +4,6 @@ import scratch.construction.NpcFactory;
 import scratch.construction.TempRoomFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import scratch.model.INpc;
@@ -23,60 +22,59 @@ import scratch.view.View;
  * @author Anna Nylander
  *
  */
-public class Controller implements Game{
-	private Model model;
-	private View view;
-	private List<PlayerController> playerControllerList;
+public final class Controller implements Game{
+    private final Model model;
+    private final View view;
+    private List<PlayerController> playerControllerList;
 
-	public Controller(Model model, View view){
-		this.view = view;
-		this.model = model;
-		playerControllerList=new ArrayList<PlayerController>();
-	}
-	
-	@Override
-	public void init(GameContainer container) throws SlickException {
-		container.setTargetFrameRate(60);
+    public Controller(Model model, View view){
+        this.view = view;
+        this.model = model;
+        playerControllerList=new ArrayList<PlayerController>();
+    }
 
-                NpcFactory npcFactory = new NpcFactory();
+    @Override
+    public void init(GameContainer container) throws SlickException {
+        container.setTargetFrameRate(60);
+        NpcFactory npcFactory = new NpcFactory();
 
-                for(INpc enemy : npcFactory.getNpcs()){
-                    view.addNpcView(enemy.getID(), enemy.getImagePath());
-                }
+        for(INpc enemy : npcFactory.getNpcs()){
+            view.addNpcView(enemy.getID(), enemy.getImagePath());
+        }
 
-		TempRoomFactory trf = new TempRoomFactory();
-                view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
-		model.setMap(trf.getRooms());
-		playerControllerList.add(new PlayerController(model, view));
-                
+        TempRoomFactory trf = new TempRoomFactory();
+        view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
+        model.setMap(trf.getRooms());
+        playerControllerList.add(new PlayerController(model, view));
 
 
 
-	}
-	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
-		view.render(container, g);
-		
-	}
-	@Override
-	public void update(GameContainer container, int delta)throws SlickException {
-		for (PlayerController pc: playerControllerList){
-			pc.registerInput(container.getInput());
-		}
-		model.update();
-		
-	}
-	
-	public List<PlayerController> getPlayerControllerList(){
-		return playerControllerList;
-	}
 
-	@Override
-	public boolean closeRequested() {
-		return true;
-	}
-	@Override
-	public String getTitle() {
-		return "'Tis but a Scratch";
-	}
+    }
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+        view.render(container, g);
+
+    }
+    @Override
+    public void update(GameContainer container, int delta)throws SlickException {
+        for (PlayerController pc: playerControllerList){
+            pc.registerAllInput(container.getInput());
+        }
+        model.update();
+
+    }
+
+    public List<PlayerController> getPlayerControllerList(){
+        return playerControllerList;
+    }
+
+    @Override
+    public boolean closeRequested() {
+        return true;
+    }
+    @Override
+    public String getTitle() {
+        return "'Tis but a Scratch";
+    }
 }

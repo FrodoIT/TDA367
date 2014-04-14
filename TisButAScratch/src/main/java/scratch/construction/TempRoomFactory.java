@@ -13,10 +13,10 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author André Samuelsson
  *
  */
-public class TempRoomFactory {
+public final class TempRoomFactory {
 	
 	private TiledMap map;
-	private Room room;
+	private final Room room;
 	
 	public TempRoomFactory() {
 		try {

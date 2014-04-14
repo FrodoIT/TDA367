@@ -10,6 +10,6 @@ package scratch.model;
  *
  * @author Cannonbait
  */
-public class Constants {
+public final class Constants {
     public static final int TIME_BETWEEN_DAMAGE_INSTANCE = 500;
 }

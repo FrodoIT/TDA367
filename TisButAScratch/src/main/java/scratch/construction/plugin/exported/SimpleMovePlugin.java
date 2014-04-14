@@ -15,7 +15,7 @@ import java.awt.geom.Point2D;
  * Moves NPC toward the Player.
  */
 @AIPlugin(id = 1)
-public class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
+public final class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
 
     @Override
     public SimpleMovePlugin get() {

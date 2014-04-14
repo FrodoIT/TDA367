@@ -13,9 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NpcFactory {
-    private List<INpc> npcs;
-    private Map<Integer, Pluggable<?>> aiMoves = PluginLoader.loadPlugins();
+public final class NpcFactory {
+    private final List<INpc> npcs;
+    private final Map<Integer, Pluggable<?>> aiMoves = PluginLoader.loadPlugins();
+
     public NpcFactory(){
         npcs = new ArrayList<>();
         loadNpcs();
@@ -36,6 +37,7 @@ public class NpcFactory {
     }
 
     public List<INpc> getNpcs(){
+        //TODO: should return a clone... if we want this to be immutable..
         return npcs;
     }
 }

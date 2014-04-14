@@ -16,7 +16,7 @@ import java.nio.file.Path;
  *
  * @author Ivar
  */
-public class PluginClassLoader extends ClassLoader{
+public final class PluginClassLoader extends ClassLoader{
     public static final String exportedPackage = "scratch.construction.plugin.exported";
     
     @Override

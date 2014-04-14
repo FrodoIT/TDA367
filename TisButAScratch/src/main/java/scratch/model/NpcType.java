@@ -10,9 +10,9 @@ import scratch.model.weapons.IWeapon;
  * @author Ivar
  *
  */
-public class NpcType implements INpc {
+public final class NpcType implements INpc {
 
-    private Rectangle2D.Double unitTile;
+    private final Rectangle2D.Double unitTile;
     private IWeapon weapon;
     private int health;
     private int movementSpeed;
