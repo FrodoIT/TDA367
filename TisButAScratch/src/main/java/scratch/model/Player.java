@@ -154,16 +154,21 @@ public final class Player implements ICharacter {
 
     @Override
     public void setPosition(Vector2D newPosition){
-        //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
+	    //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
         unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
     @Override
     public Rectangle2D.Double getAttackArea(){
-        return weapon.getAttackArea();
+	    return weapon.getAttackArea();
     }
     @Override
-    public boolean interact(){
+    public boolean isInteracting(){
        return playerInput.getInteractInput();
     }
+
+	@Override
+	public boolean isAttacking() {
+		return playerInput.getAttackInput();
+	}
 }

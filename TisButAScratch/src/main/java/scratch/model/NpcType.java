@@ -96,10 +96,15 @@ public final class NpcType implements INpc {
         return unitTile;
     }
 
-    @Override
-    public boolean interact() {
-        return false;
-    }
+	@Override
+	public boolean isInteracting() {
+		return false;
+	}
+
+	@Override
+	public boolean isAttacking() {
+		return false; //TODO should ask the AI (plugin) the plugin should be a NPCAI not MOVEAI...
+	}
 
     @Override
     public Vector2D calculateMovementPosition(IRoomData roomData) {

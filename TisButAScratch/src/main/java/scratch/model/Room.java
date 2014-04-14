@@ -50,7 +50,7 @@ public final class Room implements IRoomData{
             Vector2D newPosition = character.calculateMovementPosition(this);
             character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
             takeDamage(character);
-            if(character.interact() && map.hasInteractiveObject()){
+            if(character.isInteracting() && map.hasInteractiveObject()){
                 npcs.add(npcFactory.createEnemy(0));
             }
 
