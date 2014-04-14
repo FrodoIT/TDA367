@@ -22,7 +22,7 @@ public final class DefaultWeapon implements IWeapon {
     public DefaultWeapon(){
         damage = 2;
         range = 1;
-        attackArea = new Rectangle2D.Double(0, 0, 3, 3);
+        attackArea = new Rectangle2D.Double(0, 0, 32, 32);
         lastAttack = new Date();
         attackInterval = 200;
     }
