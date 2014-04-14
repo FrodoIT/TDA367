@@ -10,4 +10,5 @@ public interface IWeapon {
 	public int getRange();
         public Rectangle2D.Double getAttackArea();
         public boolean attack();
+		public boolean hasCooledDown();
 }

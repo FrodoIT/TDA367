@@ -54,7 +54,8 @@ public final class DefaultWeapon implements IWeapon {
         return false;
     }
 
-    private boolean hasCooledDown(){
+	@Override
+    public boolean hasCooledDown(){
         thisMoment = new Date();
         return Math.abs(lastAttack.getTime() - thisMoment.getTime()) > attackInterval;
     }
