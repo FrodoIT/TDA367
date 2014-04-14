@@ -7,7 +7,6 @@ import scratch.model.Player;
 
 import org.newdawn.slick.Input;
 
-import scratch.view.PlayerView;
 import scratch.view.View;
 
 /**
@@ -15,12 +14,14 @@ import scratch.view.View;
  * @author Anna Nylander
  *
  */
-public class PlayerController implements IPlayerInput {
-    private Model model;
-    private View view;
+public final class PlayerController implements IPlayerInput {
+    private final Model model;
+    private final View view;
     private Player player;
     private MoveDirection moveDirection = MoveDirection.NONE;
     private boolean attack, interact;
+    private final int interactionKey = Input.KEY_Z;
+    private final int attackKey = Input.KEY_X;
 
     public PlayerController(Model model, View view){
         this.model=model;
@@ -38,63 +39,75 @@ public class PlayerController implements IPlayerInput {
     }
 
 
-    public void registerInput(Input input){
+    public void registerAllInput(Input input){
         if(player.alive()){
-            if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_LEFT)){
-                //Move South-west
-                setMoveInput(MoveDirection.SOUTHWEST);
-            } else if(input.isKeyDown(Input.KEY_DOWN) && input.isKeyDown(Input.KEY_RIGHT)){
-                //Move South-east
-                setMoveInput(MoveDirection.SOUTHEAST);
-            } else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_LEFT)){
-                //Move North-west
-                setMoveInput(MoveDirection.NORTHWEST);
-            } else if(input.isKeyDown(Input.KEY_UP) && input.isKeyDown(Input.KEY_RIGHT)){
-                //Move North-east
-                setMoveInput(MoveDirection.NORTHEAST);
-            } else if(input.isKeyDown(Input.KEY_DOWN)){
-                //Move South
-                setMoveInput(MoveDirection.SOUTH);
-            } else if(input.isKeyDown(Input.KEY_UP)){
-                //Move North
-                setMoveInput(MoveDirection.NORTH);
-            } else if(input.isKeyDown(Input.KEY_LEFT)){
-                //Move West
-                setMoveInput(MoveDirection.WEST);
-            } else if(input.isKeyDown(Input.KEY_RIGHT)){
-                //Move East
-                setMoveInput(MoveDirection.EAST);
-            }else{
-                setMoveInput(MoveDirection.NONE);
-            }
-            //Attack & Interact commands can be sent at the same time as movement command
-            if (input.isKeyDown(Input.KEY_X)){
-                setAttackInput(true);
-            } else {
-                setAttackInput(false);
-            }
-            if (input.isKeyDown(Input.KEY_Z)){
-                setInteractInput(true);
-            } else {
-                setInteractInput(false);
-            }
+            registerMoveInput(input);
+            registerAttackInput(input);
+            registerInteractInput(input);
         } else {
             resetInput();
         }
 
     }
 
+    private void registerInteractInput(Input input) {
+        setInteractStatus(input.isKeyDown(interactionKey));
+
+    }
+
+    private void registerAttackInput(Input input) {
+        setAttackStatus(input.isKeyDown(attackKey));
+    }
+
+    private void registerMoveInput(Input input) {
+        //TODO: I'm not sure this is the best way to do it...
+        final boolean southKey = input.isKeyDown(Input.KEY_DOWN);
+        final boolean westKey = input.isKeyDown(Input.KEY_LEFT);
+        final boolean eastKey = input.isKeyDown(Input.KEY_RIGHT);
+        final boolean northKey = input.isKeyDown(Input.KEY_UP);
+
+        if (southKey && westKey) {
+            setMoveDirection(MoveDirection.SOUTHWEST);
+
+        } else if (southKey && eastKey) {
+            setMoveDirection(MoveDirection.SOUTHEAST);
+
+        } else if (northKey && westKey) {
+            setMoveDirection(MoveDirection.NORTHWEST);
+
+        } else if (northKey && eastKey) {
+            setMoveDirection(MoveDirection.NORTHEAST);
+
+        } else if (southKey) {
+            setMoveDirection(MoveDirection.SOUTH);
+
+        } else if (northKey) {
+            setMoveDirection(MoveDirection.NORTH);
+
+        } else if (westKey) {
+            setMoveDirection(MoveDirection.WEST);
+
+        } else if (eastKey) {
+            setMoveDirection(MoveDirection.EAST);
+
+        } else {
+            setMoveDirection(MoveDirection.NONE);
+        }
+    }
+
+
+
 
     @Override
-    public void setAttackInput(boolean attack){
+    public void setAttackStatus(boolean attack){
         this.attack=attack;
     }
     @Override
-    public void setInteractInput(boolean interact){
+    public void setInteractStatus(boolean interact){
         this.interact=interact;
     }
     @Override
-    public void setMoveInput(MoveDirection direction){
+    public void setMoveDirection(MoveDirection direction){
         this.moveDirection=direction;
     }
 
