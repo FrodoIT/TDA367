@@ -16,14 +16,14 @@ public final class DefaultWeapon implements IWeapon {
     private final Rectangle2D.Double attackArea;
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
-    private Date lastAttack;
-    private Date thisMoment;
+    private long lastAttack;
+    private long thisMoment;
 
     public DefaultWeapon(){
         damage = 2;
         range = 1;
         attackArea = new Rectangle2D.Double(0, 0, 32, 32);
-        lastAttack = new Date();
+        lastAttack = System.currentTimeMillis();
         attackInterval = 200;
     }
     @Override
@@ -56,8 +56,8 @@ public final class DefaultWeapon implements IWeapon {
 
 	@Override
     public boolean hasCooledDown(){
-        thisMoment = new Date();
-        return Math.abs(lastAttack.getTime() - thisMoment.getTime()) > attackInterval;
+		thisMoment = System.currentTimeMillis();
+        return Math.abs(lastAttack - thisMoment) > attackInterval;
     }
 
 }
