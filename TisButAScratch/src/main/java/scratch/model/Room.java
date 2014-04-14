@@ -11,12 +11,12 @@ import java.util.List;
  * @author Ivar Josefsson
  *
  */
-public class Room implements IRoomData{
+public final class Room implements IRoomData{
 
     private List<Player> players;
     private List<INpc> npcs;
-    private IMap map;
-    private NpcFactory npcFactory = new NpcFactory();
+    private final IMap map;
+    private final NpcFactory npcFactory = new NpcFactory();
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
