@@ -64,8 +64,6 @@ public final class Room implements IRoomData{
                     character.takeDamage(npc.getDamage());
                 }
             }
-            //TODO: WHAT. Nu gör den ju inte ett smack...? attack ska ju vara området som tar skada eller? ..
-            character.attack();
         }
         return false;
     }
