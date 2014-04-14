@@ -130,6 +130,4 @@ public final class PlayerController implements IPlayerInput {
         interact = false;
         moveDirection = MoveDirection.NONE;
     }
-
-
 }

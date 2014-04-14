@@ -22,13 +22,13 @@ public final class NpcFactory {
         loadNpcs();
     }
 
-    public INpc createEnemy(int id) {
+    public INpc createEnemy(int id, double xPosition, double yPosition) {
         for(INpc npc : npcs){
             if(npc.getID() == id){
-                return npc.copy();
+                return npc.createCopy(xPosition, yPosition);
             }
         }
-        return npcs.get(0).copy();
+        return npcs.get(0).createCopy(xPosition, yPosition);
     }
 
     private void loadNpcs() {

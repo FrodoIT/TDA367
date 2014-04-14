@@ -152,8 +152,15 @@ public final class NpcType implements INpc {
     }
 
     @Override
-    public INpc copy() {
-        return new NpcType(new Rectangle2D.Double(32,32,32,32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, movementPattern) ;
+    public INpc createCopy(double xPosition, double yPosition) {
+        try {
+            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), weapon.getClass().newInstance(), health, movementSpeed, imagePath, id, movementPattern) ;
+        } catch (InstantiationException e){
+            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), new DefaultWeapon(), health, movementSpeed, imagePath, id, movementPattern) ;
+        } catch (IllegalAccessException e){
+            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), new DefaultWeapon(), health, movementSpeed, imagePath, id, movementPattern) ;
+        }
+        
     }
 
     public int getID(){
