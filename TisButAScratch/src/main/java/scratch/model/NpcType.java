@@ -155,9 +155,7 @@ public final class NpcType implements INpc {
     public INpc createCopy(double xPosition, double yPosition) {
         try {
             return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), weapon.getClass().newInstance(), health, movementSpeed, imagePath, id, movementPattern) ;
-        } catch (InstantiationException e){
-            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), new DefaultWeapon(), health, movementSpeed, imagePath, id, movementPattern) ;
-        } catch (IllegalAccessException e){
+        } catch (InstantiationException | IllegalAccessException e){
             return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), new DefaultWeapon(), health, movementSpeed, imagePath, id, movementPattern) ;
         }
         
