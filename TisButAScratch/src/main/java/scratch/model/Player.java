@@ -38,7 +38,7 @@ public final class Player implements ICharacter {
     }
 
     @Override
-    public boolean alive() {
+    public boolean isAlive() {
         return health > 0;
     }
 
@@ -90,7 +90,7 @@ public final class Player implements ICharacter {
     /**
      * The player will take damage if enough time has passed since last time he took damage
      * @param dmg is the amount of damage the npc should take
-     * @return true if the NPC is still alive.
+     * @return true if the NPC is still isAlive.
      */
     @Override
     public void takeDamage(int dmg){
@@ -130,13 +130,14 @@ public final class Player implements ICharacter {
     /**
      * Give Player opportunity to execute an attack
      * @return null if no attack is done, otherwise the area that the NPC attacks
+     * @pre The player has pressed attackbutton and the weapon has cooldowned.
      */
     @Override
     public Rectangle2D.Double attack(){
-        if (playerInput.getAttackInput() && weapon.attack()){
-            return new Rectangle2D.Double(unitTile.x, unitTile.y, weapon.getAttackArea().width, weapon.getAttackArea().height);
-        }
-        return null;
+        assert (!playerInput.getAttackInput()|| !weapon.isCooledDown()): "preconditions not fullfilled";
+	    weapon.attack();
+        return new Rectangle2D.Double(unitTile.x, unitTile.y, weapon.getAttackArea().width, weapon.getAttackArea().height);
+
     }
 
     public IPlayerInput getPlayerInput(){
@@ -169,6 +170,10 @@ public final class Player implements ICharacter {
 
 	@Override
 	public boolean isAttacking() {
-		return playerInput.getAttackInput();
+		return (playerInput.getAttackInput());
+	}
+
+	public boolean weaponHasCooledDown(){
+		return weapon.isCooledDown();
 	}
 }

@@ -40,7 +40,7 @@ public final class PlayerController implements IPlayerInput {
 
 
     public void registerAllInput(Input input){
-        if(player.alive()){
+        if(player.isAlive()){
             registerMoveInput(input);
             registerAttackInput(input);
             registerInteractInput(input);

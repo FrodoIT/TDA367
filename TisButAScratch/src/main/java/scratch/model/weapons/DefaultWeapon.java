@@ -1,7 +1,7 @@
 package scratch.model.weapons;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Date;
+import java.util.concurrent.*;
 
 /**
  * The weapon DefaultWeapon:
@@ -11,21 +11,49 @@ import java.util.Date;
  * @author Alma Ottedag
  */
 public final class DefaultWeapon implements IWeapon {
+
     private final int damage;
     private final int range;
     private final Rectangle2D.Double attackArea;
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
-    private long lastAttack;
-    private long thisMoment;
+	private boolean hasCooledDown=true;
+
+	private ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
 
     public DefaultWeapon(){
         damage = 2;
         range = 1;
         attackArea = new Rectangle2D.Double(0, 0, 32, 32);
-        lastAttack = System.currentTimeMillis();
-        attackInterval = 200;
+        attackInterval = 20000;
     }
+	public void cooldown() {
+		hasCooledDown=false;
+		schdoodle.schedule(new Runnable() {
+			                   @Override
+			                   public void run() {
+				                   hasCooledDown = true;
+			                   }
+		                   },
+				1,
+				TimeUnit.SECONDS
+		);
+	}
+
+	/**
+	 * Tell the weapon to execute an attack
+	 * @return true if attack was done
+	 */
+	@Override
+	public void attack(){
+		if(hasCooledDown) {
+			cooldown();
+		}
+	}
+	public boolean isCooledDown(){
+		return hasCooledDown;
+	}
+
     @Override
     public int getDamage() {
         return damage;
@@ -41,23 +69,6 @@ public final class DefaultWeapon implements IWeapon {
         return (Rectangle2D.Double)attackArea.clone();
     }
 
-    /**
-     * Tell the weapon to execute an attack
-     * @return true if attack was done
-     */
-    @Override
-    public boolean attack(){
-        if (hasCooledDown()){
-            lastAttack = thisMoment;
-            return true;
-        }
-        return false;
-    }
 
-	@Override
-    public boolean hasCooledDown(){
-		thisMoment = System.currentTimeMillis();
-        return Math.abs(lastAttack - thisMoment) > attackInterval;
-    }
 
 }

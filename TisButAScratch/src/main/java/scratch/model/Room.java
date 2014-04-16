@@ -2,9 +2,12 @@ package scratch.model;
 
 import scratch.construction.NpcFactory;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single room and the contents in it.
@@ -15,6 +18,7 @@ public final class Room implements IRoomData{
 
     private List<Player> players;
     private List<INpc> npcs;
+	private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
     private final NpcFactory npcFactory = new NpcFactory();
 
@@ -23,6 +27,7 @@ public final class Room implements IRoomData{
         players = new ArrayList();
         npcs = new ArrayList();
 
+		areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
         npcs.add(npcFactory.createEnemy(0, 32, 32));
 
     }
@@ -45,25 +50,47 @@ public final class Room implements IRoomData{
         players.remove(player);
     }
 
-    private void updateCharacter(ICharacter character) {
-        if (character.alive()){
-            Vector2D newPosition = character.calculateMovementPosition(this);
-            character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
-            takeDamage(character);
+	public void update(){
+		for (Player player:players){
+			updateCharacter(player);
+		}
+		for (INpc npc : npcs){
+			updateCharacter(npc);
+		}
+		takeDamage();
+		areaUnderAttack.clear();
+	}
 
+    private void updateCharacter(ICharacter character) {
+
+        if (character.isAlive()) {
+	        Vector2D newPosition = character.calculateMovementPosition(this);
+	        character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
+
+	        if (character.isAttacking()){ //checks button press
+		        if(character.weaponHasCooledDown()) {
+			        Rectangle2D.Double attackArea = character.attack();
+			        areaUnderAttack.put(character, attackArea);
+			        System.out.println("Attack added: " + attackArea);
+		        }
+	        }
             if(character.isInteracting() && map.hasInteractiveObject()){
                 npcs.add(npcFactory.createEnemy(0, 420, 420));
             }
-
         }
     }
 
-    private boolean takeDamage(ICharacter character){
-        if (character instanceof Player){
-            for (INpc npc:npcs){
-                if (npc.isHostile() && npc.getUnitTile().intersects(character.getUnitTile())){
-                    character.takeDamage(npc.getDamage());
-                }
+    private boolean takeDamage(){
+	    for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
+		    for(INpc npc:npcs){
+			    if((npc.getUnitTile().intersects( attackEntry.getValue()))){
+				    npc.takeDamage(attackEntry.getKey().getDamage());
+			    }
+		    }
+		    for(Player player: players){
+			    if((player.getUnitTile().intersects( attackEntry.getValue()))){
+				    player.takeDamage(attackEntry.getKey().getDamage());
+			    }
             }
         }
         return false;
@@ -130,15 +157,6 @@ public final class Room implements IRoomData{
         return map.getWidth();
     }
 
-    public void update(){
-        for (Player player:players){
-            updateCharacter(player);
-        }
-        for (INpc npc : npcs){
-            updateCharacter(npc);
-        }
-
-    }
 
     @Override
     public List<Player> getPlayers() {

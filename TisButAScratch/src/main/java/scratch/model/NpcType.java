@@ -37,7 +37,7 @@ public final class NpcType implements INpc {
     }
 
     @Override
-    public boolean alive() {
+    public boolean isAlive() {
         return health > 0;
     }
 
@@ -80,7 +80,7 @@ public final class NpcType implements INpc {
     /**
      * The NPC will take damage if enough time has passed since last time he took damage
      * @param dmg is the amount of damage the npc should take
-     * @return true if the NPC is still alive.
+     * @return true if the NPC is still isAlive.
      */
     @Override
     public void takeDamage(int dmg) {
@@ -106,7 +106,10 @@ public final class NpcType implements INpc {
 		return false; //TODO should ask the AI (plugin) the plugin should be a NPCAI not MOVEAI...
 	}
 
-    @Override
+	public boolean weaponHasCooledDown() {
+	return false; //TODO should ask weapon if its ok to fight again.
+	}
+		@Override
     public Vector2D calculateMovementPosition(IRoomData roomData) {
         Vector2D newPosition = movementPattern.calculateNewPosition(roomData, this);
         calculateMoveDirection(newPosition);
