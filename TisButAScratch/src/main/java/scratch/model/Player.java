@@ -20,6 +20,7 @@ public final class Player implements ICharacter {
     private IPlayerInput playerInput;
     private Date tookDamageAtTime;
     private IWeapon weapon;
+	private MoveDirection lookingDirection;
 
     public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
         this.playerInput=playerInput;
@@ -38,8 +39,9 @@ public final class Player implements ICharacter {
     }
 
     @Override
-    public boolean isAlive() {
-        return health > 0;
+    public boolean isAlive(){
+	    System.out.println(playerInput.getMoveInput());
+	    return health > 0;
     }
 
 
@@ -155,6 +157,9 @@ public final class Player implements ICharacter {
 
     @Override
     public void setPosition(Vector2D newPosition){
+	    if(playerInput.getMoveInput()!= MoveDirection.NONE){
+		    lookingDirection=playerInput.getMoveInput();
+	    }
 	    //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
         unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
