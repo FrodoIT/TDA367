@@ -20,7 +20,7 @@ public final class Player implements ICharacter {
     private IPlayerInput playerInput;
     private Date tookDamageAtTime;
     private IWeapon weapon;
-	private MoveDirection lookingDirection;
+	private MoveDirection lookingDirection = MoveDirection.SOUTH;
 
     public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
         this.playerInput=playerInput;
@@ -40,7 +40,6 @@ public final class Player implements ICharacter {
 
     @Override
     public boolean isAlive(){
-	    System.out.println(playerInput.getMoveInput());
 	    return health > 0;
     }
 
@@ -138,7 +137,7 @@ public final class Player implements ICharacter {
     public Rectangle2D.Double attack(){
         assert (!playerInput.getAttackInput()|| !weapon.isCooledDown()): "preconditions not fullfilled";
 	    weapon.attack();
-        return new Rectangle2D.Double(unitTile.x, unitTile.y, weapon.getAttackArea().width, weapon.getAttackArea().height);
+        return getAttackArea();
 
     }
 
@@ -166,7 +165,7 @@ public final class Player implements ICharacter {
 
     @Override
     public Rectangle2D.Double getAttackArea(){
-	    return weapon.getAttackArea();
+	    return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
     @Override
     public boolean isInteracting(){

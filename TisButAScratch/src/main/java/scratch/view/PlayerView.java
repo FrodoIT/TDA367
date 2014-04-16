@@ -1,7 +1,10 @@
 package scratch.view;
 
 import java.awt.Point;
+import java.awt.geom.Rectangle2D;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.geom.Rectangle;
 import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;
 import scratch.model.Player;
@@ -39,9 +42,17 @@ public class PlayerView {
         }
     }
 
+	int i = 0;
+
     public void render(GameContainer c, Graphics g) {
         Vector2D position = player.getPosition();
         IPlayerInput playerInput = player.getPlayerInput();
+
+	    if(player.isAttacking()) {
+		    Rectangle2D.Double attackArea = player.getAttackArea();
+		    g.setColor(Color.red);
+		    g.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
+	    }
 
         MoveDirection input= playerInput.getMoveInput();
 
