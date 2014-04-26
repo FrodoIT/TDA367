@@ -38,7 +38,7 @@ public final class Controller implements Game{
         container.setTargetFrameRate(60);
         NpcFactory npcFactory = new NpcFactory();
 
-        for(INpc enemy : npcFactory.getNpcs()){
+        for(INpc enemy : npcFactory.getGivenTypeList()){
             view.addNpcView(enemy.getID(), enemy.getImagePath());
         }
 

@@ -28,7 +28,7 @@ public final class Room implements IRoomData{
         npcs = new ArrayList();
 
 		areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
-        npcs.add(npcFactory.createEnemy(0, 32, 32));
+        npcs.add(npcFactory.createType(0, 32, 32));
 
     }
 
@@ -75,7 +75,7 @@ public final class Room implements IRoomData{
 		        }
 	        }
             if(character.isInteracting() && map.hasInteractiveObject()){
-                npcs.add(npcFactory.createEnemy(0, 420, 420));
+                npcs.add(npcFactory.createType(0, 420, 420));
             }
         }
     }
