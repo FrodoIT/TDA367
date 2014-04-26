@@ -13,31 +13,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class NpcFactory {
-    private final List<INpc> npcs;
-    private final Map<Integer, Pluggable<?>> aiMoves = PluginLoader.loadPlugins();
+public final class NpcFactory extends Factory<INpc>{
 
     public NpcFactory(){
-        npcs = new ArrayList<>();
         loadNpcs();
     }
 
-    public INpc createEnemy(int id, double xPosition, double yPosition) {
-        for(INpc npc : npcs){
+    @Override
+    public INpc createType(int id, double xPosition, double yPosition) {
+        for(INpc npc : super.getGivenTypeList()){
             if(npc.getID() == id){
                 return npc.createCopy(xPosition, yPosition);
             }
         }
-        return npcs.get(0).createCopy(xPosition, yPosition);
+        return super.getGivenTypeList().get(0).createCopy(xPosition, yPosition);
     }
 
     private void loadNpcs() {
         //TODO this needs refactoring. for example all monsters have same id (1)
-        npcs.add(new NpcType(new Rectangle2D.Double(32,32,32,32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, (INPCMove) aiMoves.get(1).get()));
-    }
-
-    public List<INpc> getNpcs(){
-        //TODO: should return a clone... if we want this to be immutable..
-        return npcs;
+        super.getGivenTypeList().add(new NpcType(new Rectangle2D.Double(32, 32, 32, 32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, (INPCMove) super.getPluginMap().get(1).get()));
     }
 }
