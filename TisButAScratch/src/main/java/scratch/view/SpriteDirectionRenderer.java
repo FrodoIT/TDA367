@@ -82,15 +82,15 @@ public class SpriteDirectionRenderer {
 
     /**
      * this method is used to initializes the array-elements of a specified moveDireciton
-     * @param spriteDirection the image array containing images to play to simulate walking in a direction
-     * @param index South, East, North, West is represented by 0, 1, 2, 3 respectively
+     * @param spriteDirectionImages the image array containing images to play to simulate walking in a direction
+     * @param directionIndex South, East, North, West is represented by 0, 1, 2, 3 respectively
      */
-    private void setupMovementDirectionSprite(Image[] spriteDirection, int index) {
-        int layerIndex = map.getLayerIndex("sprite");
-        int startCount = index * imagesPerDirection;
+    private void setupMovementDirectionSprite(Image[] spriteDirectionImages, int directionIndex) {
+        int spriteLayerIndex = map.getLayerIndex("sprite");
+        int imageAmountForDirection = directionIndex * imagesPerDirection;
 
-        for (int i = 0 ; i < spriteDirection.length ; i++) {
-            spriteDirection[i] = map.getTileImage(i + startCount, 0, layerIndex);
+        for (int i = 0 ; i < spriteDirectionImages.length ; i++) {
+            spriteDirectionImages[i] = map.getTileImage(i + imageAmountForDirection, 0, spriteLayerIndex);
         }
     }
 
