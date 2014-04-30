@@ -35,10 +35,12 @@ public class Vector2DTest extends TestCase {
 
     @Test
     public void testGetX() throws Exception {
-        
+        Vector2D vector = new Vector2D(1,5);
+        assert (vector.getX() == 1);
     }
     @Test
     public void testGetY() throws Exception {
-
+        Vector2D vector = new Vector2D(1,4);
+        assert (vector.getY() == 4);
     }
 }
