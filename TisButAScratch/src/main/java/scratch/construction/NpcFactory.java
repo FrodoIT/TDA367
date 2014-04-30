@@ -1,19 +1,14 @@
 package scratch.construction;
 
 import scratch.construction.plugin.Pluggable;
-import scratch.construction.plugin.PluginLoader;
 import scratch.model.INPCMove;
 import scratch.model.INpc;
 import scratch.model.NpcType;
 import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public final class NpcFactory extends Factory<INpc>{
+public final class NpcFactory extends PluginUserFactory<INpc> {
 
     public NpcFactory(){
         loadNpcs();
@@ -31,6 +26,8 @@ public final class NpcFactory extends Factory<INpc>{
 
     private void loadNpcs() {
         //TODO this needs refactoring. for example all monsters have same id (1)
+        System.out.println(super.getPluginMap().values().size());
+        System.out.println(super.getPluginMap().keySet() +  "nycklarna");
         super.getGivenTypeList().add(new NpcType(new Rectangle2D.Double(32, 32, 32, 32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, (INPCMove) super.getPluginMap().get(1).get()));
     }
 }

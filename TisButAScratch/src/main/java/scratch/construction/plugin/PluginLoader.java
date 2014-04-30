@@ -21,8 +21,8 @@ import scratch.utils.FileScanner;
  */
 public class PluginLoader {
     public static final String pluginPath = "target/classes/scratch/construction/plugin/exported/";
-    
-    private static List<Class<?>> getPluginClasses (Class annotationType) {
+
+    private static List<Class<?>> getPluginClasses () {
         List<File> files = FileScanner.getFiles(new File(pluginPath));
         PluginClassLoader pluginClassLoader = new PluginClassLoader();
         List<Class<?>> classList = new ArrayList<Class<?>>();
@@ -31,7 +31,7 @@ public class PluginLoader {
             String strippedName = fileName.substring(0, fileName.indexOf(".class"));
             try {
                 Class loadedClass = pluginClassLoader.loadClass(strippedName);
-                if(loadedClass.getAnnotation(annotationType) != null) {
+                if(loadedClass.getAnnotations() != null) {
                     classList.add(loadedClass);
                 }
             }catch(ClassNotFoundException e) {
@@ -40,12 +40,12 @@ public class PluginLoader {
         }
         return classList;
     }
-    
+
     private static Map<Integer, Pluggable<?>> getPluginsFromPluginClasses(List<Class<?>> classList) {
         Map<Integer, Pluggable<?>> map =  new HashMap<Integer, Pluggable<?>>();
         for(Class<?> aClass : classList ) {
-            Object newInstance = null;            
-            
+            Object newInstance = null;
+
             try {
                 newInstance = aClass.newInstance();
             } catch (IllegalAccessException ex) {
@@ -53,15 +53,21 @@ public class PluginLoader {
             } catch(InstantiationException exc) {
                 exc.printStackTrace();
             }
-            
+
             if(newInstance != null) {
-                map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
+                System.out.println(aClass.toString());
+                if(aClass.isAnnotationPresent(InteractionPlugin.class)) {
+
+                    map.put(aClass.getAnnotation(InteractionPlugin.class).id(),(Pluggable<?>) newInstance);
+                } else {
+                    map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
+                }
             }
         }
         return map;
     }
 
     public static Map<Integer,Pluggable<?>> loadPlugins() {
-         return getPluginsFromPluginClasses(getPluginClasses(AIPlugin.class));
+        return getPluginsFromPluginClasses(getPluginClasses());
     }
 }

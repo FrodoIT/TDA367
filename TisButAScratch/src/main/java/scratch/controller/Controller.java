@@ -1,11 +1,13 @@
 package scratch.controller;
 
+import scratch.construction.InteractiveObjectFactory;
 import scratch.construction.NpcFactory;
 import scratch.construction.TempRoomFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import scratch.model.IInteractiveObject;
 import scratch.model.INpc;
 import scratch.model.Model;
 
@@ -37,9 +39,14 @@ public final class Controller implements Game{
     public void init(GameContainer container) throws SlickException {
         container.setTargetFrameRate(60);
         NpcFactory npcFactory = new NpcFactory();
+        InteractiveObjectFactory objectFactory = new InteractiveObjectFactory();
 
         for(INpc enemy : npcFactory.getGivenTypeList()){
             view.addNpcView(enemy.getID(), enemy.getImagePath());
+        }
+
+        for(IInteractiveObject object : objectFactory.getGivenTypeList()){
+            System.out.println("Works perfectly! <3");
         }
 
         TempRoomFactory trf = new TempRoomFactory();
