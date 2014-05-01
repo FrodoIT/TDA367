@@ -2,7 +2,6 @@ package scratch.model;
 
 import scratch.construction.NpcFactory;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,25 +31,6 @@ public final class Room implements IRoomData{
 
     }
 
-    /**
-     * Adds the specified player from the Room
-     * @param player
-     */
-    public void enterRoom(Player player){
-        players.add(player);
-    }
-
-    public List<INpc> getNpcs(){
-        return npcs;
-    }
-    /**
-     * Removes the specified player from the Room
-     * @param player
-     */
-    public void exitRoom(Player player){
-        players.remove(player);
-    }
-
     public void update(){
         for (Player player:players){
             updateCharacter(player);
@@ -58,7 +38,7 @@ public final class Room implements IRoomData{
         for (INpc npc : npcs){
             updateCharacter(npc);
         }
-        takeDamage();
+        dealDamage();
         areaUnderAttack.clear();
     }
 
@@ -81,16 +61,20 @@ public final class Room implements IRoomData{
         }
     }
 
-    private boolean takeDamage(){
+    private boolean dealDamage(){
         for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
             for(INpc npc:npcs){
-                if((npc.getUnitTile().intersects( attackEntry.getValue()))){
-                    npc.takeDamage(attackEntry.getKey().getDamage());
+                if((npc.getUnitTile().intersects( attackEntry.getValue())) &&
+		                attackEntry.getKey().getClass().toString()!=NpcType.class.toString()){
+	                npc.takeDamage(attackEntry.getKey().getDamage());
+	                break; //an attack should only damage one character at the time.
                 }
             }
             for(Player player: players){
-                if((player.getUnitTile().intersects( attackEntry.getValue()))){
+                if((player.getUnitTile().intersects( attackEntry.getValue()))&&
+		                attackEntry.getKey().getClass().toString()!=Player.class.toString()){
                     player.takeDamage(attackEntry.getKey().getDamage());
+	                break;
                 }
             }
         }
@@ -142,6 +126,22 @@ public final class Room implements IRoomData{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
+
+	/**
+	 * Adds the specified player from the Room
+	 * @param player
+	 */
+	public void enterRoom(Player player){
+		players.add(player);
+	}
+	/**
+	 * Removes the specified player from the Room
+	 * @param player
+	 */
+	public void exitRoom(Player player){
+		players.remove(player);
+	}
+
     /**
      *
      * @return: the total height of the map in pixels
@@ -158,11 +158,14 @@ public final class Room implements IRoomData{
         return map.getWidth();
     }
 
-
     @Override
     public List<Player> getPlayers() {
         return players;
     }
+
+	public List<INpc> getNpcs(){
+		return npcs;
+	}
 
     @Override
     public IMap getMap() {
