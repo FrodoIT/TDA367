@@ -1,5 +1,6 @@
 package scratch.model;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Model {
 	
 	public Player addPlayer(IPlayerInput input){
             if (activeRoom != null){
-		Player newPlayer = new Player(input, new Rectangle(0, 0, 32, 32), playerList.size());
+		Player newPlayer = new Player(input, new Rectangle2D.Double(0, 0, 32, 32), playerList.size());
 		playerList.add(newPlayer);
 		activeRoom.enterRoom(newPlayer);
 		return newPlayer;

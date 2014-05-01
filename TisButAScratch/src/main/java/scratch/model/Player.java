@@ -22,7 +22,7 @@ public final class Player implements ICharacter {
     private IWeapon weapon;
 	private MoveDirection lookingDirection = MoveDirection.SOUTH;
 
-    public Player(IPlayerInput playerInput, Rectangle unitTile, int id){
+    public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
         this.playerInput=playerInput;
         movementSpeed = 2;
         this.id = id;
