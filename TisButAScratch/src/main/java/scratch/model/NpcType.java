@@ -84,8 +84,11 @@ public final class NpcType implements INpc {
      */
     @Override
     public void takeDamage(int dmg) {
-        //TODO
-    }
+	    setHealth(getHealth()-dmg);
+	    if(getHealth()<0){
+		    alive=false;
+		}
+	}
 
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
