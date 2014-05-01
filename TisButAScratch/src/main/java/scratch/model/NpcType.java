@@ -110,7 +110,7 @@ public final class NpcType implements INpc {
 	}
 
 	public boolean weaponHasCooledDown() {
-	return false; //TODO should ask weapon if its ok to fight again.
+	return weapon.isCooledDown();
 	}
 		@Override
     public Vector2D calculateMovementPosition(IRoomData roomData) {
