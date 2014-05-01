@@ -27,7 +27,9 @@ public class NpcView{
     }
 
     public void render(INpc npc, Graphics g){
-        spriteHandler.render(g, npc.getMoveDirection(), npc.getPosition().getX(), npc.getPosition().getY());
+	    if(npc.isAlive()) {
+		    spriteHandler.render(g, npc.getMoveDirection(), npc.getPosition().getX(), npc.getPosition().getY());
+	    }
 
     }
 
