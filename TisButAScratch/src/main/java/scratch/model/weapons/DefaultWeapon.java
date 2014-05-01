@@ -25,7 +25,7 @@ public final class DefaultWeapon implements IWeapon {
         damage = 2;
         range = 1;
         attackArea = new Rectangle2D.Double(0, 0, 32, 32);
-        attackInterval = 20000;
+        attackInterval = 400;
     }
 	public void cooldown() {
 		hasCooledDown=false;
@@ -35,8 +35,8 @@ public final class DefaultWeapon implements IWeapon {
 				                   hasCooledDown = true;
 			                   }
 		                   },
-				1,
-				TimeUnit.SECONDS
+				attackInterval,
+				TimeUnit.MILLISECONDS
 		);
 	}
 
