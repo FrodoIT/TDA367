@@ -18,7 +18,7 @@ public final class Room implements IRoomData{
 
     private List<Player> players;
     private List<INpc> npcs;
-	private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
+    private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
     private final NpcFactory npcFactory = new NpcFactory();
 
@@ -27,7 +27,7 @@ public final class Room implements IRoomData{
         players = new ArrayList();
         npcs = new ArrayList();
 
-		areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
+        areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
         npcs.add(npcFactory.createType(0, 32, 32));
 
     }
@@ -39,6 +39,7 @@ public final class Room implements IRoomData{
     public void enterRoom(Player player){
         players.add(player);
     }
+
     public List<INpc> getNpcs(){
         return npcs;
     }
@@ -50,30 +51,30 @@ public final class Room implements IRoomData{
         players.remove(player);
     }
 
-	public void update(){
-		for (Player player:players){
-			updateCharacter(player);
-		}
-		for (INpc npc : npcs){
-			updateCharacter(npc);
-		}
-		takeDamage();
-		areaUnderAttack.clear();
-	}
+    public void update(){
+        for (Player player:players){
+            updateCharacter(player);
+        }
+        for (INpc npc : npcs){
+            updateCharacter(npc);
+        }
+        takeDamage();
+        areaUnderAttack.clear();
+    }
 
     private void updateCharacter(ICharacter character) {
 
         if (character.isAlive()) {
-	        Vector2D newPosition = character.calculateMovementPosition(this);
-	        character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
+            Vector2D newPosition = character.calculateMovementPosition(this);
+            character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
 
-	        if (character.isAttacking()){ //checks button press
-		        if(character.weaponHasCooledDown()) {
-			        Rectangle2D.Double attackArea = character.attack();
-			        areaUnderAttack.put(character, attackArea);
-			        System.out.println("Attack added: " + attackArea);
-		        }
-	        }
+            if (character.isAttacking()){ //checks button press
+                if(character.weaponHasCooledDown()) {
+                    Rectangle2D.Double attackArea = character.attack();
+                    areaUnderAttack.put(character, attackArea);
+                    System.out.println("Attack added: " + attackArea);
+                }
+            }
             if(character.isInteracting() && map.hasInteractiveObject()){
                 npcs.add(npcFactory.createType(0, 420, 420));
             }
@@ -81,16 +82,16 @@ public final class Room implements IRoomData{
     }
 
     private boolean takeDamage(){
-	    for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
-		    for(INpc npc:npcs){
-			    if((npc.getUnitTile().intersects( attackEntry.getValue()))){
-				    npc.takeDamage(attackEntry.getKey().getDamage());
-			    }
-		    }
-		    for(Player player: players){
-			    if((player.getUnitTile().intersects( attackEntry.getValue()))){
-				    player.takeDamage(attackEntry.getKey().getDamage());
-			    }
+        for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
+            for(INpc npc:npcs){
+                if((npc.getUnitTile().intersects( attackEntry.getValue()))){
+                    npc.takeDamage(attackEntry.getKey().getDamage());
+                }
+            }
+            for(Player player: players){
+                if((player.getUnitTile().intersects( attackEntry.getValue()))){
+                    player.takeDamage(attackEntry.getKey().getDamage());
+                }
             }
         }
         return false;
