@@ -1,0 +1,49 @@
+Meeting Agenda
+
+  Date: 17 april 2014
+
+  Facilitator: Adam Waldenberg
+
+  Participants: Ivar Josefsson, Alma Ottedag, André Samuelsson, Anna Nylander
+
+1. Objectives (5 min) 
+§1 Resolve internal conflicts
+§2 Make a new list of priorities
+
+2. Reports (15 min)
+We have implemented plugin loading for AI and NpcTypes. 
+Interaction has been implemented, and we can now attack such that the room gets access to the area that is under attack.
+We have a hashmap over area and a character to see what character is attacking.
+
+3. Discussion items (35 min)
+
+§2 During easter and Cortege we will refactor and restructure the code so that future work will be more coherent and easily structured. Mostly the problem lies in the names of methods, but larger scale refactoring may come to pass.
+
+§2 We should make IWeapon into an abstract class in order minimise redundant code, now that cooldown is constructed with code that would be practically the same in all weapons. 
+
+We should refactor code so that is follows the same code standard with the same abstraction levels.
+
+4. Outcomes and assignments (5 min)
+
+Look through all classes and see what needs to be refactored. Coordination for this is to be done through skype meetings. For example if larger refactoring is needed, this could be discussed on skype.
+
+When you start working with a class, whether it be adding a new method or changing an existing one, look through the structure to do a light refactoring.
+
+
+Priorities:
+
+Implement several rooms
+Taking damage (NPC)
+Animations for attacks and whatnot
+Implement more monsters 
+Read monsters from XML
+Add connection between interactive objects and map 
+Implement more interactions: open door/chest/key/pick up weapon.
+
+
+
+5. Wrap 
+Next meeting: Tuesday 8pm
+
+
+
