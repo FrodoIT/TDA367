@@ -3,7 +3,6 @@ package scratch.model;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Date;
 /**
@@ -115,7 +114,7 @@ public final class Player implements ICharacter {
 
     @Override
     public int getDamage() {
-        return 0;
+        return weapon.getDamage();
     }
 
     @Override
