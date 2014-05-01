@@ -25,6 +25,7 @@ public class PlayerView {
 
     private Player player;
     private SpriteDirectionRenderer spriteHandler;
+	private Rectangle2D.Double attackArea;
 
     public PlayerView(Player player) {
         this.player = player;
@@ -48,8 +49,11 @@ public class PlayerView {
         Vector2D position = player.getPosition();
         IPlayerInput playerInput = player.getPlayerInput();
 
-	    if(player.isAttacking()) {
-		    Rectangle2D.Double attackArea = player.getAttackArea();
+	    if(!player.weaponHasCooledDown()) {
+		    //saves attackArea every time player fights co be able to continue to render it until the weaponCD is down.
+		    if(player.isAttacking()) {
+			    attackArea = player.getAttackArea();
+		    }
 		    g.setColor(Color.red);
 		    g.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
 	    }
