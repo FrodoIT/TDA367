@@ -1,5 +1,6 @@
 package scratch.model;
 
+import com.google.inject.Inject;
 import scratch.construction.NpcFactory;
 
 import java.awt.geom.Rectangle2D;
@@ -14,7 +15,7 @@ import java.util.Map;
  *
  */
 public final class Room implements IRoomData{
-
+    @Inject
     private List<Player> players;
     private List<INpc> npcs;
     private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
