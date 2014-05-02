@@ -18,6 +18,7 @@ public final class DefaultWeapon implements IWeapon {
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
 	private boolean hasCooledDown=true;
+	Runnable runnable;
 
 	private ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
 
@@ -26,15 +27,17 @@ public final class DefaultWeapon implements IWeapon {
         range = 1;
         attackArea = new Rectangle2D.Double(0, 0, 32, 32);
         attackInterval = 400;
+
+
+	      runnable = new Runnable() {
+		    public void run() {
+			    hasCooledDown = true;
+		    }
+	    };
     }
 	public void cooldown() {
 		hasCooledDown=false;
-		schdoodle.schedule(new Runnable() {
-			                   @Override
-			                   public void run() {
-				                   hasCooledDown = true;
-			                   }
-		                   },
+		schdoodle.schedule(runnable,
 				attackInterval,
 				TimeUnit.MILLISECONDS
 		);
