@@ -1,5 +1,6 @@
 package scratch.controller;
 
+import com.google.inject.Inject;
 import scratch.model.IPlayerInput;
 import scratch.model.Model;
 import scratch.model.MoveDirection;
@@ -15,6 +16,7 @@ import scratch.view.View;
  *
  */
 public final class PlayerController implements IPlayerInput {
+    @Inject
     private final Model model;
     private final View view;
     private Player player;

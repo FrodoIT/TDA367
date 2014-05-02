@@ -1,4 +1,9 @@
 package scratch.model;
+
+import com.google.inject.ImplementedBy;
+import scratch.controller.PlayerController;
+
+@ImplementedBy(PlayerController.class)
 public interface IPlayerInput {
 	public boolean getAttackInput();
 	public boolean getInteractInput();
@@ -6,5 +11,5 @@ public interface IPlayerInput {
 	public void setAttackStatus(boolean attack);
 	public void setInteractStatus(boolean interact);
 	public void setMoveDirection(MoveDirection direction);
-        public void resetInput();
+    public void resetInput();
 }
