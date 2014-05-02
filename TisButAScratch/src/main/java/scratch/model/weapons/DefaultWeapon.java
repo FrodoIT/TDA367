@@ -69,6 +69,7 @@ public final class DefaultWeapon implements IWeapon {
         return (Rectangle2D.Double)attackArea.clone();
     }
 
-
-
+	public int getAttackInterval() {
+		return attackInterval;
+	}
 }
