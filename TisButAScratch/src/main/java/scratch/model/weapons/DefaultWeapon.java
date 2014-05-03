@@ -34,7 +34,7 @@ public final class DefaultWeapon implements IWeapon {
 			    hasCooledDown = true;
 		    }
 	    };
-    }
+     }
 	public void cooldown() {
 		hasCooledDown=false;
 		schdoodle.schedule(runnable,
@@ -75,4 +75,20 @@ public final class DefaultWeapon implements IWeapon {
 	public int getAttackInterval() {
 		return attackInterval;
 	}
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o)
+            return true;
+        if(o == null)
+            return false;
+        if(o instanceof DefaultWeapon){
+            DefaultWeapon test = (DefaultWeapon) o;
+            return (this.getDamage() == test.getDamage() &&
+                    this.getAttackArea() == test.getAttackArea() &&
+                    this.getAttackInterval() == test.getAttackInterval() &&
+                    this.getRange() == test.getRange());
+        }
+        return false;
+    }
 }
