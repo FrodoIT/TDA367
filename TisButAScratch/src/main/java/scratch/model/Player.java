@@ -20,6 +20,15 @@ public final class Player implements ICharacter {
     private Date tookDamageAtTime;
     private IWeapon weapon;
     private MoveDirection lookingDirection = MoveDirection.SOUTH;
+    private Rectangle2D.Double attackArea ;
+
+    public int getId() {
+        return id;
+    }
+
+    public MoveDirection getLookingDirection() {
+        return lookingDirection;
+    }
 
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
         this.playerInput=playerInput;
@@ -30,6 +39,7 @@ public final class Player implements ICharacter {
         //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         weapon = new DefaultWeapon();
+        attackArea = new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 
     @Override
@@ -97,7 +107,7 @@ public final class Player implements ICharacter {
         Date moment = new Date();
         if (Math.abs(tookDamageAtTime.getTime() - moment.getTime()) > Constants.TIME_BETWEEN_DAMAGE_INSTANCE){
             tookDamageAtTime = moment;
-            health=health-dmg;
+            health=health-Math.abs(dmg);
         }
     }
 
@@ -164,7 +174,7 @@ public final class Player implements ICharacter {
 
     @Override
     public Rectangle2D.Double getAttackArea(){
-        return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
+        return attackArea;
     }
     @Override
     public boolean isInteracting(){
@@ -179,4 +189,5 @@ public final class Player implements ICharacter {
     public boolean weaponHasCooledDown(){
         return weapon.isCooledDown();
     }
+
 }
