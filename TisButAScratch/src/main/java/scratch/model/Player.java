@@ -19,7 +19,7 @@ public final class Player implements ICharacter {
     private IPlayerInput playerInput;
     private Date tookDamageAtTime;
     private IWeapon weapon;
-	private MoveDirection lookingDirection = MoveDirection.SOUTH;
+    private MoveDirection lookingDirection = MoveDirection.SOUTH;
 
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
         this.playerInput=playerInput;
@@ -39,7 +39,7 @@ public final class Player implements ICharacter {
 
     @Override
     public boolean isAlive(){
-	    return health > 0;
+        return health > 0;
     }
 
 
@@ -135,7 +135,7 @@ public final class Player implements ICharacter {
     @Override
     public Rectangle2D.Double attack(){
         assert (!playerInput.getAttackInput()|| !weapon.isCooledDown()): "preconditions not fullfilled";
-	    weapon.attack();
+        weapon.attack();
         return getAttackArea();
 
     }
@@ -155,28 +155,28 @@ public final class Player implements ICharacter {
 
     @Override
     public void setPosition(Vector2D newPosition){
-	    if(playerInput.getMoveInput()!= MoveDirection.NONE){
-		    lookingDirection=playerInput.getMoveInput();
-	    }
-	    //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
+        if(playerInput.getMoveInput()!= MoveDirection.NONE){
+            lookingDirection=playerInput.getMoveInput();
+        }
+        //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
         unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
     @Override
     public Rectangle2D.Double getAttackArea(){
-	    return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
+        return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
     @Override
     public boolean isInteracting(){
-       return playerInput.getInteractInput();
+        return playerInput.getInteractInput();
     }
 
-	@Override
-	public boolean isAttacking() {
-		return (playerInput.getAttackInput());
-	}
+    @Override
+    public boolean isAttacking() {
+        return (playerInput.getAttackInput());
+    }
 
-	public boolean weaponHasCooledDown(){
-		return weapon.isCooledDown();
-	}
+    public boolean weaponHasCooledDown(){
+        return weapon.isCooledDown();
+    }
 }
