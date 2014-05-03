@@ -12,8 +12,9 @@ import scratch.view.View;
  */
 public class MockPlayerInput implements IPlayerInput{
     private Player player;
-    private MoveDirection moveDirection = MoveDirection.NONE;
-    private boolean attack, interact = false;
+    private MoveDirection moveDirection = MoveDirection.NORTH;
+    private boolean attack = false;
+    private boolean interact = true;
     private final int interactionKey = Input.KEY_Z;
     private final int attackKey = Input.KEY_X;
 
