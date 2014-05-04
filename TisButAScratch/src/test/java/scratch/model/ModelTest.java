@@ -8,35 +8,34 @@ import scratch.model.mockModules.MockModule;
 import scratch.model.mockModules.MockPlayerInput;
 import scratch.model.mockModules.MockRoom;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModelTest extends TestCase {
 
 	private Model m;
-	private IPlayerInput playerInput;
+	private Player p;
 	private Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
 	public void initialize() throws Exception {
 		m = new Model();
 
-		playerInput = injector.getInstance(MockPlayerInput.class);
+		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
+		Player p = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
 	}
 
 	public void testAddPlayer() throws Exception {
-		Player p = m.addPlayer(playerInput);
-
-		assertTrue(p != null);
+		m.addPlayer(p);
+		assertTrue(m.getPlayers().contains(p));
 
 	}
 
 	public void testRemovePlayer() throws Exception {
-		Player p = m.addPlayer(playerInput);
-		m.removePlayer(p);  //TODO the model is inconsistent. this should be fixed in another commit
-							//Add player returns the player beeing added and remove player returns void
-							//which also makes it hard to test since there is no way on knowing number of players in model from outside of he model
-
+		m.addPlayer(p);
+		m.removePlayer(p);
+		assertTrue(m.getPlayers().isEmpty());
 	}
 
 	public void testSetMap() throws Exception {

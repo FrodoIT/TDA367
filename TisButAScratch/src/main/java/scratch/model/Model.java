@@ -21,19 +21,23 @@ public class Model {
             
 	}
 	
-	public Player addPlayer(IPlayerInput input){
-            if (activeRoom != null){
-		Player newPlayer = new Player(input, new Rectangle2D.Double(0, 0, 32, 32), playerList.size());
-		playerList.add(newPlayer);
-		activeRoom.enterRoom(newPlayer);
-		return newPlayer;
-            }
-            return null;
+	public boolean addPlayer(Player player){
+		if (activeRoom != null)
+			return false;
+		playerList.add(player);
+		activeRoom.enterRoom(player);
+		return true;
 	}
-	public void removePlayer(Player player){
-		playerList.remove(player);
+
+	public List<Player> getPlayers() {
+		return playerList;
+	}
+
+	public boolean removePlayer(Player player){
+		return playerList.remove(player) &&
 		activeRoom.exitRoom(player);
 	}
+
 	public void setMap(List<Room> gameMapRooms){
 		//TODO: will need to be further implemented later.
 		//set the active room. Currently there should only be one.

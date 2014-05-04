@@ -139,8 +139,8 @@ public final class Room implements IRoomData{
 	 * Removes the specified player from the Room
 	 * @param player
 	 */
-	public void exitRoom(Player player){
-		players.remove(player);
+	public boolean exitRoom(Player player){
+		return players.remove(player);
 	}
 
     /**

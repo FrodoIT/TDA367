@@ -10,6 +10,8 @@ import org.newdawn.slick.Input;
 
 import scratch.view.View;
 
+import java.awt.geom.Rectangle2D;
+
 /**
  * Class to collect input for the player.
  * @author Anna Nylander
@@ -32,13 +34,14 @@ public final class PlayerController implements IPlayerInput {
     }
 
     private void addPlayer(){
-        player=model.addPlayer(this);
+	    player = new Player(this, new Rectangle2D.Double(0, 0, 32, 32), model.getPlayers().size());
+        model.addPlayer(player);
         view.addPlayerView(player);
     }
 
-    public void removePlayer(){
-        model.removePlayer(player);
-    }
+	public void removePlayer(){
+		model.removePlayer(player);
+	}
 
 
     public void registerAllInput(Input input){
