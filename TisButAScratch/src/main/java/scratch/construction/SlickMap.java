@@ -6,6 +6,8 @@
 
 package scratch.construction;
 
+import com.google.inject.ImplementedBy;
+import com.google.inject.Inject;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
@@ -17,11 +19,12 @@ import java.util.ArrayList;
  *
  * @author Ivar
  */
+
 public class SlickMap implements IMap{
     private final TiledMap map;
     private final int collisionIndex;
     private final int interactiveObjectIndex;
-
+	@Inject
     public SlickMap(TiledMap map){
         this.map = map;
         collisionIndex = map.getLayerIndex("collision");

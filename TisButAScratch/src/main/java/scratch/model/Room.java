@@ -143,6 +143,7 @@ public final class Room implements IRoomData{
 		return players.remove(player);
 	}
 
+
     /**
      *
      * @return: the total height of the map in pixels
