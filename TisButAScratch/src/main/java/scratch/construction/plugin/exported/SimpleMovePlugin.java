@@ -1,6 +1,7 @@
 package scratch.construction.plugin.exported;
 
 
+import com.google.inject.Inject;
 import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
 import scratch.model.INPCMove;
@@ -16,7 +17,7 @@ import java.awt.geom.Point2D;
  */
 @AIPlugin(id = 1)
 public final class SimpleMovePlugin implements Pluggable<SimpleMovePlugin>, INPCMove{
-
+	@Inject
     @Override
     public SimpleMovePlugin get() {
         return this;

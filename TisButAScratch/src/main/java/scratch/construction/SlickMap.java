@@ -19,6 +19,7 @@ import java.util.ArrayList;
  *
  * @author Ivar
  */
+//NOTE!!! If changed please edit the MockIMap too since the code should be identical.
 
 public class SlickMap implements IMap{
     private final TiledMap map;

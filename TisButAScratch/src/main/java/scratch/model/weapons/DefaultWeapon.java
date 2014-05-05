@@ -1,5 +1,7 @@
 package scratch.model.weapons;
 
+import com.google.inject.Inject;
+
 import java.awt.geom.Rectangle2D;
 import java.util.concurrent.*;
 
@@ -11,7 +13,7 @@ import java.util.concurrent.*;
  * @author Alma Ottedag
  */
 public final class DefaultWeapon implements IWeapon {
-
+	@Inject
     private final int damage;
     private final int range;
     private final Rectangle2D.Double attackArea;
