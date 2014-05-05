@@ -22,7 +22,7 @@ public class Model {
 	}
 	
 	public boolean addPlayer(Player player){
-		if (activeRoom != null)
+		if (activeRoom == null)
 			return false;
 		playerList.add(player);
 		activeRoom.enterRoom(player);
