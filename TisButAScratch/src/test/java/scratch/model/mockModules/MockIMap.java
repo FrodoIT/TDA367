@@ -8,6 +8,8 @@ import scratch.model.Vector2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Anna on 2014-05-05.
@@ -59,13 +61,27 @@ public class MockIMap implements IMap {
 		return map.getWidth()*map.getTileWidth();
 	}
 
-	@Override
-	public List<Rectangle2D.Double> getNPCRectangles() {
-		//TODO implement this correcly. should load from tiled map. with layer npc
-		java.util.List<Rectangle2D.Double> npcRectangles = new ArrayList<>();
+    @Override
+    public Map<String, Rectangle2D.Double> getObjectRectangles() {
+        return null;
+    }
 
-		npcRectangles.add(new Rectangle2D.Double(32, 32, 32, 32));
+	public Map<String, Rectangle2D.Double> getNPCRectangles() {
+        Map<String, Rectangle2D.Double> npcRectangles = new TreeMap<String, Rectangle2D.Double>();
+		npcRectangles.put("mock", new Rectangle2D.Double(32, 32, 32, 32));
 
 		return npcRectangles;
 	}
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public int getCollisionIndex() {
+        return collisionIndex;
+    }
+
+    public int getInteractiveObjectIndex() {
+        return interactiveObjectIndex;
+    }
 }
