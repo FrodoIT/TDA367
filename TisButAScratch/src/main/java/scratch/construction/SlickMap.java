@@ -23,29 +23,54 @@ import java.util.*;
 public class SlickMap implements IMap{
     private final TiledMap map;
     private final int collisionIndex;
-    //Object map holds the object group index and object index
+    //Object map holds the start position of each object,
     //as well as the name of the object.
-    private Map<String, List<Integer>> objectMap;
+    private Map<String, Vector2D> objectMap;
     private Set<String> objectNameSet;
+
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public int getCollisionIndex() {
+        return collisionIndex;
+    }
+
+    public Map<String, Vector2D> getObjectMap() {
+        return objectMap;
+    }
+
+    public Set<String> getObjectNameSet() {
+        return objectNameSet;
+    }
+
     @Inject
     public SlickMap(TiledMap map){
         this.map = map;
 
-        //A wrap-around for the confusing and dysfunctional TiledMap API.
+
+        initialiseObjectMap(map);
+        collisionIndex = map.getLayerIndex("collision");
+        objectNameSet = objectMap.keySet();
+    }
+
+    /**
+     * A wrap-around for the confusing and dysfunctional TiledMap API.
+     * @param map is the room map
+     */
+    private void initialiseObjectMap(TiledMap map) {
         objectMap = new TreeMap<>();
         int objectGroupIndex = map.getObjectGroupCount();
         for(int i = 0; i < objectGroupIndex; i ++){//
             int objectIndex = map.getObjectCount(i);
             for(int j = 0; j < objectIndex; j++){
+                //Un-comment below to see what indexes each object has.
                 //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );
-                List<Integer> objectID= new ArrayList<Integer>();
-                objectID.add(objectGroupIndex);
-                objectID.add(objectIndex);
-                objectMap.put(map.getObjectName(i, j), objectID);
+                Vector2D objectPosition = new Vector2D(map.getObjectX(i,j), map.getObjectY(i,j));
+
+                objectMap.put(map.getObjectName(i,j), objectPosition);
             }
         }
-        objectNameSet = objectMap.keySet();
-        collisionIndex = map.getLayerIndex("collision");
     }
 
     public boolean isColliding(Vector2D coordinate) {
