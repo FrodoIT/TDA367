@@ -25,33 +25,26 @@ public class SlickMap implements IMap{
     private final int collisionIndex;
     //Object map holds the start position of each object,
     //as well as the name of the object.
-    private Map<String, Vector2D> objectMap;
+    private Map<String, Vector2D> npcPositionMap;
+    private Map<String, Rectangle2D.Double> npcRectangleMap;
+    private Set<String> npcNameSet;
+    private Map<String, Vector2D> objectPositionMap;
+    private Map<String, Rectangle2D.Double> objectRectangleMap;
     private Set<String> objectNameSet;
 
-    public TiledMap getMap() {
-        return map;
-    }
-
-    public int getCollisionIndex() {
-        return collisionIndex;
-    }
-
-    public Map<String, Vector2D> getObjectMap() {
-        return objectMap;
-    }
-
-    public Set<String> getObjectNameSet() {
-        return objectNameSet;
-    }
+    private final int height, width;
 
     @Inject
     public SlickMap(TiledMap map){
         this.map = map;
-
-
-        initialiseObjectMap(map);
+        height = map.getHeight()*map.getTileHeight();
+        width = map.getWidth()*map.getTileWidth();
         collisionIndex = map.getLayerIndex("collision");
-        objectNameSet = objectMap.keySet();
+        initialiseObjectMap(map);
+        npcNameSet = npcPositionMap.keySet();
+        List<Rectangle2D.Double> npcRectangles = new ArrayList<>();
+        npcRectangles.add(new Rectangle2D.Double(32, 32, 32, 32));
+
     }
 
     /**
@@ -59,7 +52,7 @@ public class SlickMap implements IMap{
      * @param map is the room map
      */
     private void initialiseObjectMap(TiledMap map) {
-        objectMap = new TreeMap<>();
+        npcPositionMap = new TreeMap<>();
         int objectGroupIndex = map.getObjectGroupCount();
         for(int i = 0; i < objectGroupIndex; i ++){//
             int objectIndex = map.getObjectCount(i);
@@ -67,8 +60,9 @@ public class SlickMap implements IMap{
                 //Un-comment below to see what indexes each object has.
                 //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );
                 Vector2D objectPosition = new Vector2D(map.getObjectX(i,j), map.getObjectY(i,j));
-
-                objectMap.put(map.getObjectName(i,j), objectPosition);
+                if(map.getObjectType(i,j) == "hostile"){
+                    npcPositionMap.put(map.getObjectName(i, j), objectPosition);
+                }
             }
         }
     }
@@ -81,28 +75,55 @@ public class SlickMap implements IMap{
         }
     }
 
+    public TiledMap getMap() {
+        return map;
+    }
+
+    public int getCollisionIndex() {
+        return collisionIndex;
+    }
+
+    public Map<String, Vector2D> getNpcPositionMap() {
+        return npcPositionMap;
+    }
+
+    public Set<String> getNpcNameSet() {
+        return npcNameSet;
+    }
+
     @Override
     public boolean hasInteractiveObject() {
-        return objectMap.isEmpty();
+        return npcPositionMap.isEmpty();
     }
 
     public int getHeight() {
 
-        return map.getHeight()*map.getTileHeight();
+        return height;
     }
 
     public int getWidth() {
-        return map.getWidth()*map.getTileWidth();
+        return width;
     }
 
     @Override
-    public java.util.List<Rectangle2D.Double> getNPCRectangles() {
-        //TODO implement this correcly. should load from tiled map. with layer npc
-        java.util.List<Rectangle2D.Double> npcRectangles = new ArrayList<>();
+    public Map<String, Rectangle2D.Double> getObjectRectangles() {
+        return objectRectangleMap;
+    }
 
-        npcRectangles.add(new Rectangle2D.Double(32, 32, 32, 32));
+    public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
+        return npcRectangleMap;
+    }
 
-        return npcRectangles;
+    public Map<String, Vector2D> getObjectPositionMap() {
+        return objectPositionMap;
+    }
+
+    public Map<String, Rectangle2D.Double> getObjectRectangleMap() {
+        return objectRectangleMap;
+    }
+
+    public Set<String> getObjectNameSet() {
+        return objectNameSet;
     }
 
 }
