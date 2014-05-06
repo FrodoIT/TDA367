@@ -7,11 +7,8 @@ import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockModule;
 import scratch.model.mockModules.MockPlayerInput;
-import scratch.model.mockModules.MockRoom;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ModelTest extends TestCase {
 
