@@ -20,7 +20,6 @@ public final class Player implements ICharacter {
     private Date tookDamageAtTime;
     private IWeapon weapon;
     private MoveDirection lookingDirection = MoveDirection.SOUTH;
-    private Rectangle2D.Double attackArea ;
 
     public int getId() {
         return id;
@@ -39,7 +38,6 @@ public final class Player implements ICharacter {
         //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         weapon = new DefaultWeapon();
-        attackArea = new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 
     @Override
@@ -174,7 +172,7 @@ public final class Player implements ICharacter {
 
     @Override
     public Rectangle2D.Double getAttackArea(){
-        return attackArea;
+	    return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
     @Override
     public boolean isInteracting(){
