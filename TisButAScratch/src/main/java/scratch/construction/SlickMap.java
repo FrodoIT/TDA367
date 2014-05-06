@@ -42,7 +42,7 @@ public class SlickMap implements IMap{
         height = map.getHeight()*map.getTileHeight();
         width = map.getWidth()*map.getTileWidth();
         collisionIndex = map.getLayerIndex("collision");
-        initialiseEntityMaps(map);
+        initializeEntityMaps(map);
         npcNameSet = npcRectangleMap.keySet();
         objectNameSet = objectRectangleMap.keySet();
         playerNameSet = playerRectangleMap.keySet();
@@ -55,7 +55,7 @@ public class SlickMap implements IMap{
      * A wrap-around for the confusing and dysfunctional TiledMap API.
      * @param map is the room map
      */
-    private void initialiseEntityMaps(TiledMap map) {
+    private void initializeEntityMaps(TiledMap map) {
         npcRectangleMap = new TreeMap<>();
         playerRectangleMap = new TreeMap<>();
         objectRectangleMap = new TreeMap<>();
