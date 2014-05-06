@@ -25,12 +25,14 @@ public class SlickMap implements IMap{
     private final int collisionIndex;
     //Object map holds the start position of each object,
     //as well as the name of the object.
-    private Map<String, Vector2D> npcPositionMap;
+    
     private Map<String, Rectangle2D.Double> npcRectangleMap;
     private Set<String> npcNameSet;
-    private Map<String, Vector2D> objectPositionMap;
     private Map<String, Rectangle2D.Double> objectRectangleMap;
     private Set<String> objectNameSet;
+    private Map<String, Rectangle2D.Double> playerRectangleMap;
+    private Set<String> playerNameSet;
+
 
     private final int height, width;
 
@@ -40,8 +42,10 @@ public class SlickMap implements IMap{
         height = map.getHeight()*map.getTileHeight();
         width = map.getWidth()*map.getTileWidth();
         collisionIndex = map.getLayerIndex("collision");
-        initialiseObjectMap(map);
-        npcNameSet = npcPositionMap.keySet();
+        initialiseEntityMaps(map);
+        npcNameSet = npcRectangleMap.keySet();
+        objectNameSet = objectRectangleMap.keySet();
+        playerNameSet = playerRectangleMap.keySet();
         List<Rectangle2D.Double> npcRectangles = new ArrayList<>();
         npcRectangles.add(new Rectangle2D.Double(32, 32, 32, 32));
 
@@ -51,22 +55,30 @@ public class SlickMap implements IMap{
      * A wrap-around for the confusing and dysfunctional TiledMap API.
      * @param map is the room map
      */
-    private void initialiseObjectMap(TiledMap map) {
-        npcPositionMap = new TreeMap<>();
+    private void initialiseEntityMaps(TiledMap map) {
+        npcRectangleMap = new TreeMap<>();
+        playerRectangleMap = new TreeMap<>();
+        objectRectangleMap = new TreeMap<>();
         int objectGroupIndex = map.getObjectGroupCount();
         for(int i = 0; i < objectGroupIndex; i ++){//
             int objectIndex = map.getObjectCount(i);
             for(int j = 0; j < objectIndex; j++){
                 //Un-comment below to see what indexes each object has.
-                //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );
-                Vector2D objectPosition = new Vector2D(map.getObjectX(i,j), map.getObjectY(i,j));
-                if(map.getObjectType(i,j) == "hostile"){
-                    npcPositionMap.put(map.getObjectName(i, j), objectPosition);
+                //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );                Vector2D objectPosition = new Vector2D(map.getObjectX(i,j), map.getObjectY(i,j));
+
+                Rectangle2D.Double objectArea = new Rectangle2D.Double(map.getObjectX(i,j), map.getObjectY(i,j),
+                        map.getObjectWidth(i,j), map.getObjectHeight(i,j));
+                if(map.getObjectType(i,j) == "npc"){
+                    npcRectangleMap.put(map.getObjectName(i, j), objectArea);
+                } else if (map.getObjectType(i,j) == "object"){
+                    objectRectangleMap.put(map.getObjectName(i, j), objectArea);
+                } else if (map.getObjectType(i,j) == "player"){
+                    playerRectangleMap.put(map.getObjectName(i, j), objectArea);
                 }
             }
         }
     }
-
+    @Override
     public boolean isColliding(Vector2D coordinate) {
         try {
             return (map.getTileId((int) coordinate.getX() / map.getTileWidth(),(int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
@@ -75,32 +87,26 @@ public class SlickMap implements IMap{
         }
     }
 
-    public TiledMap getMap() {
-        return map;
-    }
-
-    public int getCollisionIndex() {
-        return collisionIndex;
-    }
-
-    public Map<String, Vector2D> getNpcPositionMap() {
-        return npcPositionMap;
-    }
-
-    public Set<String> getNpcNameSet() {
-        return npcNameSet;
+    @Override
+    public boolean hasInteractiveObject() {
+        return objectRectangleMap.isEmpty();
     }
 
     @Override
-    public boolean hasInteractiveObject() {
-        return npcPositionMap.isEmpty();
+    public boolean hasNpc(){
+        return npcRectangleMap.isEmpty();
     }
 
+    @Override
+    public Set<String> getNpcNameSet() {
+        return npcNameSet;
+    }
+    @Override
     public int getHeight() {
 
         return height;
     }
-
+    @Override
     public int getWidth() {
         return width;
     }
@@ -110,18 +116,16 @@ public class SlickMap implements IMap{
         return objectRectangleMap;
     }
 
+    @Override
     public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
         return npcRectangleMap;
     }
 
-    public Map<String, Vector2D> getObjectPositionMap() {
-        return objectPositionMap;
-    }
-
+    @Override
     public Map<String, Rectangle2D.Double> getObjectRectangleMap() {
         return objectRectangleMap;
     }
-
+    @Override
     public Set<String> getObjectNameSet() {
         return objectNameSet;
     }

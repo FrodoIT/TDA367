@@ -6,10 +6,7 @@ import scratch.model.IMap;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Anna on 2014-05-05.
@@ -50,7 +47,12 @@ public class MockIMap implements IMap {
 		return found;
 	}
 
-	@Override
+    @Override
+    public boolean hasNpc() {
+        return false;
+    }
+
+    @Override
 	public int getHeight() {
 
 		return map.getHeight()*map.getTileHeight();
@@ -62,11 +64,31 @@ public class MockIMap implements IMap {
 	}
 
     @Override
+    public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
+        return null;
+    }
+
+    @Override
     public Map<String, Rectangle2D.Double> getObjectRectangles() {
         return null;
     }
 
-	public Map<String, Rectangle2D.Double> getNPCRectangles() {
+    @Override
+    public Map<String, Rectangle2D.Double> getObjectRectangleMap() {
+        return null;
+    }
+
+    @Override
+    public Set<String> getObjectNameSet() {
+        return null;
+    }
+
+    @Override
+    public Set<String> getNpcNameSet() {
+        return null;
+    }
+
+    public Map<String, Rectangle2D.Double> getNPCRectangles() {
         Map<String, Rectangle2D.Double> npcRectangles = new TreeMap<String, Rectangle2D.Double>();
 		npcRectangles.put("mock", new Rectangle2D.Double(32, 32, 32, 32));
 
