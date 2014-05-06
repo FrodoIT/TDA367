@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by pippin on 5/3/14.
  */
-public class MockRoom implements IRoomData{
+public class MockIRoomData implements IRoomData{
     private List<Player> players = new ArrayList<Player>();
     private List<INpc> npcs = new ArrayList<INpc>();
     private IMap map;
