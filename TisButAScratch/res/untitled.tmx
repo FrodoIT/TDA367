@@ -13,8 +13,10 @@
   <object name="player1" type="player" x="69" y="404" width="40" height="41"/>
  </objectgroup>
  <objectgroup name="interactive" width="20" height="15">
-  <object name="npc1" type="hostile" x="429" y="42" width="39" height="38"/>
+  <object name="npc1" type="npc" x="429" y="42" width="39" height="38"/>
   <object name="npc2" type="hostile" x="584" y="282" width="41" height="38"/>
+  <object name="npc2" type="npc" x="584" y="282" width="41" height="38"/>
+  <object name="object1" type="object" x="305" y="47" width="39" height="38"/>
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
