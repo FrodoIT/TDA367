@@ -2,7 +2,7 @@ package scratch.controller;
 
 import scratch.construction.InteractiveObjectFactory;
 import scratch.construction.NpcFactory;
-import scratch.construction.TempRoomFactory;
+import scratch.construction.RoomFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public final class Controller implements Game{
             System.out.println("Works perfectly! <3");
         }
 
-        TempRoomFactory trf = new TempRoomFactory();
+        RoomFactory trf = new RoomFactory();
         view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
         model.setMap(trf.getRooms());
         playerControllerList.add(new PlayerController(model, view));

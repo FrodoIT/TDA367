@@ -13,12 +13,12 @@ import org.newdawn.slick.tiled.TiledMap;
  * @author André Samuelsson
  *
  */
-public final class TempRoomFactory {
+public final class RoomFactory {
 	
 	private TiledMap map;
 	private final Room room;
 	
-	public TempRoomFactory() {
+	public RoomFactory() {
 		try {
 			map = new TiledMap("res/untitled.tmx");
 		} catch (SlickException e) {

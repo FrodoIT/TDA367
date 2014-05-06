@@ -6,14 +6,13 @@
 
 package scratch.construction;
 
-import com.google.inject.ImplementedBy;
 import com.google.inject.Inject;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  *
@@ -24,12 +23,29 @@ import java.util.ArrayList;
 public class SlickMap implements IMap{
     private final TiledMap map;
     private final int collisionIndex;
-    private final int interactiveObjectIndex;
-	@Inject
+    //Object map holds the object group index and object index
+    //as well as the name of the object.
+    private Map<String, List<Integer>> objectMap;
+    private Set<String> objectNameSet;
+    @Inject
     public SlickMap(TiledMap map){
         this.map = map;
+
+        //A wrap-around for the confusing and dysfunctional TiledMap API.
+        objectMap = new TreeMap<>();
+        int objectGroupIndex = map.getObjectGroupCount();
+        for(int i = 0; i < objectGroupIndex; i ++){//
+            int objectIndex = map.getObjectCount(i);
+            for(int j = 0; j < objectIndex; j++){
+                //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );
+                List<Integer> objectID= new ArrayList<Integer>();
+                objectID.add(objectGroupIndex);
+                objectID.add(objectIndex);
+                objectMap.put(map.getObjectName(i, j), objectID);
+            }
+        }
+        objectNameSet = objectMap.keySet();
         collisionIndex = map.getLayerIndex("collision");
-        interactiveObjectIndex = map.getLayerIndex("interactiveObject");
     }
 
     public boolean isColliding(Vector2D coordinate) {
@@ -42,13 +58,7 @@ public class SlickMap implements IMap{
 
     @Override
     public boolean hasInteractiveObject() {
-        boolean found = false;
-        for(int i = 0; i < map.getWidth(); i++){
-            for(int j = 0; j < map.getHeight(); j++){
-                found = map.getTileId(i, j, interactiveObjectIndex) != -1;
-            }
-        }
-        return found;
+        return objectMap.isEmpty();
     }
 
     public int getHeight() {
