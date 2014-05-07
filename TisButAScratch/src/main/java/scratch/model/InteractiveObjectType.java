@@ -3,7 +3,7 @@ package scratch.model;
 import java.awt.geom.Rectangle2D;
 //unitTile, interactionType, id
 public final class InteractiveObjectType implements IInteractiveObject{
-    private final Rectangle2D unitTile;
+    private final Rectangle2D.Double unitTile;
     private final  IInteraction interactionType;
     private final int id;
     private final String imagepath;
@@ -27,8 +27,8 @@ public final class InteractiveObjectType implements IInteractiveObject{
     }
 
     @Override
-    public double getArea() {
-        return unitTile.getHeight()*unitTile.getWidth();
+    public Rectangle2D.Double getArea() {
+        return unitTile;
     }
 
     @Override
