@@ -2,6 +2,7 @@ package scratch.construction;
 
 import scratch.construction.plugin.Pluggable;
 import scratch.construction.plugin.PluginLoader;
+import scratch.model.IMap;
 import scratch.model.Vector2D;
 
 import java.util.ArrayList;
@@ -17,8 +18,9 @@ import java.util.Map;
 public abstract class PluginUserFactory<T> {
     private final List<T> givenTypeList;
     private final Map<Integer, Pluggable<?>> pluginMap = PluginLoader.loadPlugins();
-
-    public PluginUserFactory(){
+    private final IMap map;
+    public PluginUserFactory(IMap map){
+        this.map = map;
         givenTypeList = new ArrayList<>();
     }
 
@@ -38,5 +40,9 @@ public abstract class PluginUserFactory<T> {
 
     public List<T> getGivenTypeList() {
         return givenTypeList;
+    }
+
+    public IMap getMap() {
+        return map;
     }
 }

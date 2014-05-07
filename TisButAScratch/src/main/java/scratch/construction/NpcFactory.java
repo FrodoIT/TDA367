@@ -1,6 +1,7 @@
 package scratch.construction;
 
 import scratch.construction.plugin.Pluggable;
+import scratch.model.IMap;
 import scratch.model.INPCMove;
 import scratch.model.INpc;
 import scratch.model.NpcType;
@@ -12,7 +13,8 @@ public final class NpcFactory extends PluginUserFactory<INpc> {
 
 	public static final String KEY = "npc_factory";
 
-    public NpcFactory(){
+    public NpcFactory(IMap map){
+        super(map);
         loadNpcs();
     }
 

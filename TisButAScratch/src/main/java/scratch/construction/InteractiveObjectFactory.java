@@ -2,6 +2,7 @@ package scratch.construction;
 
 import scratch.model.IInteraction;
 import scratch.model.IInteractiveObject;
+import scratch.model.IMap;
 import scratch.model.InteractiveObjectType;
 
 import java.awt.geom.Rectangle2D;
@@ -13,7 +14,8 @@ public class InteractiveObjectFactory extends PluginUserFactory<IInteractiveObje
 
 	public static final String KEY = "interactiveobjectfactory_key";
 
-    public InteractiveObjectFactory(){
+    public InteractiveObjectFactory(IMap map){
+        super(map);
         loadType();
     }
 
@@ -28,6 +30,6 @@ public class InteractiveObjectFactory extends PluginUserFactory<IInteractiveObje
     }
 
     public <IInteractiveObject> void loadType() {
-        super.getGivenTypeList().add(new InteractiveObjectType(1, (IInteraction) getPluginMap().get(2).get(), "/res/playerSprite.tmx", new Rectangle2D.Double(32,32,32,32)));
+
     }
 }
