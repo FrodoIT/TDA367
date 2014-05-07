@@ -11,6 +11,7 @@ import java.util.List;
 public interface IRoomData {
 	List<Player> getPlayers();
 	List<INpc> getNpcs();
+	List<IInteractiveObject> getInteractiveObjects();
 	IMap getMap();
 
 }

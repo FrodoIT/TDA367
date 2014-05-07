@@ -196,6 +196,11 @@ public final class Room implements IRoomData{
         return players;
     }
 
+	@Override
+	public List<IInteractiveObject> getInteractiveObjects() {
+		return interactiveObjects;
+	}
+
 	public List<INpc> getNpcs(){
 		return npcs;
 	}
