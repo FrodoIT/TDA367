@@ -1,10 +1,8 @@
 package scratch.construction;
 
-import com.sun.org.apache.xml.internal.security.utils.resolver.implementations.ResolverXPointer;
 import scratch.construction.plugin.PluginConstants;
 import scratch.construction.plugin.exported.SimpleInteractPlugin;
 import scratch.model.*;
-import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
