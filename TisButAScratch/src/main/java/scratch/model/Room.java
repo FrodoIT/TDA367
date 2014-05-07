@@ -197,8 +197,8 @@ public final class Room implements IRoomData{
     }
 
 	@Override
-	public List<IInteractiveObject> getInteractiveObjects() {
-		return interactiveObjects;
+	public Map<Integer, IInteractiveObject> getDoors() {
+		return doorMap;
 	}
 
 	public List<INpc> getNpcs(){

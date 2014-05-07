@@ -3,6 +3,7 @@ package scratch.model;
 import com.google.inject.ImplementedBy;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tejp on 2014-04-11.
@@ -11,7 +12,7 @@ import java.util.List;
 public interface IRoomData {
 	List<Player> getPlayers();
 	List<INpc> getNpcs();
-	List<IInteractiveObject> getInteractiveObjects();
+	Map<Integer, IInteractiveObject> getDoors();
 	IMap getMap();
 
 }
