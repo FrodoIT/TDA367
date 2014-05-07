@@ -61,6 +61,12 @@
             <artifactId>kryonet</artifactId>
             <version>2.21</version>
         </dependency>
+        <dependency>
+            <groupId>com.esotericsoftware.kryo</groupId>
+            <artifactId>kryo</artifactId>
+            <version>2.10</version>
+        </dependency>
+
     </dependencies>
 
     <build>
