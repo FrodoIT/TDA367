@@ -33,32 +33,28 @@ public class RoomTest extends TestCase {
 		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id);
 	}
 
-<<<<<<< HEAD
-	@Test
+
+    @Test
     public void testUpdate() throws Exception {
         room.enterRoom(createPlayerForTest(1));
         room.update();
         assert(room.isUpdatingNpcs());
         assert(room.isUpdatingPlayers());
-=======
-	public void testUpdate() throws Exception {
+    }
 
-	}
+    public void testUpdateCharater(Character character) throws Exception {
 
-	public void testUpdateCharater(Character character) throws Exception {
+    }
+    //the function MapCollision is used in AllowedPosition so I'm just testing one of them.
+    public void testAllowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition){
+            Player player1 = createPlayerForTest(0);
+            room.enterRoom(player1);
+            //not really sure of how to test this. Might need help with this.
+    }
 
-	}
-	//the function MapCollision is used in AllowedPosition so I'm just testing one of them.
-	public void testAllowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition){
-		Player player1 = createPlayerForTest(0);
-		room.enterRoom(player1);
-		//not really sure of how to test this. Might need help with this.
-	}
+    public void testMapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut){
 
-	public void testMapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut){
-
->>>>>>> Refactored ICharacter to the abstract class Character
-	}
+    }
     @Test
 	public void testEnterRoom() throws Exception {
 		assertTrue(room.getPlayers().isEmpty());

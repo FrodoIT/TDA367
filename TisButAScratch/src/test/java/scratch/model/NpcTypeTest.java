@@ -44,11 +44,6 @@ public class NpcTypeTest extends TestCase {
 		//this is also wtf
 	}
 
-	public void testCreateCopy() throws Exception {
-		NpcType copy = (NpcType) npcType.createCopy(npcType.getPosition().getX(), npcType.getPosition().getY());
-		assertTrue(npcType.equals(copy));
-	}
-
 	public void testGetAttackArea() throws Exception {
 
 	}
