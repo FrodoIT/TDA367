@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class MockIRoomData implements IRoomData{
     private List<Player> players = new ArrayList<Player>();
-    private List<INpc> npcs = new ArrayList<INpc>();
+    private List<NpcType> npcs = new ArrayList<NpcType>();
     private IMap map;
 
 
@@ -32,7 +32,7 @@ public class MockIRoomData implements IRoomData{
     }
 
     @Override
-    public List<INpc> getNpcs() {
+    public List<NpcType> getNpcs() {
 
         return npcs;
     }

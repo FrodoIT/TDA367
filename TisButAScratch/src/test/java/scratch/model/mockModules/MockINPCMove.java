@@ -1,8 +1,8 @@
 package scratch.model.mockModules;
 
 import scratch.model.INPCMove;
-import scratch.model.INpc;
 import scratch.model.IRoomData;
+import scratch.model.NpcType;
 import scratch.model.Vector2D;
 
 /**
@@ -11,12 +11,12 @@ import scratch.model.Vector2D;
 //NOT yet done, will collect code from existing class to fill this out.
 public class MockINPCMove implements INPCMove {
 	@Override
-	public Vector2D calculateNewPosition(IRoomData roomData, INpc npc) {
+	public Vector2D calculateNewPosition(IRoomData roomData, NpcType npc) {
 		return null;
 	}
 
 	@Override
-	public boolean isAttacking(IRoomData roomData, INpc npc) {
+	public boolean isAttacking(IRoomData roomData, NpcType npc) {
 		return false;
 	}
 }
