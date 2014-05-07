@@ -3,10 +3,7 @@ package scratch.model.mockModules;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.SlickMap;
-import scratch.model.IMap;
-import scratch.model.INpc;
-import scratch.model.IRoomData;
-import scratch.model.Player;
+import scratch.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,12 @@ public class MockIRoomData implements IRoomData{
         return npcs;
     }
 
-    @Override
+	@Override
+	public List<IInteractiveObject> getInteractiveObjects() {
+		return null;
+	}
+
+	@Override
     public IMap getMap() {
         if(map == null){
             setup();
