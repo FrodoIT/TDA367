@@ -20,7 +20,6 @@ public final class Room implements IRoomData{
     private List<INpc> npcs;
     private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
-    private final NpcFactory npcFactory = new NpcFactory();
     private boolean isUpdatingPlayers, isUpdatingNpcs;
 	private final List<IInteractiveObject> interactiveObjects;
 
@@ -31,7 +30,6 @@ public final class Room implements IRoomData{
 	    interactiveObjects = new ArrayList<>();
         areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
 
-        npcs.add(npcFactory.createType(0, 32, 32));
     }
 
 
@@ -62,7 +60,7 @@ public final class Room implements IRoomData{
                 }
             }
             if(character.isInteracting() && map.hasInteractiveObject()){
-                npcs.add(npcFactory.createType(0, 420, 420));
+                //npcs.add(npcFactory.createType(0, 420, 420)); TODO interaction will come here later
             }
         }
     }
@@ -134,6 +132,10 @@ public final class Room implements IRoomData{
 
 	public void addInteractivObject(IInteractiveObject interactiveObject) {
 		interactiveObjects.add(interactiveObject);
+	}
+
+	public void addNpc(INpc npc) {
+		npcs.add(npc);
 	}
 
 	/**

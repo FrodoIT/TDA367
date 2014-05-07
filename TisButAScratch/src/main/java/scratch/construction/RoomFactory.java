@@ -1,9 +1,11 @@
 package scratch.construction;
 
+import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 import com.google.inject.internal.cglib.proxy.$MethodInterceptor;
 import net.java.games.util.plugins.Plugin;
+import scratch.model.INpc;
 import scratch.model.Room;
 
 import org.newdawn.slick.SlickException;
@@ -37,11 +39,20 @@ public final class RoomFactory {
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
         addRooms();
+	    //Move to initialise or other addNpc method?
+	    rooms.get(0).addNpc((INpc) pluginUserFactories.get(NpcFactory.KEY).createType(0, 32, 32));
 		addInteractiveObjects();
     }
 
 	private void addInteractiveObjects() {
 		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
+		InteractiveObjectFactory interaObjFact = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
+
+		for (Map.Entry<String, Rectangle2D.Double> entry : slickMap.getObjectRectangles().entrySet()) {
+			rooms.get(0).addInteractivObject(
+					interaObjFact.createType(3, entry.getValue().getX(), entry.getValue().getY())
+			);
+		}
 	}
 
 	public void initialiseRoom(Room room){
