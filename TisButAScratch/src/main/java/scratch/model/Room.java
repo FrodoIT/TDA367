@@ -2,12 +2,10 @@ package scratch.model;
 
 import com.google.inject.Inject;
 import scratch.construction.NpcFactory;
+import scratch.construction.plugin.PluginConstants;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a single room and the contents in it.
@@ -21,13 +19,13 @@ public final class Room implements IRoomData{
     private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
-	private final List<IInteractiveObject> interactiveObjects;
+    private Map<Integer, IInteractiveObject> doorMap;
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
         npcs = new ArrayList();
-	    interactiveObjects = new ArrayList<>();
+        doorMap = new TreeMap<Integer, IInteractiveObject>();
         areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
 
     }
@@ -132,7 +130,13 @@ public final class Room implements IRoomData{
     }
 
 	public void addInteractivObject(IInteractiveObject interactiveObject) {
-		interactiveObjects.add(interactiveObject);
+
+        if (interactiveObject.getID() == PluginConstants.DOOR){
+		    doorMap.put(PluginConstants.DOOR, interactiveObject);
+        } else if (interactiveObject.getID() == PluginConstants.NPC) {
+
+        }
+
 	}
 
 	public void addNpc(INpc npc) {
