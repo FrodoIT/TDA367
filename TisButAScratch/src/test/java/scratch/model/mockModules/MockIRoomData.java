@@ -8,13 +8,14 @@ import scratch.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by pippin on 5/3/14.
  */
 public class MockIRoomData implements IRoomData{
     private List<Player> players = new ArrayList<Player>();
-    private List<NpcType> npcs = new ArrayList<NpcType>();
+    private Map<Integer, NpcType> npcs = new TreeMap<Integer, NpcType>();
     private IMap map;
 
 
@@ -32,7 +33,8 @@ public class MockIRoomData implements IRoomData{
     }
 
     @Override
-    public List<NpcType> getNpcs() {
+
+    public Map<Integer, NpcType> getNpcs() {
 
         return npcs;
     }

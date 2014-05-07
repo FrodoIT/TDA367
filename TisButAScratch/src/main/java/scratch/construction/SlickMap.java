@@ -63,21 +63,22 @@ public class SlickMap implements IMap{
         for(int i = 0; i < objectGroupIndex; i ++){//
             int objectIndex = map.getObjectCount(i);
             for(int j = 0; j < objectIndex; j++){
-                //Un-comment below to see what indexes each object has.
-                //System.out.println(map.getObjectName(i,j) + "   " + i + " object group index " + j + " object index" );                Vector2D objectPosition = new Vector2D(map.getObjectX(i,j), map.getObjectY(i,j));
-
                 Rectangle2D.Double objectArea = new Rectangle2D.Double(map.getObjectX(i,j), map.getObjectY(i,j),
                         map.getObjectWidth(i,j), map.getObjectHeight(i,j));
                 if(map.getObjectType(i,j).equals("npc")){
                     npcRectangleMap.put(map.getObjectName(i, j), objectArea);
                 } else if (map.getObjectType(i,j).equals("object")){
-                    objectRectangleMap.put(map.getObjectName(i, j), objectArea);
+
+                    if(! map.getObjectProperty(i, j, "objectType", "door").equals(null)){
+                        objectRectangleMap.put("door", objectArea);
+                    } else if(!  map.getObjectProperty(i, j, "objectType", "box").equals(null)){
+                        objectRectangleMap.put("box", objectArea);
+                    }
                 } else if (map.getObjectType(i,j).equals("player")){
                     playerRectangleMap.put(map.getObjectName(i, j), objectArea);
                 }
             }
         }
-        System.out.println(objectRectangleMap.size() + "object size");
     }
     @Override
     public boolean isColliding(Vector2D coordinate) {

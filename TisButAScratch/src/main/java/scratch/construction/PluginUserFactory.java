@@ -16,12 +16,12 @@ import java.util.TreeMap;
  * an abstract method for creating this object at a position
  */
 public abstract class PluginUserFactory<T> {
-    private final List<T> givenTypeList;
+    private final Map<Integer, T> givenTypeMap;
     private final Map<Integer, Pluggable<?>> pluginMap = PluginLoader.loadPlugins();
     private final IMap map;
     public PluginUserFactory(IMap map){
         this.map = map;
-        givenTypeList = new ArrayList<>();
+        givenTypeMap = new TreeMap<>();
     }
 
     public abstract void loadType();
@@ -29,8 +29,8 @@ public abstract class PluginUserFactory<T> {
         return pluginMap;
     }
 
-    public List<T> getGivenTypeList() {
-        return givenTypeList;
+    public Map<Integer, T> getGivenTypeMap() {
+        return givenTypeMap;
     }
 
     public IMap getMap() {

@@ -29,10 +29,11 @@ public class RoomView {
 	public void render(GameContainer c, Graphics g) {
 		map.render(0, 0);
                 
-                for(NpcType npc : room.getNpcs()){
-                    int id = npc.getId();
+
+                for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
+                    int id = npcEntry.getValue().getId();
                     if(npcViews.containsKey(id)){
-                        npcViews.get(id).render(npc, g);
+                        npcViews.get(id).render(npcEntry.getValue(), g);
                     }
                 }
 	}

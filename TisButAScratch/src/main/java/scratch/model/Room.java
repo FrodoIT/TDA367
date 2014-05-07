@@ -1,8 +1,6 @@
 package scratch.model;
 
 import com.google.inject.Inject;
-import scratch.construction.NpcFactory;
-import scratch.construction.plugin.PluginConstants;
 
 import java.awt.geom.Rectangle2D;
 import java.util.*;
@@ -15,19 +13,17 @@ import java.util.*;
 public final class Room implements IRoomData{
     @Inject
     private List<Player> players;
-    private List<NpcType> npcs;
+
     private Map<Character, Rectangle2D.Double> areaUnderAttack;
+    private Map<Integer, NpcType> npcs;
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
-    private Map<Integer, IInteractiveObject> doorMap;
+    private Map<Integer, IInteractiveObject> interactiveObjectMap;
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
-        npcs = new ArrayList();
-        doorMap = new TreeMap<Integer, IInteractiveObject>();
         areaUnderAttack= new HashMap<Character, Rectangle2D.Double>();
-
     }
 
 
@@ -36,10 +32,11 @@ public final class Room implements IRoomData{
             isUpdatingPlayers = true;
             updateCharacter(player);
         }
-        
-        for (NpcType npc : npcs){
+
+        for (Map.Entry<Integer, NpcType> npcEntry : npcs.entrySet()){
             isUpdatingNpcs = true;
-	        npc.updateRoomData(this);
+	        npcEntry.getValue().updateRoomData(this);
+            updateCharacter(npcEntry.getValue());
         }
         dealDamage();
         areaUnderAttack.clear();
@@ -66,11 +63,13 @@ public final class Room implements IRoomData{
     }
 
     private boolean dealDamage(){
+
         for (Map.Entry<Character, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
-            for(NpcType npc:npcs){
-                if((npc.getUnitTile().intersects( attackEntry.getValue())) &&
-		                !attackEntry.getKey().getClass().equals(npc.getClass())){
-	                npc.takeDamage(attackEntry.getKey().getDamage());
+            for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
+                if((npcEntry.getValue().getUnitTile().intersects( attackEntry.getValue())) &&
+		                !attackEntry.getKey().getClass().equals(npcEntry.getValue().getClass())){
+                    npcEntry.getValue().takeDamage(attackEntry.getKey().getDamage());
+
 	                break; //an attack should only damage one character at the time.
                 }
             }
@@ -130,18 +129,13 @@ public final class Room implements IRoomData{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-	public void addInteractivObject(IInteractiveObject interactiveObject) {
-
-        if (interactiveObject.getID() == PluginConstants.DOOR){
-		    doorMap.put(PluginConstants.DOOR, interactiveObject);
-        } else if (interactiveObject.getID() == PluginConstants.NPC) {
-
-        }
-
+	public void setInteractivObjects(Map<Integer, IInteractiveObject> interactiveObjectMap) {
+        this.interactiveObjectMap = interactiveObjectMap;
 	}
 
-	public void addNpc(NpcType npc) {
-		npcs.add(npc);
+
+	public void addNpc(Map<Integer, NpcType> npcs) {
+		this.npcs = npcs;
 	}
 
 	/**
@@ -199,13 +193,21 @@ public final class Room implements IRoomData{
 
 	@Override
 	public Map<Integer, IInteractiveObject> getDoors() {
-		return doorMap;
+		return interactiveObjectMap;
 	}
 
-	public List<NpcType> getNpcs(){
-		return npcs;
-	}
+    @Override
+    public Map<Integer, NpcType> getNpcs() {
+        return npcs;
+    }
 
+    public Map<Character, Rectangle2D.Double> getAreaUnderAttack() {
+        return areaUnderAttack;
+    }
+
+    public Map<Integer, IInteractiveObject> getInteractiveObjectMap() {
+        return interactiveObjectMap;
+    }
 
     @Override
     public IMap getMap() {

@@ -1,12 +1,14 @@
 package scratch.construction;
 
-import java.util.*;
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.IInteractiveObject;
 import scratch.model.NpcType;
 import scratch.model.Room;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -18,8 +20,7 @@ public final class RoomFactory {
 
     private TiledMap map;
     private List<Room> rooms;
-    //private List<PluginUserFactory> pluginUserFactories;
-	private Map<String, PluginUserFactory> pluginUserFactories;
+    private Map<String, PluginUserFactory> pluginUserFactories;
     private SlickMap slickMap;
 
 
@@ -40,23 +41,20 @@ public final class RoomFactory {
         addNpcstoRoom();
     }
 
-	private void addInteractiveObjectstoRoom() {
-		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
+    private void addInteractiveObjectstoRoom() {
+        //TODO get interactiveobjects from plugins and match them with objects from TiledMap
 
         InteractiveObjectFactory objectFactory = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
-		for (IInteractiveObject interactiveObject : objectFactory.getGivenTypeList()) {
-			rooms.get(0).addInteractivObject(interactiveObject);
-		}
+        rooms.get(0).setInteractivObjects(objectFactory.getGivenTypeMap());
+
     }
 
     private void addNpcstoRoom(){
         NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
-        for (NpcType npc : npcFactory.getGivenTypeList()) {
-            rooms.get(0).addNpc(npc);
-        }
+        rooms.get(0).addNpc(npcFactory.getGivenTypeMap());
     }
 
-	public void initialiseRoom(Room room){
+    public void initialiseRoom(Room room){
 
     }
 
