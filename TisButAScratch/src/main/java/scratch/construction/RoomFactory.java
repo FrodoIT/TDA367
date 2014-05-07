@@ -48,11 +48,11 @@ public final class RoomFactory {
 		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
 		InteractiveObjectFactory interaObjFact = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
 
-		for (Map.Entry<String, Rectangle2D.Double> entry : slickMap.getObjectRectangles().entrySet()) {
-			rooms.get(0).addInteractivObject(
-					interaObjFact.createType(3, entry.getValue().getX(), entry.getValue().getY())
-			);
-		}
+		//for (Map.Entry<String, Rectangle2D.Double> entry : slickMap.getObjectRectangles().entrySet()) {
+		//	rooms.get(0).addInteractivObject(
+		//			interaObjFact.createType(3, entry.getValue().getX(), entry.getValue().getY())
+		//	);
+		//}
 	}
 
 	public void initialiseRoom(Room room){

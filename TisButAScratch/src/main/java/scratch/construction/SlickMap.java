@@ -68,11 +68,11 @@ public class SlickMap implements IMap{
 
                 Rectangle2D.Double objectArea = new Rectangle2D.Double(map.getObjectX(i,j), map.getObjectY(i,j),
                         map.getObjectWidth(i,j), map.getObjectHeight(i,j));
-                if(map.getObjectType(i,j) == "npc"){
+                if(map.getObjectType(i,j).equals("npc")){
                     npcRectangleMap.put(map.getObjectName(i, j), objectArea);
-                } else if (map.getObjectType(i,j) == "object"){
+                } else if (map.getObjectType(i,j).equals("object")){
                     objectRectangleMap.put(map.getObjectName(i, j), objectArea);
-                } else if (map.getObjectType(i,j) == "player"){
+                } else if (map.getObjectType(i,j).equals("player")){
                     playerRectangleMap.put(map.getObjectName(i, j), objectArea);
                 }
             }
