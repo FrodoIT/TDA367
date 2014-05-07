@@ -30,40 +30,48 @@ public final class Player extends Character {
             case NORTH:
                 deltaX=0;
                 deltaY=-movementSpeed;
+                setMoveDirection(MoveDirection.NORTH);
                 break;
             case SOUTH:
                 deltaX=0;
                 deltaY=+movementSpeed;
+                setMoveDirection(MoveDirection.SOUTH);
                 break;
             case WEST:
                 deltaX=-movementSpeed;
                 deltaY=0;
+                setMoveDirection(MoveDirection.WEST);
                 break;
             case EAST:
                 deltaX=+movementSpeed;
                 deltaY=0;
+                setMoveDirection(MoveDirection.EAST);
                 break;
             case NORTHWEST:
                 deltaX=-movementSpeed;
                 deltaY=-movementSpeed;
+                setMoveDirection(MoveDirection.NORTHWEST);
                 break;
             case NORTHEAST:
                 deltaX=+movementSpeed;
                 deltaY=-movementSpeed;
+                setMoveDirection(MoveDirection.NORTHEAST);
                 break;
             case SOUTHWEST:
                 deltaX=-movementSpeed;
                 deltaY=+movementSpeed;
+                setMoveDirection(MoveDirection.SOUTHWEST);
                 break;
             case SOUTHEAST:
                 deltaX=+movementSpeed;
                 deltaY=+movementSpeed;
+                setMoveDirection(MoveDirection.SOUTHEAST);
                 break;
             default:
                 deltaX = 0;
                 deltaY = 0;
         }
-        setMoveDirection(playerInput.getMoveInput());
+        
         return new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
     }
 

@@ -29,7 +29,7 @@ public abstract class Character {
         this.health = health;
         this.movementSpeed = movementSpeed;
         this.id = id;
-        moveDirection = MoveDirection.NONE;
+        moveDirection = MoveDirection.SOUTH;
         alive = true;
     }
 
