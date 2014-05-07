@@ -5,6 +5,8 @@ import java.util.*;
 
 import com.google.inject.internal.cglib.proxy.$MethodInterceptor;
 import net.java.games.util.plugins.Plugin;
+import scratch.construction.plugin.PluginConstants;
+import scratch.model.IInteractiveObject;
 import scratch.model.INpc;
 import scratch.model.Room;
 
@@ -34,25 +36,24 @@ public final class RoomFactory {
             e.printStackTrace();
         }
 
-        addSubFactories();
 
+        pluginUserFactories = new TreeMap<String, PluginUserFactory>();
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
+        addSubFactories();
         addRooms();
-	    //Move to initialise or other addNpc method?
-	    rooms.get(0).addNpc((INpc) pluginUserFactories.get(NpcFactory.KEY).createType(0, 32, 32));
-		addInteractiveObjects();
+
+        addInteractiveObjects();
+
     }
 
 	private void addInteractiveObjects() {
 		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
-		InteractiveObjectFactory interaObjFact = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
 
-		//for (Map.Entry<String, Rectangle2D.Double> entry : slickMap.getObjectRectangles().entrySet()) {
-		//	rooms.get(0).addInteractivObject(
-		//			interaObjFact.createType(3, entry.getValue().getX(), entry.getValue().getY())
-		//	);
-		//}
+        InteractiveObjectFactory objectFactory = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
+		for (IInteractiveObject interactiveObject : objectFactory.getGivenTypeList()) {
+			rooms.get(0).addInteractivObject(interactiveObject);
+		}
 	}
 
 	public void initialiseRoom(Room room){
@@ -65,9 +66,9 @@ public final class RoomFactory {
     }
 
     private void addSubFactories() {
-        pluginUserFactories = new HashMap<>();
-        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory());
-        pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory());
+        System.out.println("BLEEPP " + pluginUserFactories);
+        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap));
+        pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }
 
     public TiledMap getTiledMap() {

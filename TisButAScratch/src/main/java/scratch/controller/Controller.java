@@ -38,17 +38,6 @@ public final class Controller implements Game{
     @Override
     public void init(GameContainer container) throws SlickException {
         container.setTargetFrameRate(60);
-        NpcFactory npcFactory = new NpcFactory();
-        InteractiveObjectFactory objectFactory = new InteractiveObjectFactory();
-
-        for(INpc enemy : npcFactory.getGivenTypeList()){
-            view.addNpcView(enemy.getID(), enemy.getImagePath());
-        }
-
-        for(IInteractiveObject object : objectFactory.getGivenTypeList()){
-            System.out.println("Works perfectly! <3");
-        }
-
         RoomFactory trf = new RoomFactory();
         view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
         model.setMap(trf.getRooms());

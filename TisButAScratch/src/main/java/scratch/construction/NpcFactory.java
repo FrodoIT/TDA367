@@ -1,37 +1,30 @@
 package scratch.construction;
 
-import scratch.construction.plugin.Pluggable;
+import scratch.construction.plugin.PluginConstants;
+import scratch.construction.plugin.exported.SimpleNPCPlugin;
 import scratch.model.IMap;
-import scratch.model.INPCMove;
 import scratch.model.INpc;
 import scratch.model.NpcType;
 import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class NpcFactory extends PluginUserFactory<INpc> {
 
-	public static final String KEY = "npc_factory";
+    public static final String KEY = "npc_factory";
 
     public NpcFactory(IMap map){
         super(map);
-        loadNpcs();
+        loadType();
     }
 
     @Override
-    public INpc createType(int id, double xPosition, double yPosition) {
-        for(INpc npc : super.getGivenTypeList()){
-            if(npc.getID() == id){
-                return npc.createCopy(xPosition, yPosition);
-            }
+    public void loadType() {
+        System.out.println(super.getMap().hasInteractiveObject() + " given type size");
+        for (Rectangle2D.Double npcRectangle : super.getMap().getNpcRectangleMap().values()){
+            super.getGivenTypeList().add(new NpcType(npcRectangle, new DefaultWeapon(), 10, 2, "monster.tmx", 0, new SimpleNPCPlugin()));
         }
-        return super.getGivenTypeList().get(0).createCopy(xPosition, yPosition);
-    }
-
-    private void loadNpcs() {
-        //TODO this needs refactoring. for example all monsters have same id (1)
-        System.out.println(super.getPluginMap().values().size());
-        System.out.println(super.getPluginMap().keySet() +  "nycklarna");
-        super.getGivenTypeList().add(new NpcType(new Rectangle2D.Double(32, 32, 32, 32), new DefaultWeapon(), 1, 1, "/res/playerSprite.tmx", 0, (INPCMove) super.getPluginMap().get(1).get()));
     }
 }

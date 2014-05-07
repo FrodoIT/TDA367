@@ -1,9 +1,9 @@
 package scratch.construction;
 
-import scratch.model.IInteraction;
-import scratch.model.IInteractiveObject;
-import scratch.model.IMap;
-import scratch.model.InteractiveObjectType;
+import scratch.construction.plugin.exported.SimpleInteractPlugin;
+import scratch.construction.plugin.exported.SimpleNPCPlugin;
+import scratch.model.*;
+import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
 
@@ -19,17 +19,9 @@ public class InteractiveObjectFactory extends PluginUserFactory<IInteractiveObje
         loadType();
     }
 
-    @Override
-    public IInteractiveObject createType(int id, double xPosition, double yPosition) {
-        for(IInteractiveObject object : super.getGivenTypeList()){
-            if(object.getID() == id){
-                return object.createCopy(xPosition, yPosition);
-            }
+    public void loadType() {
+        for (Rectangle2D.Double interactiveObjectRectangle : super.getMap().getObjectRectangles().values()){
+            super.getGivenTypeList().add(new InteractiveObjectType(2, new SimpleInteractPlugin(), "monster.tmx", interactiveObjectRectangle));
         }
-        return super.getGivenTypeList().get(id).createCopy(xPosition, yPosition);
-    }
-
-    public <IInteractiveObject> void loadType() {
-
     }
 }

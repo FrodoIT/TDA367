@@ -7,6 +7,7 @@ import scratch.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by pippin on 5/3/14.
@@ -36,10 +37,11 @@ public class MockIRoomData implements IRoomData{
         return npcs;
     }
 
-	@Override
-	public List<IInteractiveObject> getInteractiveObjects() {
-		return null;
-	}
+    @Override
+    public Map<Integer, IInteractiveObject> getDoors() {
+        return null;
+    }
+
 
 	@Override
     public IMap getMap() {
