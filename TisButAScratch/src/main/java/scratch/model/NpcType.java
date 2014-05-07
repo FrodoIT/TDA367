@@ -195,4 +195,22 @@ public final class NpcType implements INpc {
         //TODO
         return null;
     }
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj==this){
+			return true;
+		}if(obj==null || !obj.getClass().equals(this.getClass())){
+			return false;
+		}
+		NpcType rhs= (NpcType) obj;
+		if(this.getPosition()==rhs.getPosition() && this.getHealth()== rhs.getHealth() &&
+				this.getID()==rhs.getID() && this.getUnitTile()== rhs.getUnitTile() && this.isAlive()== rhs.isAlive() &&
+				this.getAttackArea()==rhs.getAttackArea() && this.getWeapon()== rhs.getWeapon() && this.getImagePath()== rhs.getImagePath()
+			&& this.getMovementSpeed()== rhs.getMovementSpeed() && this.getMoveDirection()== rhs.getMoveDirection()){
+			return true;
+		}
+		return false;
+
+	}
 }
