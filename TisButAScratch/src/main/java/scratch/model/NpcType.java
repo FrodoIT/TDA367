@@ -22,6 +22,8 @@ public final class NpcType implements INpc {
     private boolean hostile;
     private boolean alive;
     private INPCMove movementPattern;
+	private MoveDirection lookingDirection = MoveDirection.SOUTH;
+	private IRoomData roomData;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
@@ -77,11 +79,15 @@ public final class NpcType implements INpc {
         return movementSpeed;
     }
 
-    /**
-     * The NPC will take damage if enough time has passed since last time he took damage
-     * @param dmg is the amount of damage the npc should take
-     * @return true if the NPC is still isAlive.
-     */
+	public void updateRoomData(IRoomData roomData){
+		this.roomData=roomData;
+	}
+
+		/**
+		 * The NPC will take damage if enough time has passed since last time he took damage
+		 * @param dmg is the amount of damage the npc should take
+		 * @return true if the NPC is still isAlive.
+		 */
     @Override
     public void takeDamage(int dmg) {
 	    setHealth(getHealth()-dmg);
@@ -92,6 +98,7 @@ public final class NpcType implements INpc {
 
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
+	    lookingDirection=moveDirection;
     }
 
     @Override
@@ -106,7 +113,24 @@ public final class NpcType implements INpc {
 
 	@Override
 	public boolean isAttacking() {
-		return false; //TODO should ask the AI (plugin) the plugin should be a NPCAI not MOVEAI...
+		return movementPattern.isAttacking(roomData, this);
+	}
+
+	@Override
+	public Rectangle2D.Double getAttackArea(){
+		return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
+	}
+
+	/**
+	 * Give NPC opportunity to execute an attack
+	 * @return null if no attack is done, otherwise the area that the NPC attacks
+	 */
+	@Override
+	public Rectangle2D.Double attack(){
+		weapon.attack();
+		System.out.println("npc is attacking");
+		return getAttackArea();
+
 	}
 
 	public boolean weaponHasCooledDown() {
@@ -178,22 +202,6 @@ public final class NpcType implements INpc {
     @Override
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;
-    }
-    
-    @Override
-    public Rectangle2D.Double getAttackArea(){
-        //TODO
-        return null;
-    }
-    
-    /**
-     * Give NPC opportunity to execute an attack
-     * @return null if no attack is done, otherwise the area that the NPC attacks
-     */
-    @Override
-    public Rectangle2D.Double attack(){
-        //TODO
-        return null;
     }
 
 	@Override

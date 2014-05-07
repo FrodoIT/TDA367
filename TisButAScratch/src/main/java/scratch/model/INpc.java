@@ -19,4 +19,5 @@ public interface INpc extends ICharacter{
     public String getImagePath();
     public boolean isHostile();
     public void setMovementPattern(INPCMove npcMove);
+	public void updateRoomData(IRoomData roomData);
 }

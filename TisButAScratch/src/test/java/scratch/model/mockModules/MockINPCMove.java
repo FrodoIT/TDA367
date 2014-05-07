@@ -14,4 +14,9 @@ public class MockINPCMove implements INPCMove {
 	public Vector2D calculateNewPosition(IRoomData roomData, INpc npc) {
 		return null;
 	}
+
+	@Override
+	public boolean isAttacking(IRoomData roomData, INpc npc) {
+		return false;
+	}
 }
