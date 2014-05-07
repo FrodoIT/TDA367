@@ -21,6 +21,7 @@ public final class Room implements IRoomData{
     private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
     private final NpcFactory npcFactory = new NpcFactory();
+    private boolean isUpdatingPlayers, isUpdatingNpcs;
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
@@ -32,19 +33,22 @@ public final class Room implements IRoomData{
 
     }
 
+
     public void update(){
         for (Player player:players){
+            isUpdatingPlayers = true;
             updateCharacter(player);
         }
         for (INpc npc : npcs){
+            isUpdatingNpcs = true;
             updateCharacter(npc);
         }
         dealDamage();
         areaUnderAttack.clear();
+
     }
 
     private void updateCharacter(ICharacter character) {
-
         if (character.isAlive()) {
             Vector2D newPosition = character.calculateMovementPosition(this);
             character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
@@ -152,6 +156,22 @@ public final class Room implements IRoomData{
         return map.getHeight();
     }
 
+
+    public boolean isUpdatingPlayers() {
+        return isUpdatingPlayers;
+    }
+
+    public void setUpdatingPlayers(boolean isUpdatingPlayers) {
+        this.isUpdatingPlayers = isUpdatingPlayers;
+    }
+
+    public boolean isUpdatingNpcs() {
+        return isUpdatingNpcs;
+    }
+
+    public void setUpdatingNpcs(boolean isUpdatingNpcs) {
+        this.isUpdatingNpcs = isUpdatingNpcs;
+    }
     /**
      *
      * @return: the total width of the map in pixels
