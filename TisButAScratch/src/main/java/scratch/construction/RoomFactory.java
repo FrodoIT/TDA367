@@ -1,18 +1,13 @@
 package scratch.construction;
 
-import java.awt.geom.Rectangle2D;
 import java.util.*;
 
-import com.google.inject.internal.cglib.proxy.$MethodInterceptor;
-import net.java.games.util.plugins.Plugin;
-import scratch.construction.plugin.PluginConstants;
 import scratch.model.IInteractiveObject;
 import scratch.model.INpc;
 import scratch.model.Room;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.Vector2D;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -42,19 +37,25 @@ public final class RoomFactory {
         rooms = new ArrayList<Room>();
         addSubFactories();
         addRooms();
-
-        addInteractiveObjects();
-
+        addInteractiveObjectstoRoom();
+        addNpcstoRoom();
     }
 
-	private void addInteractiveObjects() {
+	private void addInteractiveObjectstoRoom() {
 		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
 
         InteractiveObjectFactory objectFactory = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
 		for (IInteractiveObject interactiveObject : objectFactory.getGivenTypeList()) {
 			rooms.get(0).addInteractivObject(interactiveObject);
 		}
-	}
+    }
+
+    private void addNpcstoRoom(){
+        NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
+        for (INpc npc : npcFactory.getGivenTypeList()) {
+            rooms.get(0).addNpc(npc);
+        }
+    }
 
 	public void initialiseRoom(Room room){
 
@@ -66,7 +67,6 @@ public final class RoomFactory {
     }
 
     private void addSubFactories() {
-        System.out.println("BLEEPP " + pluginUserFactories);
         pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap));
         pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }

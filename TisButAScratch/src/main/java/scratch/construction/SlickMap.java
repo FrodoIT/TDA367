@@ -77,6 +77,7 @@ public class SlickMap implements IMap{
                 }
             }
         }
+        System.out.println(objectRectangleMap.size() + "object size");
     }
     @Override
     public boolean isColliding(Vector2D coordinate) {
