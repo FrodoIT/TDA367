@@ -23,28 +23,30 @@ public class NpcTypeTest extends TestCase {
 
 	}
 
-	public void testIsAlive() throws Exception {
-
-	}
-
 	public void testTakeDamage() throws Exception {
-
+		assertTrue(npcType.getHealth()==1);
+		npcType.takeDamage(2);
+		assertTrue(npcType.getHealth()==(-1));
 	}
 
 	public void testSetPosition() throws Exception {
-
+		npcType.setPosition(new Vector2D(10,10));
+		assertTrue(npcType.getPosition().equals(new Vector2D(10,10)));
+		npcType.setPosition(new Vector2D(-1,-1));
+		assertTrue(npcType.getPosition()==new Vector2D(-1,-1));
 	}
 
 	public void testIsAttacking() throws Exception {
-
+		//TODO if NPCMove says Attack, so should the NPC.
 	}
 
 	public void testCalculateMovementPosition() throws Exception {
-
+		//this is also wtf
 	}
 
 	public void testCreateCopy() throws Exception {
-
+		NpcType copy = (NpcType) npcType.createCopy(npcType.getPosition().getX(), npcType.getPosition().getY());
+		assertTrue(npcType.equals(copy));
 	}
 
 	public void testGetAttackArea() throws Exception {
