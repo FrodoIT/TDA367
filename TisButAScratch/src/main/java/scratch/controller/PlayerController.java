@@ -28,13 +28,13 @@ public final class PlayerController implements IPlayerInput {
     private final int attackKey = Input.KEY_X;
 
     public PlayerController(Model model, View view){
-        this.model=model;
+        this.model = model;
         this.view = view;
         addPlayer();
     }
 
     private void addPlayer(){
-	    player = new Player(this, new Rectangle2D.Double(0, 0, 32, 32), model.getPlayers().size());
+	player = new Player(this, new Rectangle2D.Double(0, 0, 32, 32), model.getPlayers().size());
         model.addPlayer(player);
         view.addPlayerView(player);
     }

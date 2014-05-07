@@ -12,28 +12,39 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+import scratch.controller.Controller;
+import scratch.controller.PlayerController;
+import scratch.model.Model;
+import scratch.model.MoveDirection;
 import static scratch.network.Registration.register;
+import scratch.view.View;
 
 /**
  *
  * @author Cannonbait
  */
-public class ScratchClient {
+public class ScratchClient implements ScratchNetwork{
 
-    Client client;
+    private final Client client;
+    private PlayerController controller;
 
-    public ScratchClient(String ip) {
-
-        Client client = new Client();
+    public ScratchClient(String ip) throws SlickException{
+        controller = null;
+        client = new Client();
         Kryo kryo = client.getKryo();
         kryo.register(SomeRequest.class);
         kryo.register(SomeResponse.class);
+        kryo.register(MoveDirection.class);
+        
         client.start();
         try {
             client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
         SomeRequest request = new SomeRequest();
         request.text = "Here is the request";
         client.sendTCP(request);
@@ -46,5 +57,13 @@ public class ScratchClient {
                 }
             }
         });
+    }
+    
+    public void setPlayerController(PlayerController controller){
+        this.controller = controller;
+    }
+    
+    public void update(){
+        client.sendTCP(controller.getMoveInput());
     }
 }

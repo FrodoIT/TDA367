@@ -25,7 +25,7 @@ public class PlayerView {
 
     private Player player;
     private SpriteDirectionRenderer spriteHandler;
-	private Rectangle2D.Double attackArea;
+    private Rectangle2D.Double attackArea;
 
     public PlayerView(Player player) {
         this.player = player;
@@ -35,7 +35,7 @@ public class PlayerView {
     private final void animationSetUp(){
         //TODO should probably be moved to another class later
         //we fetch the sprite through a tiledmap (like we do with the room map)
-
+        
         try {
             spriteHandler = new SpriteDirectionRenderer( new TiledMap("res/playerSprite.tmx") );
         } catch (SlickException e) {
@@ -59,7 +59,9 @@ public class PlayerView {
 	    }
 
         MoveDirection input= playerInput.getMoveInput();
-
+        if (spriteHandler == null){
+            System.out.println("DING DING DING");
+        }
         spriteHandler.render(g, input, position.getX(),position.getY());
     }
 

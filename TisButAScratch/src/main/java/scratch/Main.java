@@ -16,15 +16,6 @@ import scratch.view.View;
  */
 public class Main {
 	public static void main (String[] args) throws SlickException{
-                Menu.mainMenu();
-                
-                
-            
-                /*
-                Model model = new Model();
-		View view = new View();
-		AppGameContainer app = new AppGameContainer(new Controller(model, view));
-		app.start();
-                        */
+                Menu.mainMenu(); 
 	}
 }
