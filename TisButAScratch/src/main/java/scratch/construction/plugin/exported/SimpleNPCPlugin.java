@@ -31,7 +31,7 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
         Vector2D npcPos = npc.getPosition();
         Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()), new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
         int moveSpeed = npc.getMovementSpeed();
-        return new Vector2D((npcPos.getX() + directionVector.getX()) * moveSpeed, (npcPos.getY() + directionVector.getY()) * moveSpeed);
+        return new Vector2D(npcPos.getX() + directionVector.getX() * moveSpeed, npcPos.getY() + directionVector.getY() * moveSpeed);
 
     }
 	public boolean isAttacking(IRoomData roomData, NpcType npc){
