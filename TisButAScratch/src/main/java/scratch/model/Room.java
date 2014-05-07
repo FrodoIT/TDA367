@@ -22,15 +22,16 @@ public final class Room implements IRoomData{
     private final IMap map;
     private final NpcFactory npcFactory = new NpcFactory();
     private boolean isUpdatingPlayers, isUpdatingNpcs;
+	private final List<IInteractiveObject> interactiveObjects;
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
         npcs = new ArrayList();
-
+	    interactiveObjects = new ArrayList<>();
         areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
-        npcs.add(npcFactory.createType(0, 32, 32));
 
+        npcs.add(npcFactory.createType(0, 32, 32));
     }
 
 
@@ -131,6 +132,9 @@ public final class Room implements IRoomData{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
+	public void addInteractivObject(IInteractiveObject interactiveObject) {
+		interactiveObjects.add(interactiveObject);
+	}
 
 	/**
 	 * Adds the specified player from the Room
