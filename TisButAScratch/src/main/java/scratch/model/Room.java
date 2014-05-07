@@ -56,8 +56,14 @@ public final class Room implements IRoomData{
                     System.out.println("Attack added: " + attackArea);
                 }
             }
-            if(character.isInteracting() && map.hasInteractiveObject()){
-                //npcs.add(npcFactory.createType(0, 420, 420)); TODO interaction will come here later
+	        if(character.isInteracting()) {// && map.hasInteractiveObject()){
+		        for (IInteractiveObject interactObj: interactiveObjectMap.values()) {
+			        if (character.getUnitTile().intersects(interactObj.getArea())) {
+				        interactObj.interact();
+			        }
+
+		        }
+	            //npcs.add(npcFactory.createType(0, 420, 420)); TODO interaction will come here later
             }
         }
     }

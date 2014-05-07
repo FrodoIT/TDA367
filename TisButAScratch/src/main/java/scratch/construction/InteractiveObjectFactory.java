@@ -20,15 +20,15 @@ public class InteractiveObjectFactory extends PluginUserFactory<IInteractiveObje
     }
 
     public void loadType() {
-        for(Map.Entry<String, Rectangle2D.Double> entry : super.getMap().getNpcRectangleMap().entrySet()){
+        for(Map.Entry<String, Rectangle2D.Double> entry : super.getMap().getObjectRectangleMap().entrySet()){
             int keyToConstant = 0;
-            if(entry.getKey().equals("door")){
+	        if(entry.getKey().equals("door")){
                 keyToConstant = PluginConstants.DOOR;
             } else if(entry.getKey().equals("box")){
                 keyToConstant = PluginConstants.BOX;
             }
             super.getGivenTypeMap().put(keyToConstant,
-                    new InteractiveObjectType(2, new SimpleInteractPlugin(), "monster.tmx", entry.getValue()));
+                    new InteractiveObjectType(keyToConstant, new SimpleInteractPlugin(), "monster.tmx", entry.getValue()));
         }
     }
 }
