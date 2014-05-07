@@ -72,8 +72,8 @@ public class RoomTest extends TestCase {
 		room.enterRoom(player2);
 		assertTrue(!room.getPlayers().isEmpty());
 		room.exitRoom(player1);
-		assertTrue(!room.getPlayers().contains(player1) && room.getPlayers().get(0).getID()==1);
-		assertEquals(1,room.getPlayers().get(0).getID());
+		assertTrue(!room.getPlayers().contains(player1) && room.getPlayers().get(0).getId()==1);
+		assertEquals(1,room.getPlayers().get(0).getId());
 		room.exitRoom(player2);
 		assertTrue(room.getPlayers().isEmpty());
 	}
