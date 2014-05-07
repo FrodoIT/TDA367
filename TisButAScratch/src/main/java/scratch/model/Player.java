@@ -11,49 +11,20 @@ import java.util.Date;
  * TODO: Add logic for colission detection here through IRoomData.
  *
  */
-public final class Player implements ICharacter {
-    private int health;
-    private final int id;
-    private final int movementSpeed;
-    private final Rectangle2D.Double unitTile;
+public final class Player extends Character {
     private IPlayerInput playerInput;
-    private Date tookDamageAtTime;
-    private IWeapon weapon;
-    private MoveDirection lookingDirection = MoveDirection.SOUTH;
-
-    public int getId() {
-        return id;
-    }
-
-    public MoveDirection getLookingDirection() {
-        return lookingDirection;
-    }
-
+    
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
+        super(unitTile, new DefaultWeapon(), 10, 2, id);
         this.playerInput=playerInput;
-        movementSpeed = 2;
-        this.id = id;
-        this.health = 10;
-        tookDamageAtTime = new Date();
-        //TODO: Can we rely on clone here? Not certain that the copy will be deep enough
-        this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
-        weapon = new DefaultWeapon();
     }
 
     @Override
     public Vector2D calculateMovementPosition(IRoomData roomData){
-        return calculateNewPosition(playerInput.getMoveInput());
-    }
-
-    @Override
-    public boolean isAlive(){
-        return health > 0;
-    }
-
-
-    public Vector2D calculateNewPosition(MoveDirection direction){
         int deltaX;
         int deltaY;
+        int movementSpeed = getMovementSpeed();
+        MoveDirection direction = playerInput.getMoveInput();
 
         switch(direction){
             case NORTH:
@@ -92,47 +63,8 @@ public final class Player implements ICharacter {
                 deltaX = 0;
                 deltaY = 0;
         }
+        setMoveDirection(playerInput.getMoveInput());
         return new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
-    }
-
-    /**
-     * The player will take damage if enough time has passed since last time he took damage
-     * @param dmg is the amount of damage the npc should take
-     * @return true if the NPC is still isAlive.
-     */
-    @Override
-    public void takeDamage(int dmg){
-        Date moment = new Date();
-        if (Math.abs(tookDamageAtTime.getTime() - moment.getTime()) > Constants.TIME_BETWEEN_DAMAGE_INSTANCE){
-            tookDamageAtTime = moment;
-            health=health-Math.abs(dmg);
-        }
-    }
-
-    @Override
-    public int getHealth() {
-        return health;
-    }
-
-    @Override
-    public Vector2D getPosition() {
-        //Copy to protect from unintentional modification
-        return new Vector2D(unitTile.getX(), unitTile.getY());
-    }
-
-    @Override
-    public int getDamage() {
-        return weapon.getDamage();
-    }
-
-    @Override
-    public int getMovementSpeed() {
-        return movementSpeed;
-    }
-
-    @Override
-    public IWeapon getWeapon() {
-        return weapon;
     }
 
     /**
@@ -140,40 +72,20 @@ public final class Player implements ICharacter {
      * @return null if no attack is done, otherwise the area that the NPC attacks
      * @pre The player has pressed attackbutton and the weapon has cooldowned.
      */
+    
     @Override
     public Rectangle2D.Double attack(){
-        assert (!playerInput.getAttackInput()|| !weapon.isCooledDown()): "preconditions not fullfilled";
-        weapon.attack();
-        return getAttackArea();
-
+        if (playerInput.getAttackInput()){
+            return super.attack();
+        }
+        return null;
     }
 
     public IPlayerInput getPlayerInput(){
         return playerInput;
     }
-
-    public int getID(){
-        return id;
-    }
-
-    @Override
-    public Rectangle2D.Double getUnitTile(){
-        return unitTile;
-    }
-
-    @Override
-    public void setPosition(Vector2D newPosition){
-        if(playerInput.getMoveInput()!= MoveDirection.NONE){
-            lookingDirection=playerInput.getMoveInput();
-        }
-        //TODO: This is not very optimal. Usage of point and rectangle should probably be omitted.
-        unitTile.setRect(newPosition.getX(),newPosition.getY(), unitTile.getWidth(), unitTile.getHeight());
-    }
-
-    @Override
-    public Rectangle2D.Double getAttackArea(){
-	    return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
-    }
+    
+    
     @Override
     public boolean isInteracting(){
         return playerInput.getInteractInput();
@@ -184,8 +96,6 @@ public final class Player implements ICharacter {
         return (playerInput.getAttackInput());
     }
 
-    public boolean weaponHasCooledDown(){
-        return weapon.isCooledDown();
-    }
+
 
 }

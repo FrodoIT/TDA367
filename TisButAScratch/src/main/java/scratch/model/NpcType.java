@@ -1,8 +1,6 @@
 package scratch.model;
 
 import java.awt.geom.Rectangle2D;
-
-import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
 /**
@@ -10,133 +8,47 @@ import scratch.model.weapons.IWeapon;
  * @author Ivar
  *
  */
-public final class NpcType implements INpc {
-
-    private final Rectangle2D.Double unitTile;
-    private IWeapon weapon;
-    private int health;
-    private int movementSpeed;
-    private final String imagePath;
-    private final int id;
-    private MoveDirection moveDirection;
+public final class NpcType extends Character{
+    
     private boolean hostile;
-    private boolean alive;
+    private final String imagePath;
     private INPCMove movementPattern;
-	private MoveDirection lookingDirection = MoveDirection.SOUTH;
-	private IRoomData roomData;
+    private MoveDirection lookingDirection = MoveDirection.SOUTH;
+    private IRoomData roomData;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
-        this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
-        this.weapon = weapon;
-        this.health = health;
-        this.movementSpeed = moveSpeed;
+        super(unitTile, weapon, health, moveSpeed, id);
         this.imagePath = imagePath;
-        this.id = id;
         this.movementPattern = movementPattern;
-        moveDirection = MoveDirection.NONE;
         hostile = true;
-        alive = true;
-    }
-
-    @Override
-    public boolean isAlive() {
-        return health > 0;
     }
 
     /**
      * Call to determine if NPC is hostile
      * @return
      */
+    
     public boolean isHostile(){
         return hostile;
     }
 
-    /**
-     * Call to get a Point with the position of the NPC
-     * @return a copy of the pointer holding the position
-     */
-    public Vector2D getPosition() {
-        return new Vector2D(unitTile.x, unitTile.y);
+    public void updateRoomData(IRoomData roomData){
+        this.roomData=roomData;
     }
 
-    public IWeapon getWeapon() {
-        return weapon;
-    }
 
-    public int getDamage() {
-        return weapon.getDamage();
-    }
-
-    public int getRange() {
-        return weapon.getRange();
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public int getMovementSpeed() {
-        return movementSpeed;
-    }
-
-	public void updateRoomData(IRoomData roomData){
-		this.roomData=roomData;
-	}
-
-		/**
-		 * The NPC will take damage if enough time has passed since last time he took damage
-		 * @param dmg is the amount of damage the npc should take
-		 * @return true if the NPC is still isAlive.
-		 */
     @Override
-    public void takeDamage(int dmg) {
-	    setHealth(getHealth()-dmg);
-	    if(getHealth()<0){
-		    alive=false;
-		}
-	}
-
-    public void setPosition(Vector2D position) {
-        unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
-	    lookingDirection=moveDirection;
+    public boolean isInteracting() {
+            return false;
     }
 
     @Override
-    public Rectangle2D.Double getUnitTile() {
-        return unitTile;
+    public boolean isAttacking() {
+            return movementPattern.isAttacking(roomData, this);
     }
 
-	@Override
-	public boolean isInteracting() {
-		return false;
-	}
 
-	@Override
-	public boolean isAttacking() {
-		return movementPattern.isAttacking(roomData, this);
-	}
-
-	@Override
-	public Rectangle2D.Double getAttackArea(){
-		return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*lookingDirection.getX()), unitTile.y+(32*weapon.getRange()*lookingDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
-	}
-
-	/**
-	 * Give NPC opportunity to execute an attack
-	 * @return null if no attack is done, otherwise the area that the NPC attacks
-	 */
-	@Override
-	public Rectangle2D.Double attack(){
-		weapon.attack();
-		System.out.println("npc is attacking");
-		return getAttackArea();
-
-	}
-
-	public boolean weaponHasCooledDown() {
-	return weapon.isCooledDown();
-	}
-		@Override
+    @Override
     public Vector2D calculateMovementPosition(IRoomData roomData) {
         Vector2D newPosition = movementPattern.calculateNewPosition(roomData, this);
         calculateMoveDirection(newPosition);
@@ -144,8 +56,8 @@ public final class NpcType implements INpc {
     }
 
     private void calculateMoveDirection(Vector2D newPosition){
-        double diffX = newPosition.getX() - unitTile.x;
-        double diffY = newPosition.getY() - unitTile.y;
+        double diffX = newPosition.getX() - getUnitTile().x;
+        double diffY = newPosition.getY() - getUnitTile().y;
         double theta = Math.atan(diffY / diffX)*180/Math.PI;
 
         if(diffX == 0 && diffY == 0){
@@ -168,57 +80,31 @@ public final class NpcType implements INpc {
             setMoveDirection(MoveDirection.SOUTH);
         }
     }
-
-    private void setMoveDirection(MoveDirection direction){
-        moveDirection = direction;
-    }
-
-    public MoveDirection getMoveDirection(){
-        return moveDirection;
-    }
-
-    public void setHealth(int health){
-        this.health = health;
-    }
-
-    @Override
-    public INpc createCopy(double xPosition, double yPosition) {
-        try {
-            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), weapon.getClass().newInstance(), health, movementSpeed, imagePath, id, movementPattern) ;
-        } catch (InstantiationException | IllegalAccessException e){
-            return new NpcType(new Rectangle2D.Double(xPosition,yPosition,unitTile.width,unitTile.height), new DefaultWeapon(), health, movementSpeed, imagePath, id, movementPattern) ;
-        }
-        
-    }
-
-    public int getID(){
-        return id;
-    }
-
+    
+    
     public String getImagePath(){
         return imagePath;
     }
 
-    @Override
+    
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;
     }
 
-	@Override
-	public boolean equals(Object obj) {
-		if(obj==this){
-			return true;
-		}if(obj==null || !obj.getClass().equals(this.getClass())){
-			return false;
-		}
-		NpcType rhs= (NpcType) obj;
-		if(this.getPosition()==rhs.getPosition() && this.getHealth()== rhs.getHealth() &&
-				this.getID()==rhs.getID() && this.getUnitTile()== rhs.getUnitTile() && this.isAlive()== rhs.isAlive() &&
-				this.getAttackArea()==rhs.getAttackArea() && this.getWeapon()== rhs.getWeapon() && this.getImagePath()== rhs.getImagePath()
-			&& this.getMovementSpeed()== rhs.getMovementSpeed() && this.getMoveDirection()== rhs.getMoveDirection()){
-			return true;
-		}
-		return false;
+    @Override
+    public boolean equals(Object obj) {
+            if(obj==this){
+                    return true;
+            }if(obj==null || !obj.getClass().equals(this.getClass())){
+                    return false;
+            }
+            NpcType rhs= (NpcType) obj;
+            return (super.equals(rhs) && this.isHostile() == rhs.isHostile() && this.getImagePath() == rhs.getImagePath() &&
+                    this.getMovementPattern() == rhs.getMovementPattern());
 
-	}
+    }
+    
+    public INPCMove getMovementPattern(){
+        return movementPattern;
+    }
 }

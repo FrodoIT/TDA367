@@ -11,8 +11,8 @@ import java.util.Map;
 @ImplementedBy(Room.class)
 public interface IRoomData {
 	List<Player> getPlayers();
-	List<INpc> getNpcs();
+        List<NpcType> getNpcs();
 	Map<Integer, IInteractiveObject> getDoors();
-	IMap getMap();
+        IMap getMap();
 
 }

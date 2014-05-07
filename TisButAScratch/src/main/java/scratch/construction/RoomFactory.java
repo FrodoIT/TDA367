@@ -2,12 +2,11 @@ package scratch.construction;
 
 import java.util.*;
 
-import scratch.model.IInteractiveObject;
-import scratch.model.INpc;
-import scratch.model.Room;
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import scratch.model.IInteractiveObject;
+import scratch.model.NpcType;
+import scratch.model.Room;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -52,7 +51,7 @@ public final class RoomFactory {
 
     private void addNpcstoRoom(){
         NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
-        for (INpc npc : npcFactory.getGivenTypeList()) {
+        for (NpcType npc : npcFactory.getGivenTypeList()) {
             rooms.get(0).addNpc(npc);
         }
     }

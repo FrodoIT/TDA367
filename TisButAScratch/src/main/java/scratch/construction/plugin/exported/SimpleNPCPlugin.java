@@ -2,11 +2,16 @@ package scratch.construction.plugin.exported;
 
 
 import com.google.inject.Inject;
+
+import java.awt.geom.Point2D;
 import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
 import scratch.model.*;
-
 import java.awt.geom.Point2D;
+import scratch.model.INPCMove;
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Vector2D;
 
 /**
  * Moves NPC toward the Player.
@@ -21,7 +26,7 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
     }
 
     @Override
-    public Vector2D calculateNewPosition(IRoomData roomData, INpc npc) {
+    public Vector2D calculateNewPosition(IRoomData roomData, NpcType npc) {
         Vector2D playerPos = roomData.getPlayers().get(0).getPosition();
         Vector2D npcPos = npc.getPosition();
         Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()), new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
@@ -29,7 +34,7 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
         return new Vector2D((npcPos.getX() + directionVector.getX()) * moveSpeed, (npcPos.getY() + directionVector.getY()) * moveSpeed);
 
     }
-	public boolean isAttacking(IRoomData roomData, INpc npc){
+	public boolean isAttacking(IRoomData roomData, NpcType npc){
 		for(Player player: roomData.getPlayers()){
 			if(closeEnough(player.getPosition(), npc.getPosition())){
 				return true;

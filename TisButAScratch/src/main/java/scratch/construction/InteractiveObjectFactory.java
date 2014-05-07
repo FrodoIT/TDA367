@@ -1,7 +1,6 @@
 package scratch.construction;
 
 import scratch.construction.plugin.exported.SimpleInteractPlugin;
-import scratch.construction.plugin.exported.SimpleNPCPlugin;
 import scratch.model.*;
 import scratch.model.weapons.DefaultWeapon;
 

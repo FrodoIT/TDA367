@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import scratch.model.IInteractiveObject;
-import scratch.model.INpc;
 import scratch.model.Model;
 
 import org.newdawn.slick.Game;
@@ -38,6 +37,10 @@ public final class Controller implements Game{
     @Override
     public void init(GameContainer container) throws SlickException {
         container.setTargetFrameRate(60);
+
+        
+        view.addNpcView(0, "/res/playerSprite.tmx");
+        
         RoomFactory trf = new RoomFactory();
         view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
         model.setMap(trf.getRooms());

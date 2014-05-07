@@ -15,8 +15,8 @@ import java.util.*;
 public final class Room implements IRoomData{
     @Inject
     private List<Player> players;
-    private List<INpc> npcs;
-    private Map<ICharacter, Rectangle2D.Double> areaUnderAttack;
+    private List<NpcType> npcs;
+    private Map<Character, Rectangle2D.Double> areaUnderAttack;
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
     private Map<Integer, IInteractiveObject> doorMap;
@@ -26,7 +26,7 @@ public final class Room implements IRoomData{
         players = new ArrayList();
         npcs = new ArrayList();
         doorMap = new TreeMap<Integer, IInteractiveObject>();
-        areaUnderAttack= new HashMap<ICharacter, Rectangle2D.Double>();
+        areaUnderAttack= new HashMap<Character, Rectangle2D.Double>();
 
     }
 
@@ -36,17 +36,18 @@ public final class Room implements IRoomData{
             isUpdatingPlayers = true;
             updateCharacter(player);
         }
-        for (INpc npc : npcs){
+        
+        for (NpcType npc : npcs){
             isUpdatingNpcs = true;
 	        npc.updateRoomData(this);
-            updateCharacter(npc);
         }
         dealDamage();
         areaUnderAttack.clear();
 
     }
 
-    private void updateCharacter(ICharacter character) {
+    private void updateCharacter(Character character) {
+
         if (character.isAlive()) {
             Vector2D newPosition = character.calculateMovementPosition(this);
             character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
@@ -65,8 +66,8 @@ public final class Room implements IRoomData{
     }
 
     private boolean dealDamage(){
-        for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
-            for(INpc npc:npcs){
+        for (Map.Entry<Character, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
+            for(NpcType npc:npcs){
                 if((npc.getUnitTile().intersects( attackEntry.getValue())) &&
 		                !attackEntry.getKey().getClass().equals(npc.getClass())){
 	                npc.takeDamage(attackEntry.getKey().getDamage());
@@ -139,7 +140,7 @@ public final class Room implements IRoomData{
 
 	}
 
-	public void addNpc(INpc npc) {
+	public void addNpc(NpcType npc) {
 		npcs.add(npc);
 	}
 
@@ -201,9 +202,10 @@ public final class Room implements IRoomData{
 		return doorMap;
 	}
 
-	public List<INpc> getNpcs(){
+	public List<NpcType> getNpcs(){
 		return npcs;
 	}
+
 
     @Override
     public IMap getMap() {
