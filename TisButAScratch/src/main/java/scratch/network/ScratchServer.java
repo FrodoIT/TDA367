@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -18,25 +17,35 @@ import static scratch.network.Registration.register;
  * @author Cannonbait
  */
 public class ScratchServer {
-    private Server kryoServer;
-    
-    public ScratchServer(){
-        
-        kryoServer = new Server();
-        register(kryoServer.getKryo());
-        
-        kryoServer.start();
+
+    private Server server;
+
+    public ScratchServer() {
+
+        server = new Server();
+        Kryo kryo = server.getKryo();
+        kryo.register(SomeRequest.class);
+        kryo.register(SomeResponse.class);
+
+        server.start();
         try {
-            kryoServer.bind(54555, 54777);
-        } catch (IOException e){
+            server.bind(54555, 54777);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        kryoServer.addListener(new Listener(){
-            public void recieved (Connection connection, Object object){
-                System.out.println("Recieved");
+
+        server.addListener(new Listener() {
+            public void received(Connection connection, Object object) {
+                if (object instanceof SomeRequest) {
+                    SomeRequest request = (SomeRequest) object;
+                    System.out.println(request.text);
+
+                    SomeResponse response = new SomeResponse();
+                    response.text = "Thanks";
+                    connection.sendTCP(response);
+                }
             }
-        
         });
+
     }
 }

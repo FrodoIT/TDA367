@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package scratch.network;
 
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -20,31 +20,31 @@ import static scratch.network.Registration.register;
  */
 public class ScratchClient {
 
-	Client kryoClient;
+    Client client;
 
-	public ScratchClient() {
+    public ScratchClient() {
 
-		kryoClient = new Client();
-                register(kryoClient.getKryo());
-		kryoClient.start();
+        Client client = new Client();
+        Kryo kryo = client.getKryo();
+        kryo.register(SomeRequest.class);
+        kryo.register(SomeResponse.class);
+        client.start();
+        try {
+            client.connect(5000, "127.0.0.1", 54555, 54777);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SomeRequest request = new SomeRequest();
+        request.text = "Here is the request";
+        client.sendTCP(request);
 
-		try {
-			kryoClient.connect(5000, "127.0.0.1", 54555, 54777);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-                SomeRequest textClass = new SomeRequest();
-                textClass.setText("HEJ PÅ DIG");
-		kryoClient.sendTCP(textClass);
-
-		kryoClient.addListener(new Listener() {
-			public void received (Connection connection, Object object) {
-				if (object instanceof String) {
-					String response = (String)object;
-					System.out.println(response);
-				}
-			}
-		});
-	}
+        client.addListener(new Listener() {
+            public void received(Connection connection, Object object) {
+                if (object instanceof SomeResponse) {
+                    SomeResponse request = (SomeResponse) object;
+                    System.out.println(request.text);
+                }
+            }
+        });
+    }
 }
