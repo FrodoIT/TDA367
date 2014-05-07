@@ -2,6 +2,7 @@ package scratch.model;
 
 import com.google.inject.*;
 import junit.framework.TestCase;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockIMap;
@@ -23,10 +24,6 @@ public class RoomTest extends TestCase {
 		Injector injector = Guice.createInjector(new MockModule());
 		map = injector.getInstance(MockIMap.class);
 		room= new Room(map);
-	}
-
-	public void tearDown() throws Exception {
-
 	}
 
 	//made to create mock-players used in tests
