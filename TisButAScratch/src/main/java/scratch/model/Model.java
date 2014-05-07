@@ -51,5 +51,7 @@ public class Model {
 	public void update(){
 		//TODO: when co-op is implemented there will be more a list of active rooms. Implement.
 		activeRoom.update();
+        activeRoom.setUpdatingNpcs(false);
+        activeRoom.setUpdatingPlayers(false);
 	}
 }
