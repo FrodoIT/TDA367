@@ -40,6 +40,7 @@ public final class Room implements IRoomData{
         }
         for (INpc npc : npcs){
             isUpdatingNpcs = true;
+	        npc.updateRoomData(this);
             updateCharacter(npc);
         }
         dealDamage();
@@ -69,14 +70,14 @@ public final class Room implements IRoomData{
         for (Map.Entry<ICharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
             for(INpc npc:npcs){
                 if((npc.getUnitTile().intersects( attackEntry.getValue())) &&
-		                attackEntry.getKey().getClass().toString()!=NpcType.class.toString()){
+		                !attackEntry.getKey().getClass().equals(npc.getClass())){
 	                npc.takeDamage(attackEntry.getKey().getDamage());
 	                break; //an attack should only damage one character at the time.
                 }
             }
             for(Player player: players){
                 if((player.getUnitTile().intersects( attackEntry.getValue()))&&
-		                attackEntry.getKey().getClass().toString()!=Player.class.toString()){
+		                !attackEntry.getKey().getClass().equals(player.getClass())){
                     player.takeDamage(attackEntry.getKey().getDamage());
 	                break;
                 }
