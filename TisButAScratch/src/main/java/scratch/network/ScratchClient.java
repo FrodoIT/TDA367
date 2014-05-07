@@ -12,7 +12,9 @@ import com.esotericsoftware.kryonet.Server;
  *
  * @author Cannonbait
  */
-public class client {
-    Server kryoServer = new Server();
-    kr
+public class ScratchClient {
+
+    
+    
+    
 }
