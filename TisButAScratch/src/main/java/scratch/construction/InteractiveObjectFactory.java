@@ -2,7 +2,9 @@ package scratch.construction;
 
 import scratch.construction.plugin.PluginConstants;
 import scratch.construction.plugin.exported.SimpleInteractPlugin;
-import scratch.model.*;
+import scratch.model.IInteractiveObject;
+import scratch.model.IMap;
+import scratch.model.InteractiveObjectType;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Map;

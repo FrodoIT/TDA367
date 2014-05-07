@@ -1,12 +1,10 @@
 package scratch;
 
-import scratch.model.Model;
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-
-import scratch.view.View;
 import scratch.controller.Controller;
+import scratch.model.Model;
+import scratch.view.View;
 
 /**
  * 

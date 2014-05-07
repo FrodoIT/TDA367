@@ -2,7 +2,6 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.NpcType;
 import scratch.model.Room;
 
 import java.util.ArrayList;

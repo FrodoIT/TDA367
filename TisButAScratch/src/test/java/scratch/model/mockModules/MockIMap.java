@@ -6,7 +6,8 @@ import scratch.model.IMap;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Anna on 2014-05-05.

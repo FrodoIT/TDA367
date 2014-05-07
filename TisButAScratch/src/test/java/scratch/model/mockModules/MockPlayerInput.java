@@ -2,10 +2,8 @@ package scratch.model.mockModules;
 
 import org.newdawn.slick.Input;
 import scratch.model.IPlayerInput;
-import scratch.model.Model;
 import scratch.model.MoveDirection;
 import scratch.model.Player;
-import scratch.view.View;
 
 /**
  * Created by pippin on 5/3/14.

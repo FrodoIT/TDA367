@@ -1,21 +1,15 @@
 package scratch.controller;
 
-import scratch.construction.InteractiveObjectFactory;
-import scratch.construction.NpcFactory;
-import scratch.construction.RoomFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import scratch.model.IInteractiveObject;
-import scratch.model.Model;
-
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
+import scratch.construction.RoomFactory;
+import scratch.model.Model;
 import scratch.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main controller class to control updates, rendering, initiating and

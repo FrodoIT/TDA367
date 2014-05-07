@@ -1,10 +1,9 @@
 package scratch.model;
 
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * The interface for all Characters. Every character has a given 

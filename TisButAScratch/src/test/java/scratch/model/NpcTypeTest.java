@@ -4,7 +4,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import junit.framework.TestCase;
 import scratch.model.mockModules.MockModule;
-import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;

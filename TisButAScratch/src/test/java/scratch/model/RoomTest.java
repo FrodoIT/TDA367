@@ -1,12 +1,11 @@
 package scratch.model;
 
-import com.google.inject.*;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import junit.framework.TestCase;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockIMap;
-import scratch.model.mockModules.MockIRoomData;
 import scratch.model.mockModules.MockModule;
 
 import java.awt.geom.Rectangle2D;

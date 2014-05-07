@@ -1,7 +1,8 @@
 package scratch.model;
 
-import java.awt.geom.Rectangle2D;
 import scratch.model.weapons.IWeapon;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * A class that represents a character not controlled by the player

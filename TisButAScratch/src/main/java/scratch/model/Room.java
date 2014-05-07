@@ -3,7 +3,10 @@ package scratch.model;
 import com.google.inject.Inject;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single room and the contents in it.
@@ -63,7 +66,6 @@ public final class Room implements IRoomData{
 			        }
 
 		        }
-	            //npcs.add(npcFactory.createType(0, 420, 420)); TODO interaction will come here later
             }
         }
     }

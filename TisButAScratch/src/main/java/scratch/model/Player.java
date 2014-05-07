@@ -1,10 +1,8 @@
 package scratch.model;
 
 import scratch.model.weapons.DefaultWeapon;
-import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Date;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander

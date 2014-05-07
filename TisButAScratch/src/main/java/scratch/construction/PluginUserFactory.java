@@ -4,8 +4,6 @@ import scratch.construction.plugin.Pluggable;
 import scratch.construction.plugin.PluginLoader;
 import scratch.model.IMap;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 

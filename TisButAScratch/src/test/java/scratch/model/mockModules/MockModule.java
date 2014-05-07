@@ -1,11 +1,11 @@
 package scratch.model.mockModules;
 
 import com.google.inject.AbstractModule;
-import scratch.construction.SlickMap;
-import scratch.model.*;
-import scratch.model.weapons.IWeapon;
+import scratch.model.IMap;
+import scratch.model.INPCMove;
 import scratch.model.IPlayerInput;
 import scratch.model.IRoomData;
+import scratch.model.weapons.IWeapon;
 
 
 /**
