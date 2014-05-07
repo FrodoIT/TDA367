@@ -22,7 +22,7 @@ public class ScratchClient {
 
     Client client;
 
-    public ScratchClient() {
+    public ScratchClient(String ip) {
 
         Client client = new Client();
         Kryo kryo = client.getKryo();
@@ -30,7 +30,7 @@ public class ScratchClient {
         kryo.register(SomeResponse.class);
         client.start();
         try {
-            client.connect(5000, "127.0.0.1", 54555, 54777);
+            client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
             e.printStackTrace();
         }

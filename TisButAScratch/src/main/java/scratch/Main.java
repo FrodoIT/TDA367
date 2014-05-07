@@ -4,9 +4,8 @@ package scratch;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.controller.Controller;
+import scratch.menu.Menu;
 import scratch.model.Model;
-import scratch.network.ScratchClient;
-import scratch.network.ScratchServer;
 import scratch.view.View;
 
 /**
@@ -17,8 +16,9 @@ import scratch.view.View;
  */
 public class Main {
 	public static void main (String[] args) throws SlickException{
-                ScratchServer server = new ScratchServer();
-                ScratchClient client = new ScratchClient();
+                Menu.mainMenu();
+                
+                
             
                 /*
                 Model model = new Model();
