@@ -4,6 +4,8 @@ import com.google.inject.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.model.mockModules.MockIMap;
+import scratch.model.mockModules.MockIRoomData;
 import scratch.model.mockModules.MockModule;
 
 import java.awt.geom.Rectangle2D;
@@ -14,11 +16,12 @@ import java.awt.geom.Rectangle2D;
 public class RoomTest extends TestCase {
 	private IMap map;
 	private Room room;
+    private IRoomData iRoomData;
 
 	@Before
 	public void setUp() {
 		Injector injector = Guice.createInjector(new MockModule());
-		map = injector.getInstance(IMap.class);
+		map = injector.getInstance(MockIMap.class);
 		room= new Room(map);
 	}
 
@@ -34,7 +37,10 @@ public class RoomTest extends TestCase {
 	}
 
 	public void testUpdate() throws Exception {
-
+        room.enterRoom(createPlayerForTest(1));
+        room.update();
+        assert(room.isUpdatingNpcs());
+        assert(room.isUpdatingPlayers());
 	}
 
 	public void testUpdateCharater(ICharacter character) throws Exception {

@@ -13,39 +13,24 @@ import java.util.*;
  */
 public class MockIMap implements IMap {
 	private TiledMap map;
-	private int collisionIndex;
-	private int interactiveObjectIndex;
 
-	public void createMockObject(){
+    public void createMockObject(){
 		try {
 			map = new TiledMap("res/untitled.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
-		collisionIndex = map.getLayerIndex("collision");
-		interactiveObjectIndex = map.getLayerIndex("interactiveObject");
-	}
+    }
 
+    @Override
+    public boolean isColliding(Vector2D coordinate) {
+        return false;
+    }
 
-	@Override
-	public boolean isColliding(Vector2D coordinate) {
-		try {
-			return (map.getTileId((int) coordinate.getX() / map.getTileWidth(),(int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
-		}catch(IndexOutOfBoundsException e){
-			return false;
-		}
-	}
-
-	@Override
-	public boolean hasInteractiveObject() {
-		boolean found = false;
-		for(int i = 0; i < map.getWidth(); i++){
-			for(int j = 0; j < map.getHeight(); j++){
-				found = map.getTileId(i, j, interactiveObjectIndex) != -1;
-			}
-		}
-		return found;
-	}
+    @Override
+    public boolean hasInteractiveObject() {
+        return false;
+    }
 
     @Override
     public boolean hasNpc() {
@@ -53,15 +38,14 @@ public class MockIMap implements IMap {
     }
 
     @Override
-	public int getHeight() {
+    public int getHeight() {
+        return 0;
+    }
 
-		return map.getHeight()*map.getTileHeight();
-	}
-
-	@Override
-	public int getWidth()  {
-		return map.getWidth()*map.getTileWidth();
-	}
+    @Override
+    public int getWidth() {
+        return 0;
+    }
 
     @Override
     public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
@@ -86,24 +70,5 @@ public class MockIMap implements IMap {
     @Override
     public Set<String> getNpcNameSet() {
         return null;
-    }
-
-    public Map<String, Rectangle2D.Double> getNPCRectangles() {
-        Map<String, Rectangle2D.Double> npcRectangles = new TreeMap<String, Rectangle2D.Double>();
-		npcRectangles.put("mock", new Rectangle2D.Double(32, 32, 32, 32));
-
-		return npcRectangles;
-	}
-
-    public TiledMap getMap() {
-        return map;
-    }
-
-    public int getCollisionIndex() {
-        return collisionIndex;
-    }
-
-    public int getInteractiveObjectIndex() {
-        return interactiveObjectIndex;
     }
 }
