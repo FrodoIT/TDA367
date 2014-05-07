@@ -11,6 +11,8 @@ import java.awt.geom.Rectangle2D;
  */
 public class InteractiveObjectFactory extends PluginUserFactory<IInteractiveObject> {
 
+	public static final String KEY = "interactiveobjectfactory_key";
+
     public InteractiveObjectFactory(){
         loadType();
     }

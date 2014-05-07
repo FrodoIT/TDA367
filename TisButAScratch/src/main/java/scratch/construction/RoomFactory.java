@@ -1,9 +1,6 @@
 package scratch.construction;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import com.google.inject.internal.cglib.proxy.$MethodInterceptor;
 import net.java.games.util.plugins.Plugin;
@@ -23,7 +20,8 @@ public final class RoomFactory {
 
     private TiledMap map;
     private List<Room> rooms;
-    private List<PluginUserFactory> pluginUserFactories;
+    //private List<PluginUserFactory> pluginUserFactories;
+	private Map<String, PluginUserFactory> pluginUserFactories;
     private SlickMap slickMap;
 
 
@@ -39,10 +37,14 @@ public final class RoomFactory {
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
         addRooms();
-
+		addInteractiveObjects();
     }
 
-    public void initialiseRoom(Room room){
+	private void addInteractiveObjects() {
+		//TODO get interactiveobjects from plugins and match them with objects from TiledMap
+	}
+
+	public void initialiseRoom(Room room){
 
     }
 
@@ -52,9 +54,9 @@ public final class RoomFactory {
     }
 
     private void addSubFactories() {
-        pluginUserFactories = new ArrayList<PluginUserFactory>();
-        pluginUserFactories.add(new NpcFactory());
-        pluginUserFactories.add(new InteractiveObjectFactory());
+        pluginUserFactories = new HashMap<>();
+        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory());
+        pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory());
     }
 
     public TiledMap getTiledMap() {
@@ -66,7 +68,7 @@ public final class RoomFactory {
         return map;
     }
 
-    public List<PluginUserFactory> getPluginUserFactories() {
+    public Map<String, PluginUserFactory> getPluginUserFactories() {
         return pluginUserFactories;
     }
 

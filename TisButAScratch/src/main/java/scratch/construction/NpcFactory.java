@@ -10,6 +10,8 @@ import java.awt.geom.Rectangle2D;
 
 public final class NpcFactory extends PluginUserFactory<INpc> {
 
+	public static final String KEY = "npc_factory";
+
     public NpcFactory(){
         loadNpcs();
     }
