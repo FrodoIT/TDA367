@@ -12,6 +12,7 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
+import static scratch.network.Registration.register;
 
 /**
  *
@@ -24,15 +25,18 @@ public class ScratchClient {
 	public ScratchClient() {
 
 		kryoClient = new Client();
+                register(kryoClient.getKryo());
 		kryoClient.start();
 
 		try {
-			kryoClient.connect(5000, "192.168.0.4", 54555, 54777);
+			kryoClient.connect(5000, "127.0.0.1", 54555, 54777);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		kryoClient.sendTCP("Test meddelande lite så va kul. ^.^");
+                SomeRequest textClass = new SomeRequest();
+                textClass.setText("HEJ PÅ DIG");
+		kryoClient.sendTCP(textClass);
 
 		kryoClient.addListener(new Listener() {
 			public void received (Connection connection, Object object) {

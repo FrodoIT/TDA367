@@ -1,12 +1,13 @@
 package scratch;
 
-import scratch.model.Model;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-
-import scratch.view.View;
 import scratch.controller.Controller;
+import scratch.model.Model;
+import scratch.network.ScratchClient;
+import scratch.network.ScratchServer;
+import scratch.view.View;
 
 /**
  * 
@@ -16,9 +17,14 @@ import scratch.controller.Controller;
  */
 public class Main {
 	public static void main (String[] args) throws SlickException{
-		Model model = new Model();
+                ScratchServer server = new ScratchServer();
+                ScratchClient client = new ScratchClient();
+            
+                /*
+                Model model = new Model();
 		View view = new View();
 		AppGameContainer app = new AppGameContainer(new Controller(model, view));
 		app.start();
+                        */
 	}
 }
