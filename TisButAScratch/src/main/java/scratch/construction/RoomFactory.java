@@ -3,7 +3,6 @@ package scratch.construction;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.Room;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
