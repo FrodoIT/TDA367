@@ -21,7 +21,7 @@ import java.util.*;
 //NOTE!!! If changed please edit the MockIMap too since the code should be identical.
 
 public class SlickMap implements IMap{
-    private final TiledMap map;
+    private final TiledMapPlus map;
     private final int collisionIndex;
     //Object map holds the start position of each object,
     //as well as the name of the object.
@@ -37,7 +37,7 @@ public class SlickMap implements IMap{
     private final int height, width;
 
     @Inject
-    public SlickMap(TiledMap map){
+    public SlickMap(TiledMapPlus map){
         this.map = map;
         height = map.getHeight()*map.getTileHeight();
         width = map.getWidth()*map.getTileWidth();

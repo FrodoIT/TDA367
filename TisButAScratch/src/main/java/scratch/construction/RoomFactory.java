@@ -16,7 +16,7 @@ import java.util.TreeMap;
  */
 public final class RoomFactory {
 
-    private TiledMap map;
+    private TiledMapPlus map;
     private List<Room> rooms;
     private Map<String, PluginUserFactory> pluginUserFactories;
     private SlickMap slickMap;
@@ -24,7 +24,7 @@ public final class RoomFactory {
 
     public RoomFactory() {
         try {
-            map = new TiledMap("res/untitled.tmx");
+            map = new TiledMapPlus("res/untitled.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
         }
