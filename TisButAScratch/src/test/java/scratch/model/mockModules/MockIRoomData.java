@@ -3,6 +3,7 @@ package scratch.model.mockModules;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.SlickMap;
+import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class MockIRoomData implements IRoomData{
 
     public void setup(){
         try{
-          map = new SlickMap(new TiledMap("res/untitled.tmx"));
+          map = new SlickMap(new TiledMapPlus("res/untitled.tmx"));
         } catch (SlickException e){
             e.printStackTrace();
         }
