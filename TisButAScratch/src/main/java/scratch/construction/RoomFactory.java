@@ -2,7 +2,12 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import scratch.model.NpcType;
 import scratch.model.Room;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,15 +26,25 @@ public final class RoomFactory {
     private Map<String, PluginUserFactory> pluginUserFactories;
     private SlickMap slickMap;
 
-
+	private NpcType NPCXML(){
+		Serializer serializer = new Persister(new MyMatcher());
+		File source = new File("res/NPCType.xml");
+		try {
+			NpcType npc= serializer.read(NpcType.class, source);
+			System.out.println(npc.toString());
+			return npc;
+		} catch (Exception e) {
+			System.out.println("XML-READING FAILED: " + e.toString());
+		}
+		return null;
+	}
     public RoomFactory() {
         try {
             map = new TiledMapPlus("res/untitled.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
         }
-
-
+	    NPCXML();
         pluginUserFactories = new TreeMap<String, PluginUserFactory>();
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();

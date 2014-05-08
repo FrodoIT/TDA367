@@ -1,5 +1,7 @@
 package scratch.construction;
 
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
 import scratch.construction.plugin.PluginConstants;
 import scratch.construction.plugin.exported.SimpleNPCPlugin;
 import scratch.model.IMap;
@@ -7,6 +9,7 @@ import scratch.model.NpcType;
 import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.util.Map;
 
 public final class NpcFactory extends PluginUserFactory<NpcType> {
@@ -36,4 +39,16 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
         }
 
     }
+	private NpcType NPCXML(){
+		Serializer serializer = new Persister(new MyMatcher());
+		File source = new File("res/NPCType.xml");
+		try {
+			NpcType npc= serializer.read(NpcType.class, source);
+			System.out.println(npc.toString());
+			return npc;
+		} catch (Exception e) {
+			System.out.println("XML-READING FAILED: " + e.toString());
+		}
+		return null;
+	}
 }

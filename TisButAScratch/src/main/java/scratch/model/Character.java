@@ -2,6 +2,7 @@ package scratch.model;
 
 
 import scratch.model.weapons.IWeapon;
+import org.simpleframework.xml.*;
 
 import java.awt.geom.Rectangle2D;
 
@@ -11,15 +12,21 @@ import java.awt.geom.Rectangle2D;
  * @author Alma Ottedag
  * revised 2014-03-27 by Ivar Josefsson
  */
-
+@Root
 public abstract class Character {
-    
-    private final Rectangle2D.Double unitTile;
+	@Element (type=Rectangle2D.Double.class)
+    private Rectangle2D.Double unitTile;
+	@Element(type=IWeapon.class)
     private IWeapon weapon;
+	@Element
     private int health;
+	@Element
     private int movementSpeed;
-    private final int id;
+	@Element
+    private int id;
+	@Element(type=MoveDirection.class)
     private MoveDirection moveDirection;
+	@Attribute
     private boolean alive;
     
     public Character(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
@@ -31,6 +38,10 @@ public abstract class Character {
         moveDirection = MoveDirection.SOUTH;
         alive = true;
     }
+	//only for NPCType to use
+	Character(){
+		super();
+	}
 
     
     public abstract Vector2D calculateMovementPosition(IRoomData roomData);

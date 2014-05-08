@@ -1,21 +1,28 @@
 package scratch.model;
 
+
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
+
 
 /**
  * A class that represents a character not controlled by the player
  * @author Ivar
  *
  */
+@Root
 public final class NpcType extends Character{
-    
+    @Element
     private boolean hostile;
-    private final String imagePath;
+	@Element
+    private String imagePath;
+	@Element(type = INPCMove.class)
     private INPCMove movementPattern;
-    private MoveDirection lookingDirection = MoveDirection.SOUTH;
-    private IRoomData roomData;
+	@Element(type=IRoomData.class, required = false)
+    private IRoomData roomData=null;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
         super(unitTile, weapon, health, moveSpeed, id);
@@ -23,6 +30,10 @@ public final class NpcType extends Character{
         this.movementPattern = movementPattern;
         hostile = true;
     }
+	//used for xml-parsing
+	private NpcType(){
+		super();
+	}
 
     /**
      * Call to determine if NPC is hostile

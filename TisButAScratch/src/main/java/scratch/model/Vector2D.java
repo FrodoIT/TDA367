@@ -1,10 +1,11 @@
 package scratch.model;
 
+import org.simpleframework.xml.Element;
+
 import java.awt.geom.Point2D;
 
 public class Vector2D {
 	private final Point2D.Double vectorInfo;
-
 	private final double magnitude;
 
 	public Vector2D(Point2D.Double startPoint, Point2D.Double endPoint) {
