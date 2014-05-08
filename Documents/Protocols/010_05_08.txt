@@ -1,0 +1,53 @@
+Meeting Agenda 
+ 
+  Date: 05­08 
+ 
+  Facilitator: Adam Waldenberg
+ 
+ 
+  Participants: Anna Nylander, Ivar Josefsson, André Samuelsson, Alma Ottedag 
+ 
+1. Objectives (5 min)  
+Put everyone to work 
+ 
+2. Reports (15 min) From previous meetings 
+We have almost finished reading all objects and players from the map through the factory. We 
+also started working on networking and writing all the tests. 
+ 
+3. Discussion items (35 min)  
+Resolved during facilitator meeting. 
+ 
+4. Outcomes and assignments (5 min)  
+ 
+André & Alma: Refactor so the update calls wont go through model but seperate controllers. 
+ 
+All: Make sure we have 100% test coverage  
+ 
+Resolve pmd and findbugs issues. 
+ 
+Anna: Read from XML­files. 
+ 
+Ivar: Implement networking using Cryonet 
+ 
+Remove Constants and remake PluginConstants to “PluginType” 
+ 
+Using several rooms 
+ 
+Implement interactive objects 
+ 
+Implement a TileMap wrapper with an interface in the Model for all the objects on the map and 
+their properties. 
+ 
+Kör jacoco: “mvn jacoco:report” 
+ 
+5. Wrap up  
+PRIORITY LIST: 1: Refactor update 
+ 
+2: Fix all testts 
+ 
+3: Interactive Objects 
+ 
+4:  
+ 
+ 
+Next meeting: Måndag 12 maj 13:00 ­ 17:00 
