@@ -28,11 +28,10 @@ public class ScratchServer implements IScratchNetwork{
     private Server server;
     private PlayerController controller;
 
-    public ScratchServer() throws SlickException{
+    public ScratchServer() {
         server = new Server();
         Kryo kryo = server.getKryo();
-        kryo.register(SomeRequest.class);
-        kryo.register(SomeResponse.class);
+        kryo.register(ScratchHandshake.class);
         kryo.register(MoveDirection.class);
 
         server.start();
@@ -44,18 +43,16 @@ public class ScratchServer implements IScratchNetwork{
 
         server.addListener(new Listener() {
             public void received(Connection connection, Object object) {
-                if (object instanceof SomeRequest) {
-                    SomeRequest request = (SomeRequest) object;
-                    System.out.println(request.text);
+                if (object instanceof ScratchHandshake) {
+                    ScratchHandshake recievedHandshake = (ScratchHandshake) object;
+                    System.out.println(recievedHandshake.text);
 
-                    SomeResponse response = new SomeResponse();
-                    response.text = "Thanks";
+                    ScratchHandshake response = new ScratchHandshake();
+                    response.text = "Server connection made";
                     connection.sendTCP(response);
                 }
                 else if (object instanceof MoveDirection){
                     
-                    System.out.println("Setting movedirection: " + (MoveDirection)object);
-                    controller.setMoveDirection((MoveDirection)object);
                 }
             }
         });

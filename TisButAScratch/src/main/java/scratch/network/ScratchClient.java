@@ -34,8 +34,7 @@ public class ScratchClient implements IScratchNetwork{
         controller = null;
         client = new Client();
         Kryo kryo = client.getKryo();
-        kryo.register(SomeRequest.class);
-        kryo.register(SomeResponse.class);
+        kryo.register(ScratchHandshake.class);
         kryo.register(MoveDirection.class);
         
         client.start();
@@ -45,15 +44,14 @@ public class ScratchClient implements IScratchNetwork{
             e.printStackTrace();
         }
         
-        SomeRequest request = new SomeRequest();
-        request.text = "Here is the request";
+        ScratchHandshake request = new ScratchHandshake();
+        request.text = "Client connection made";
         client.sendTCP(request);
 
         client.addListener(new Listener() {
             public void received(Connection connection, Object object) {
-                if (object instanceof SomeResponse) {
-                    SomeResponse request = (SomeResponse) object;
-                    System.out.println(request.text);
+                if (object instanceof ScratchHandshake) {
+                    
                 }
             }
         });

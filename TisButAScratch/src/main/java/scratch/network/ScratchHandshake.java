@@ -9,7 +9,7 @@ package scratch.network;
  *
  * @author Cannonbait
  */
-public class SomeRequest {
+public class ScratchHandshake {
 
     public String text;
 }

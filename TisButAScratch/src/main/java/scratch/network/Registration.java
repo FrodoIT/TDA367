@@ -14,7 +14,7 @@ import com.esotericsoftware.kryo.Kryo;
  */
 public class Registration {
     public static void register(Kryo kryo){
-        kryo.register(SomeRequest.class);
+        kryo.register(ScratchHandshake.class);
     }
     
     
