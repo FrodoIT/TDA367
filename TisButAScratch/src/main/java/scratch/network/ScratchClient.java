@@ -28,10 +28,8 @@ import scratch.view.View;
 public class ScratchClient implements IScratchNetwork{
 
     private final Client client;
-    private PlayerController controller;
 
     public ScratchClient(String ip) throws SlickException{
-        controller = null;
         client = new Client();
         Kryo kryo = client.getKryo();
         kryo.register(ScratchHandshake.class);
@@ -57,11 +55,7 @@ public class ScratchClient implements IScratchNetwork{
         });
     }
     
-    public void setPlayerController(PlayerController controller){
-        this.controller = controller;
-    }
-    
     public void update(){
-        client.sendTCP(controller.getMoveInput());
+        
     }
 }

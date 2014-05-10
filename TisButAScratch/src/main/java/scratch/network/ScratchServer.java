@@ -26,7 +26,6 @@ import scratch.view.View;
 public class ScratchServer implements IScratchNetwork{
 
     private Server server;
-    private PlayerController controller;
 
     public ScratchServer() {
         server = new Server();
@@ -58,11 +57,6 @@ public class ScratchServer implements IScratchNetwork{
         });
 
     }
-    
-    public void setPlayerController(PlayerController controller){
-        this.controller = controller;
-    }
-    
     
     public void update(){
         

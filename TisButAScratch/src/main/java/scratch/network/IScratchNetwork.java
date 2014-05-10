@@ -14,5 +14,4 @@ import scratch.controller.PlayerController;
  */
 public interface IScratchNetwork {
     public void update();
-    public void setPlayerController(PlayerController controller);
 }
