@@ -2,8 +2,7 @@ package scratch.construction;
 
 import scratch.construction.plugin.PluginConstants;
 import scratch.construction.plugin.exported.SimpleNPCPlugin;
-import scratch.model.IMap;
-import scratch.model.NpcType;
+import scratch.model.*;
 import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -15,8 +14,11 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 
     public static final String KEY = "npc_factory";
 
-    public NpcFactory(IMap map){
+    private Room room;
+
+    public NpcFactory(IMap map, Room room){
         super(map);
+        this.room = room;
         loadType();
     }
 
@@ -30,8 +32,13 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
             } else if(entry.getKey().equals("specialMonster")){
                 keyToConstant = PluginConstants.BOX;
             }
+
+            //TODO This should be like this check how the plugin is loaded into the program and replace simplenpcplugin
+            INPCMove movePlugin = new SimpleNPCPlugin();
+            movePlugin.setRoomData(room);
+
             super.getGivenTypeMap().put(keyToConstant,
-                    new NpcType(entry.getValue(), new DefaultWeapon(), 10, 2, "monster.tmx", 10, new SimpleNPCPlugin()));
+                    new NpcType(entry.getValue(), new DefaultWeapon(), 10, 2, "monster.tmx", 10, movePlugin, room));
 
         }
 

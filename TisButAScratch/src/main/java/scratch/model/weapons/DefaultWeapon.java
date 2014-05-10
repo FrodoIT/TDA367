@@ -3,6 +3,7 @@ package scratch.model.weapons;
 import com.google.inject.Inject;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ public final class DefaultWeapon implements IWeapon {
     private final Rectangle2D.Double attackArea;
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
-	private boolean hasCooledDown=true;
+	private boolean cooledDown = true;
 	Runnable runnable;
 
 	private ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
@@ -33,14 +34,19 @@ public final class DefaultWeapon implements IWeapon {
         attackInterval = 400;
 
 
+
 	      runnable = new Runnable() {
 		    public void run() {
-			    hasCooledDown = true;
+                cooledDown = true;
 		    }
 	    };
      }
-	public void cooldown() {
-		hasCooledDown=false;
+
+    @Override
+	public void startCooldown() {
+        if (!cooledDown)
+            return;
+		cooledDown =false;
 		schdoodle.schedule(runnable,
 				attackInterval,
 				TimeUnit.MILLISECONDS
@@ -52,13 +58,8 @@ public final class DefaultWeapon implements IWeapon {
 	 * @return true if attack was done
 	 */
 	@Override
-	public void attack(){
-		if(hasCooledDown) {
-			cooldown();
-		}
-	}
-	public boolean isCooledDown(){
-		return hasCooledDown;
+	public boolean hasCooledDown(){
+		return cooledDown;
 	}
 
     @Override
@@ -76,7 +77,7 @@ public final class DefaultWeapon implements IWeapon {
         return (Rectangle2D.Double)attackArea.clone();
     }
 
-	public int getAttackInterval() {
+    public int getAttackInterval() {
 		return attackInterval;
 	}
 

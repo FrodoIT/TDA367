@@ -5,8 +5,9 @@ import scratch.controller.PlayerController;
 
 @ImplementedBy(PlayerController.class)
 public interface IPlayerInput {
-	public boolean getAttackInput();
-	public boolean getInteractInput();
+	public boolean isAttacking();
+    public void registerAllInput();
+	public boolean isInteracting();
 	public MoveDirection getMoveInput();
 	public void setAttackStatus(boolean attack);
 	public void setInteractStatus(boolean interact);

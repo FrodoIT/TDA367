@@ -9,19 +9,21 @@ import java.awt.geom.Rectangle2D;
  * @author Ivar
  *
  */
-public final class NpcType extends Character{
+public final class NpcType extends AbstractCharacter {
     
     private boolean hostile;
     private final String imagePath;
     private INPCMove movementPattern;
     private MoveDirection lookingDirection = MoveDirection.SOUTH;
-    private IRoomData roomData;
+    private CharacterChangeListener listener;
 
-    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
+    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern, CharacterChangeListener listener){
         super(unitTile, weapon, health, moveSpeed, id);
         this.imagePath = imagePath;
         this.movementPattern = movementPattern;
         hostile = true;
+        this.listener = listener;
+
     }
 
     /**
@@ -33,28 +35,16 @@ public final class NpcType extends Character{
         return hostile;
     }
 
-    public void updateRoomData(IRoomData roomData){
-        this.roomData=roomData;
-    }
-
-
-    @Override
-    public boolean isInteracting() {
-            return false;
-    }
-
-    @Override
     public boolean isAttacking() {
-            return movementPattern.isAttacking(roomData, this);
+            return movementPattern.isAttacking(this);
     }
-
-
     @Override
-    public Vector2D calculateMovementPosition(IRoomData roomData) {
-        Vector2D newPosition = movementPattern.calculateNewPosition(roomData, this);
+    public void update(){
+        Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
-        return newPosition;
+        listener.handleCharacterMovement(this, newPosition);
     }
+
 
     private void calculateMoveDirection(Vector2D newPosition){
         double diffX = newPosition.getX() - getUnitTile().x;

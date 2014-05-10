@@ -24,13 +24,14 @@ public class MockWeapon implements IWeapon{
 		return null;
 	}
 
-	@Override
-	public void attack() {
+    @Override
+    public void startCooldown() {
 
-	}
+    }
 
-	@Override
-	public boolean isCooledDown() {
-		return false;
-	}
+    @Override
+    public boolean hasCooledDown() {
+        return false;
+    }
+
 }

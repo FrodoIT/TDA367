@@ -33,8 +33,8 @@ public final class RoomFactory {
         pluginUserFactories = new TreeMap<String, PluginUserFactory>();
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
-        addSubFactories();
         addRooms();
+        addSubFactories();
         addInteractiveObjectstoRoom();
         addNpcstoRoom();
     }
@@ -62,7 +62,7 @@ public final class RoomFactory {
     }
 
     private void addSubFactories() {
-        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap));
+        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap, rooms.get(0)));
         pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }
 

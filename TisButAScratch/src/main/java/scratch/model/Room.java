@@ -13,79 +13,75 @@ import java.util.Map;
  * @author Ivar Josefsson
  *
  */
-public final class Room implements IRoomData{
+public final class Room implements IRoomData, CharacterChangeListener{
     @Inject
-    private List<Player> players;
 
-    private Map<Character, Rectangle2D.Double> areaUnderAttack;
+    private List<Player> players;
+    private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
+    private Map<AbstractCharacter, Rectangle2D.Double> characterAttackAreaMap = new HashMap<>();
+    private Map<AbstractCharacter, Rectangle2D.Double> characterInteractAreaMap = new HashMap<>();
+    private Map<AbstractCharacter, Rectangle2D.Double> areaUnderAttack = new HashMap<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
-    private boolean isUpdatingPlayers, isUpdatingNpcs;
     private Map<Integer, IInteractiveObject> interactiveObjectMap;
 
     public Room(IMap collisionMap){
         this.map = collisionMap;
         players = new ArrayList();
-        areaUnderAttack= new HashMap<Character, Rectangle2D.Double>();
     }
 
 
     public void update(){
-        for (Player player:players){
-            isUpdatingPlayers = true;
-            updateCharacter(player);
-        }
-
-        for (Map.Entry<Integer, NpcType> npcEntry : npcs.entrySet()){
-            isUpdatingNpcs = true;
-	        npcEntry.getValue().updateRoomData(this);
-            updateCharacter(npcEntry.getValue());
-        }
-        dealDamage();
-        areaUnderAttack.clear();
-
+        updateCharacterMovements();
+        updateCharacterAttacks();
+        updateCharacterInteractions();
     }
 
-    private void updateCharacter(Character character) {
+    public boolean hasPlayers(){
+        return !players.isEmpty();
+    }
 
-        if (character.isAlive()) {
-            Vector2D newPosition = character.calculateMovementPosition(this);
-            character.setPosition(allowedPosition(character.getUnitTile(), newPosition));
-
-            if (character.isAttacking()){ //checks button press
-                if(character.weaponHasCooledDown()) {
-                    Rectangle2D.Double attackArea = character.attack();
-                    areaUnderAttack.put(character, attackArea);
-                    System.out.println("Attack added: " + attackArea);
+    private void updateCharacterInteractions() {
+        for(IInteractiveObject interactiveObject : interactiveObjectMap.values()){
+            for(Map.Entry<AbstractCharacter, Rectangle2D.Double> inputEntry : characterInteractAreaMap.entrySet()){
+                if (inputEntry.getValue().intersects(interactiveObject.getArea())){
+                    interactiveObject.interact();
                 }
             }
-	        if(character.isInteracting()) {// && map.hasInteractiveObject()){
-		        for (IInteractiveObject interactObj: interactiveObjectMap.values()) {
-			        if (character.getUnitTile().intersects(interactObj.getArea())) {
-				        interactObj.interact();
-			        }
-
-		        }
-            }
         }
+        characterInteractAreaMap.clear();
+    }
+
+    private void updateCharacterMovements() {
+
+        for(Map.Entry<AbstractCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
+            AbstractCharacter character = inputEntry.getKey();
+            character.setPosition(allowedPosition(character.getUnitTile(), inputEntry.getValue()));
+        }
+        characterMovementMap.clear();
+    }
+
+    private void updateCharacterAttacks() {
+        dealDamage();
+        areaUnderAttack.clear();
     }
 
     private boolean dealDamage(){
 
-        for (Map.Entry<Character, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
+        for (Map.Entry<AbstractCharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
             for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
                 if((npcEntry.getValue().getUnitTile().intersects( attackEntry.getValue())) &&
-		                !attackEntry.getKey().getClass().equals(npcEntry.getValue().getClass())){
+                        !attackEntry.getKey().getClass().equals(npcEntry.getValue().getClass())){
                     npcEntry.getValue().takeDamage(attackEntry.getKey().getDamage());
 
-	                break; //an attack should only damage one character at the time.
+                    break; //an attack should only damage one character at the time.
                 }
             }
             for(Player player: players){
                 if((player.getUnitTile().intersects( attackEntry.getValue()))&&
-		                !attackEntry.getKey().getClass().equals(player.getClass())){
+                        !attackEntry.getKey().getClass().equals(player.getClass())){
                     player.takeDamage(attackEntry.getKey().getDamage());
-	                break;
+                    break;
                 }
             }
         }
@@ -137,29 +133,32 @@ public final class Room implements IRoomData{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-	public void setInteractivObjects(Map<Integer, IInteractiveObject> interactiveObjectMap) {
+    public void setInteractivObjects(Map<Integer, IInteractiveObject> interactiveObjectMap) {
         this.interactiveObjectMap = interactiveObjectMap;
-	}
+    }
 
 
-	public void addNpc(Map<Integer, NpcType> npcs) {
-		this.npcs = npcs;
-	}
+    public void addNpc(Map<Integer, NpcType> npcs) {
+        this.npcs = npcs;
+    }
 
-	/**
-	 * Adds the specified player from the Room
-	 * @param player
-	 */
-	public void enterRoom(Player player){
-		players.add(player);
-	}
-	/**
-	 * Removes the specified player from the Room
-	 * @param player
-	 */
-	public boolean exitRoom(Player player){
-		return players.remove(player);
-	}
+    /**
+     * Adds the specified player from the Room
+     * @param player
+     */
+    public void enterRoom(Player player){
+
+        players.add(player);
+        player.registerListener(this);
+    }
+    /**
+     * Removes the specified player from the Room
+     * @param player
+     */
+    public boolean exitRoom(Player player){
+        player.removeListener(this);
+        return players.remove(player);
+    }
 
 
     /**
@@ -170,22 +169,6 @@ public final class Room implements IRoomData{
         return map.getHeight();
     }
 
-
-    public boolean isUpdatingPlayers() {
-        return isUpdatingPlayers;
-    }
-
-    public void setUpdatingPlayers(boolean isUpdatingPlayers) {
-        this.isUpdatingPlayers = isUpdatingPlayers;
-    }
-
-    public boolean isUpdatingNpcs() {
-        return isUpdatingNpcs;
-    }
-
-    public void setUpdatingNpcs(boolean isUpdatingNpcs) {
-        this.isUpdatingNpcs = isUpdatingNpcs;
-    }
     /**
      *
      * @return: the total width of the map in pixels
@@ -199,17 +182,17 @@ public final class Room implements IRoomData{
         return players;
     }
 
-	@Override
-	public Map<Integer, IInteractiveObject> getDoors() {
-		return interactiveObjectMap;
-	}
+    @Override
+    public Map<Integer, IInteractiveObject> getDoors() {
+        return interactiveObjectMap;
+    }
 
     @Override
     public Map<Integer, NpcType> getNpcs() {
         return npcs;
     }
 
-    public Map<Character, Rectangle2D.Double> getAreaUnderAttack() {
+    public Map<AbstractCharacter, Rectangle2D.Double> getAreaUnderAttack() {
         return areaUnderAttack;
     }
 
@@ -220,5 +203,20 @@ public final class Room implements IRoomData{
     @Override
     public IMap getMap() {
         return map;
+    }
+
+    @Override
+    public void handleCharacterMovement(AbstractCharacter character, Vector2D movement) {
+        characterMovementMap.put(character, movement);
+    }
+
+    @Override
+    public void handleCharacterAttack(AbstractCharacter character, Rectangle2D.Double attackArea) {
+        areaUnderAttack.put(character, attackArea);
+    }
+
+    @Override
+    public void handleCharacterInteraction(AbstractCharacter character, Rectangle2D.Double characterArea) {
+        characterInteractAreaMap.put(character, characterArea);
     }
 }

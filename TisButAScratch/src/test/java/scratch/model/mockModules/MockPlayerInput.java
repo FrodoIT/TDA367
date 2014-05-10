@@ -17,12 +17,17 @@ public class MockPlayerInput implements IPlayerInput{
     private final int attackKey = Input.KEY_X;
 
     @Override
-    public boolean getAttackInput() {
+    public boolean isAttacking() {
         return attack;
     }
 
     @Override
-    public boolean getInteractInput() {
+    public void registerAllInput() {
+
+    }
+
+    @Override
+    public boolean isInteracting() {
         return interact;
     }
 
