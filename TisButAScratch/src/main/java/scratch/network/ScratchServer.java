@@ -10,14 +10,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
-import scratch.controller.Controller;
-import scratch.controller.PlayerController;
-import scratch.model.Model;
 import scratch.model.MoveDirection;
-import static scratch.network.Registration.register;
-import scratch.view.View;
 
 /**
  *
