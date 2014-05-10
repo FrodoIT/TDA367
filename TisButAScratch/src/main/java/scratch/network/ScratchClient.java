@@ -41,7 +41,7 @@ public class ScratchClient implements IScratchNetwork{
         try {
             client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new SlickException("Unable to link with server");
         }
         
         ScratchHandshake request = new ScratchHandshake();
@@ -51,7 +51,7 @@ public class ScratchClient implements IScratchNetwork{
         client.addListener(new Listener() {
             public void received(Connection connection, Object object) {
                 if (object instanceof ScratchHandshake) {
-                    
+                    System.out.println("Server connection made");
                 }
             }
         });

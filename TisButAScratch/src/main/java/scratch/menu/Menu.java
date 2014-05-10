@@ -19,25 +19,44 @@ import scratch.view.View;
  */
 public class Menu {
 
-    public static void mainMenu() throws SlickException{
+    public static void mainMenu() throws SlickException {
         String ip;
         ip = JOptionPane.showInputDialog(new JFrame(), "Enter IP to join or leave blank to host", "Ti's but a scratch", JOptionPane.QUESTION_MESSAGE);
         
-        if (ip.length() == 0) {
-            System.out.println("Starting host");
-            Model model = new Model();
-            View view = new View();
-            final Controller controller = new Controller(model, view, null);
-            AppGameContainer app = new AppGameContainer(controller);
-            app.start();
+        Model model = new Model();
+        View view = new View();
+        final Controller controller;
+        if (Menu.validIP(ip)) {
+            controller = new Controller(model, view, ip);
         } else {
-            System.out.println("Starting client at: " + ip);
-            Model model = new Model();
-            View view = new View();
-            final Controller controller = new Controller(model, view, ip);
-            AppGameContainer app = new AppGameContainer(controller);
-            app.start();
+            controller = new Controller(model, view, null);
+        }
+        AppGameContainer app = new AppGameContainer(controller);
+        app.start();
+    }
 
+    private static boolean validIP(String ip) {
+        try {
+            if (ip == null || ip.isEmpty()) {
+                return false;
+            }
+            ip = ip.trim();
+            String[] parts = ip.split("\\.");
+            if (parts.length != 4){
+                return false;
+            }
+            for (String s : parts){
+                int i = Integer.parseInt(s);
+                if (i < 0 || 255 < i){
+                    return false;
+                }
+            }
+            if (ip.endsWith(".")){
+                return false;
+            }
+            return true;
+        } catch (NumberFormatException e){
+            return false;
         }
     }
 }

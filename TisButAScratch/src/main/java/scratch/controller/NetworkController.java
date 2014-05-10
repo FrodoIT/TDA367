@@ -24,8 +24,9 @@ public class NetworkController {
     private IScratchNetwork scratchNetwork;
 
     public NetworkController(String ip) {
-        if (ip == null) {
+        if (ip != null) {
             try {
+                
                 scratchNetwork = new ScratchClient(ip);
                 host = false;
             } catch (SlickException e) {
@@ -35,6 +36,7 @@ public class NetworkController {
             }
         } else {
             scratchNetwork = new ScratchServer();
+            System.out.println("Set up Server");
             host = true;
         }
     }
