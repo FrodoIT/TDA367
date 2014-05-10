@@ -32,19 +32,15 @@ public final class Controller implements Game {
 
     private final Model model;
     private final View view;
-    private final ScratchNetwork network;
+    private final NetworkController networkController;
     private List<PlayerController> playerControllerList;
 
 
     public Controller(Model model, View view, String ip) throws SlickException {
         this.view = view;
         this.model = model;
+        networkController = new NetworkController(ip);
         playerControllerList = new ArrayList<PlayerController>();
-        if (ip == null){
-            this.network = new ScratchServer();
-        } else {
-            this.network = new ScratchClient(ip);
-        }
         
     }
 
@@ -60,7 +56,7 @@ public final class Controller implements Game {
         
         PlayerController playerController = new PlayerController(model, view);
         playerControllerList.add(playerController);
-        network.setPlayerController(playerController);
+        
     }
 
     @Override
@@ -74,9 +70,7 @@ public final class Controller implements Game {
         for (PlayerController pc : playerControllerList) {
             pc.registerAllInput(container.getInput());
         }
-        network.update();
         model.update();
-
     }
 
     public List<PlayerController> getPlayerControllerList() {
