@@ -16,7 +16,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import scratch.network.ScratchClient;
-import scratch.network.ScratchNetwork;
+import scratch.network.IScratchNetwork;
 import scratch.network.ScratchServer;
 
 import scratch.view.View;

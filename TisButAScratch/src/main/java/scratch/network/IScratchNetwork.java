@@ -12,7 +12,7 @@ import scratch.controller.PlayerController;
  *
  * @author Ivar
  */
-public interface ScratchNetwork {
+public interface IScratchNetwork {
     public void update();
     public void setPlayerController(PlayerController controller);
 }

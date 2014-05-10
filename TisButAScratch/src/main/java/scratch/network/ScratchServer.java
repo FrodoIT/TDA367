@@ -23,7 +23,7 @@ import scratch.view.View;
  *
  * @author Cannonbait
  */
-public class ScratchServer implements ScratchNetwork{
+public class ScratchServer implements IScratchNetwork{
 
     private Server server;
     private PlayerController controller;

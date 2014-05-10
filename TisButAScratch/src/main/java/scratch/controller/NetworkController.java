@@ -7,7 +7,7 @@
 package scratch.controller;
 
 import scratch.network.ScratchClient;
-import scratch.network.ScratchNetwork;
+import scratch.network.IScratchNetwork;
 import scratch.network.ScratchServer;
 
 /**
@@ -15,7 +15,7 @@ import scratch.network.ScratchServer;
  * @author Cannonbait
  */
 public class NetworkController {
-    //private final ScratchNetwork scratchNetwork;
+    //private final IScratchNetwork scratchNetwork;
     
     public NetworkController (String ip){
         if (ip == null){

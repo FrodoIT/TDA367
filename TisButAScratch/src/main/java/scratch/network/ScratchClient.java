@@ -25,7 +25,7 @@ import scratch.view.View;
  *
  * @author Cannonbait
  */
-public class ScratchClient implements ScratchNetwork{
+public class ScratchClient implements IScratchNetwork{
 
     private final Client client;
     private PlayerController controller;
