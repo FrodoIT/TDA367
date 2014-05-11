@@ -3,7 +3,7 @@
     <health>10</health>
     <imagePath>monster.tmx</imagePath>
     <weapon>DefaultWeapon</weapon>
-    <unitTile>500,400,32,32</unitTile> <!-- The fist two numbers define position on the map -->
+    <unitTile>0,0,32,32</unitTile> <!-- dont change, first two numbers wont matter and last two should be 32 -->
     <movementPattern>SimpleNPCPlugin</movementPattern>
     <movementSpeed>1</movementSpeed>
     <hostile>true</hostile>
