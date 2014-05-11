@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 import scratch.model.MoveDirection;
 import scratch.network.NetworkClient;
 import scratch.network.IScratchNetwork;
-import scratch.network.ScratchHandshake;
+import scratch.network.NetworkStringMessage;
 import scratch.network.NetworkServer;
 
 /**

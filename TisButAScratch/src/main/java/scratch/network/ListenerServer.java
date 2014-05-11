@@ -21,11 +21,11 @@ public class ListenerServer extends Listener {
     }
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof ScratchHandshake) {
-            ScratchHandshake recievedHandshake = (ScratchHandshake) object;
+        if (object instanceof NetworkStringMessage) {
+            NetworkStringMessage recievedHandshake = (NetworkStringMessage) object;
             System.out.println(recievedHandshake.getText());
 
-            ScratchHandshake response = new ScratchHandshake("Server connection made");
+            NetworkStringMessage response = new NetworkStringMessage("Server connection made");
             connection.sendTCP(response);
         } else if (object instanceof MoveDirection) {
 

@@ -9,11 +9,11 @@ package scratch.network;
  *
  * @author Cannonbait
  */
-public class ScratchHandshake {
+public class NetworkStringMessage {
     
     private String text;
     
-    public ScratchHandshake(String text){
+    public NetworkStringMessage(String text){
         this.text = text;
     }
     public String getText(){
