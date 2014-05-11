@@ -10,6 +10,13 @@ package scratch.network;
  * @author Cannonbait
  */
 public class ScratchHandshake {
-
-    public String text;
+    
+    private String text;
+    
+    public ScratchHandshake(String text){
+        this.text = text;
+    }
+    public String getText(){
+        return text;
+    }
 }

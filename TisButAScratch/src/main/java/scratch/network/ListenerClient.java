@@ -16,7 +16,7 @@ public class ListenerClient extends Listener{
 
     public void received(Connection connection, Object object) {
         if (object instanceof ScratchHandshake) {
-            System.out.println("Server connection made");
+            System.out.println(((ScratchHandshake)object).getText());
         }
     }
 }

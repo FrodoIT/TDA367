@@ -32,10 +32,10 @@ public class NetworkServer implements IScratchNetwork{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        server.addListener(new ListenerServer());
+        server.addListener(new ListenerServer(server));
     }
     
     public void update(){
-        server.sendToAllTCP("update");
+        server.sendToAllTCP(new ScratchHandshake("Update"));
     }
 }

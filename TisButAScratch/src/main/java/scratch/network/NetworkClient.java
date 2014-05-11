@@ -34,10 +34,8 @@ public class NetworkClient implements IScratchNetwork{
             throw new SlickException("Unable to link with server");
         }
         
-        ScratchHandshake request = new ScratchHandshake();
-        request.text = "Client connection made";
+        ScratchHandshake request = new ScratchHandshake("Client connection made");
         client.sendTCP(request);
-
         client.addListener(new ListenerClient());
     }
     

@@ -62,6 +62,7 @@ public final class Controller implements Game {
         PlayerController playerController = new PlayerController(model, view);
         playerControllerList.add(playerController);
         
+        
     }
 
     @Override
@@ -76,6 +77,7 @@ public final class Controller implements Game {
             pc.registerAllInput(container.getInput());
         }
         model.update();
+        networkController.update();
     }
 
     public List<PlayerController> getPlayerControllerList() {

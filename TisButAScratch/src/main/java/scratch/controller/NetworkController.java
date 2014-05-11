@@ -40,4 +40,8 @@ public class NetworkController {
             host = true;
         }
     }
+    
+    public void update(){
+        scratchNetwork.update();
+    }
 }
