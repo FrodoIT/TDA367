@@ -40,12 +40,6 @@ public class MockIRoomData implements IRoomData{
         return npcs;
     }
 
-    @Override
-    public Map<Integer, IInteractiveObject> getDoors() {
-        return null;
-    }
-
-
 	@Override
     public IMap getMap() {
         if(map == null){

@@ -54,7 +54,12 @@ public final class NpcType extends Character{
             return false;
     }
 
-    @Override
+	@Override
+	public void doInteractCooldown() {
+		//Npc don't do interact atm
+	}
+
+	@Override
     public boolean isAttacking() {
             return movementPattern.isAttacking(roomData, this);
     }

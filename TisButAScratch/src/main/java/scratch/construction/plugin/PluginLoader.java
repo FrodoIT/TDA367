@@ -9,10 +9,8 @@ package scratch.construction.plugin;
 import scratch.utils.FileScanner;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.annotation.Annotation;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +21,7 @@ import java.util.logging.Logger;
 public class PluginLoader {
     public static final String pluginPath = "target/classes/scratch/construction/plugin/exported/";
 
-    private static List<Class<?>> getPluginClasses () {
+    private static List<Class<?>> getPluginClasses (Class annotationType) {
         List<File> files = FileScanner.getFiles(new File(pluginPath));
         PluginClassLoader pluginClassLoader = new PluginClassLoader();
         List<Class<?>> classList = new ArrayList<Class<?>>();
@@ -32,7 +30,7 @@ public class PluginLoader {
             String strippedName = fileName.substring(0, fileName.indexOf(".class"));
             try {
                 Class loadedClass = pluginClassLoader.loadClass(strippedName);
-                if(loadedClass.getAnnotations() != null) {
+                if(loadedClass.getAnnotation(annotationType) != null) {
                     classList.add(loadedClass);
                 }
             }catch(ClassNotFoundException e) {
@@ -68,7 +66,7 @@ public class PluginLoader {
         return map;
     }
 
-    public static Map<Integer,Pluggable<?>> loadPlugins() {
-        return getPluginsFromPluginClasses(getPluginClasses());
+    public static Map<Integer,Pluggable<?>> loadPlugins(Class anotationType) {
+        return getPluginsFromPluginClasses(getPluginClasses(anotationType));
     }
 }

@@ -46,8 +46,9 @@ public abstract class Character {
     
     public abstract Vector2D calculateMovementPosition(IRoomData roomData);
     public abstract boolean isInteracting();
-    public abstract boolean isAttacking();
-    
+	public abstract void doInteractCooldown();
+	public abstract boolean isAttacking();
+
     public void takeDamage(int dmg){
         setHealth(getHealth()-dmg);
         if(getHealth()<0){

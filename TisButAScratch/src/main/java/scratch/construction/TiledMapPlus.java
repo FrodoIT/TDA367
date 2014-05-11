@@ -2,17 +2,20 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.IInteractiveObjectProperties;
+import scratch.model.IInteractiveObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.awt.geom.Rectangle2D;
+import java.util.*;
 
 /**
  * Created by tejp on 2014-05-08.
  */
 public class TiledMapPlus extends TiledMap {
+
+	private List<IInteractiveObject> interactiveObjects;
+	private Map<String, Rectangle2D.Double> npcRectMap;
+	private Map<String, Rectangle2D.Double> playerRectMap;
+
 	/**
 	 * Create a new tile map based on a given TMX file
 	 *
@@ -21,10 +24,39 @@ public class TiledMapPlus extends TiledMap {
 	 */
 	public TiledMapPlus(String ref) throws SlickException {
 		super(ref);
+
+		initializeInteractiveObjects();
+		playerRectMap = initializeObjectGroup("player");
+		npcRectMap = initializeObjectGroup("npc");
 	}
 
-	public List<IInteractiveObjectProperties> getInteractiveGroupObjects() {
-		List<IInteractiveObjectProperties> interactiveObject = new ArrayList<>();
+	private Map<String, Rectangle2D.Double> initializeObjectGroup(String objectGroupName) {
+		Map<String, Rectangle2D.Double> objectRectMap = new HashMap<>();
+
+		for (Object oGroup : objectGroups) {
+			ObjectGroup objectGroup = (ObjectGroup) oGroup;
+			System.out.println(objectGroup.name);
+			if ( ! objectGroup.name.equals( objectGroupName ))
+				continue;
+
+			for (Object gObject : objectGroup.objects) {
+				GroupObject groupObject = (GroupObject) gObject;
+				objectRectMap.put(
+						groupObject.name,
+						new Rectangle2D.Double(
+								groupObject.x,
+								groupObject.y,
+								groupObject.width,
+								groupObject.height
+						)
+				);
+			}
+		}
+		return objectRectMap;
+	}
+
+	private void initializeInteractiveObjects() {
+		List<IInteractiveObject> interactiveObjects = new ArrayList<>();
 
 		for (Object oGroup : objectGroups) {
 			ObjectGroup objectGroup = (ObjectGroup) oGroup;
@@ -34,36 +66,46 @@ public class TiledMapPlus extends TiledMap {
 			for (Object gObject : objectGroup.objects) {
 				GroupObject groupObject = (GroupObject) gObject;
 
-				interactiveObject.add(
-						new InteractiveObjectProperties(
-						groupObject.name,
-						groupObject.type,
-						groupObject.x,
-						groupObject.y,
-						groupObject.width,
-						groupObject.height,
-						groupObject.props
+				interactiveObjects.add(
+						new InteractiveObject(
+								groupObject.name,
+								groupObject.type,
+								groupObject.x,
+								groupObject.y,
+								groupObject.width,
+								groupObject.height,
+								groupObject.props
 						)
 				);
 			}
 
 		}
-		return interactiveObject;
+		this.interactiveObjects = interactiveObjects;
 	}
 
-	class InteractiveObjectProperties implements IInteractiveObjectProperties {
+	public Map<String, Rectangle2D.Double> getPlayerRectangleMap () {
+		return npcRectMap;
+	}
+
+
+	public Map<String, Rectangle2D.Double> getNpcRectangleMap () {
+		return npcRectMap;
+	}
+
+	public List<IInteractiveObject> getInteractiveObjects() {
+		return interactiveObjects;
+	}
+
+	class InteractiveObject implements IInteractiveObject {
 
 		private String name, type;
-		private int x, y, width, height;
+		private Rectangle2D.Double rect;
 		private Properties properties;
 
-		InteractiveObjectProperties(String name, String type, int x, int y, int width, int height, Properties properties) {
+		InteractiveObject(String name, String type, int x, int y, int width, int height, Properties properties) {
 			this.name = name;
 			this.type = type;
-			this.x = x;
-			this.y = y;
-			this.width = width;
-			this.height = height;
+			this.rect = new Rectangle2D.Double(x, y, width, height);
 			this.properties = properties;
 		}
 
@@ -78,23 +120,8 @@ public class TiledMapPlus extends TiledMap {
 		}
 
 		@Override
-		public int getX() {
-			return x;
-		}
-
-		@Override
-		public int getY() {
-			return y;
-		}
-
-		@Override
-		public int getWidth() {
-			return width;
-		}
-
-		@Override
-		public int getHeight() {
-			return height;
+		public Rectangle2D.Double getArea() {
+			return rect;
 		}
 
 		@Override

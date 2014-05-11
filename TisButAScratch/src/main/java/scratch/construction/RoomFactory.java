@@ -4,6 +4,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import scratch.model.DoorHandler;
+import scratch.model.IInteractiveObject;
 import scratch.model.NpcType;
 import scratch.model.Room;
 
@@ -25,6 +27,7 @@ public final class RoomFactory {
     private List<Room> rooms;
     private Map<String, PluginUserFactory> pluginUserFactories;
     private SlickMap slickMap;
+	private DoorHandler doorHandler = new DoorHandler();
 
 	private NpcType NPCXML(){
 		Serializer serializer = new Persister(new MyMatcher());
@@ -38,6 +41,7 @@ public final class RoomFactory {
 		}
 		return null;
 	}
+
     public RoomFactory() {
         try {
             map = new TiledMapPlus("res/untitled.tmx");
@@ -51,14 +55,30 @@ public final class RoomFactory {
         addSubFactories();
         addRooms();
         addInteractiveObjectstoRoom();
+	    setupDoorHandler();
         addNpcstoRoom();
     }
 
-    private void addInteractiveObjectstoRoom() {
-        //TODO get interactiveobjects from plugins and match them with objects from TiledMap
+	/**
+	 * gets all doors from all rooms.
+	 * it is the doorHandlers job to make sure a player is moved
+	 * from one door to another when a door is interacted with
+	 */
+	private void setupDoorHandler() {
 
-        InteractiveObjectFactory objectFactory = ((InteractiveObjectFactory)pluginUserFactories.get(InteractiveObjectFactory.KEY));
-        rooms.get(0).setInteractivObjects(objectFactory.getGivenTypeMap());
+		for (IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+			if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
+				doorHandler.addDoor(rooms.get(0), interactiveObject);
+			}
+		}
+
+	}
+
+	private void addInteractiveObjectstoRoom() {
+
+	    for (IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+		    rooms.get(0).addInteractivObject(interactiveObject);
+	    }
 
     }
 
@@ -73,7 +93,7 @@ public final class RoomFactory {
 
     private void addRooms() {
         //TODO: This should be further extended when several rooms are implemented.
-        rooms.add(new Room(slickMap));
+        rooms.add(new Room(slickMap, doorHandler));
     }
 
     private void addSubFactories() {

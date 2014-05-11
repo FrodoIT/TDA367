@@ -21,12 +21,15 @@ public final class Room implements IRoomData{
     private Map<Integer, NpcType> npcs;
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
-    private Map<Integer, IInteractiveObject> interactiveObjectMap;
+    private List<IInteractiveObject> interactiveObjects;
+	private DoorHandler doorHandler;
 
-    public Room(IMap collisionMap){
+    public Room(IMap collisionMap, DoorHandler doorHandler){
         this.map = collisionMap;
+	    this.doorHandler = doorHandler;
         players = new ArrayList();
-        areaUnderAttack= new HashMap<Character, Rectangle2D.Double>();
+	    interactiveObjects = new ArrayList<>();
+        areaUnderAttack= new HashMap<>();
     }
 
 
@@ -59,12 +62,14 @@ public final class Room implements IRoomData{
                     System.out.println("Attack added: " + attackArea);
                 }
             }
-	        if(character.isInteracting()) {// && map.hasInteractiveObject()){
-		        for (IInteractiveObject interactObj: interactiveObjectMap.values()) {
-			        if (character.getUnitTile().intersects(interactObj.getArea())) {
-				        interactObj.interact();
-			        }
 
+	        if(character.isInteracting()) {// && map.hasInteractiveObject()){
+		        character.doInteractCooldown();
+		        for (IInteractiveObject interactObj: interactiveObjects) {
+			        if (character.getUnitTile().intersects(interactObj.getArea())) {
+				        doorHandler.interactHappened(this, (Player) character, interactObj);
+				        break; // you can only interact with one object at a time
+			        }
 		        }
             }
         }
@@ -137,8 +142,8 @@ public final class Room implements IRoomData{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-	public void setInteractivObjects(Map<Integer, IInteractiveObject> interactiveObjectMap) {
-        this.interactiveObjectMap = interactiveObjectMap;
+	public void addInteractivObject(IInteractiveObject interactiveObject) {
+        this.interactiveObjects.add(interactiveObject);
 	}
 
 
@@ -199,11 +204,6 @@ public final class Room implements IRoomData{
         return players;
     }
 
-	@Override
-	public Map<Integer, IInteractiveObject> getDoors() {
-		return interactiveObjectMap;
-	}
-
     @Override
     public Map<Integer, NpcType> getNpcs() {
         return npcs;
@@ -213,8 +213,8 @@ public final class Room implements IRoomData{
         return areaUnderAttack;
     }
 
-    public Map<Integer, IInteractiveObject> getInteractiveObjectMap() {
-        return interactiveObjectMap;
+    public List<IInteractiveObject> getInteractiveObjects() {
+        return interactiveObjects;
     }
 
     @Override
