@@ -18,7 +18,6 @@ public final class Player extends AbstractCharacter {
     }
 
     public boolean isAttacking() {
-        //System.out.println("Is attacking "  + (playerInput.isAttacking() && getWeapon().hasCooledDown()) );
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
 
@@ -74,6 +73,7 @@ public final class Player extends AbstractCharacter {
             default:
                 deltaX = 0;
                 deltaY = 0;
+                setMoveDirection(MoveDirection.NONE);
         }
 
         Vector2D newPosition = new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);

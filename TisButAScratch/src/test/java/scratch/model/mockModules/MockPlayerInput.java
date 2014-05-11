@@ -9,10 +9,9 @@ import scratch.model.Player;
  * Created by pippin on 5/3/14.
  */
 public class MockPlayerInput implements IPlayerInput{
-    private Player player;
-    private MoveDirection moveDirection = MoveDirection.NORTH;
+    private MoveDirection moveDirection;
     private boolean attack = false;
-    private boolean interact = true;
+    private boolean interact = false;
     private final int interactionKey = Input.KEY_Z;
     private final int attackKey = Input.KEY_X;
 
