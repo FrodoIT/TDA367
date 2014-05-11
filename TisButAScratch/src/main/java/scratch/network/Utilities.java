@@ -12,10 +12,9 @@ import com.esotericsoftware.kryo.Kryo;
  *
  * @author Cannonbait
  */
-public class Registration {
-    public static void register(Kryo kryo){
+public class Utilities {
+    public static void kryoRegister(Kryo kryo){
         kryo.register(ScratchHandshake.class);
+        kryo.register(String.class);
     }
-    
-    
 }

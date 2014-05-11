@@ -19,12 +19,12 @@ import scratch.model.MoveDirection;
 public class ScratchServer implements IScratchNetwork{
 
     private Server server;
+    
 
     public ScratchServer() {
         server = new Server();
         Kryo kryo = server.getKryo();
-        kryo.register(ScratchHandshake.class);
-        kryo.register(MoveDirection.class);
+        Utilities.kryoRegister(kryo);
 
         server.start();
         try {
@@ -32,26 +32,10 @@ public class ScratchServer implements IScratchNetwork{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        server.addListener(new Listener() {
-            public void received(Connection connection, Object object) {
-                if (object instanceof ScratchHandshake) {
-                    ScratchHandshake recievedHandshake = (ScratchHandshake) object;
-                    System.out.println(recievedHandshake.text);
-
-                    ScratchHandshake response = new ScratchHandshake();
-                    response.text = "Server connection made";
-                    connection.sendTCP(response);
-                }
-                else if (object instanceof MoveDirection){
-                    
-                }
-            }
-        });
-
+        server.addListener(new ServerListener());
     }
     
     public void update(){
-        
+        server.sendToAllTCP("update");
     }
 }

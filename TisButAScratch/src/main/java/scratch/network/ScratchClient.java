@@ -25,8 +25,7 @@ public class ScratchClient implements IScratchNetwork{
     public ScratchClient(String ip) throws SlickException{
         client = new Client();
         Kryo kryo = client.getKryo();
-        kryo.register(ScratchHandshake.class);
-        kryo.register(MoveDirection.class);
+        Utilities.kryoRegister(kryo);
         
         client.start();
         try {
@@ -39,13 +38,7 @@ public class ScratchClient implements IScratchNetwork{
         request.text = "Client connection made";
         client.sendTCP(request);
 
-        client.addListener(new Listener() {
-            public void received(Connection connection, Object object) {
-                if (object instanceof ScratchHandshake) {
-                    System.out.println("Server connection made");
-                }
-            }
-        });
+        client.addListener(new ClientListener());
     }
     
     public void update(){
