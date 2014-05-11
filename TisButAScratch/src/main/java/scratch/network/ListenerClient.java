@@ -16,8 +16,8 @@ public class ListenerClient extends Listener{
     
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof NetworkStringMessage) {
-            System.out.println(((NetworkStringMessage)object).getText());
+        if (object instanceof PacketMessage) {
+            System.out.println(((PacketMessage)object).getText());
         }
     }
 }

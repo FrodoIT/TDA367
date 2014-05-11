@@ -38,7 +38,7 @@ public class NetworkClient implements IScratchNetwork {
             throw new RuntimeException("Could not connect to IP");
         }
         client.addListener(new ListenerClient());
-        NetworkStringMessage message = new NetworkStringMessage("Client message");
+        PacketMessage message = new PacketMessage("Client message");
         client.sendTCP(message);
     }
 

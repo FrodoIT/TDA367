@@ -9,14 +9,14 @@ package scratch.network;
  *
  * @author Cannonbait
  */
-public class NetworkStringMessage {
+public class PacketMessage {
     private String text;
     
-    public NetworkStringMessage(){
+    public PacketMessage(){
         
     }
     
-    public NetworkStringMessage (String text){
+    public PacketMessage (String text){
         this.text = text;
     }
     

@@ -19,12 +19,12 @@ public class ListenerServer extends Listener {
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof NetworkStringMessage) {
+        if (object instanceof PacketMessage) {
             
-            NetworkStringMessage recievedHandshake = (NetworkStringMessage) object;
+            PacketMessage recievedHandshake = (PacketMessage) object;
             System.out.println(recievedHandshake.getText());
 
-            NetworkStringMessage response = new NetworkStringMessage("Server response");
+            PacketMessage response = new PacketMessage("Server response");
             connection.sendTCP(response);
         }
     }

@@ -37,6 +37,6 @@ public class NetworkServer implements IScratchNetwork {
     }
 
     public void update() {
-        server.sendToAllTCP(new NetworkStringMessage("update"));
+        server.sendToAllTCP(new PacketMessage("update"));
     }
 }
