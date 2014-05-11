@@ -33,9 +33,8 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
             } else if(entry.getKey().equals("specialMonster")){
                 keyToConstant = PluginConstants.BOX;
             }
-            super.getGivenTypeMap().put(keyToConstant,
-                    new NpcType(entry.getValue(), new DefaultWeapon(), 10, 2, "monster.tmx", 10, new SimpleNPCPlugin()));
-
+          //  super.getGivenTypeMap().put(keyToConstant, new NpcType(entry.getValue(), new DefaultWeapon(), 10, 2, "monster.tmx", 10, new SimpleNPCPlugin()));
+			super.getGivenTypeMap().put(keyToConstant,NPCXML());
         }
 
     }

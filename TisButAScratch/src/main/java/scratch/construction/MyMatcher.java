@@ -25,12 +25,6 @@ public class MyMatcher implements Matcher{
 		if(type.equals(IWeapon.class)) {
 			return new WeaponTranformer();
 		}
-		if(type.equals(MoveDirection.class)){
-			return new MoveDirectionTransformer();
-		}
-		if(type.equals(IRoomData.class)) {
-			return new RoomDataTransformer();
-		}
 		return null;
 	}
 }

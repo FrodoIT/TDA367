@@ -22,11 +22,11 @@ public abstract class Character {
     private int health;
 	@Element
     private int movementSpeed;
-	@Element
-    private int id;
-	@Element(type=MoveDirection.class)
-    private MoveDirection moveDirection;
 	@Attribute
+    private int id;
+	@Element(type=MoveDirection.class, required = false)
+    private MoveDirection moveDirection= MoveDirection.SOUTH;
+	@Element
     private boolean alive;
     
     public Character(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){

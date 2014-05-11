@@ -1,11 +1,10 @@
-<NPCType alive="true">
+<NPCType id="0">
+    <alive>true</alive>
     <health>10</health>
     <imagePath>monster.tmx</imagePath>
     <weapon>DefaultWeapon</weapon>
-    <unitTile>0,0,32,32</unitTile>
-    <movementPattern>BasicMonster</movementPattern>
+    <unitTile>500,400,32,32</unitTile> <!-- The fist two numbers define position on the map -->
+    <movementPattern>SimpleNPCPlugin</movementPattern>
     <movementSpeed>1</movementSpeed>
-    <moveDirection>South</moveDirection>
     <hostile>true</hostile>
-    <id>0</id>
 </NPCType>

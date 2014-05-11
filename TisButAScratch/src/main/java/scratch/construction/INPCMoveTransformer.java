@@ -10,6 +10,9 @@ import scratch.model.INPCMove;
 public class INPCMoveTransformer implements Transform<INPCMove> {
 	@Override
 	public INPCMove read(String value) throws Exception {
+		if(value.compareTo("SimpleNPCPlugin")==0){
+			return new SimpleNPCPlugin();
+		}
 		return new SimpleNPCPlugin();
 	}
 
