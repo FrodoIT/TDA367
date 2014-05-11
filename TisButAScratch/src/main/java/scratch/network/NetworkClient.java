@@ -24,8 +24,7 @@ public class NetworkClient implements IScratchNetwork{
 
     public NetworkClient(String ip) throws SlickException{
         client = new Client();
-        Kryo kryo = client.getKryo();
-        kryo.register(NetworkStringMessage.class);
+        Utilities.kryoRegister(client.getKryo());
         client.start();
         
         try {
@@ -34,8 +33,7 @@ public class NetworkClient implements IScratchNetwork{
             throw new SlickException("Unable to link with server");
         }
         client.addListener(new ListenerClient());
-        NetworkStringMessage message =  new NetworkStringMessage();
-        message.text = "Setting up connection from client";
+        NetworkStringMessage message =  new NetworkStringMessage("Client message");
         client.sendTCP(message);
     }
     
