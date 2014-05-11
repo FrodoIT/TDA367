@@ -41,10 +41,12 @@ public abstract class AbstractCharacter {
         listenerList.remove(listener);
     }
 
-    public void takeDamage(int dmg){
-        setHealth(getHealth()-dmg);
-        if(getHealth()<0){
-            alive=false;
+    public void takeDamage(int dmg) {
+        health = health - Math.abs(dmg);
+
+        if(Math.abs(dmg) > health) {
+            alive = false;
+            health = 0;
         }
     }
 
@@ -57,11 +59,14 @@ public abstract class AbstractCharacter {
         }if(obj==null || !obj.getClass().equals(this.getClass())){
             return false;
         }
-        NpcType rhs= (NpcType) obj;
 
-        if(this.getUnitTile() == rhs.getUnitTile() && this.getWeapon() == rhs.getWeapon() &&
+        AbstractCharacter rhs = (AbstractCharacter) obj;
+
+        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon()) &&
                 this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed() &&
-                this.getId() == rhs.getId() && this.getMoveDirection() == rhs.getMoveDirection() && this.isAlive() == rhs.isAlive()){
+                this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection()) &&
+                this.isAlive() == rhs.isAlive()){
+
             return true;
         }
         return false;
@@ -131,9 +136,9 @@ public abstract class AbstractCharacter {
         }
     }
     public void interact(){
-       for(CharacterChangeListener listener : listenerList){
-           listener.handleCharacterInteraction(this, getUnitTile());
-       }
+        for(CharacterChangeListener listener : listenerList){
+            listener.handleCharacterInteraction(this, getUnitTile());
+        }
     }
 
     public boolean isAlive(){

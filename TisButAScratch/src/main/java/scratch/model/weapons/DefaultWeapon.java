@@ -90,7 +90,7 @@ public final class DefaultWeapon implements IWeapon {
         if(o instanceof DefaultWeapon){
             DefaultWeapon test = (DefaultWeapon) o;
             return (this.getDamage() == test.getDamage() &&
-                    this.getAttackArea() == test.getAttackArea() &&
+                    this.getAttackArea().equals(test.getAttackArea()) &&
                     this.getAttackInterval() == test.getAttackInterval() &&
                     this.getRange() == test.getRange());
         }
