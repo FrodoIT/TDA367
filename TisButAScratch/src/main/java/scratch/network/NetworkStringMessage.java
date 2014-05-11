@@ -11,4 +11,12 @@ package scratch.network;
  */
 public class NetworkStringMessage {
     public String text;
+    
+    public NetworkStringMessage(){
+        
+    }
+    
+    public NetworkStringMessage (String text){
+        this.text = text;
+    }
 }
