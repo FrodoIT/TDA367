@@ -9,10 +9,10 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import org.newdawn.slick.SlickException;
 import scratch.model.MoveDirection;
-import scratch.network.ScratchClient;
+import scratch.network.NetworkClient;
 import scratch.network.IScratchNetwork;
 import scratch.network.ScratchHandshake;
-import scratch.network.ScratchServer;
+import scratch.network.NetworkServer;
 
 /**
  *
@@ -27,15 +27,15 @@ public class NetworkController {
         if (ip != null) {
             try {
                 
-                scratchNetwork = new ScratchClient(ip);
+                scratchNetwork = new NetworkClient(ip);
                 host = false;
             } catch (SlickException e) {
-                scratchNetwork = new ScratchServer();
+                scratchNetwork = new NetworkServer();
                 host = true;
                 System.out.println("Unable to set up client, starting server instead");
             }
         } else {
-            scratchNetwork = new ScratchServer();
+            scratchNetwork = new NetworkServer();
             System.out.println("Set up Server");
             host = true;
         }

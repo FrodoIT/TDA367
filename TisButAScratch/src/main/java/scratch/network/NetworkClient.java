@@ -18,11 +18,11 @@ import scratch.model.MoveDirection;
  *
  * @author Cannonbait
  */
-public class ScratchClient implements IScratchNetwork{
+public class NetworkClient implements IScratchNetwork{
 
     private final Client client;
 
-    public ScratchClient(String ip) throws SlickException{
+    public NetworkClient(String ip) throws SlickException{
         client = new Client();
         Kryo kryo = client.getKryo();
         Utilities.kryoRegister(kryo);

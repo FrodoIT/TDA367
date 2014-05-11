@@ -16,12 +16,12 @@ import scratch.model.MoveDirection;
  *
  * @author Cannonbait
  */
-public class ScratchServer implements IScratchNetwork{
+public class NetworkServer implements IScratchNetwork{
 
     private Server server;
     
 
-    public ScratchServer() {
+    public NetworkServer() {
         server = new Server();
         Kryo kryo = server.getKryo();
         Utilities.kryoRegister(kryo);
