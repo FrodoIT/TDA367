@@ -13,7 +13,7 @@ import scratch.model.MoveDirection;
  *
  * @author Cannonbait
  */
-public class ServerListener extends Listener {
+public class ListenerServer extends Listener {
     private Connection connection;
     
     @Override

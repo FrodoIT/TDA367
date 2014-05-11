@@ -32,7 +32,7 @@ public class ScratchServer implements IScratchNetwork{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        server.addListener(new ServerListener());
+        server.addListener(new ListenerServer());
     }
     
     public void update(){

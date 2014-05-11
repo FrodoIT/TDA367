@@ -38,7 +38,7 @@ public class ScratchClient implements IScratchNetwork{
         request.text = "Client connection made";
         client.sendTCP(request);
 
-        client.addListener(new ClientListener());
+        client.addListener(new ListenerClient());
     }
     
     public void update(){
