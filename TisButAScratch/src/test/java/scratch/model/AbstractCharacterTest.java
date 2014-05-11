@@ -8,6 +8,7 @@ import org.junit.Test;
 import scratch.model.mockModules.MockModule;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
+
 import java.awt.geom.Rectangle2D;
 
 public class AbstractCharacterTest extends TestCase {
@@ -155,6 +156,7 @@ public class AbstractCharacterTest extends TestCase {
                 new Rectangle2D.Double(32, 32, 32, 32)));
     }
 
+    @Test
     public void testSetHealth() throws Exception {
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
@@ -162,20 +164,22 @@ public class AbstractCharacterTest extends TestCase {
         assertTrue(character.getHealth() == 40);
     }
 
-
+    @Test
     public void testGetId() throws Exception {
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.getId() == 1);
     }
 
+    @Test
     public void testGetMoveDirection() throws Exception {
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         character.setMoveDirection(MoveDirection.NONE);
         assertTrue(character.getMoveDirection().equals(MoveDirection.NONE));
     }
-
+    
+    @Test
     public void assertExpectedPosition(Vector2D a, Vector2D b){
         assertTrue (a.getX() == b.getX());
         assertTrue (a.getY() == b.getY());

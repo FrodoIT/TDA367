@@ -22,7 +22,7 @@ public abstract class AbstractCharacter {
     private int movementSpeed;
     private final int id;
     private MoveDirection moveDirection;
-    private boolean alive, attacking;
+    private boolean alive;
 
     public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
