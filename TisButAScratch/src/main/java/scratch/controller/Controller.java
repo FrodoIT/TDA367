@@ -31,7 +31,7 @@ public final class Controller implements Game {
     public Controller(Model model, View view, String ip) throws SlickException {
         this.view = view;
         this.model = model;
-        networkController = new NetworkController(ip);
+        networkController = new NetworkController(model,ip);
         playerControllerList = new ArrayList<PlayerController>();
         
     }

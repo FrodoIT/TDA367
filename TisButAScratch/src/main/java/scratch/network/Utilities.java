@@ -7,6 +7,8 @@
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
+import scratch.model.Model;
+import scratch.model.Room;
 
 /**
  *
@@ -15,5 +17,9 @@ import com.esotericsoftware.kryo.Kryo;
 public class Utilities {
     public static void kryoRegister(Kryo kryo){
         kryo.register(PacketMessage.class);
+        //Looks ugly as shit, should be different solution
+        kryo.register(PacketModel.class);
+        kryo.register(Model.class);
+        kryo.register(Room.class);
     }
 }

@@ -18,6 +18,8 @@ public class ListenerClient extends Listener{
     public void received(Connection connection, Object object) {
         if (object instanceof PacketMessage) {
             System.out.println(((PacketMessage)object).getText());
+        } else if (object instanceof PacketModel){
+            System.out.println("Recieved model");
         }
     }
 }

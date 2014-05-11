@@ -7,6 +7,7 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Server;
 import org.newdawn.slick.SlickException;
+import scratch.model.Model;
 import scratch.network.NetworkClient;
 import scratch.network.IScratchNetwork;
 import scratch.network.NetworkServer;
@@ -20,13 +21,13 @@ public class NetworkController {
     private Server server;
     private IScratchNetwork scratchNetwork;
 
-    public NetworkController(String ip) {
+    public NetworkController(Model model, String ip) {
 
         if (ip != null) {
             scratchNetwork = new NetworkClient(ip);
 
         } else {
-            scratchNetwork = new NetworkServer();
+            scratchNetwork = new NetworkServer(model);
         }
     }
 

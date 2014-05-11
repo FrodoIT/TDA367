@@ -22,7 +22,7 @@ public final class Room implements IRoomData{
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
     private List<IInteractiveObject> interactiveObjects;
-	private DoorHandler doorHandler;
+    private DoorHandler doorHandler;
 
     public Room(IMap collisionMap, DoorHandler doorHandler){
         this.map = collisionMap;
