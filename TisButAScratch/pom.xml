@@ -35,6 +35,11 @@
             <version>3.0</version>
         </dependency>
         <dependency>
+            <groupId>org.simpleframework</groupId>
+            <artifactId>simple-xml</artifactId>
+            <version>2.7.1</version>
+        </dependency>
+        <dependency>
             <groupId>jdepend</groupId>
             <artifactId>jdepend</artifactId>
             <version>2.9.1</version>
@@ -71,30 +76,6 @@
 
     <build>
         <plugins>
-            <!--<plugin>
-                <groupId>org.eclipse.m2e</groupId>
-                <artifactId>lifecycle-mapping</artifactId>
-                <version></version>
-                <configuration>
-                    <lifecycleMappingMetadata>
-                        <pluginExecutions>
-                            <pluginExecution>
-                                <pluginExecutionFilter>
-                                    <groupId>org.apache.maven.plugins</groupId>
-                                    <artifactId>maven-dependency-plugin</artifactId>
-                                    <versionRange>[1.0.0,)</versionRange>
-                                    <goals>
-                                        <goal>copy-dependencies</goal>
-                                    </goals>
-                                </pluginExecutionFilter>
-                                <action>
-                                    <ignore />
-                                </action>
-                            </pluginExecution>
-                        </pluginExecutions>
-                    </lifecycleMappingMetadata>
-                </configuration>
-            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

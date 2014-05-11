@@ -13,9 +13,6 @@
   <object name="player1" type="player" x="69" y="404" width="40" height="41"/>
  </objectgroup>
  <objectgroup name="interactive" width="20" height="15">
-  <object name="npc1" type="npc" x="429" y="42" width="39" height="38"/>
-  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38"/>
-  <object name="npc2" type="npc" x="584" y="282" width="41" height="38"/>
   <object name="door1" type="object" x="579" y="32" width="32" height="32">
    <properties>
     <property name="connection" value="1"/>
@@ -28,10 +25,20 @@
     <property name="objectType" value="door"/>
    </properties>
   </object>
+  <object name="door3" type="object" x="558" y="427" width="32" height="32">
+   <properties>
+    <property name="connection" value="1"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAA2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQNQEqakmsfFwLCAWP2EAMgsappHLBgq5pFjJgDiZABHsAQAAA==
   </data>
  </layer>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc1" type="npc" x="429" y="42" width="39" height="38"/>
+  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38"/>
+ </objectgroup>
 </map>

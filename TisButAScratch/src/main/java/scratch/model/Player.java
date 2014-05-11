@@ -1,10 +1,9 @@
 package scratch.model;
 
 import scratch.model.weapons.DefaultWeapon;
-import scratch.model.weapons.IWeapon;
+import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Date;
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
@@ -13,8 +12,16 @@ import java.util.Date;
  */
 public final class Player extends Character {
     private IPlayerInput playerInput;
-    
-    public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
+	private boolean interactIsCooledDown = true;
+
+	private Runnable cooldownReset = new Runnable() {
+		@Override
+		public void run() {
+			interactIsCooledDown = true;
+		}
+	};
+
+	public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
         super(unitTile, new DefaultWeapon(), 10, 2, id);
         this.playerInput=playerInput;
     }
@@ -96,10 +103,16 @@ public final class Player extends Character {
     
     @Override
     public boolean isInteracting(){
-        return playerInput.getInteractInput();
+	    return playerInput.getInteractInput() && interactIsCooledDown;
     }
 
-    @Override
+	@Override
+	public void doInteractCooldown() {
+		interactIsCooledDown = false;
+		Cooldown.cooldown(500, cooldownReset);
+	}
+
+	@Override
     public boolean isAttacking() {
         return (playerInput.getAttackInput());
     }

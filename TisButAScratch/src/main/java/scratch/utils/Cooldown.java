@@ -1,12 +1,14 @@
 package scratch.utils;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Anna on 2014-05-02.
  */
 public class Cooldown {
-	private static ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
+	private static final ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
 
 	/**
 	 * After waiting specified time, it executes the run method in he included runnable class.

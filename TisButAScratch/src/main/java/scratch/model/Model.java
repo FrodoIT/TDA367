@@ -1,10 +1,7 @@
 package scratch.model;
 
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-
-import java.awt.Rectangle;
 /**
  * 
  * @author Alma Ottedag

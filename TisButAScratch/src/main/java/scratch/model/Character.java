@@ -1,10 +1,10 @@
 package scratch.model;
 
 
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
+import org.simpleframework.xml.*;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * The interface for all Characters. Every character has a given 
@@ -12,15 +12,21 @@ import scratch.model.weapons.IWeapon;
  * @author Alma Ottedag
  * revised 2014-03-27 by Ivar Josefsson
  */
-
+@Root
 public abstract class Character {
-    
-    private final Rectangle2D.Double unitTile;
+	@Element (type=Rectangle2D.Double.class)
+    private Rectangle2D.Double unitTile;
+	@Element(type=IWeapon.class)
     private IWeapon weapon;
+	@Element
     private int health;
+	@Element
     private int movementSpeed;
-    private final int id;
+	@Element
+    private int id;
+	@Element(type=MoveDirection.class)
     private MoveDirection moveDirection;
+	@Attribute
     private boolean alive;
     
     public Character(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
@@ -32,12 +38,17 @@ public abstract class Character {
         moveDirection = MoveDirection.SOUTH;
         alive = true;
     }
+	//only for NPCType to use
+	Character(){
+		super();
+	}
 
     
     public abstract Vector2D calculateMovementPosition(IRoomData roomData);
     public abstract boolean isInteracting();
-    public abstract boolean isAttacking();
-    
+	public abstract void doInteractCooldown();
+	public abstract boolean isAttacking();
+
     public void takeDamage(int dmg){
         setHealth(getHealth()-dmg);
         if(getHealth()<0){

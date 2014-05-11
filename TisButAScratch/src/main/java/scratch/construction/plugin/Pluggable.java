@@ -6,8 +6,6 @@
 
 package scratch.construction.plugin;
 
-import java.awt.Point;
-
 /**
  *
  * @author Ivar

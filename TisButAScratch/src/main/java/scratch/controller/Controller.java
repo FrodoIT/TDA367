@@ -19,7 +19,12 @@ import scratch.network.ScratchClient;
 import scratch.network.IScratchNetwork;
 import scratch.network.ScratchServer;
 
+import scratch.construction.RoomFactory;
+import scratch.model.Model;
 import scratch.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The main controller class to control updates, rendering, initiating and

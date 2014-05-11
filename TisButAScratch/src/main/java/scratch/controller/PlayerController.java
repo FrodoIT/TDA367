@@ -1,13 +1,11 @@
 package scratch.controller;
 
 import com.google.inject.Inject;
+import org.newdawn.slick.Input;
 import scratch.model.IPlayerInput;
 import scratch.model.Model;
 import scratch.model.MoveDirection;
 import scratch.model.Player;
-
-import org.newdawn.slick.Input;
-
 import scratch.view.View;
 
 import java.awt.geom.Rectangle2D;
