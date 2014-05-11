@@ -15,20 +15,18 @@ import scratch.model.MoveDirection;
  * @author Cannonbait
  */
 public class ListenerServer extends Listener {
-    private Server server;
-    public ListenerServer (Server server){
-        this.server = server;
-    }
+
+
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof NetworkStringMessage) {
+            
             NetworkStringMessage recievedHandshake = (NetworkStringMessage) object;
-            System.out.println(recievedHandshake.getText());
+            System.out.println(recievedHandshake.text);
 
-            NetworkStringMessage response = new NetworkStringMessage("Server connection made");
+            NetworkStringMessage response = new NetworkStringMessage();
+            response.text = "Server response";
             connection.sendTCP(response);
-        } else if (object instanceof MoveDirection) {
-
         }
     }
 }

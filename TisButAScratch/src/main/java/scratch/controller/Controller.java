@@ -1,23 +1,10 @@
 package scratch.controller;
 
-import com.esotericsoftware.kryonet.Client;
-import scratch.construction.InteractiveObjectFactory;
-import scratch.construction.NpcFactory;
-import scratch.construction.RoomFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import scratch.model.IInteractiveObject;
-import scratch.model.Model;
 
 import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import scratch.network.NetworkClient;
-import scratch.network.IScratchNetwork;
-import scratch.network.NetworkServer;
 
 import scratch.construction.RoomFactory;
 import scratch.model.Model;
@@ -61,7 +48,6 @@ public final class Controller implements Game {
         
         PlayerController playerController = new PlayerController(model, view);
         playerControllerList.add(playerController);
-        
         
     }
 

@@ -10,13 +10,5 @@ package scratch.network;
  * @author Cannonbait
  */
 public class NetworkStringMessage {
-    
-    private String text;
-    
-    public NetworkStringMessage(String text){
-        this.text = text;
-    }
-    public String getText(){
-        return text;
-    }
+    public String text;
 }

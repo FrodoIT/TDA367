@@ -5,13 +5,10 @@
  */
 package scratch.controller;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Server;
 import org.newdawn.slick.SlickException;
-import scratch.model.MoveDirection;
 import scratch.network.NetworkClient;
 import scratch.network.IScratchNetwork;
-import scratch.network.NetworkStringMessage;
 import scratch.network.NetworkServer;
 
 /**
@@ -29,6 +26,7 @@ public class NetworkController {
                 
                 scratchNetwork = new NetworkClient(ip);
                 host = false;
+                System.out.println("Started Client");
             } catch (SlickException e) {
                 scratchNetwork = new NetworkServer();
                 host = true;
@@ -36,8 +34,8 @@ public class NetworkController {
             }
         } else {
             scratchNetwork = new NetworkServer();
-            System.out.println("Set up Server");
             host = true;
+            System.out.println("Started Server");
         }
     }
     

@@ -23,19 +23,18 @@ public class NetworkServer implements IScratchNetwork{
 
     public NetworkServer() {
         server = new Server();
-        Kryo kryo = server.getKryo();
-        Utilities.kryoRegister(kryo);
-
+        Utilities.kryoRegister(server.getKryo());
+        
         server.start();
         try {
             server.bind(54555, 54777);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        server.addListener(new ListenerServer(server));
+        server.addListener(new ListenerServer());
     }
     
     public void update(){
-        server.sendToAllTCP(new NetworkStringMessage("Update"));
+
     }
 }
