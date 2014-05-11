@@ -16,25 +16,27 @@ import scratch.model.MoveDirection;
  *
  * @author Cannonbait
  */
-public class NetworkServer implements IScratchNetwork{
+public class NetworkServer implements IScratchNetwork {
 
     private Server server;
-    
 
     public NetworkServer() {
         server = new Server();
         Utilities.kryoRegister(server.getKryo());
-        
+
+    }
+
+    public void start() {
         server.start();
         try {
             server.bind(54555, 54777);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Could not bind to ports");
         }
         server.addListener(new ListenerServer());
     }
-    
-    public void update(){
+
+    public void update() {
         server.sendToAllTCP(new NetworkStringMessage("update"));
     }
 }

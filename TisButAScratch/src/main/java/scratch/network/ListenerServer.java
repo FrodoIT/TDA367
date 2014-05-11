@@ -22,10 +22,9 @@ public class ListenerServer extends Listener {
         if (object instanceof NetworkStringMessage) {
             
             NetworkStringMessage recievedHandshake = (NetworkStringMessage) object;
-            System.out.println(recievedHandshake.text);
+            System.out.println(recievedHandshake.getText());
 
-            NetworkStringMessage response = new NetworkStringMessage();
-            response.text = "Server response";
+            NetworkStringMessage response = new NetworkStringMessage("Server response");
             connection.sendTCP(response);
         }
     }

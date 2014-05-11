@@ -48,6 +48,7 @@ public final class Controller implements Game {
         
         PlayerController playerController = new PlayerController(model, view);
         playerControllerList.add(playerController);
+        networkController.start();
         
     }
 

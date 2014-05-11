@@ -10,7 +10,7 @@ package scratch.network;
  * @author Cannonbait
  */
 public class NetworkStringMessage {
-    public String text;
+    private String text;
     
     public NetworkStringMessage(){
         
@@ -18,5 +18,9 @@ public class NetworkStringMessage {
     
     public NetworkStringMessage (String text){
         this.text = text;
+    }
+    
+    public String getText(){
+        return text;
     }
 }

@@ -18,26 +18,31 @@ import scratch.model.MoveDirection;
  *
  * @author Cannonbait
  */
-public class NetworkClient implements IScratchNetwork{
-
+public class NetworkClient implements IScratchNetwork {
+    private final String ip;
     private final Client client;
 
-    public NetworkClient(String ip) throws SlickException{
+    public NetworkClient(String ip){
+        this.ip = ip;
         client = new Client();
         Utilities.kryoRegister(client.getKryo());
+
+    }
+
+    public void start() {
         client.start();
-        
+
         try {
             client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
-            throw new SlickException("Unable to link with server");
+            throw new RuntimeException("Could not connect to IP");
         }
         client.addListener(new ListenerClient());
-        NetworkStringMessage message =  new NetworkStringMessage("Client message");
+        NetworkStringMessage message = new NetworkStringMessage("Client message");
         client.sendTCP(message);
     }
-    
-    public void update(){
-        
+
+    public void update() {
+
     }
 }

@@ -16,30 +16,25 @@ import scratch.network.NetworkServer;
  * @author Cannonbait
  */
 public class NetworkController {
+
     private Server server;
-    private boolean host;
     private IScratchNetwork scratchNetwork;
 
     public NetworkController(String ip) {
+
         if (ip != null) {
-            try {
-                
-                scratchNetwork = new NetworkClient(ip);
-                host = false;
-                System.out.println("Started Client");
-            } catch (SlickException e) {
-                scratchNetwork = new NetworkServer();
-                host = true;
-                System.out.println("Unable to set up client, starting server instead");
-            }
+            scratchNetwork = new NetworkClient(ip);
+
         } else {
             scratchNetwork = new NetworkServer();
-            host = true;
-            System.out.println("Started Server");
         }
     }
+
+    public void start() {
+        scratchNetwork.start();
+    }
     
-    public void update(){
+    public void update() {
         scratchNetwork.update();
     }
 }
