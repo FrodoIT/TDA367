@@ -31,6 +31,18 @@
     <property name="objectType" value="door"/>
    </properties>
   </object>
+  <object name="door4" type="object" x="245" y="41" width="32" height="32">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="door5" type="object" x="453" y="436" width="32" height="32">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
