@@ -43,7 +43,9 @@ public abstract class Character {
 		super();
 	}
 
-    
+    public void setId(int id){
+	    this.id=id;
+    }
     public abstract Vector2D calculateMovementPosition(IRoomData roomData);
     public abstract boolean isInteracting();
 	public abstract void doInteractCooldown();

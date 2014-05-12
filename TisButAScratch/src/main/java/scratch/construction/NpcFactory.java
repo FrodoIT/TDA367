@@ -35,7 +35,7 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
                 keyToConstant = PluginConstants.BOX;
             }
           //  super.getGivenTypeMap().put(keyToConstant, new NpcType(entry.getValue(), new DefaultWeapon(), 10, 2, "monster.tmx", 10, new SimpleNPCPlugin()));
-			super.getGivenTypeMap().put(keyToConstant,NPCXML("StandardEnemy", new Vector2D(500,400)));
+			super.getGivenTypeMap().put(keyToConstant,NPCXML("StandardEnemy", new Vector2D(500,400), 0));
 
         }
 
@@ -48,7 +48,7 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 	 * @param position The position the npc should have
 	 * @return A npc with the attributes as in the xml file.
 	 */
-	private NpcType NPCXML(String file, Vector2D position){
+	private NpcType NPCXML(String file, Vector2D position, int id){
 		Serializer serializer = new Persister(new MyMatcher());
 		file= "res/"+file+".xml";
 		File source = new File(file);
@@ -56,6 +56,7 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 			NpcType npc= serializer.read(NpcType.class, source);
 			System.out.println(npc.toString());
 			npc.setPosition(position);
+			npc.setId(id);
 			return npc;
 		} catch (Exception e) {
 			System.out.println("XML-READING FAILED: " + e.toString());
