@@ -1,7 +1,5 @@
 package scratch.controller;
 
-
-
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +30,7 @@ public final class Controller implements org.newdawn.slick.Game {
     private final Game game;
     private List<PlayerController> playerControllerList;
     private List<NpcController> npcControllerList;
-    private List<RoomController> roomControllerList;    
+    private List<RoomController> roomControllerList;
 
     public Controller(Game game, String ip) {
         this.game = game;
@@ -54,7 +52,6 @@ public final class Controller implements org.newdawn.slick.Game {
 
         game.addPlayer(tempPlayer);
 
-
         for (Room room : roomFactory.getRooms()) {
             roomControllerList.add(
                     new RoomController(room,
@@ -72,7 +69,6 @@ public final class Controller implements org.newdawn.slick.Game {
             }
         }
 
-
         networkController.start();
 
     }
@@ -84,16 +80,18 @@ public final class Controller implements org.newdawn.slick.Game {
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
-        for (PlayerController playerController : playerControllerList) {
-            playerController.updatePlayer();
-        }
+        if (networkController.isHost()) {
+            for (PlayerController playerController : playerControllerList) {
+                playerController.updatePlayer();
+            }
 
-        for (NpcController npcController : npcControllerList) {
-            npcController.updateNpc();
-        }
+            for (NpcController npcController : npcControllerList) {
+                npcController.updateNpc();
+            }
 
-        for (RoomController roomController : roomControllerList) {
-            roomController.updateRoom();
+            for (RoomController roomController : roomControllerList) {
+                roomController.updateRoom();
+            }
         }
         networkController.update();
     }

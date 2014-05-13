@@ -5,8 +5,6 @@
  */
 package scratch.controller;
 
-import com.esotericsoftware.kryonet.Server;
-import org.newdawn.slick.SlickException;
 import scratch.model.Game;
 import scratch.network.NetworkClient;
 import scratch.network.IScratchNetwork;
@@ -18,16 +16,18 @@ import scratch.network.NetworkServer;
  */
 public class NetworkController {
 
-    private Server server;
+    private boolean host;
     private IScratchNetwork scratchNetwork;
 
     public NetworkController(Game game, String ip) {
 
         if (ip != null) {
             scratchNetwork = new NetworkClient(game, ip);
+            host = false;
 
         } else {
             scratchNetwork = new NetworkServer(game);
+            host = true;
         }
     }
 
@@ -37,5 +37,9 @@ public class NetworkController {
     
     public void update() {
         scratchNetwork.update();
+    }
+    
+    public boolean isHost(){
+        return host;
     }
 }
