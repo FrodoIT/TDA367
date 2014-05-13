@@ -45,7 +45,7 @@ public class Utilities {
         kryo.register(HashSet.class);
         
         kryo.register(Vector2D.class);
-        kryo.register(PacketPlayer.class);
+        kryo.register(PacketCharacter.class);
         kryo.register(Point2D.Double.class);
         
         //Register constructionpackage

@@ -13,14 +13,14 @@ import scratch.model.Vector2D;
  *
  * @author Cannonbait
  */
-public class PacketPlayer {
+public class PacketCharacter {
     private Vector2D position;
     
-    public PacketPlayer(){
+    public PacketCharacter(){
         
     }
     
-    public PacketPlayer(Player player){
+    public PacketCharacter(Player player){
         position = player.getPosition();
     }
 }

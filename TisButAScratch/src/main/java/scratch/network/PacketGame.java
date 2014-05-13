@@ -14,7 +14,7 @@ import scratch.model.Game;
  * @author Ivar
  */
 public class PacketGame {
-    private List<PacketPlayer> npcs;
+    private List<PacketCharacter> npcs;
     private Game game;
     
     
