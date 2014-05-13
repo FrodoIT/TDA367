@@ -5,14 +5,10 @@
  */
 package scratch.network;
 
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
-import org.newdawn.slick.SlickException;
-import scratch.model.MoveDirection;
+import scratch.model.Game;
 
 /**
  *
@@ -21,8 +17,10 @@ import scratch.model.MoveDirection;
 public class NetworkClient implements IScratchNetwork {
     private final String ip;
     private final Client client;
+    private final Game game;
 
-    public NetworkClient(String ip){
+    public NetworkClient(Game game, String ip){
+        this.game = game;
         this.ip = ip;
         client = new Client();
         Utilities.kryoRegister(client.getKryo());
@@ -37,7 +35,7 @@ public class NetworkClient implements IScratchNetwork {
         } catch (IOException e) {
             throw new RuntimeException("Could not connect to IP");
         }
-        client.addListener(new ListenerClient());
+        client.addListener(new ListenerClient(game));
         PacketMessage message = new PacketMessage("Client message");
         client.sendTCP(message);
     }

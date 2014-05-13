@@ -95,6 +95,7 @@ public final class Controller implements org.newdawn.slick.Game {
         for (RoomController roomController : roomControllerList) {
             roomController.updateRoom();
         }
+        networkController.update();
     }
 
     @Override

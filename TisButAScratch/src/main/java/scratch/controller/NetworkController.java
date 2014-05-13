@@ -24,7 +24,7 @@ public class NetworkController {
     public NetworkController(Game game, String ip) {
 
         if (ip != null) {
-            scratchNetwork = new NetworkClient(ip);
+            scratchNetwork = new NetworkClient(game, ip);
 
         } else {
             scratchNetwork = new NetworkServer(game);
