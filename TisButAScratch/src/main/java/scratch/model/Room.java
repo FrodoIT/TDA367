@@ -18,9 +18,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private List<Player> players;
     private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private Map<AbstractCharacter, Rectangle2D.Double> characterAttackAreaMap = new HashMap<>();
     private Map<AbstractCharacter, Rectangle2D.Double> characterInteractAreaMap = new HashMap<>();
-    private Map<AbstractCharacter, Rectangle2D.Double> areaUnderAttack = new HashMap<>();
+    private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
     private boolean isUpdatingPlayers, isUpdatingNpcs;
@@ -74,19 +73,19 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private boolean dealDamage(){
 
-        for (Map.Entry<AbstractCharacter, Rectangle2D.Double> attackEntry : areaUnderAttack.entrySet()) {
+        for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
-                if((npcEntry.getValue().getUnitTile().intersects( attackEntry.getValue())) &&
-                        !attackEntry.getKey().getClass().equals(npcEntry.getValue().getClass())){
-                    npcEntry.getValue().takeDamage(attackEntry.getKey().getDamage());
+                if((npcEntry.getValue().getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
+                        !attackingCharacter.getClass().equals(npcEntry.getValue().getClass())){
+                    npcEntry.getValue().takeDamage(attackingCharacter.getDamage());
 
-                    break; //an attack should only damage one character at the time.
+                    break; //an attack should only damage one character at the time. Should it? Should it really?
                 }
             }
             for(Player player: players){
-                if((player.getUnitTile().intersects( attackEntry.getValue()))&&
-                        !attackEntry.getKey().getClass().equals(player.getClass())){
-                    player.takeDamage(attackEntry.getKey().getDamage());
+                if((player.getUnitTile().intersects( attackingCharacter.getAttackArea()) )&&
+                        !attackingCharacter.getClass().equals(player.getClass())){
+                    player.takeDamage(attackingCharacter.getDamage());
                     break;
                 }
             }
@@ -192,7 +191,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
         return npcs;
     }
 
-    public Map<AbstractCharacter, Rectangle2D.Double> getAreaUnderAttack() {
+    public List<AbstractCharacter> getAreaUnderAttack() {
         return areaUnderAttack;
     }
 
@@ -211,8 +210,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     @Override
-    public void handleCharacterAttack(AbstractCharacter character, Rectangle2D.Double attackArea) {
-        areaUnderAttack.put(character, attackArea);
+    public void handleCharacterAttack(AbstractCharacter character) {
+        areaUnderAttack.add(character);
     }
 
     @Override

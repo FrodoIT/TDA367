@@ -23,7 +23,7 @@ public class AbstractCharacterTest extends TestCase {
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
         map = injector.getInstance(IMap.class);
-        room = new Room(map);
+        room = new Room(map, new DoorHandler());
     }
 
     @Test

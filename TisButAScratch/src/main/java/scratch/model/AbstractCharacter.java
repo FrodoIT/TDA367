@@ -148,7 +148,7 @@ public abstract class AbstractCharacter {
     public void attack(){
         if(weapon.hasCooledDown()){
             for(CharacterChangeListener listener : listenerList){
-                listener.handleCharacterAttack(this, getAttackArea());
+                listener.handleCharacterAttack(this);
 
             }
             weapon.startCooldown();
