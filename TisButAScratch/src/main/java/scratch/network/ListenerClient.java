@@ -8,6 +8,7 @@ package scratch.network;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import scratch.model.Game;
+import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
 
 /**
@@ -29,8 +30,9 @@ public class ListenerClient extends Listener{
         } else if (object instanceof PacketGame){
             System.out.println("Recieved model");
         } else if (object instanceof PacketCharacter){
-            Vector2D position = ((PacketCharacter)object).getPosition();
-            game.getPlayers().get(0).setPosition(position);
+            PacketCharacter character = ((PacketCharacter)object);
+            game.getPlayers().get(0).setPosition(character.getPosition());
+            game.getPlayers().get(0).setMoveDirection(character.getMoveDirection());
         }
     }
 }

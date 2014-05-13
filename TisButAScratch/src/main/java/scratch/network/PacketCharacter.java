@@ -25,10 +25,14 @@ public class PacketCharacter {
     
     public PacketCharacter(Player player){
         position = player.getPosition();
-        //image = player.get
+        direction = player.getMoveDirection();
     }
     
     public Vector2D getPosition(){
         return position;
+    }
+    
+    public MoveDirection getMoveDirection(){
+        return direction;
     }
 }

@@ -4,26 +4,29 @@ import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
+
 /**
  * Logical representation of the Player in the game.
- * @author Anna Nylander
- * TODO: Add logic for colission detection here through IRoomData.
+ *
+ * @author Anna Nylander TODO: Add logic for colission detection here through
+ * IRoomData.
  *
  */
 public final class Player extends AbstractCharacter {
+
     private IPlayerInput playerInput;
-	private boolean interactIsCooledDown = true;
+    private boolean interactIsCooledDown = true;
 
-	private Runnable cooldownReset = new Runnable() {
-		@Override
-		public void run() {
-			interactIsCooledDown = true;
-		}
-	};
+    private Runnable cooldownReset = new Runnable() {
+        @Override
+        public void run() {
+            interactIsCooledDown = true;
+        }
+    };
 
-	public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
+    public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id) {
         super(unitTile, new DefaultWeapon(), 10, 2, id);
-        this.playerInput=playerInput;
+        this.playerInput = playerInput;
     }
 
     @Override
@@ -34,45 +37,45 @@ public final class Player extends AbstractCharacter {
         int movementSpeed = getMovementSpeed();
         MoveDirection direction = playerInput.getMoveInput();
 
-        switch(direction){
+        switch (direction) {
             case NORTH:
-                deltaX=0;
-                deltaY=-movementSpeed;
+                deltaX = 0;
+                deltaY = -movementSpeed;
                 setMoveDirection(MoveDirection.NORTH);
                 break;
             case SOUTH:
-                deltaX=0;
-                deltaY=+movementSpeed;
+                deltaX = 0;
+                deltaY = +movementSpeed;
                 setMoveDirection(MoveDirection.SOUTH);
                 break;
             case WEST:
-                deltaX=-movementSpeed;
-                deltaY=0;
+                deltaX = -movementSpeed;
+                deltaY = 0;
                 setMoveDirection(MoveDirection.WEST);
                 break;
             case EAST:
-                deltaX=+movementSpeed;
-                deltaY=0;
+                deltaX = +movementSpeed;
+                deltaY = 0;
                 setMoveDirection(MoveDirection.EAST);
                 break;
             case NORTHWEST:
-                deltaX=-movementSpeed;
-                deltaY=-movementSpeed;
+                deltaX = -movementSpeed;
+                deltaY = -movementSpeed;
                 setMoveDirection(MoveDirection.NORTHWEST);
                 break;
             case NORTHEAST:
-                deltaX=+movementSpeed;
-                deltaY=-movementSpeed;
+                deltaX = +movementSpeed;
+                deltaY = -movementSpeed;
                 setMoveDirection(MoveDirection.NORTHEAST);
                 break;
             case SOUTHWEST:
-                deltaX=-movementSpeed;
-                deltaY=+movementSpeed;
+                deltaX = -movementSpeed;
+                deltaY = +movementSpeed;
                 setMoveDirection(MoveDirection.SOUTHWEST);
                 break;
             case SOUTHEAST:
-                deltaX=+movementSpeed;
-                deltaY=+movementSpeed;
+                deltaX = +movementSpeed;
+                deltaY = +movementSpeed;
                 setMoveDirection(MoveDirection.SOUTHEAST);
                 break;
             default:
@@ -81,9 +84,9 @@ public final class Player extends AbstractCharacter {
                 setMoveDirection(MoveDirection.NONE);
         }
 
-        Vector2D newPosition = new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
+        Vector2D newPosition = new Vector2D(getPosition().getX() + deltaX, getPosition().getY() + deltaY);
 
-        for(CharacterChangeListener listener : super.getListenerList()) {
+        for (CharacterChangeListener listener : super.getListenerList()) {
             listener.handleCharacterMovement(this, newPosition);
 
             if (getPlayerInput().isInteracting()) {
@@ -98,25 +101,25 @@ public final class Player extends AbstractCharacter {
 
     /**
      * Give Player opportunity to execute an attack
-     * @return null if no attack is done, otherwise the area that the NPC attacks
+     *
+     * @return null if no attack is done, otherwise the area that the NPC
+     * attacks
      * @pre The player has pressed attackbutton and the weapon has cooldowned.
      */
-
-    public IPlayerInput getPlayerInput(){
+    public IPlayerInput getPlayerInput() {
         return playerInput;
     }
 
     @Override
-    public boolean isInteracting(){
-	    return playerInput.isInteracting() && interactIsCooledDown;
+    public boolean isInteracting() {
+        return playerInput.isInteracting() && interactIsCooledDown;
     }
 
-
-	@Override
-	public void doInteractCooldown() {
-		interactIsCooledDown = false;
-		Cooldown.cooldown(500, cooldownReset);
-	}
+    @Override
+    public void doInteractCooldown() {
+        interactIsCooledDown = false;
+        Cooldown.cooldown(500, cooldownReset);
+    }
 
     public boolean isAttacking() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
