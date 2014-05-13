@@ -49,6 +49,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
                     //interactiveObject.interact();
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
+
                 }
             }
         }
@@ -220,7 +221,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     public List<AbstractCharacter> getCharacterInteractAreaMap() {
-        return characterInteractAreaMap;
+        return charactersInteracting;
     }
 
     public DoorHandler getDoorHandler() {
