@@ -14,7 +14,7 @@ import java.awt.geom.Rectangle2D;
  *
  */
 @Root
-public final class NpcType extends Character{
+public final class NpcType extends AbstractCharacter {
     @Element
     private boolean hostile;
 	@Element
@@ -23,12 +23,16 @@ public final class NpcType extends Character{
     private INPCMove movementPattern;
 	@Element(type=IRoomData.class, required = false)
     private IRoomData roomData=null;
+    private MoveDirection lookingDirection = MoveDirection.SOUTH;
+    private CharacterChangeListener listener;
 
-    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern){
+    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern, CharacterChangeListener listener){
         super(unitTile, weapon, health, moveSpeed, id);
         this.imagePath = imagePath;
         this.movementPattern = movementPattern;
         hostile = true;
+        this.listener = listener;
+
     }
 	//used for xml-parsing
 	private NpcType(){
@@ -61,16 +65,15 @@ public final class NpcType extends Character{
 
 	@Override
     public boolean isAttacking() {
-            return movementPattern.isAttacking(roomData, this);
+            return movementPattern.isAttacking(this);
     }
-
-
     @Override
-    public Vector2D calculateMovementPosition(IRoomData roomData) {
-        Vector2D newPosition = movementPattern.calculateNewPosition(roomData, this);
+    public void update(){
+        Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
-        return newPosition;
+        listener.handleCharacterMovement(this, newPosition);
     }
+
 
     private void calculateMoveDirection(Vector2D newPosition){
         double diffX = newPosition.getX() - getUnitTile().x;
@@ -123,5 +126,9 @@ public final class NpcType extends Character{
     
     public INPCMove getMovementPattern(){
         return movementPattern;
+    }
+
+    public void setListener(CharacterChangeListener listener) {
+        this.listener = listener;
     }
 }

@@ -15,10 +15,12 @@ public class NpcTypeTest extends TestCase {
 	private NpcType npcType;
 	private INPCMove NPCMove;
 	public void setUp() throws Exception {
-		Injector injector = Guice.createInjector(new MockModule());
+
+        //TODO: This has to be changed so that the npctype uses a room as parameter.
+        Injector injector = Guice.createInjector(new MockModule());
 		IWeapon weapon= injector.getInstance(IWeapon.class);
 		INPCMove NPCMove = injector.getInstance(INPCMove.class);
-		npcType = new NpcType(new Rectangle2D.Double(32,32,32,32), weapon, 1, 1, "/res/playerSprite.tmx", 0, NPCMove);
+		//npcType = new NpcType(new Rectangle2D.Double(32,32,32,32), weapon, 1, 1, "/res/playerSprite.tmx", 0, NPCMove, room);
 
 	}
 

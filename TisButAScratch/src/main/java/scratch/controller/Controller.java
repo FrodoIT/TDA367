@@ -1,15 +1,22 @@
 package scratch.controller;
 
-import org.newdawn.slick.Game;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.RoomFactory;
-import scratch.model.Model;
-import scratch.view.View;
+import scratch.model.Game;
+import scratch.model.NpcType;
+import scratch.model.Player;
+import scratch.model.Room;
+import scratch.view.NpcView;
+import scratch.view.PlayerView;
+import scratch.view.RoomView;
 
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -17,50 +24,96 @@ import java.util.List;
  * @author Anna Nylander
  *
  */
-public final class Controller implements Game{
-    private final Model model;
-    private final View view;
+public final class Controller implements org.newdawn.slick.Game {
+    private final Game game;
     private List<PlayerController> playerControllerList;
+    private List<NpcController> npcControllerList;
+    private List<RoomController> roomControllerList;
 
-    public Controller(Model model, View view){
-        this.view = view;
-        this.model = model;
+    public Controller(Game game){
+        this.game = game;
         playerControllerList=new ArrayList<PlayerController>();
+        roomControllerList = new ArrayList<RoomController>();
+        npcControllerList = new ArrayList<NpcController>();
     }
 
     @Override
-    public void init(GameContainer container) throws SlickException {
-        container.setTargetFrameRate(60);
+    public void init(GameContainer gameContainer) throws SlickException {
+        //TODO: This will need to change when we read from XML.
+        gameContainer.setTargetFrameRate(60);
+        RoomFactory roomFactory = new RoomFactory();
+        TiledMap map = getTiledMap(roomFactory);
+        Player tempPlayer = new Player(
+                new PlayerInput(gameContainer.getInput()),
+                new Rectangle2D.Double(0,0,32,32), 2);
 
-        
-        view.addNpcView(0, "/res/playerSprite.tmx");
-        
-        RoomFactory trf = new RoomFactory();
-        view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
-        model.setMap(trf.getRooms());
-        playerControllerList.add(new PlayerController(model, view));
+        game.addPlayer(tempPlayer);
+
+        PlayerController playerController = new PlayerController(tempPlayer,
+                new PlayerView(tempPlayer, gameContainer, "/res/playerSprite.tmx"));
+
+        playerControllerList.add(playerController);
+
+        for(Room room : roomFactory.getRooms()){
+            roomControllerList.add(
+                    new RoomController(room,
+                            new RoomView(gameContainer, room, map)));
+
+            for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
+                npcControllerList.add(
+                        new NpcController(npcEntry.getValue(),
+                                new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx")));
+            }
+            for(Player player : room.getPlayers()){
+                playerControllerList.add(
+                        new PlayerController(player,
+                                new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+            }
+        }
+
 
 
 
 
     }
-    @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        view.render(container, g);
 
+    private TiledMap getTiledMap(RoomFactory roomFactory) {
+        TiledMap map = roomFactory.getMap();
+        game.setMap(roomFactory.getRooms());
+        return map;
     }
+
     @Override
     public void update(GameContainer container, int delta)throws SlickException {
-        for (PlayerController pc: playerControllerList){
-            pc.registerAllInput(container.getInput());
+        for (PlayerController playerController: playerControllerList){
+            playerController.updatePlayer();
         }
-        model.update();
 
+        for (NpcController npcController : npcControllerList){
+            npcController.updateNpc();
+        }
+
+        for (RoomController roomController : roomControllerList){
+            roomController.updateRoom();
+        }
     }
 
-    public List<PlayerController> getPlayerControllerList(){
-        return playerControllerList;
+    @Override
+    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+
+        for(RoomController roomController : roomControllerList){
+            roomController.getRoomView().render();
+        }
+
+        for(NpcController npcController : npcControllerList){
+            npcController.getNpcView().render();
+        }
+
+        for(PlayerController playerController : playerControllerList){
+            playerController.getPlayerView().render();
+        }
     }
+
 
     @Override
     public boolean closeRequested() {

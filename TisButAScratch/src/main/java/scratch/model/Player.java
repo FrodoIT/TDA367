@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
  * TODO: Add logic for colission detection here through IRoomData.
  *
  */
-public final class Player extends Character {
+public final class Player extends AbstractCharacter {
     private IPlayerInput playerInput;
 	private boolean interactIsCooledDown = true;
 
@@ -27,7 +27,8 @@ public final class Player extends Character {
     }
 
     @Override
-    public Vector2D calculateMovementPosition(IRoomData roomData){
+    public void update() {
+        playerInput.registerAllInput();
         int deltaX;
         int deltaY;
         int movementSpeed = getMovementSpeed();
@@ -77,9 +78,22 @@ public final class Player extends Character {
             default:
                 deltaX = 0;
                 deltaY = 0;
+                setMoveDirection(MoveDirection.NONE);
         }
-        
-        return new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
+
+        Vector2D newPosition = new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
+
+        for(CharacterChangeListener listener : super.getListenerList()) {
+            listener.handleCharacterMovement(this, newPosition);
+
+            if (getPlayerInput().isInteracting()) {
+                interact();
+            }
+
+            if (getPlayerInput().isAttacking()) {
+                attack();
+            }
+        }
     }
 
     /**
@@ -87,24 +101,16 @@ public final class Player extends Character {
      * @return null if no attack is done, otherwise the area that the NPC attacks
      * @pre The player has pressed attackbutton and the weapon has cooldowned.
      */
-    
-    @Override
-    public Rectangle2D.Double attack(){
-        if (playerInput.getAttackInput()){
-            return super.attack();
-        }
-        return null;
-    }
 
     public IPlayerInput getPlayerInput(){
         return playerInput;
     }
-    
-    
+
     @Override
     public boolean isInteracting(){
-	    return playerInput.getInteractInput() && interactIsCooledDown;
+	    return playerInput.isInteracting() && interactIsCooledDown;
     }
+
 
 	@Override
 	public void doInteractCooldown() {
@@ -112,11 +118,7 @@ public final class Player extends Character {
 		Cooldown.cooldown(500, cooldownReset);
 	}
 
-	@Override
     public boolean isAttacking() {
-        return (playerInput.getAttackInput());
+        return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
-
-
-
 }

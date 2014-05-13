@@ -21,12 +21,19 @@ import java.awt.geom.Rectangle2D;
 
 public class PlayerView {
 
-    private Player player;
     private SpriteDirectionRenderer spriteHandler;
-	private Rectangle2D.Double attackArea;
+    private Rectangle2D.Double attackArea;
+    private final Player player;
+    private final Graphics graphics;
+    private final GameContainer gameContainer;
+    private final String imagePath;
 
-    public PlayerView(Player player) {
+
+    public PlayerView(Player player, GameContainer gameContainer, String imagePath) {
         this.player = player;
+        this.gameContainer = gameContainer;
+        this.graphics = this.gameContainer.getGraphics();
+        this.imagePath = imagePath;
         animationSetUp();
     }
 
@@ -35,31 +42,23 @@ public class PlayerView {
         //we fetch the sprite through a tiledmap (like we do with the room map)
 
         try {
-            spriteHandler = new SpriteDirectionRenderer( new TiledMap("res/playerSprite.tmx") );
+            spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath));
         } catch (SlickException e) {
             e.printStackTrace();
         }
     }
 
-	int i = 0;
-
-    public void render(GameContainer c, Graphics g) {
+    public void render() {
         Vector2D position = player.getPosition();
         IPlayerInput playerInput = player.getPlayerInput();
 
-	    if(!player.weaponHasCooledDown()) {
-		    //saves attackArea every time player fights co be able to continue to render it until the weaponCD is down.
-		    if(player.isAttacking()) {
-			    attackArea = player.getAttackArea();
-		    }
-		    g.setColor(Color.red);
-		    g.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
-	    }
+        if (player.isAttacking()) {
+            attackArea = player.getAttackArea();
+            graphics.setColor(Color.red);
+            graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
+        }
 
         MoveDirection input= playerInput.getMoveInput();
-
-        spriteHandler.render(g, input, position.getX(),position.getY());
+        spriteHandler.render(graphics, input, position.getX(),position.getY());
     }
-
-
 }

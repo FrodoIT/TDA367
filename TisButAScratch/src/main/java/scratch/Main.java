@@ -3,8 +3,7 @@ package scratch;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.controller.Controller;
-import scratch.model.Model;
-import scratch.view.View;
+import scratch.model.Game;
 
 /**
  * 
@@ -14,9 +13,8 @@ import scratch.view.View;
  */
 public class Main {
 	public static void main (String[] args) throws SlickException{
-		Model model = new Model();
-		View view = new View();
-		AppGameContainer app = new AppGameContainer(new Controller(model, view));
+		Game game = new Game();
+		AppGameContainer app = new AppGameContainer(new Controller(game));
 		app.start();
 	}
 }

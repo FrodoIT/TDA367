@@ -2,17 +2,21 @@ package scratch.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 
  * @author Alma Ottedag
  *
  */
-public class Model {
+public class Game {
 	
 	private List<Player> playerList;
+    private List<NpcType> npcList;
 	private Room activeRoom;
 	
-	public Model(){
+	public Game(){
+            npcList = new ArrayList<NpcType>();
             playerList = new ArrayList<Player>();
             activeRoom = null;
             
@@ -25,6 +29,13 @@ public class Model {
 		activeRoom.enterRoom(player);
 		return true;
 	}
+
+    public void addNpcs(){
+        for (Map.Entry<Integer, NpcType> npcTypeEntry : activeRoom.getNpcs().entrySet()){
+            this.npcList.add(npcTypeEntry.getValue());
+        }
+    }
+
 
 	public List<Player> getPlayers() {
 		return playerList;
@@ -40,15 +51,9 @@ public class Model {
 		//set the active room. Currently there should only be one.
 		activeRoom = gameMapRooms.get(0);
 	}
-	
+
 	public Room getActiveRoom() {
 		return activeRoom;
 	}
 	
-	public void update(){
-		//TODO: when co-op is implemented there will be more a list of active rooms. Implement.
-		activeRoom.update();
-        activeRoom.setUpdatingNpcs(false);
-        activeRoom.setUpdatingPlayers(false);
-	}
 }
