@@ -24,14 +24,12 @@ public final class NpcType extends AbstractCharacter {
 	@Element(type=IRoomData.class, required = false)
     private IRoomData roomData=null;
     private MoveDirection lookingDirection = MoveDirection.SOUTH;
-    private CharacterChangeListener listener;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern, CharacterChangeListener listener){
         super(unitTile, weapon, health, moveSpeed, id);
         this.imagePath = imagePath;
         this.movementPattern = movementPattern;
         hostile = true;
-        this.listener = listener;
 
     }
 	//used for xml-parsing
@@ -65,13 +63,19 @@ public final class NpcType extends AbstractCharacter {
 
 	@Override
     public boolean isAttacking() {
-            return movementPattern.isAttacking(this);
+            return getWeapon().hasCooledDown() && movementPattern.isAttacking(this);
     }
     @Override
     public void update(){
         Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
-        listener.handleCharacterMovement(this, newPosition);
+        for (CharacterChangeListener characterListener : getListenerList()) {
+            characterListener.handleCharacterMovement(this, newPosition);
+        }
+
+        if (isAttacking()) {
+            attack();
+        }
     }
 
 
@@ -126,9 +130,5 @@ public final class NpcType extends AbstractCharacter {
     
     public INPCMove getMovementPattern(){
         return movementPattern;
-    }
-
-    public void setListener(CharacterChangeListener listener) {
-        this.listener = listener;
     }
 }

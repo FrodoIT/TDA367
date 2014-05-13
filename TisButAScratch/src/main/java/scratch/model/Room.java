@@ -15,7 +15,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private List<Player> players;
     private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private List<AbstractCharacter> characterInteractAreaMap = new ArrayList<>();
+    private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
@@ -42,8 +42,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private void updateCharacterInteractions() {
         for(IInteractiveObject interactiveObject : interactiveObjects){
-            for(AbstractCharacter inputEntry : characterInteractAreaMap){
-                if (inputEntry.getUnitTile().intersects(interactiveObject.getArea())){
+            for(AbstractCharacter character : charactersInteracting){
+                if (character.getUnitTile().intersects(interactiveObject.getArea())){
 
 
                     //interactiveObject.interact();
@@ -52,7 +52,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
                 }
             }
         }
-        characterInteractAreaMap.clear();
+        charactersInteracting.clear();
     }
 
     private void updateCharacterMovements() {
@@ -212,6 +212,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     @Override
     public void handleCharacterAttack(AbstractCharacter character) {
         areaUnderAttack.add(character);
+        System.out.println("Attack added from " + character);
     }
 
     public Map<AbstractCharacter, Vector2D> getCharacterMovementMap() {
@@ -228,6 +229,6 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     @Override
     public void handleCharacterInteraction(AbstractCharacter character) {
-        characterInteractAreaMap.add(character);
+        charactersInteracting.add(character);
     }
 }

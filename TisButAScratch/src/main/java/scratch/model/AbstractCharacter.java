@@ -18,7 +18,7 @@ import java.util.List;
 public abstract class AbstractCharacter {
 	@Element (type=Rectangle2D.Double.class)
     private Rectangle2D.Double unitTile;
-    private List<CharacterChangeListener> listenerList;
+    private List<CharacterChangeListener> listenerList = new ArrayList<>();
     @Element(type=IWeapon.class)
     private IWeapon weapon;
 	@Element
@@ -62,6 +62,8 @@ public abstract class AbstractCharacter {
 
     public void takeDamage(int dmg) {
         health = health - Math.abs(dmg);
+
+        System.out.println("Taking damage " + this.getHealth());
 
         if(Math.abs(dmg) > health) {
             alive = false;

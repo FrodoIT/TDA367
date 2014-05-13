@@ -36,30 +36,30 @@ public class NpcView{
         }
         this.npc = npc;
         this.gameContainer = gameContainer;
-        graphics = this.gameContainer.getGraphics();
+        this.graphics = gameContainer.getGraphics();
     }
 
     public void render(){
 	    if(npc.isAlive()) {
+            spriteHandler.render(graphics,
+                    npc.getMoveDirection(),
+                    npc.getPosition().getX(),
+                    npc.getPosition().getY());
 		    if(!npc.getWeapon().hasCooledDown()) {
 			    //saves attackArea every time player fights co be able to continue to render it until the weaponCD is down.
 			    if(npc.isAttacking()) {
-				    attackArea = npc.getAttackArea();
-			    }
-			    graphics.setColor(Color.blue);
-			    graphics.fill(new Rectangle(
+                    return;
+                }
+
+                attackArea = npc.getAttackArea();
+
+                graphics.setColor(Color.blue);
+                graphics.fill(new Rectangle(
                         (int) attackArea.getX(),
                         (int) attackArea.getY(),
                         (int) attackArea.getWidth(),
                         (int) attackArea.getHeight()));
 		    }
-		    spriteHandler.render(graphics,
-                    npc.getMoveDirection(),
-                    npc.getPosition().getX(),
-                    npc.getPosition().getY());
 	    }
-
     }
-
-
 }

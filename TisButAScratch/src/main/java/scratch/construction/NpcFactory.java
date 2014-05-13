@@ -39,7 +39,7 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
             movePattern.setRoomData(room);
             NpcType loadedNpc = NPCXML("StandardEnemy", new Vector2D(500,400), 0);
             loadedNpc.setMovementPattern(movePattern);
-            loadedNpc.setListener(room);
+            loadedNpc.registerListener(room);
 
 			super.getGivenTypeMap().put(keyToConstant, loadedNpc);
 

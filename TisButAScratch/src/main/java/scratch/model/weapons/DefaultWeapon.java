@@ -1,6 +1,7 @@
 package scratch.model.weapons;
 
 import com.google.inject.Inject;
+import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
@@ -25,8 +26,6 @@ public final class DefaultWeapon implements IWeapon {
 	private boolean cooledDown = true;
 	Runnable runnable;
 
-	private ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
-
     public DefaultWeapon(){
         damage = 2;
         range = 1;
@@ -47,10 +46,7 @@ public final class DefaultWeapon implements IWeapon {
         if (!cooledDown)
             return;
 		cooledDown =false;
-		schdoodle.schedule(runnable,
-				attackInterval,
-				TimeUnit.MILLISECONDS
-		);
+        Cooldown.cooldown(attackInterval, runnable);
 	}
 
 	/**
