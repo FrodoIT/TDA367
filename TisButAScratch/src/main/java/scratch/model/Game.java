@@ -41,6 +41,18 @@ public class Game implements Serializable {
     public List<Player> getPlayers() {
         return playerList;
     }
+    
+    public List<AbstractCharacter> getCharacters(){
+        List <AbstractCharacter> characters = new ArrayList<>();
+        //TODO: This needs to change with several rooms
+        for (Player player:activeRoom.getPlayers()){
+            characters.add((AbstractCharacter)player);
+        }
+        for (NpcType npc:activeRoom.getNpcs().values()){
+            characters.add((AbstractCharacter)npc);
+        }
+        return characters;
+    }
 
     public boolean removePlayer(Player player) {
         return playerList.remove(player)
