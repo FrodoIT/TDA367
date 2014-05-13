@@ -29,31 +29,17 @@ public final class RoomFactory {
     private SlickMap slickMap;
 	private DoorHandler doorHandler = new DoorHandler();
 
-	private NpcType NPCXML(){
-		Serializer serializer = new Persister(new MyMatcher());
-		File source = new File("res/NPCType.xml");
-		try {
-			NpcType npc= serializer.read(NpcType.class, source);
-			System.out.println(npc.toString());
-			return npc;
-		} catch (Exception e) {
-			System.out.println("XML-READING FAILED: " + e.toString());
-		}
-		return null;
-	}
-
     public RoomFactory() {
         try {
             map = new TiledMapPlus("res/untitled.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
         }
-	    NPCXML();
         pluginUserFactories = new TreeMap<String, PluginUserFactory>();
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
-        addSubFactories();
         addRooms();
+        addSubFactories();
         addInteractiveObjectstoRoom();
 	    setupDoorHandler();
         addNpcstoRoom();
@@ -97,7 +83,7 @@ public final class RoomFactory {
     }
 
     private void addSubFactories() {
-        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap));
+        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap, rooms.get(0)));
         pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }
 

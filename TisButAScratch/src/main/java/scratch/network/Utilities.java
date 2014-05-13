@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import scratch.construction.*;
 import scratch.model.*;
-import scratch.model.Character;
+import scratch.model.AbstractCharacter;
 import scratch.model.weapons.*;
 
 /**
@@ -33,7 +33,7 @@ public class Utilities {
         kryo.register(INPCMove.class);
         kryo.register(IPlayerInput.class);
         kryo.register(IRoomData.class);
-        kryo.register(Model.class);
+        kryo.register(Game.class);
         kryo.register(MoveDirection.class);
         kryo.register(NpcType.class);
         kryo.register(Player.class);
@@ -51,12 +51,10 @@ public class Utilities {
         //Register constructionpackage
         kryo.register(INPCMoveTransformer.class);
         kryo.register(InteractiveObjectFactory.class);
-        kryo.register(MoveDirectionTransformer.class);
         kryo.register(MyMatcher.class);
         kryo.register(NpcFactory.class);
         kryo.register(PluginUserFactory.class);
         kryo.register(RectangleTransformer.class);
-        kryo.register(RoomDataTransformer.class);
         kryo.register(RoomFactory.class);
         kryo.register(SlickMap.class);
         kryo.register(Test.class);

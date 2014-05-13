@@ -12,13 +12,13 @@ import java.awt.geom.Rectangle2D;
 
 public class ModelTest extends TestCase {
 
-	private Model m;
+	private Game m;
 	private Player p;
 	private Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
 	public void initialize() throws Exception {
-		m = new Model();
+		m = new Game();
 
 		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
 		p = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);

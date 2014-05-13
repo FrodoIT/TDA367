@@ -5,6 +5,8 @@ import scratch.model.weapons.IWeapon;
 import org.simpleframework.xml.*;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The interface for all Characters. Every character has a given 
@@ -13,23 +15,24 @@ import java.awt.geom.Rectangle2D;
  * revised 2014-03-27 by Ivar Josefsson
  */
 @Root
-public abstract class Character {
+public abstract class AbstractCharacter {
 	@Element (type=Rectangle2D.Double.class)
     private Rectangle2D.Double unitTile;
-	@Element(type=IWeapon.class)
+    private List<CharacterChangeListener> listenerList;
+    @Element(type=IWeapon.class)
     private IWeapon weapon;
 	@Element
     private int health;
 	@Element
     private int movementSpeed;
-	@Element
-    private int id;
-	@Element(type=MoveDirection.class)
-    private MoveDirection moveDirection;
 	@Attribute
+    private int id;
+	@Element(type=MoveDirection.class, required = false)
+    private MoveDirection moveDirection= MoveDirection.SOUTH;
+	@Element
     private boolean alive;
-    
-    public Character(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
+
+    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
@@ -37,105 +40,132 @@ public abstract class Character {
         this.id = id;
         moveDirection = MoveDirection.SOUTH;
         alive = true;
+        listenerList = new ArrayList<>();
     }
-	//only for NPCType to use
-	Character(){
+    public void registerListener(CharacterChangeListener listener){
+        listenerList.add(listener);
+    }
+	AbstractCharacter(){
 		super();
 	}
 
-    
-    public abstract Vector2D calculateMovementPosition(IRoomData roomData);
+    public void setId(int id){
+	    this.id=id;
+    }
     public abstract boolean isInteracting();
 	public abstract void doInteractCooldown();
 	public abstract boolean isAttacking();
 
-    public void takeDamage(int dmg){
-        setHealth(getHealth()-dmg);
-        if(getHealth()<0){
-            alive=false;
+    public void removeListener(CharacterChangeListener listener){
+        listenerList.remove(listener);
+    }
+
+    public void takeDamage(int dmg) {
+        health = health - Math.abs(dmg);
+
+        if(Math.abs(dmg) > health) {
+            alive = false;
+            health = 0;
         }
     }
-    
+
+    public abstract void update();
+
     @Override
     public boolean equals (Object obj){
         if(obj==this){
-                return true;
+            return true;
         }if(obj==null || !obj.getClass().equals(this.getClass())){
-                return false;
+            return false;
         }
-        NpcType rhs= (NpcType) obj;
-        
-        if(this.getUnitTile() == rhs.getUnitTile() && this.getWeapon() == rhs.getWeapon() && 
+
+        AbstractCharacter rhs = (AbstractCharacter) obj;
+
+        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon()) &&
                 this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed() &&
-                this.getId() == rhs.getId() && this.getMoveDirection() == rhs.getMoveDirection() && this.isAlive() == rhs.isAlive()){
-                return true;
+                this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection()) &&
+                this.isAlive() == rhs.isAlive()){
+
+            return true;
         }
         return false;
     }
-    
+
     public void setPosition(Vector2D position){
         unitTile.setRect(position.getX(),position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
-    
+
     public void setMoveDirection(MoveDirection direction){
         moveDirection = direction;
     }
-    
+
     public void setHealth(int health){
         this.health = health;
     }
-    
-    
-    
+
+
+
     public Rectangle2D.Double getUnitTile(){
         return unitTile;
     }
-    
+
     public IWeapon getWeapon(){
         return weapon;
     }
-    
+
     public int getHealth(){
         return health;
     }
-    
+
     public int getMovementSpeed(){
         return movementSpeed;
     }
-    
+
     public int getId(){
         return id;
     }
-    
+
     public MoveDirection getMoveDirection(){
         return moveDirection;
     }
-    
+
     public int getDamage(){
         return weapon.getDamage();
     }
-    
+
     public Vector2D getPosition(){
         return new Vector2D(unitTile.getX(), unitTile.getY());
     }
-    
+
     public Rectangle2D.Double getAttackArea(){
-        return new Rectangle2D.Double(unitTile.x+(32*weapon.getRange()*moveDirection.getX()), unitTile.y+(32*weapon.getRange()*moveDirection.getY()), weapon.getAttackArea().width, weapon.getAttackArea().height);
+        return new Rectangle2D.Double(
+                unitTile.x+(32*weapon.getRange()*moveDirection.getX()),
+                unitTile.y+(32*weapon.getRange()*moveDirection.getY()),
+                weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
-    
-    public Rectangle2D.Double attack(){
-        if (weapon.isCooledDown()){
-            weapon.attack();
-            return getAttackArea();
+
+
+    public void attack(){
+        if(weapon.hasCooledDown()){
+            for(CharacterChangeListener listener : listenerList){
+                listener.handleCharacterAttack(this);
+
+            }
+            weapon.startCooldown();
         }
-        return null;
     }
-    
+    public void interact(){
+        for(CharacterChangeListener listener : listenerList){
+            listener.handleCharacterInteraction(this);
+        }
+    }
+
     public boolean isAlive(){
         return alive;
     }
-    
-    public boolean weaponHasCooledDown(){
-        return weapon.isCooledDown();
+
+
+    public List<CharacterChangeListener> getListenerList() {
+        return listenerList;
     }
 }

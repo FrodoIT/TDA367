@@ -41,6 +41,10 @@ public class DoorHandler {
 	private IInteractiveObject getOutDoor(Set<IInteractiveObject> connectedDoors, IInteractiveObject originDoor) {
 		List<IInteractiveObject> connDoorsExcludingOrigin = new ArrayList<>(connectedDoors);
 		connDoorsExcludingOrigin.remove(originDoor);
+        if (connDoorsExcludingOrigin.isEmpty()) {
+            return originDoor; //if door has no connection. then go out the same door you tried to go in
+        }
+
 		int randomIndex = random.nextInt(connDoorsExcludingOrigin.size());
 		return connDoorsExcludingOrigin.get(randomIndex);
 	}

@@ -6,26 +6,26 @@
 
 package scratch.network;
 
-import scratch.model.Model;
+import scratch.model.Game;
 
 /**
  *
  * @author Ivar
  */
 public class PacketModel {
-    private Model model;
+    private Game game;
     
     
     //Kryonet requires an empty constructor
     public PacketModel (){
-        model = new Model();
+        game = new Game();
     }
     
-    public PacketModel (Model model){
-        this.model = model;
+    public PacketModel (Game game){
+        this.game = game;
     }
     
-    public Model getModel(){
-        return model;
+    public Game getModel(){
+        return game;
     }
 }

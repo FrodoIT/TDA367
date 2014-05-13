@@ -1,17 +1,23 @@
 package scratch.controller;
 
 
-import org.newdawn.slick.Game;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
+import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.RoomFactory;
-import scratch.model.Model;
-import scratch.view.View;
-
-import java.util.ArrayList;
-import java.util.List;
+import scratch.model.Game;
+import scratch.model.NpcType;
+import scratch.model.Player;
+import scratch.model.Room;
+import scratch.view.NpcView;
+import scratch.view.PlayerView;
+import scratch.view.RoomView;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -20,55 +26,91 @@ import java.util.List;
  * @author Anna Nylander
  *
  */
-public final class Controller implements Game {
+public final class Controller implements org.newdawn.slick.Game {
 
-    private final Model model;
-    private final View view;
     private final NetworkController networkController;
+    private final Game game;
     private List<PlayerController> playerControllerList;
+    private List<NpcController> npcControllerList;
+    private List<RoomController> roomControllerList;    
 
-
-    public Controller(Model model, View view, String ip) throws SlickException {
-        this.view = view;
-        this.model = model;
-        networkController = new NetworkController(model,ip);
+    public Controller(Game game, String ip) {
+        this.game = game;
+        networkController = new NetworkController(game, ip);
         playerControllerList = new ArrayList<PlayerController>();
-        
+        roomControllerList = new ArrayList<RoomController>();
+        npcControllerList = new ArrayList<NpcController>();
     }
 
     @Override
-    public void init(GameContainer container) throws SlickException {
-        container.setTargetFrameRate(60);
+    public void init(GameContainer gameContainer) throws SlickException {
+        //TODO: This will need to change when we read from XML.
+        gameContainer.setTargetFrameRate(60);
+        RoomFactory roomFactory = new RoomFactory();
+        TiledMap map = getTiledMap(roomFactory);
+        Player tempPlayer = new Player(
+                new PlayerInput(gameContainer.getInput()),
+                new Rectangle2D.Double(0, 0, 32, 32), 2);
 
-        view.addNpcView(0, "/res/playerSprite.tmx");
+        game.addPlayer(tempPlayer);
 
-        RoomFactory trf = new RoomFactory();
-        view.addRoomView(trf.getRooms().get(0), trf.getTiledMap());
-        model.setMap(trf.getRooms());
-        
-        PlayerController playerController = new PlayerController(model, view);
-        playerControllerList.add(playerController);
-        networkController.start();
-        
-    }
 
-    @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        view.render(container, g);
+        for (Room room : roomFactory.getRooms()) {
+            roomControllerList.add(
+                    new RoomController(room,
+                            new RoomView(gameContainer, room, map)));
 
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException {
-        for (PlayerController pc : playerControllerList) {
-            pc.registerAllInput(container.getInput());
+            for (Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()) {
+                npcControllerList.add(
+                        new NpcController(npcEntry.getValue(),
+                                new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx")));
+            }
+            for (Player player : room.getPlayers()) {
+                playerControllerList.add(
+                        new PlayerController(player,
+                                new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+            }
         }
-        model.update();
-        networkController.update();
+
+
+        networkController.start();
+
     }
 
-    public List<PlayerController> getPlayerControllerList() {
-        return playerControllerList;
+    private TiledMap getTiledMap(RoomFactory roomFactory) {
+        TiledMap map = roomFactory.getMap();
+        game.setMap(roomFactory.getRooms());
+        return map;
+    }
+
+    public void update(GameContainer container, int delta) throws SlickException {
+        for (PlayerController playerController : playerControllerList) {
+            playerController.updatePlayer();
+        }
+
+        for (NpcController npcController : npcControllerList) {
+            npcController.updateNpc();
+        }
+
+        for (RoomController roomController : roomControllerList) {
+            roomController.updateRoom();
+        }
+    }
+
+    @Override
+    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+
+        for (RoomController roomController : roomControllerList) {
+            roomController.getRoomView().render();
+        }
+
+        for (NpcController npcController : npcControllerList) {
+            npcController.getNpcView().render();
+        }
+
+        for (PlayerController playerController : playerControllerList) {
+            playerController.getPlayerView().render();
+        }
     }
 
     @Override

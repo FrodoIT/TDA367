@@ -1,0 +1,43 @@
+Meeting Agenda
+
+  Date: 05-12
+
+  Facilitator: Adam Waldenberg
+
+  Participants: Ivar Josefsson, Andre Samuelsson, Anna Nylander, Alma Ottedag
+
+1. Objectives (5 min) 
+Syncronize and make sure everyone has work to do. Everyone should have an idea on how things have been done and a basic idea of coming implementations.  
+
+
+2. Reports (15 min) 
+
+Anna has solved the XML-reading issue and its now working properly.
+
+Ivar has been somewhat stuck on the networking part, some hard to solve buggs that are now out of the way hindered progress. 
+
+André and Alma has refactored the project so that updated are made from the controllers and not the whole model at once.
+
+André has been working on doors and realized that we don’t need more plugins for all interactive objects, it creates more problems than it solves.
+
+
+3. Discussion items (35 min) 
+
+We are keeping a high pace but we still have a lot that needs to be done. The project is picking up speed again. 
+
+Continued work is needed on networking.
+
+We should look into having several rooms and setting up a proper map. 
+
+4. Outcomes and assignments (5 min) 
+
+Everyone: Tests!! We need at least 99% coverage!! + pmd+findbugs
+Ivar: Keeps working on networking
+Anna & André: Implementation of several rooms
+Anna & André: Fix xml and plugin. (We want to be able to a new monster without recompiling the whole project) //TODO: fix so player’s position is loaded from the map.
+Alma : Implement more advanced plugins (move boxes, speak with someone, all the fun things we wanted to do… <3) 
+
+5. Wrap up 
+
+Next meeting:
+Wednesday 05-14 13:00

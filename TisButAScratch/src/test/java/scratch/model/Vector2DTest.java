@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by pippin on 4/30/14.
@@ -15,7 +16,7 @@ public class Vector2DTest extends TestCase {
         Point2D.Double startPoint = new Point2D.Double(0,0);
         Point2D.Double endPoint = new Point2D.Double(1,0);
         Vector2D unitVector = new Vector2D(startPoint, endPoint);
-        assert (unitVector.getMagnitude() == 1);
+        assertTrue(unitVector.getMagnitude() == 1);
 
     }
 
@@ -29,18 +30,35 @@ public class Vector2DTest extends TestCase {
         Point2D.Double startPoint = new Point2D.Double(1,0);
         Point2D.Double endPoint = new Point2D.Double(6,9);
         Vector2D longVector = new Vector2D(startPoint, endPoint);
-        assert (longVector.getNormalisedVector().getMagnitude() > 0.99999);
-        assert (longVector.getNormalisedVector().getMagnitude() < 1 );
+        assertTrue(longVector.getNormalisedVector().getMagnitude() > 0.99999);
+        assertTrue(longVector.getNormalisedVector().getMagnitude() < 1);
     }
 
     @Test
     public void testGetX() throws Exception {
         Vector2D vector = new Vector2D(1,5);
-        assert (vector.getX() == 1);
+        assertTrue(vector.getX() == 1);
     }
     @Test
     public void testGetY() throws Exception {
         Vector2D vector = new Vector2D(1,4);
-        assert (vector.getY() == 4);
+        assertTrue(vector.getY() == 4);
+    }
+
+    @Test
+    public void testEquals(){
+        Vector2D vector = new Vector2D(new Point2D.Double(1,2),
+                new Point2D.Double(-2,6));
+        
+        assertTrue(vector.equals(vector));
+        assertFalse(vector.equals(null));
+
+        Vector2D otherVector = new Vector2D(new Point2D.Double(4,2),
+                new Point2D.Double(-2,6));
+        assertFalse (vector.equals(otherVector));
+        otherVector =new Vector2D(new Point2D.Double(1,2),
+                new Point2D.Double(-2,6));
+
+        assertTrue(vector.equals(otherVector));
     }
 }

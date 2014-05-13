@@ -35,25 +35,23 @@ public class RoomTest extends TestCase {
 
     @Test
     public void testUpdate() throws Exception {
-        room.enterRoom(createPlayerForTest(1));
+
+        Player testPlayer = createPlayerForTest(1);
+        room.enterRoom(testPlayer);
+        testPlayer.attack();
+        testPlayer.interact();
+        testPlayer.update();
+        assertFalse(room.getCharacterMovementMap().isEmpty());
+        assertFalse(room.getAreaUnderAttack().isEmpty());
+        assertFalse(room.getCharacterInteractAreaMap().isEmpty());
+        assertFalse(room.getCharacterMovementMap().isEmpty());
         room.update();
-        assert(room.isUpdatingNpcs());
-        assert(room.isUpdatingPlayers());
-    }
-
-    public void testUpdateCharater(Character character) throws Exception {
+        assertTrue(room.getAreaUnderAttack().isEmpty());
+        assertTrue(room.getCharacterInteractAreaMap().isEmpty());
+        assertTrue(room.getCharacterMovementMap().isEmpty());
 
     }
-    //the function MapCollision is used in AllowedPosition so I'm just testing one of them.
-    public void testAllowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition){
-            Player player1 = createPlayerForTest(0);
-            room.enterRoom(player1);
-            //not really sure of how to test this. Might need help with this.
-    }
 
-    public void testMapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut){
-
-    }
     @Test
 	public void testEnterRoom() throws Exception {
 		assertTrue(room.getPlayers().isEmpty());
@@ -82,13 +80,6 @@ public class RoomTest extends TestCase {
 		Player player = createPlayerForTest(0);
 		room.exitRoom(player);
 		assertTrue(room.getPlayers().isEmpty());
-	}
-	//I dont think I need to test this since I use it i so many other tests.
-	public void testGetPlayers() throws Exception {
-	}
-
-	public void testGetNpcs() throws Exception {
-		assertEquals(1,room.getNpcs().size()); //change 1 to expected number of npcs expected on the specific map.
 	}
 
 }

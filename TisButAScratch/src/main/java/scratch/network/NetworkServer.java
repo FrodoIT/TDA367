@@ -10,7 +10,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
-import scratch.model.Model;
+import scratch.model.Game;
 import scratch.model.MoveDirection;
 
 /**
@@ -20,10 +20,10 @@ import scratch.model.MoveDirection;
 public class NetworkServer implements IScratchNetwork {
 
     private Server server;
-    private Model model;
+    private Game game;
 
-    public NetworkServer(Model model) {
-        this.model = model;
+    public NetworkServer(Game game) {
+        this.game = game;
         server = new Server();
         Utilities.kryoRegister(server.getKryo());
 
@@ -40,6 +40,6 @@ public class NetworkServer implements IScratchNetwork {
     }
 
     public void update() {
-        server.sendToAllTCP(new PacketPlayer(model.getPlayers().get(0)));
+        server.sendToAllTCP(new PacketPlayer(game.getPlayers().get(0)));
     }
 }

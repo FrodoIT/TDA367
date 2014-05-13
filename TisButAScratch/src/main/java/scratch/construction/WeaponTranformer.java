@@ -10,7 +10,10 @@ import scratch.model.weapons.IWeapon;
 public class WeaponTranformer implements Transform<IWeapon> {
 	@Override
 	public IWeapon read(String value) throws Exception {
-		return new DefaultWeapon();
+		if(value.compareTo("DefaultWeapon")==0) {
+			return new DefaultWeapon();
+		}
+		return null;
 	}
 
 	@Override

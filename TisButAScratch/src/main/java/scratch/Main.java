@@ -7,8 +7,7 @@ import scratch.menu.Menu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.controller.Controller;
-import scratch.model.Model;
-import scratch.view.View;
+import scratch.model.Game;
 
 /**
  * 
@@ -18,6 +17,6 @@ import scratch.view.View;
  */
 public class Main {
 	public static void main (String[] args) throws SlickException{            
-            Menu.mainMenu(); 
+            Menu.mainMenu();
 	}
 }
