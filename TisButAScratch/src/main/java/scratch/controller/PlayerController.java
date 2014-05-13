@@ -24,9 +24,8 @@ public final class PlayerController{
     }
 
 
-    public void updatePlayer(){
+    public void updatePlayer() {
         player.update();
-        playerView.render();
     }
 
 
