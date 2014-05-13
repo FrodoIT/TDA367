@@ -70,7 +70,6 @@ public final class Controller implements org.newdawn.slick.Game {
         }
 
         networkController.start();
-
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {

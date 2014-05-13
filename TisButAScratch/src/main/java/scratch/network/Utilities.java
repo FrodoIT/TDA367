@@ -8,6 +8,7 @@ package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import scratch.construction.*;
@@ -43,6 +44,7 @@ public class Utilities {
         kryo.register(IWeapon.class);
         kryo.register(HashMap.class);
         kryo.register(HashSet.class);
+        kryo.register(ArrayList.class);
         
         kryo.register(Vector2D.class);
         kryo.register(PacketCharacter.class);

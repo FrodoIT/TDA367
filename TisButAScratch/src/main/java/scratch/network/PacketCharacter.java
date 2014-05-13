@@ -6,8 +6,8 @@
 
 package scratch.network;
 
+import scratch.model.AbstractCharacter;
 import scratch.model.MoveDirection;
-import scratch.model.Player;
 import scratch.model.Vector2D;
 
 /**
@@ -23,9 +23,9 @@ public class PacketCharacter {
         
     }
     
-    public PacketCharacter(Player player){
-        position = player.getPosition();
-        direction = player.getMoveDirection();
+    public PacketCharacter(AbstractCharacter character){
+        position = character.getPosition();
+        direction = character.getMoveDirection();
     }
     
     public Vector2D getPosition(){

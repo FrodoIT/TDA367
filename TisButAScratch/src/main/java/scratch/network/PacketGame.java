@@ -6,28 +6,30 @@
 
 package scratch.network;
 
+import java.util.ArrayList;
 import java.util.List;
+import scratch.model.AbstractCharacter;
 import scratch.model.Game;
+import scratch.model.Player;
 
 /**
  *
  * @author Ivar
  */
 public class PacketGame {
-    private List<PacketCharacter> npcs;
-    private Game game;
+    private List<PacketCharacter> characters;
     
     
     //Kryonet requires an empty constructor
     public PacketGame (){
-        game = new Game();
+        
     }
     
     public PacketGame (Game game){
-        this.game = game;
+        characters = new ArrayList<>();
+        for (AbstractCharacter character: game.getCharacters()){
+            characters.add(new PacketCharacter(character));
+        }
     }
     
-    public Game getModel(){
-        return game;
-    }
 }
