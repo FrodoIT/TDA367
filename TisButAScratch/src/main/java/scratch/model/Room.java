@@ -3,10 +3,7 @@ package scratch.model;
 import com.google.inject.Inject;
 
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Represents a single room and the contents in it.
@@ -23,12 +20,13 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private Map<Integer, NpcType> npcs;
     private final IMap map;
     private List<IInteractiveObject> interactiveObjects = new ArrayList<>();
-	private DoorHandler doorHandler;
+    private DoorHandler doorHandler;
 
     public Room(IMap collisionMap, DoorHandler doorHandler){
         this.map = collisionMap;
-	    this.doorHandler = doorHandler;
+        this.doorHandler = doorHandler;
         players = new ArrayList();
+        npcs = new TreeMap<Integer, NpcType>();
     }
 
 
@@ -74,19 +72,21 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private boolean dealDamage(){
 
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
-            for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
-                if((npcEntry.getValue().getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
-                        !attackingCharacter.getClass().equals(npcEntry.getValue().getClass())){
-                    npcEntry.getValue().takeDamage(attackingCharacter.getDamage());
+            if(!npcs.isEmpty()){
+                for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
+                    if((npcEntry.getValue().getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
+                            !attackingCharacter.getClass().equals(npcEntry.getValue().getClass())){
+                        npcEntry.getValue().takeDamage(attackingCharacter.getDamage());
 
-                    break; //an attack should only damage one character at the time. Should it? Should it really?
+                        break; //an attack should only damage one character at the time. Should it? Should it really?
+                    }
                 }
-            }
-            for(Player player: players){
-                if((player.getUnitTile().intersects( attackingCharacter.getAttackArea()) )&&
-                        !attackingCharacter.getClass().equals(player.getClass())){
-                    player.takeDamage(attackingCharacter.getDamage());
-                    break;
+                for(Player player: players){
+                    if((player.getUnitTile().intersects( attackingCharacter.getAttackArea()) )&&
+                            !attackingCharacter.getClass().equals(player.getClass())){
+                        player.takeDamage(attackingCharacter.getDamage());
+                        break;
+                    }
                 }
             }
         }
@@ -138,9 +138,9 @@ public final class Room implements IRoomData, CharacterChangeListener{
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-	public void addInteractivObject(IInteractiveObject interactiveObject) {
+    public void addInteractivObject(IInteractiveObject interactiveObject) {
         this.interactiveObjects.add(interactiveObject);
-	}
+    }
 
     public void addNpc(Map<Integer, NpcType> npcs) {
         this.npcs = npcs;
@@ -212,6 +212,18 @@ public final class Room implements IRoomData, CharacterChangeListener{
     @Override
     public void handleCharacterAttack(AbstractCharacter character) {
         areaUnderAttack.add(character);
+    }
+
+    public Map<AbstractCharacter, Vector2D> getCharacterMovementMap() {
+        return characterMovementMap;
+    }
+
+    public List<AbstractCharacter> getCharacterInteractAreaMap() {
+        return characterInteractAreaMap;
+    }
+
+    public DoorHandler getDoorHandler() {
+        return doorHandler;
     }
 
     @Override
