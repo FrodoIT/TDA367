@@ -156,7 +156,7 @@ public abstract class AbstractCharacter {
     }
     public void interact(){
         for(CharacterChangeListener listener : listenerList){
-            listener.handleCharacterInteraction(this, getUnitTile());
+            listener.handleCharacterInteraction(this);
         }
     }
 

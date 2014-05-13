@@ -18,7 +18,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private List<Player> players;
     private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private Map<AbstractCharacter, Rectangle2D.Double> characterInteractAreaMap = new HashMap<>();
+    private List<AbstractCharacter> characterInteractAreaMap = new ArrayList<>();
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
@@ -46,8 +46,10 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private void updateCharacterInteractions() {
         for(IInteractiveObject interactiveObject : interactiveObjects){
-            for(Map.Entry<AbstractCharacter, Rectangle2D.Double> inputEntry : characterInteractAreaMap.entrySet()){
-                if (inputEntry.getValue().intersects(interactiveObject.getArea())){
+            for(AbstractCharacter inputEntry : characterInteractAreaMap){
+                if (inputEntry.getUnitTile().intersects(interactiveObject.getArea())){
+
+
                     //interactiveObject.interact();
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
@@ -215,7 +217,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     @Override
-    public void handleCharacterInteraction(AbstractCharacter character, Rectangle2D.Double characterArea) {
-        characterInteractAreaMap.put(character, characterArea);
+    public void handleCharacterInteraction(AbstractCharacter character) {
+        characterInteractAreaMap.add(character);
     }
 }
