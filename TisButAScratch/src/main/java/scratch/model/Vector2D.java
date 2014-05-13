@@ -7,6 +7,14 @@ import java.awt.geom.Point2D;
 public class Vector2D {
 	private final Point2D.Double vectorInfo;
 	private final double magnitude;
+        
+        /**
+         * Should never be called, needed for serialisation of class.
+         */
+        public Vector2D(){
+            vectorInfo = null;
+            magnitude = 0;
+        }
 
 	public Vector2D(Point2D.Double startPoint, Point2D.Double endPoint) {
 		vectorInfo = new Point2D.Double(endPoint.x - startPoint.x, endPoint.y - startPoint.y);

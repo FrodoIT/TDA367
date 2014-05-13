@@ -40,6 +40,6 @@ public class NetworkServer implements IScratchNetwork {
     }
 
     public void update() {
-        //server.sendToAllTCP(model.getActiveRoom().getPlayers().get(0));
+        server.sendToAllTCP(new PacketPlayer(model.getPlayers().get(0)));
     }
 }

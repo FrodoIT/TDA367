@@ -20,6 +20,8 @@ public class ListenerClient extends Listener{
             System.out.println(((PacketMessage)object).getText());
         } else if (object instanceof PacketModel){
             System.out.println("Recieved model");
+        } else if (object instanceof PacketPlayer){
+            System.out.println("Recieved PacketPlayer");
         }
     }
 }

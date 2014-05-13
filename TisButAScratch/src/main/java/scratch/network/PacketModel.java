@@ -15,6 +15,7 @@ import scratch.model.Model;
 public class PacketModel {
     private Model model;
     
+    
     //Kryonet requires an empty constructor
     public PacketModel (){
         model = new Model();
