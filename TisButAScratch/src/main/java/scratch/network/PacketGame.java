@@ -6,22 +6,24 @@
 
 package scratch.network;
 
+import java.util.List;
 import scratch.model.Game;
 
 /**
  *
  * @author Ivar
  */
-public class PacketModel {
+public class PacketGame {
+    private List<PacketPlayer> npcs;
     private Game game;
     
     
     //Kryonet requires an empty constructor
-    public PacketModel (){
+    public PacketGame (){
         game = new Game();
     }
     
-    public PacketModel (Game game){
+    public PacketGame (Game game){
         this.game = game;
     }
     

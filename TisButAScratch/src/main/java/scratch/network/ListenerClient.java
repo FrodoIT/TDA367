@@ -18,7 +18,7 @@ public class ListenerClient extends Listener{
     public void received(Connection connection, Object object) {
         if (object instanceof PacketMessage) {
             System.out.println(((PacketMessage)object).getText());
-        } else if (object instanceof PacketModel){
+        } else if (object instanceof PacketGame){
             System.out.println("Recieved model");
         } else if (object instanceof PacketPlayer){
             System.out.println("Recieved PacketPlayer");

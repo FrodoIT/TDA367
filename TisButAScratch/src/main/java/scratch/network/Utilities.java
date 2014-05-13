@@ -24,7 +24,7 @@ public class Utilities {
         kryo.register(PacketMessage.class);
         
         //Looks ugly as shit, is there a different solution?
-        kryo.register(PacketModel.class);
+        kryo.register(PacketGame.class);
         kryo.register(Character.class);
         kryo.register(Constants.class);
         kryo.register(DoorHandler.class);
