@@ -10,36 +10,36 @@ import scratch.model.mockModules.MockPlayerInput;
 
 import java.awt.geom.Rectangle2D;
 
-public class ModelTest extends TestCase {
+public class GameTest extends TestCase {
 
-	private Game m;
-	private Player p;
+	private Game game;
+	private Player player;
 	private Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
 	public void initialize() throws Exception {
-		m = new Game();
+		game = new Game();
 
 		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-		p = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
+		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
 	}
 
 	@Test
 	public void testAddPlayer() throws Exception {
 		initialize();
-		m.addPlayer(p);
-		assertTrue(m.getPlayers().contains(p));
+		game.addPlayer(player);
+		assertTrue(game.getPlayers().contains(player));
 
 	}
 
 	@Test
 	public void testRemovePlayer() throws Exception {
 		initialize();
-		System.out.println("player" + p);
-		System.out.println("model" + m);
-		m.addPlayer(p);
-		m.removePlayer(p);
-		assertTrue(m.getPlayers().isEmpty());
+		System.out.println("player" + player);
+		System.out.println("model" + game);
+		game.addPlayer(player);
+		game.removePlayer(player);
+		assertTrue(game.getPlayers().isEmpty());
 	}
 
 	@Test
