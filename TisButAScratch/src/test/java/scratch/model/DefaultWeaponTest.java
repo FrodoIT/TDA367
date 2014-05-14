@@ -18,4 +18,18 @@ public class DefaultWeaponTest extends TestCase {
 
 	}
 
+	public void testAttack() throws Exception {
+		assertTrue(weapon.hasCooledDown()==true);
+		weapon.startCooldown();
+		assertTrue(weapon.hasCooledDown()==false);
+		int okMarginOfError = 15;
+		long start = System.currentTimeMillis();
+		do {
+
+		}
+		while(System.currentTimeMillis() < start + weapon.getAttackInterval()+okMarginOfError);
+
+		assertTrue(weapon.hasCooledDown()==true);
+	}
+
 }
