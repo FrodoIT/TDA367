@@ -3,6 +3,7 @@ package scratch.model;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import junit.framework.TestCase;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockModule;
@@ -56,23 +57,6 @@ public class AbstractCharacterTest extends TestCase {
         assertTrue(character.getHealth() == 0);
     }
 
-    @Test
-    public void testEquals() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.equals(character));
-        assertFalse(character.equals(null));
-
-        AbstractCharacter otherCharacter = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 2);
-        assertFalse (character.equals(otherCharacter));
-        otherCharacter = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-
-        assertTrue(character.equals(otherCharacter));
-
-    }
 
     @Test
     public void testSetPosition() throws Exception {
@@ -178,7 +162,12 @@ public class AbstractCharacterTest extends TestCase {
         character.setMoveDirection(MoveDirection.NONE);
         assertTrue(character.getMoveDirection().equals(MoveDirection.NONE));
     }
-    
+
+    @Test
+    public void testEquals() {
+        EqualsVerifier.forClass(AbstractCharacter.class).verify();
+    }
+
     @Test
     public void assertExpectedPosition(Vector2D a, Vector2D b){
         assertTrue (a.getX() == b.getX());
