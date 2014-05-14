@@ -1,5 +1,8 @@
 package scratch.model;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
@@ -24,6 +27,13 @@ public final class Player extends AbstractCharacter {
         }
     };
 
+    /**
+     * Needed for serialization, should not be used
+     */
+    public Player(){
+        playerInput = null;
+    }
+    
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id) {
         super(unitTile, new DefaultWeapon(), 10, 2, id);
         this.playerInput = playerInput;
@@ -123,5 +133,15 @@ public final class Player extends AbstractCharacter {
 
     public boolean isAttacking() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
+    }
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+        System.out.println("Writing Player");
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        System.out.println("Reading Player");
     }
 }

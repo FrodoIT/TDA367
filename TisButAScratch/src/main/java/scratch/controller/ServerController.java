@@ -1,5 +1,7 @@
 package scratch.controller;
 
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +27,7 @@ import scratch.view.RoomView;
  * @author Anna Nylander
  *
  */
-public final class ServerController implements org.newdawn.slick.Game {
+public final class ServerController extends Listener implements org.newdawn.slick.Game {
 
     private final NetworkServer networkServer;
     private final Game game;
@@ -73,7 +75,7 @@ public final class ServerController implements org.newdawn.slick.Game {
 
             }
         }
-        networkServer.start();
+        networkServer.start(this);
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
@@ -120,5 +122,15 @@ public final class ServerController implements org.newdawn.slick.Game {
     @Override
     public String getTitle() {
         return "'Tis but a Scratch";
+    }
+    
+    @Override
+    public void connected(Connection connection) {
+        connection.sendTCP(game);
+    }
+    
+    @Override
+    public void received(Connection connection, Object object) {
+        
     }
 }

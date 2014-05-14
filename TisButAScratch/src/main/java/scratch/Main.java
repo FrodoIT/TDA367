@@ -1,5 +1,6 @@
 package scratch;
 
+import com.esotericsoftware.kryo.Kryo;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.controller.ServerController;

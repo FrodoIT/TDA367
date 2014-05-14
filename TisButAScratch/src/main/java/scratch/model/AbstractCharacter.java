@@ -1,6 +1,7 @@
 package scratch.model;
 
 
+import com.esotericsoftware.kryo.KryoSerializable;
 import scratch.model.weapons.IWeapon;
 import org.simpleframework.xml.*;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * revised 2014-03-27 by Ivar Josefsson
  */
 @Root
-public abstract class AbstractCharacter {
+public abstract class AbstractCharacter implements KryoSerializable{
 	@Element (type=Rectangle2D.Double.class)
     private Rectangle2D.Double unitTile;
     private List<CharacterChangeListener> listenerList;
