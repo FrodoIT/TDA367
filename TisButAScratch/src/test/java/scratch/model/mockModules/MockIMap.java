@@ -2,6 +2,7 @@ package scratch.model.mockModules;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import scratch.construction.NpcSpecification;
 import scratch.model.IInteractiveObject;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
@@ -56,7 +57,7 @@ public class MockIMap implements IMap {
 	}
 
 	@Override
-	public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
+	public List<NpcSpecification> getNpcSpecifications() {
 		return null;
 	}
 

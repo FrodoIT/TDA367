@@ -7,6 +7,7 @@ import scratch.model.*;
 
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public final class NpcFactory extends PluginUserFactory<NpcType> {
@@ -24,22 +25,17 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 
     @Override
     public void loadType() {
-        //TODO: This will extend when we add MORE types of NPCS.
-        for(Map.Entry<String, Rectangle2D.Double> entry : super.getMap().getNpcRectangleMap().entrySet()){
-            int keyToConstant = 0;
-            if(BASICMONSTER.compareTo(entry.getKey()) == 0){
-                keyToConstant = 1;
-            } else if(SPECIALMONSTER.compareTo(entry.getKey()) == 0){
-                keyToConstant = 2;
-            }
+
+	        List<NpcSpecification> npcs = super.getMap().getNpcSpecifications();
+
+	        for(NpcSpecification npc: npcs) {
+		        System.out.println("Boppe! ");
+				int keyToConstant=+1;
+		        NpcType loadedNpc = NPCXML(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
+		        super.getGivenTypeMap().put(keyToConstant, loadedNpc);
+	        }
 
 
-            //TODO save NpcType returned from NPCXML should be saved. moveaistuffplugin should be added to it
-            //room should be sent to that moveaistuffplugin
-            NpcType loadedNpc = NPCXML("StandardEnemy", new Vector2D(500,400), 0);
-			super.getGivenTypeMap().put(keyToConstant, loadedNpc);
-
-        }
 
     }
 

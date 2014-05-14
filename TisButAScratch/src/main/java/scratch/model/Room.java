@@ -31,7 +31,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
 
     public void update(){
-        updateCharacterMovements();
+	    updateCharacterMovements();
         updateCharacterAttacks();
         updateCharacterInteractions();
     }

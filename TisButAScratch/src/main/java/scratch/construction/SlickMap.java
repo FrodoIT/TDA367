@@ -18,6 +18,7 @@ import java.util.TreeMap;
 /**
  *
  * @author Ivar
+ * @revisedBy Anna
  */
 //NOTE!!! If changed please edit the MockIMap too since the code should be identical.
 public class SlickMap implements IMap {
@@ -81,4 +82,5 @@ public class SlickMap implements IMap {
     public Map<String, Rectangle2D.Double> getPlayerRectangleMap() {
         return null;
     }
+
 }

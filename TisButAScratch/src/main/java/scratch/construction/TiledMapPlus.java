@@ -12,8 +12,8 @@ import java.util.*;
  */
 public class TiledMapPlus extends TiledMap {
 
-	private List<IInteractiveObject> interactiveObjects;
-    private List<NpcSpecification> npcSpecifications;
+	private List<IInteractiveObject> interactiveObjects = new ArrayList<>();
+    private List<NpcSpecification> npcSpecifications = new ArrayList<>();
 
 	/**
 	 * Create a new tile map based on a given TMX file
@@ -36,7 +36,7 @@ public class TiledMapPlus extends TiledMap {
 
 			for (Object gObject : objectGroup.objects) {
 				GroupObject groupObject = (GroupObject) gObject;
-                npcSpecifications.add( new NpcSpecification(
+				npcSpecifications.add( new NpcSpecification(
                                 groupObject.props.getProperty("npcType"),
                                 Integer.parseInt(groupObject.props.getProperty("id")),
                                 new Rectangle2D.Double(
@@ -53,8 +53,6 @@ public class TiledMapPlus extends TiledMap {
 	}
 
 	private void initializeInteractiveObjects() {
-		List<IInteractiveObject> interactiveObjects = new ArrayList<>();
-
 		for (Object oGroup : objectGroups) {
 			ObjectGroup objectGroup = (ObjectGroup) oGroup;
 			if ( ! objectGroup.name.equals("interactive"))
@@ -77,7 +75,6 @@ public class TiledMapPlus extends TiledMap {
 			}
 
 		}
-		this.interactiveObjects = interactiveObjects;
 	}
 
 	public List<NpcSpecification> getNpcSpecifications () {
