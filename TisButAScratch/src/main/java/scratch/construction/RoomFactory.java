@@ -84,7 +84,7 @@ public final class RoomFactory {
 
     private void addSubFactories() {
         pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap, rooms.get(0)));
-        pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
+        //pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }
 
     public TiledMap getTiledMap() {
