@@ -14,7 +14,7 @@ import scratch.view.PlayerView;
  */
 public final class PlayerController{
     @Inject
-    private final Player player;
+    private Player player;
     private final PlayerView playerView;
     private final PropertyChangeSupport listeners;
     
@@ -34,6 +34,14 @@ public final class PlayerController{
         player.update();
         listeners.firePropertyChange(null, null, player);
    }
+    
+    public int getId(){
+        return player.getId();
+    }
+    
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 
 
     public PlayerView getPlayerView() {

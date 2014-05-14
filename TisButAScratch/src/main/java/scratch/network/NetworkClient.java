@@ -6,6 +6,7 @@
 package scratch.network;
 
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 import scratch.model.Game;
@@ -25,7 +26,7 @@ public class NetworkClient {
 
     }
 
-    public void start() {
+    public void start(Listener listener) {
         client.start();
 
         try {
@@ -33,9 +34,7 @@ public class NetworkClient {
         } catch (IOException e) {
             throw new RuntimeException("Could not connect to IP");
         }
-        client.addListener(new ListenerClient());
-        PacketMessage message = new PacketMessage("Client message");
-        client.sendTCP(message);
+        client.addListener(listener);
     }
 
     public void update() {

@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
+import scratch.controller.ClientController;
 import scratch.controller.ServerController;
 import scratch.model.Game;
 
@@ -23,9 +24,9 @@ public class Menu {
         ip = JOptionPane.showInputDialog(new JFrame(), "Enter IP to join or leave blank to host", "Ti's but a scratch", JOptionPane.QUESTION_MESSAGE);
         
         Game game = new Game();
-        final ServerController controller;
+        final org.newdawn.slick.Game controller;
         if (Menu.validIP(ip)) {
-            controller = new ServerController(game);
+            controller = new ClientController(ip);
         } else {
             controller = new ServerController(game);
         }

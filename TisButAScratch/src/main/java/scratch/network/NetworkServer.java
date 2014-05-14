@@ -40,6 +40,6 @@ public class NetworkServer implements PropertyChangeListener{
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("Sending stuff");
+        
     }
 }
