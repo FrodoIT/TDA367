@@ -5,25 +5,24 @@
  */
 package scratch.network;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import java.io.IOException;
 import scratch.model.Game;
-import scratch.model.MoveDirection;
+
 
 /**
  *
  * @author Cannonbait
  */
-public class NetworkServer implements IScratchNetwork {
+public class NetworkServer implements PropertyChangeListener{
 
     private Server server;
-    private Game game;
 
-    public NetworkServer(Game game) {
-        this.game = game;
+    public NetworkServer() {
         server = new Server();
         Utilities.kryoRegister(server.getKryo());
 
@@ -39,7 +38,8 @@ public class NetworkServer implements IScratchNetwork {
         server.addListener(new ListenerServer());
     }
 
-    public void update() {
-        server.sendToAllTCP(new PacketGame(game));
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("Sending stuff");
     }
 }

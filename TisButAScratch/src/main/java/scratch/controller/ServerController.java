@@ -35,7 +35,7 @@ public final class ServerController implements org.newdawn.slick.Game {
 
     public ServerController(Game game, String ip) {
         this.game = game;
-        networkServer = new NetworkServer(game);
+        networkServer = new NetworkServer();
         playerControllerList = new ArrayList<PlayerController>();
         roomControllerList = new ArrayList<RoomController>();
         npcControllerList = new ArrayList<NpcController>();
@@ -64,14 +64,15 @@ public final class ServerController implements org.newdawn.slick.Game {
                                 new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx")));
             }
             for (Player player : room.getPlayers()) {
-                playerControllerList.add(
-                        new PlayerController(player,
-                                new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+                PlayerController controller = new PlayerController(player,
+                        new PlayerView(player, gameContainer, "res/playerSprite.tmx"));
+                controller.addListener(networkServer);
+                playerControllerList.add(controller);
+
             }
         }
         networkServer.start();
     }
-
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
         TiledMap map = roomFactory.getMap();
@@ -91,7 +92,6 @@ public final class ServerController implements org.newdawn.slick.Game {
         for (RoomController roomController : roomControllerList) {
             roomController.updateRoom();
         }
-        networkServer.update();
     }
 
     @Override
