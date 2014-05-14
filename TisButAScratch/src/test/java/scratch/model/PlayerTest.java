@@ -29,7 +29,7 @@ public class PlayerTest extends TestCase {
     private void assertPlayerDirection(Player player, MoveDirection direction){
         playerInput.setMoveDirection(direction);
         player.update();
-        assertTrue(player.getMoveDirection().equals(direction));
+        assertTrue(player.getMoveDirection() == (direction));
     }
 
     @Test

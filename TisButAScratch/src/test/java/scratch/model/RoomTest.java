@@ -14,14 +14,12 @@ import java.awt.geom.Rectangle2D;
  * Created by Anna on 2014-05-02.
  */
 public class RoomTest extends TestCase {
-	private IMap map;
 	private Room room;
-    private IRoomData iRoomData;
 
 	@Before
 	public void setUp() {
 		Injector injector = Guice.createInjector(new MockModule());
-		map = injector.getInstance(MockIMap.class);
+		IMap map = injector.getInstance(MockIMap.class);
 		room= new Room(map, new DoorHandler());
 	}
 
