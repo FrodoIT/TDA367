@@ -57,7 +57,6 @@ public final class Vector2D {
         long temp;
         result = vectorInfo != null ? vectorInfo.hashCode() : 0;
         temp = Double.doubleToLongBits(magnitude);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return 31 * result + (int) (temp ^ (temp >>> 32));
     }
 }

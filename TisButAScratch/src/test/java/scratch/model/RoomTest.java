@@ -52,12 +52,9 @@ public class RoomTest extends TestCase {
 
     @Test
 	public void testEnterRoom() throws Exception {
-		assertTrue(room.getPlayers().isEmpty());
 		Player player1 = createPlayerForTest(0);
-		Player player2 = createPlayerForTest(0);
 		room.enterRoom(player1);
-		room.enterRoom(player2);
-		assertTrue(room.getPlayers().contains(player1) && room.getPlayers().contains(player2));
+		assertTrue(room.getPlayers().contains(player1));
 	}
     @Test
 	public void testExitRoom() throws Exception {
@@ -65,10 +62,8 @@ public class RoomTest extends TestCase {
 		Player player2 = createPlayerForTest(1);
 		room.enterRoom(player1);
 		room.enterRoom(player2);
-		assertTrue(!room.getPlayers().isEmpty());
 		room.exitRoom(player1);
 		assertTrue(!room.getPlayers().contains(player1) && room.getPlayers().get(0).getId()==1);
-		assertEquals(1,room.getPlayers().get(0).getId());
 		room.exitRoom(player2);
 		assertTrue(room.getPlayers().isEmpty());
 	}

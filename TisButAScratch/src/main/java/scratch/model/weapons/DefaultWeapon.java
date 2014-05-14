@@ -78,18 +78,29 @@ public final class DefaultWeapon implements IWeapon {
 	}
 
     @Override
-    public boolean equals(Object o){
-        if(this == o)
-            return true;
-        if(o == null)
-            return false;
-        if(o instanceof DefaultWeapon){
-            DefaultWeapon test = (DefaultWeapon) o;
-            return (this.getDamage() == test.getDamage() &&
-                    this.getAttackArea().equals(test.getAttackArea()) &&
-                    this.getAttackInterval() == test.getAttackInterval() &&
-                    this.getRange() == test.getRange());
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DefaultWeapon)) return false;
+
+        DefaultWeapon that = (DefaultWeapon) o;
+
+        if (attackInterval != that.attackInterval) return false;
+        if (cooledDown != that.cooledDown) return false;
+        if (damage != that.damage) return false;
+        if (range != that.range) return false;
+        if (attackArea != null ? !attackArea.equals(that.attackArea) : that.attackArea != null) return false;
+        if (runnable != null ? !runnable.equals(that.runnable) : that.runnable != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = damage;
+        result = 31 * result + range;
+        result = 31 * result + (attackArea != null ? attackArea.hashCode() : 0);
+        result = 31 * result + attackInterval;
+        result = 31 * result + (cooledDown ? 1 : 0);
+        return 31 * result + (runnable != null ? runnable.hashCode() : 0);
     }
 }
