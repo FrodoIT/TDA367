@@ -12,11 +12,9 @@ import java.util.Map;
 public class Game {
 	
 	private List<Player> playerList;
-    private List<NpcType> npcList;
 	private Room activeRoom;
 	
 	public Game(){
-            npcList = new ArrayList<NpcType>();
             playerList = new ArrayList<Player>();
             activeRoom = null;
             
@@ -29,13 +27,6 @@ public class Game {
 		activeRoom.enterRoom(player);
 		return true;
 	}
-
-    public void addNpcs(){
-        for (Map.Entry<Integer, NpcType> npcTypeEntry : activeRoom.getNpcs().entrySet()){
-            this.npcList.add(npcTypeEntry.getValue());
-        }
-    }
-
 
 	public List<Player> getPlayers() {
 		return playerList;
