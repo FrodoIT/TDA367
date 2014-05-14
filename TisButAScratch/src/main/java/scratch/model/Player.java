@@ -134,14 +134,4 @@ public final class Player extends AbstractCharacter {
     public boolean isAttacking() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
-
-    @Override
-    public void write(Kryo kryo, Output output) {
-        System.out.println("Writing Player");
-    }
-
-    @Override
-    public void read(Kryo kryo, Input input) {
-        System.out.println("Reading Player");
-    }
 }

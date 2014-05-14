@@ -1,7 +1,9 @@
 package scratch.model;
 
-
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import scratch.model.weapons.IWeapon;
 import org.simpleframework.xml.*;
 
@@ -10,30 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The interface for all Characters. Every character has a given 
- * health, position, damage, movement speed and weapon. 
- * @author Alma Ottedag
- * revised 2014-03-27 by Ivar Josefsson
+ * The interface for all Characters. Every character has a given health,
+ * position, damage, movement speed and weapon.
+ *
+ * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
  */
 @Root
-public abstract class AbstractCharacter implements KryoSerializable{
-	@Element (type=Rectangle2D.Double.class)
+public abstract class AbstractCharacter implements KryoSerializable {
+
+    @Element(type = Rectangle2D.Double.class)
     private Rectangle2D.Double unitTile;
     private List<CharacterChangeListener> listenerList;
-    @Element(type=IWeapon.class)
+    @Element(type = IWeapon.class)
     private IWeapon weapon;
-	@Element
+    @Element
     private int health;
-	@Element
+    @Element
     private int movementSpeed;
-	@Attribute
+    @Attribute
     private int id;
-	@Element(type=MoveDirection.class, required = false)
-    private MoveDirection moveDirection= MoveDirection.SOUTH;
-	@Element
+    @Element(type = MoveDirection.class, required = false)
+    private MoveDirection moveDirection = MoveDirection.SOUTH;
+    @Element
     private boolean alive;
 
-    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id){
+    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id) {
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
@@ -43,28 +46,33 @@ public abstract class AbstractCharacter implements KryoSerializable{
         alive = true;
         listenerList = new ArrayList<>();
     }
-    public void registerListener(CharacterChangeListener listener){
+
+    public void registerListener(CharacterChangeListener listener) {
         listenerList.add(listener);
     }
-	AbstractCharacter(){
-		super();
-	}
 
-    public void setId(int id){
-	    this.id=id;
+    AbstractCharacter() {
+        super();
     }
-    public abstract boolean isInteracting();
-	public abstract void doInteractCooldown();
-	public abstract boolean isAttacking();
 
-    public void removeListener(CharacterChangeListener listener){
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public abstract boolean isInteracting();
+
+    public abstract void doInteractCooldown();
+
+    public abstract boolean isAttacking();
+
+    public void removeListener(CharacterChangeListener listener) {
         listenerList.remove(listener);
     }
 
     public void takeDamage(int dmg) {
         health = health - Math.abs(dmg);
 
-        if(Math.abs(dmg) > health) {
+        if (Math.abs(dmg) > health) {
             alive = false;
             health = 0;
         }
@@ -73,100 +81,118 @@ public abstract class AbstractCharacter implements KryoSerializable{
     public abstract void update();
 
     @Override
-    public boolean equals (Object obj){
-        if(obj==this){
+    public boolean equals(Object obj) {
+        if (obj == this) {
             return true;
-        }if(obj==null || !obj.getClass().equals(this.getClass())){
+        }
+        if (obj == null || !obj.getClass().equals(this.getClass())) {
             return false;
         }
 
         AbstractCharacter rhs = (AbstractCharacter) obj;
 
-        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon()) &&
-                this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed() &&
-                this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection()) &&
-                this.isAlive() == rhs.isAlive()){
+        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon())
+                && this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed()
+                && this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection())
+                && this.isAlive() == rhs.isAlive()) {
 
             return true;
         }
         return false;
     }
 
-    public void setPosition(Vector2D position){
-        unitTile.setRect(position.getX(),position.getY(), unitTile.getWidth(), unitTile.getHeight());
+    public void setPosition(Vector2D position) {
+        unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
-    public void setMoveDirection(MoveDirection direction){
+    public void setMoveDirection(MoveDirection direction) {
         moveDirection = direction;
     }
 
-    public void setHealth(int health){
+    public void setHealth(int health) {
         this.health = health;
     }
 
-
-
-    public Rectangle2D.Double getUnitTile(){
+    public Rectangle2D.Double getUnitTile() {
         return unitTile;
     }
 
-    public IWeapon getWeapon(){
+    public IWeapon getWeapon() {
         return weapon;
     }
 
-    public int getHealth(){
+    public int getHealth() {
         return health;
     }
 
-    public int getMovementSpeed(){
+    public int getMovementSpeed() {
         return movementSpeed;
     }
 
-    public int getId(){
+    public int getId() {
         return id;
     }
 
-    public MoveDirection getMoveDirection(){
+    public MoveDirection getMoveDirection() {
         return moveDirection;
     }
 
-    public int getDamage(){
+    public int getDamage() {
         return weapon.getDamage();
     }
 
-    public Vector2D getPosition(){
+    public Vector2D getPosition() {
         return new Vector2D(unitTile.getX(), unitTile.getY());
     }
 
-    public Rectangle2D.Double getAttackArea(){
+    public Rectangle2D.Double getAttackArea() {
         return new Rectangle2D.Double(
-                unitTile.x+(32*weapon.getRange()*moveDirection.getX()),
-                unitTile.y+(32*weapon.getRange()*moveDirection.getY()),
+                unitTile.x + (32 * weapon.getRange() * moveDirection.getX()),
+                unitTile.y + (32 * weapon.getRange() * moveDirection.getY()),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 
-
-    public void attack(){
-        if(weapon.hasCooledDown()){
-            for(CharacterChangeListener listener : listenerList){
+    public void attack() {
+        if (weapon.hasCooledDown()) {
+            for (CharacterChangeListener listener : listenerList) {
                 listener.handleCharacterAttack(this);
 
             }
             weapon.startCooldown();
         }
     }
-    public void interact(){
-        for(CharacterChangeListener listener : listenerList){
+
+    public void interact() {
+        for (CharacterChangeListener listener : listenerList) {
             listener.handleCharacterInteraction(this);
         }
     }
 
-    public boolean isAlive(){
+    public boolean isAlive() {
         return alive;
     }
 
-
     public List<CharacterChangeListener> getListenerList() {
         return listenerList;
+    }
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+        output.writeInt(getId());
+        output.writeDouble(unitTile.x);
+        output.writeDouble(unitTile.y);
+        output.writeDouble(unitTile.width);
+        output.writeDouble(unitTile.height);
+        
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        id = input.readInt();
+        double x = input.readInt();
+        double y = input.readInt();
+        double w = input.readInt();
+        double h = input.readInt();
+        unitTile = new Rectangle2D.Double(x, y, w, h);
     }
 }

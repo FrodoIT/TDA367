@@ -136,14 +136,4 @@ public final class NpcType extends AbstractCharacter {
     public void setListener(CharacterChangeListener listener) {
         this.listener = listener;
     }
-
-    @Override
-    public void write(Kryo kryo, Output output) {
-        output.writeString(getImagePath());
-    }
-
-    @Override
-    public void read(Kryo kryo, Input input) {
-        System.out.println(input.readString());
-    }
 }
