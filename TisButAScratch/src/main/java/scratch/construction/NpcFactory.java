@@ -26,17 +26,17 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
     @Override
     public void loadType() {
 
-	        List<NpcSpecification> npcs = super.getMap().getNpcSpecifications();
+	    List<NpcSpecification> npcs = super.getMap().getNpcSpecifications();
 
-	        for(NpcSpecification npc: npcs) {
-		        System.out.println("Boppe! ");
-				int keyToConstant=+1;
-		        NpcType loadedNpc = NPCXML(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
-		        super.getGivenTypeMap().put(keyToConstant, loadedNpc);
-	        }
-
-
-
+	    //TODO viktigt för att vi inte ska lägga till i mappen med samma nyckel.
+	    //ska mappen vara kvar eller ersättas med en lista?, just nu är det endast NpcFactory som
+	    // extendar PluginUserFactory.
+	    int keyToConstant = 0;
+	    for(NpcSpecification npc: npcs) {
+		    System.out.println(npc.getPluginName());
+		    NpcType loadedNpc = NPCXML(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
+		    super.getGivenTypeMap().put(keyToConstant++, loadedNpc);
+	    }
     }
 
 	/**

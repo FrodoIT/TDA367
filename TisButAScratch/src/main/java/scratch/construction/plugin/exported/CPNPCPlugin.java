@@ -25,7 +25,8 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	@Override
 	public Vector2D calculateNewPosition(NpcType npc) {
 
-		return new Vector2D(ran.nextInt(3)-1, ran.nextInt(3)-1);
+		Vector2D currentPos = npc.getPosition();
+		return new Vector2D(currentPos.getX() + ran.nextInt(3)-1, currentPos.getY() + ran.nextInt(3)-1);
 	}
 
 	public boolean isAttacking(NpcType npc){
