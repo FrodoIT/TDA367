@@ -9,9 +9,7 @@
    H4sIAAAAAAAAA9WQwQqAIAyGtcAoobDuduvY+z9eEyaMH3XlrcN3cGPf/hmNMfEHWGIgxsq7xcnI2kwshAeXV/xnxRd4xsLsUdj3Jh968uzIpH278GvM4MvZfCXTDWA/wE1e5Ek4YgJfK1+Am/AuJ5yTki0qrsTKbIzma+EKPslX36r4ep01V4+v9Zc9vqtQK7keAAOSN7AEAAA=
   </data>
  </layer>
- <objectgroup name="player" width="20" height="15">
-  <object name="player1" type="player" x="69" y="404" width="40" height="41"/>
- </objectgroup>
+ <objectgroup name="player" width="20" height="15"/>
  <objectgroup name="interactive" width="20" height="15">
   <object name="door1" type="object" x="579" y="32" width="32" height="32">
    <properties>
@@ -50,7 +48,17 @@
   </data>
  </layer>
  <objectgroup name="npc" width="20" height="15">
-  <object name="npc1" type="npc" x="429" y="42" width="39" height="38"/>
-  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38"/>
+  <object name="npc1" type="hostile" x="429" y="42" width="39" height="38">
+   <properties>
+    <property name="id" value="101"/>
+    <property name="npcType" value="StandardMonster"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38">
+   <properties>
+    <property name="id" value="100"/>
+    <property name="npcType" value="StandardMonster"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
