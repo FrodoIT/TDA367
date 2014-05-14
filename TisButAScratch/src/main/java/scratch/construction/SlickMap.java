@@ -24,14 +24,7 @@ public class SlickMap implements IMap {
 
     private final TiledMapPlus map;
     private final int collisionIndex;
-    //Object map holds the start position of each object,
-    //as well as the name of the object.
-
-    private final Map<String, Rectangle2D.Double> npcRectangleMap;
-    private final Map<String, Rectangle2D.Double> objectRectangleMap;
-    //Nedan användes inte, kommenterar ut för findBugs
-    //private final Map<String, Rectangle2D.Double> playerRectangleMap;
-
+    private Map<String, Rectangle2D.Double> objectRectangleMap = new TreeMap<>();
     private final int height, width;
 
     @Inject
@@ -42,8 +35,6 @@ public class SlickMap implements IMap {
         collisionIndex = map.getLayerIndex("collision");
         objectRectangleMap = new TreeMap<>();
 
-        npcRectangleMap = map.getNpcRectangleMap();
-        //playerRectangleMap = map.getPlayerRectangleMap();
     }
 
     @Override
@@ -61,8 +52,8 @@ public class SlickMap implements IMap {
     }
 
     @Override
-    public boolean hasNpc() {
-        return npcRectangleMap.isEmpty();
+    public boolean hasNpc(){
+        return getNpcSpecifications().isEmpty();
     }
 
     @Override
@@ -82,8 +73,8 @@ public class SlickMap implements IMap {
     }
 
     @Override
-    public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
-        return npcRectangleMap;
+    public List<NpcSpecification> getNpcSpecifications() {
+        return map.getNpcSpecifications();
     }
 
     @Override

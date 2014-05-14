@@ -1,6 +1,7 @@
 package scratch.model;
 
 import com.google.inject.ImplementedBy;
+import scratch.construction.NpcSpecification;
 import scratch.construction.SlickMap;
 
 import java.awt.geom.Rectangle2D;
@@ -16,6 +17,6 @@ public interface IMap {
     int getHeight();
     int getWidth();
 	List<IInteractiveObject> getInteractiveObjects();
-    Map<String, Rectangle2D.Double> getNpcRectangleMap();
+    List<NpcSpecification> getNpcSpecifications();
 	Map<String, Rectangle2D.Double> getPlayerRectangleMap();
 }

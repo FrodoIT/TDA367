@@ -33,6 +33,7 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
                 keyToConstant = 2;
             }
 
+
             //TODO save NpcType returned from NPCXML should be saved. moveaistuffplugin should be added to it
             //room should be sent to that moveaistuffplugin
             NpcType loadedNpc = NPCXML("StandardEnemy", new Vector2D(500,400), 0);
