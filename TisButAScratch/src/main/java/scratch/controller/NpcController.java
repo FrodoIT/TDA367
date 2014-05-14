@@ -26,6 +26,7 @@ public class NpcController {
 
     public void updateNpc(){
         npc.update();
+        listeners.firePropertyChange(null, null, npc);
     }
 
     public NpcView getNpcView() {

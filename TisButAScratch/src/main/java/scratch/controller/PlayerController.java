@@ -32,6 +32,7 @@ public final class PlayerController{
 
     public void updatePlayer() {
         player.update();
+        listeners.firePropertyChange(null, null, player);
    }
 
 
