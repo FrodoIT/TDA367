@@ -25,9 +25,9 @@ public class Menu {
         Game game = new Game();
         final ServerController controller;
         if (Menu.validIP(ip)) {
-            controller = new ServerController(game, ip);
+            controller = new ServerController(game);
         } else {
-            controller = new ServerController(game, null);
+            controller = new ServerController(game);
         }
         AppGameContainer app = new AppGameContainer(controller);
         app.start();

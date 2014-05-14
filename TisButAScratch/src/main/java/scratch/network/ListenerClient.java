@@ -17,12 +17,6 @@ import scratch.model.Vector2D;
  */
 public class ListenerClient extends Listener{
     
-    private final Game game;
-    
-    public ListenerClient(Game game){
-        this.game = game;
-    }
-    
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof PacketMessage) {
@@ -31,8 +25,6 @@ public class ListenerClient extends Listener{
             System.out.println("Recieved model");
         } else if (object instanceof PacketCharacter){
             PacketCharacter character = ((PacketCharacter)object);
-            game.getPlayers().get(0).setPosition(character.getPosition());
-            game.getPlayers().get(0).setMoveDirection(character.getMoveDirection());
         }
     }
 }

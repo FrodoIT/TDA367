@@ -13,6 +13,7 @@ import scratch.model.Game;
 import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.Room;
+import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 import scratch.view.NpcView;
 import scratch.view.PlayerView;
@@ -25,17 +26,17 @@ import scratch.view.RoomView;
  * @author Anna Nylander
  *
  */
-public final class ServerController implements org.newdawn.slick.Game {
+public final class ClientController implements org.newdawn.slick.Game {
 
-    private final NetworkServer networkServer;
+    private final NetworkClient networkClient;
     private final Game game;
     private List<PlayerController> playerControllerList;
     private List<NpcController> npcControllerList;
     private List<RoomController> roomControllerList;
 
-    public ServerController(Game game) {
+    public ClientController(Game game, String ip) {
         this.game = game;
-        networkServer = new NetworkServer();
+        networkClient = new NetworkClient(ip);
         playerControllerList = new ArrayList<PlayerController>();
         roomControllerList = new ArrayList<RoomController>();
         npcControllerList = new ArrayList<NpcController>();
@@ -61,19 +62,17 @@ public final class ServerController implements org.newdawn.slick.Game {
             for (Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()) {
                 NpcController npcController = new NpcController(npcEntry.getValue(),
                         new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx"));
-                npcController.addListener(networkServer);
                 npcControllerList.add(npcController);
 
             }
             for (Player player : room.getPlayers()) {
                 PlayerController npcController = new PlayerController(player,
                         new PlayerView(player, gameContainer, "res/playerSprite.tmx"));
-                npcController.addListener(networkServer);
                 playerControllerList.add(npcController);
 
             }
         }
-        networkServer.start();
+        networkClient.start();
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
@@ -82,18 +81,9 @@ public final class ServerController implements org.newdawn.slick.Game {
         return map;
     }
 
+    @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        for (PlayerController playerController : playerControllerList) {
-            playerController.updatePlayer();
-        }
-
-        for (NpcController npcController : npcControllerList) {
-            npcController.updateNpc();
-        }
-
-        for (RoomController roomController : roomControllerList) {
-            roomController.updateRoom();
-        }
+        //TODO: Send to server what keys are pressed
     }
 
     @Override

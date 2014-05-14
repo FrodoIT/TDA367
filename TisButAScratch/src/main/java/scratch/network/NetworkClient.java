@@ -17,10 +17,8 @@ import scratch.model.Game;
 public class NetworkClient {
     private final String ip;
     private final Client client;
-    private final Game game;
 
-    public NetworkClient(Game game, String ip){
-        this.game = game;
+    public NetworkClient(String ip){
         this.ip = ip;
         client = new Client();
         Utilities.kryoRegister(client.getKryo());
@@ -35,7 +33,7 @@ public class NetworkClient {
         } catch (IOException e) {
             throw new RuntimeException("Could not connect to IP");
         }
-        client.addListener(new ListenerClient(game));
+        client.addListener(new ListenerClient());
         PacketMessage message = new PacketMessage("Client message");
         client.sendTCP(message);
     }
