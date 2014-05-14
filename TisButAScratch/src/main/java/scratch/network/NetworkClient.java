@@ -14,7 +14,7 @@ import scratch.model.Game;
  *
  * @author Cannonbait
  */
-public class NetworkClient implements IScratchNetwork {
+public class NetworkClient {
     private final String ip;
     private final Client client;
     private final Game game;
