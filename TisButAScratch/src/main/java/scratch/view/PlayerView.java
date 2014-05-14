@@ -22,25 +22,13 @@ import java.awt.geom.Rectangle2D;
 public class PlayerView {
 
     private SpriteDirectionRenderer spriteHandler;
-    private Rectangle2D.Double attackArea;
     private final Player player;
     private final Graphics graphics;
-    private final GameContainer gameContainer;
-    private final String imagePath;
 
 
     public PlayerView(Player player, GameContainer gameContainer, String imagePath) {
         this.player = player;
-        this.gameContainer = gameContainer;
-        this.graphics = this.gameContainer.getGraphics();
-        this.imagePath = imagePath;
-        animationSetUp();
-    }
-
-    private final void animationSetUp(){
-        //TODO should probably be moved to another class later
-        //we fetch the sprite through a tiledmap (like we do with the room map)
-
+        this.graphics = gameContainer.getGraphics();
         try {
             spriteHandler = new SpriteDirectionRenderer( new TiledMap(imagePath));
         } catch (SlickException e) {
@@ -48,12 +36,13 @@ public class PlayerView {
         }
     }
 
+
     public void render() {
         Vector2D position = player.getPosition();
         IPlayerInput playerInput = player.getPlayerInput();
 
         if (player.isAttacking()) {
-            attackArea = player.getAttackArea();
+            Rectangle2D.Double attackArea = player.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }

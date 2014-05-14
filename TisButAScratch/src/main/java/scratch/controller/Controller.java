@@ -12,6 +12,7 @@ import scratch.model.Room;
 import scratch.view.NpcView;
 import scratch.view.PlayerView;
 import scratch.view.RoomView;
+import scratch.view.SpriteDirectionRenderer;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -57,12 +58,12 @@ public final class Controller implements org.newdawn.slick.Game {
         for(Room room : roomFactory.getRooms()){
             roomControllerList.add(
                     new RoomController(room,
-                            new RoomView(gameContainer, room, map)));
+                            new RoomView(map)));
 
             for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
                 npcControllerList.add(
                         new NpcController(npcEntry.getValue(),
-                                new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx")));
+                                new NpcView()));
             }
             for(Player player : room.getPlayers()){
                 playerControllerList.add(
@@ -106,7 +107,12 @@ public final class Controller implements org.newdawn.slick.Game {
         }
 
         for(NpcController npcController : npcControllerList){
-            npcController.getNpcView().render();
+
+            TiledMap map = new TiledMap("/res/playerSprite.tmx");
+
+            SpriteDirectionRenderer spriteHandler = new SpriteDirectionRenderer(map);
+
+            npcController.getNpcView().render(npcController.getNpc(), spriteHandler, graphics);
         }
 
         for(PlayerController playerController : playerControllerList){

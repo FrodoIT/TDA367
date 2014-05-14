@@ -7,51 +7,29 @@
 package scratch.view;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.NpcType;
-
+import scratch.model.Vector2D;
 import java.awt.geom.Rectangle2D;
 
-/**
- *
- * @author Ivar
- */
 public class NpcView{
-    private SpriteDirectionRenderer spriteHandler;
-	private Rectangle2D.Double attackArea;
-    private final NpcType npc;
-    private final GameContainer gameContainer;
-    private final Graphics graphics;
 
 
-    public NpcView(NpcType npc, GameContainer gameContainer, String imagePath){
-        try {
-            spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-        this.npc = npc;
-        this.gameContainer = gameContainer;
-        this.graphics = gameContainer.getGraphics();
-    }
-
-    public void render(){
+    public void render(NpcType npc, SpriteDirectionRenderer spriteHandler, Graphics graphics){
 	    if(npc.isAlive()) {
+            Vector2D npcPos = npc.getPosition();
             spriteHandler.render(graphics,
                     npc.getMoveDirection(),
-                    npc.getPosition().getX(),
-                    npc.getPosition().getY());
+                    npcPos.getX(),
+                    npcPos.getY());
 		    if(!npc.getWeapon().hasCooledDown()) {
 			    //saves attackArea every time player fights co be able to continue to render it until the weaponCD is down.
 			    if(npc.isAttacking()) {
                     return;
                 }
 
-                attackArea = npc.getAttackArea();
+                final Rectangle2D.Double attackArea = npc.getAttackArea();
 
                 graphics.setColor(Color.blue);
                 graphics.fill(new Rectangle(
