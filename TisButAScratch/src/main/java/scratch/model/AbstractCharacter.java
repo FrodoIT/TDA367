@@ -18,8 +18,8 @@ import java.util.List;
 @Root
 @Immutable
 public abstract class AbstractCharacter {
-	@Element (type=Rectangle2D.Double.class)
-    private Rectangle2D.Double unitTile;
+	@Element (type=Rectangle2D.Double.class, required = false)
+    private Rectangle2D.Double unitTile = new Rectangle2D.Double(0,0,32,32);
     private List<CharacterChangeListener> listenerList = new ArrayList<>();
     @Element(type=IWeapon.class)
     private IWeapon weapon;
