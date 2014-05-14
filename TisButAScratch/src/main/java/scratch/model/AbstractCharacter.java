@@ -4,6 +4,7 @@ package scratch.model;
 import scratch.model.weapons.IWeapon;
 import org.simpleframework.xml.*;
 
+import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
  * revised 2014-03-27 by Ivar Josefsson
  */
 @Root
+@Immutable
 public abstract class AbstractCharacter {
 	@Element (type=Rectangle2D.Double.class)
     private Rectangle2D.Double unitTile;
@@ -73,25 +75,6 @@ public abstract class AbstractCharacter {
 
     public abstract void update();
 
-    @Override
-    public boolean equals (Object obj){
-        if(obj==this){
-            return true;
-        }if(obj==null || !obj.getClass().equals(this.getClass())){
-            return false;
-        }
-
-        AbstractCharacter rhs = (AbstractCharacter) obj;
-
-        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon()) &&
-                this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed() &&
-                this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection()) &&
-                this.isAlive() == rhs.isAlive()){
-
-            return true;
-        }
-        return false;
-    }
 
     public void setPosition(Vector2D position){
         unitTile.setRect(position.getX(),position.getY(), unitTile.getWidth(), unitTile.getHeight());
@@ -167,6 +150,24 @@ public abstract class AbstractCharacter {
         return alive;
     }
 
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractCharacter)) return false;
+
+        AbstractCharacter character = (AbstractCharacter) o;
+
+        if (id != character.id) return false;
+
+
+        return true;
+    }
+
+    @Override
+    public final int hashCode() {
+        int result = 31 * id;
+        return result;
+    }
 
     public List<CharacterChangeListener> getListenerList() {
         return listenerList;

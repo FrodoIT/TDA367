@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
  *
  */
 @Root
+
 public final class NpcType extends AbstractCharacter {
     @Element
     private boolean hostile;
@@ -61,6 +62,7 @@ public final class NpcType extends AbstractCharacter {
     public boolean isAttacking() {
             return getWeapon().hasCooledDown() && movementPattern.isAttacking(this);
     }
+
     @Override
     public void update(){
         Vector2D newPosition = movementPattern.calculateNewPosition(this);
@@ -100,8 +102,7 @@ public final class NpcType extends AbstractCharacter {
             setMoveDirection(MoveDirection.SOUTH);
         }
     }
-    
-    
+
     public String getImagePath(){
         return imagePath;
     }
@@ -111,19 +112,8 @@ public final class NpcType extends AbstractCharacter {
         this.movementPattern = movementPattern;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-            if(obj==this){
-                    return true;
-            }if(obj==null || !obj.getClass().equals(this.getClass())){
-                    return false;
-            }
-            NpcType rhs= (NpcType) obj;
-            return (super.equals(rhs) && this.isHostile() == rhs.isHostile() && this.getImagePath() == rhs.getImagePath() &&
-                    this.getMovementPattern() == rhs.getMovementPattern());
 
-    }
-    
+
     public INPCMove getMovementPattern(){
         return movementPattern;
     }
