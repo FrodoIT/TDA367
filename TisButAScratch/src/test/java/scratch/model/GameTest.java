@@ -2,13 +2,15 @@ package scratch.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.model.mockModules.MockIMap;
 import scratch.model.mockModules.MockModule;
 import scratch.model.mockModules.MockPlayerInput;
-
-import java.awt.geom.Rectangle2D;
 
 public class GameTest extends TestCase {
 
@@ -19,7 +21,9 @@ public class GameTest extends TestCase {
 	@Before
 	public void initialize() throws Exception {
 		game = new Game();
-
+                List<Room> rooms = new ArrayList<>();
+                rooms.add(new Room(new MockIMap(), new DoorHandler()));
+                game.setMap(rooms);
 		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
 		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
 	}
@@ -42,11 +46,6 @@ public class GameTest extends TestCase {
 		assertTrue(game.getPlayers().isEmpty());
 	}
 
-	@Test
-	public void testSetMap() throws Exception {
-		//TODO currently untestable... you're not able to se any result
-		assertTrue(false);
-	}
 
 	@Test
 	public void testUpdate() throws Exception {
