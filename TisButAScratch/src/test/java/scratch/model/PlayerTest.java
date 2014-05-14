@@ -11,15 +11,12 @@ import java.awt.geom.Rectangle2D;
 
 public class PlayerTest extends TestCase {
     private IPlayerInput playerInput;
-    private IRoomData roomData;
-
 
     @Before
     @Override
     public void setUp(){
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
-        roomData = injector.getInstance(IRoomData.class);
     }
 
     @Test
@@ -27,9 +24,6 @@ public class PlayerTest extends TestCase {
         playerInput.setAttackStatus(true);
         Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1);
         assertTrue(testPlayer.isAttacking());
-
-        playerInput.setAttackStatus(false);
-        assertFalse(testPlayer.isAttacking());
     }
 
     private void assertPlayerDirection(Player player, MoveDirection direction){
