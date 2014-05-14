@@ -15,7 +15,8 @@ public class PlayerTest extends TestCase {
 
 
     @Before
-    public void setup(){
+    @Override
+    public void setUp(){
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
         roomData = injector.getInstance(IRoomData.class);
@@ -23,8 +24,6 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testIsAttacking() {
-        setup();
-
         playerInput.setAttackStatus(true);
         Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1);
         assertTrue(testPlayer.isAttacking());
@@ -41,7 +40,6 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testUpdate() throws Exception {
-        setup();
         Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         //Test None:
         assertPlayerDirection(player, MoveDirection.NONE);

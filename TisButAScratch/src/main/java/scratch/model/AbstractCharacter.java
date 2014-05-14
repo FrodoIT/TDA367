@@ -157,7 +157,7 @@ public abstract class AbstractCharacter {
 
         AbstractCharacter character = (AbstractCharacter) o;
 
-        return(id != character.id);
+        return(id == character.id);
 }
 
     @Override

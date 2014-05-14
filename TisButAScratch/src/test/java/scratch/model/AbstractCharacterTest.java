@@ -15,21 +15,22 @@ import java.awt.geom.Rectangle2D;
 public class AbstractCharacterTest extends TestCase {
 
     private IPlayerInput playerInput;
-    private IMap map;
     private Room room;
 
 
+
     @Before
-    public void setup(){
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
-        map = injector.getInstance(IMap.class);
+        IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
     }
 
     @Test
-    public void testRegisterListener(){
-        setup();
+    public void testRegisterListener() throws Exception {
         AbstractCharacter testCharacter = new Player(
                 playerInput, new Rectangle2D.Double(0,0,32,32), 1);
         testCharacter.registerListener(room);
@@ -47,7 +48,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testTakeDamage() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         character.takeDamage(4);
@@ -60,7 +60,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testSetPosition() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         character.setPosition(new Vector2D(0, 0));
@@ -70,7 +69,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testIsAlive() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.isAlive());
         character.takeDamage(100);
@@ -94,7 +92,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetDamage() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.getDamage() == 2);
     }
@@ -107,7 +104,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetWeapon() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         IWeapon expectedWeapon = new DefaultWeapon();
         System.out.println(character.getWeapon());
@@ -117,7 +113,6 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testAttack() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.getWeapon().hasCooledDown());
         character.attack();
@@ -126,14 +121,12 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetID() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.getId() == 1);
     }
 
     @Test
     public void testGetUnitTile() throws Exception {
-        setup();
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         assertTrue(character.getUnitTile().equals(
@@ -164,13 +157,12 @@ public class AbstractCharacterTest extends TestCase {
     }
 
     @Test
-    public void testEquals() {
+    public void testEquals() throws Exception {
         EqualsVerifier.forClass(AbstractCharacter.class).verify();
     }
 
     @Test
-    public void assertExpectedPosition(Vector2D a, Vector2D b){
-        assertTrue (a.getX() == b.getX());
-        assertTrue (a.getY() == b.getY());
+    public void assertExpectedPosition(Vector2D a, Vector2D b) throws Exception {
+        assertTrue (a.getX() == b.getX() && a.getY() == b.getY());
     }
 }
