@@ -22,16 +22,18 @@ public final class NpcType extends AbstractCharacter {
 	@Element(type = INPCMove.class)
     private INPCMove movementPattern;
 	@Element(type=IRoomData.class, required = false)
-    private IRoomData roomData=null;
     private MoveDirection lookingDirection = MoveDirection.SOUTH;
 
-    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon, int health, int moveSpeed, String imagePath, int id, INPCMove movementPattern, CharacterChangeListener listener){
+    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon,
+                   int health, int moveSpeed, String imagePath,
+                   int id, INPCMove movementPattern, CharacterChangeListener listener){
         super(unitTile, weapon, health, moveSpeed, id);
         this.imagePath = imagePath;
         this.movementPattern = movementPattern;
         hostile = true;
 
     }
+
 	//used for xml-parsing
 	private NpcType(){
 		super();
@@ -44,10 +46,6 @@ public final class NpcType extends AbstractCharacter {
     
     public boolean isHostile(){
         return hostile;
-    }
-
-    public void updateRoomData(IRoomData roomData){
-        this.roomData=roomData;
     }
 
 
@@ -84,7 +82,7 @@ public final class NpcType extends AbstractCharacter {
         double diffY = newPosition.getY() - getUnitTile().y;
         double theta = Math.atan(diffY / diffX)*180/Math.PI;
 
-        if(diffX == 0 && diffY == 0){
+        if(diffX == 0 && diffY == 0 || newPosition.equals(null)){
             setMoveDirection(MoveDirection.NONE);
         }else if(-22.5 <= theta && theta <= 22.5 && 0 <= diffX){
             setMoveDirection(MoveDirection.EAST);
@@ -98,7 +96,7 @@ public final class NpcType extends AbstractCharacter {
             setMoveDirection(MoveDirection.NORTHEAST);
         }else if(22.5 <= theta && theta <= 67.5 && diffX < 0){
             setMoveDirection(MoveDirection.NORTHWEST);
-        }else if(theta < -67.5 && 0 < diffX || 67.5 < theta && diffX < 0){
+        }else if(theta < -67.5 && 0 <= diffX || 67.5 < theta && diffX < 0){
             setMoveDirection(MoveDirection.NORTH);
         }else if(67.5 < theta || theta < -67.5){
             setMoveDirection(MoveDirection.SOUTH);
