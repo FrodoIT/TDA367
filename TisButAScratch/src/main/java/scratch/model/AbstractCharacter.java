@@ -194,5 +194,6 @@ public abstract class AbstractCharacter implements KryoSerializable {
         double w = input.readInt();
         double h = input.readInt();
         unitTile = new Rectangle2D.Double(x, y, w, h);
+        moveDirection = MoveDirection.NONE;
     }
 }

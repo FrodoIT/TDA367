@@ -26,6 +26,7 @@ public class PlayerView {
     private final Graphics graphics;
     private final GameContainer gameContainer;
     private final String imagePath;
+    
 
     public PlayerView(Player player, GameContainer gameContainer, String imagePath) {
         this.player = player;
@@ -48,15 +49,14 @@ public class PlayerView {
 
     public void render() {
         Vector2D position = player.getPosition();
-        IPlayerInput playerInput = player.getPlayerInput();
 
-        if (player.isAttacking()) {
+/*        if (player.isAttacking()) {
             attackArea = player.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
-        }
+        }*/
 
-        MoveDirection input = playerInput.getMoveInput();
+        MoveDirection input = player.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(), position.getY());
     }
 }

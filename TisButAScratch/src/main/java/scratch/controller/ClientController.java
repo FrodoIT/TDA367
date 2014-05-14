@@ -62,12 +62,15 @@ public final class ClientController extends Listener implements org.newdawn.slic
     }
 
     public void playerRecieved(Player player) {
+        boolean found = false;
         for (PlayerController playerController : playerControllerList) {
             if (playerController.getId() == player.getId()) {
                 playerController.setPlayer(player);
-            } else {
-                playerControllerList.add(new PlayerController(player, new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+                found = true;
             }
+        }
+        if (!found) {
+            playerControllerList.add(new PlayerController(player, new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
         }
     }
 
@@ -94,8 +97,8 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof Player){
-            playerRecieved((Player)object);
+        if (object instanceof Player) {
+            playerRecieved((Player) object);
         }
     }
 
