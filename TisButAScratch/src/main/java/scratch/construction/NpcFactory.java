@@ -2,7 +2,6 @@ package scratch.construction;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import scratch.construction.plugin.PluginConstants;
 import scratch.construction.plugin.exported.SimpleNPCPlugin;
 import scratch.model.*;
 
@@ -29,9 +28,9 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
         for(Map.Entry<String, Rectangle2D.Double> entry : super.getMap().getNpcRectangleMap().entrySet()){
             int keyToConstant = 0;
             if(BASICMONSTER.compareTo(entry.getKey()) == 0){
-                keyToConstant = PluginConstants.DOOR;
+                keyToConstant = 1;
             } else if(SPECIALMONSTER.compareTo(entry.getKey()) == 0){
-                keyToConstant = PluginConstants.BOX;
+                keyToConstant = 2;
             }
 
             //TODO save NpcType returned from should be saved. moveaistuffplugin should be added to it
