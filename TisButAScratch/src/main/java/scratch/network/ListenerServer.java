@@ -19,6 +19,7 @@ public class ListenerServer extends Listener {
     @Override
     public void connected (Connection connection){
         System.out.println("A client connected");
+        //We should do something here to send over needed data, probably move out the listener to ServerController
     }
     
     @Override
