@@ -84,7 +84,7 @@ public final class Controller implements org.newdawn.slick.Game {
     }
 
     @Override
-    public void update(GameContainer container, int delta)throws SlickException {
+    public void update(GameContainer container, int delta) throws SlickException {
         for (PlayerController playerController: playerControllerList){
             playerController.updatePlayer();
         }

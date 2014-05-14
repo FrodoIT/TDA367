@@ -17,6 +17,7 @@ public class MockIMap implements IMap {
 	private TiledMap map;
 
 	public void createMockObject() {
+
 		try {
 			map = new TiledMap("res/untitled.tmx");
 		} catch (SlickException e) {
