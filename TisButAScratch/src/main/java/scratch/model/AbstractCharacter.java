@@ -157,16 +157,12 @@ public abstract class AbstractCharacter {
 
         AbstractCharacter character = (AbstractCharacter) o;
 
-        if (id != character.id) return false;
-
-
-        return true;
-    }
+        return(id != character.id);
+}
 
     @Override
     public final int hashCode() {
-        int result = 31 * id;
-        return result;
+        return 31 * id;
     }
 
     public List<CharacterChangeListener> getListenerList() {
