@@ -80,27 +80,32 @@ public final class NpcType extends AbstractCharacter {
     private void calculateMoveDirection(Vector2D newPosition){
         double diffX = newPosition.getX() - getUnitTile().x;
         double diffY = newPosition.getY() - getUnitTile().y;
-        double theta = Math.atan(diffY / diffX)*180/Math.PI;
+        final double toDegrees = 180 / Math.PI;
+        double theta = Math.atan(diffY / diffX) * toDegrees;
+        MoveDirection moveDirection = MoveDirection.NONE;
 
-        if(diffX == 0 && diffY == 0 || newPosition.equals(null)){
-            setMoveDirection(MoveDirection.NONE);
-        }else if(-22.5 <= theta && theta <= 22.5 && 0 <= diffX){
-            setMoveDirection(MoveDirection.EAST);
-        }else if(-22.5 <= theta && theta <= 22.5 && diffX < 0){
-            setMoveDirection(MoveDirection.WEST);
-        }else if(22.5 <= theta && theta <= 67.5 && 0 <= diffX){
-            setMoveDirection(MoveDirection.SOUTHEAST);
-        }else if(-67.5 <= theta && theta <= -22.5 && diffX < 0){
-            setMoveDirection(MoveDirection.SOUTHWEST);
-        }else if(-67.5 <= theta && theta <= -22.5 && 0 <= diffX){
-            setMoveDirection(MoveDirection.NORTHEAST);
-        }else if(22.5 <= theta && theta <= 67.5 && diffX < 0){
-            setMoveDirection(MoveDirection.NORTHWEST);
-        }else if(theta < -67.5 && 0 <= diffX || 67.5 < theta && diffX < 0){
-            setMoveDirection(MoveDirection.NORTH);
-        }else if(67.5 < theta || theta < -67.5){
-            setMoveDirection(MoveDirection.SOUTH);
+        final boolean negativeOrNoXMovement = 0 <= diffX;
+        final boolean negativeXMovement = diffX < 0;
+
+        if (-22.5 <= theta && theta <= 22.5 && negativeOrNoXMovement) {
+            moveDirection = MoveDirection.EAST;
+        } else if (-22.5 <= theta && theta <= 22.5 && negativeXMovement) {
+            moveDirection = MoveDirection.WEST;
+        } else if (22.5 <= theta && theta <= 67.5 && negativeOrNoXMovement) {
+            moveDirection = MoveDirection.SOUTHEAST;
+        } else if (-67.5 <= theta && theta <= -22.5 && negativeXMovement) {
+            moveDirection = MoveDirection.SOUTHWEST;
+        } else if (-67.5 <= theta && theta <= -22.5 && negativeOrNoXMovement) {
+            moveDirection = MoveDirection.NORTHEAST;
+        } else if (22.5 <= theta && theta <= 67.5 && negativeXMovement) {
+            moveDirection = MoveDirection.NORTHWEST;
+        } else if (theta < -67.5 && negativeOrNoXMovement || 67.5 < theta && negativeXMovement) {
+            moveDirection = MoveDirection.NORTH;
+        } else if (67.5 < theta || theta < -67.5) {
+            moveDirection = MoveDirection.SOUTH;
         }
+
+        setMoveDirection(moveDirection);
     }
 
     public String getImagePath(){

@@ -12,9 +12,6 @@ import java.awt.geom.Rectangle2D;
 
 public class NpcTypeTest extends TestCase {
 	private NpcType npcType;
-	private INPCMove npcMove;
-    private Player player;
-    private Room room;
 
 
 	public void setUp() throws Exception {
@@ -22,9 +19,9 @@ public class NpcTypeTest extends TestCase {
         IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
 		IWeapon weapon= injector.getInstance(IWeapon.class);
         IMap map = injector.getInstance(IMap.class);
-        player = new Player(playerInput , new Rectangle2D.Double(50,50,32,32), 1);
-        npcMove = injector.getInstance(INPCMove.class);
-        room = new Room(map, new DoorHandler());
+        Player player = new Player(playerInput , new Rectangle2D.Double(50,50,32,32), 1);
+        INPCMove npcMove = injector.getInstance(INPCMove.class);
+        Room room = new Room(map, new DoorHandler());
         room.enterRoom(player);
 		npcType = new NpcType(new Rectangle2D.Double(10,0,32,32),
                 weapon, 1, 1, "/res/playerSprite.tmx", 0, npcMove, room);
@@ -32,15 +29,12 @@ public class NpcTypeTest extends TestCase {
 
     @Test
 	public void testTakeDamage() throws Exception {
-        assertTrue(npcType.getHealth() == 1);
 		npcType.takeDamage(2);
 		assertTrue(npcType.getHealth()==(0));
 	}
 
     @Test
 	public void testSetPosition() throws Exception {
-		npcType.setPosition(new Vector2D(10,10));
-		assertTrue(npcType.getPosition().equals(new Vector2D(10,10)));
 		npcType.setPosition(new Vector2D(-1,-1));
 		assertTrue(npcType.getPosition().equals(new Vector2D(-1,-1)));
 	}
@@ -62,7 +56,7 @@ public class NpcTypeTest extends TestCase {
     private void assertDirectionForMovement(Vector2D npcPosition, MoveDirection direction) {
         npcType.setPosition(npcPosition);
         npcType.update();
-        assertTrue(npcType.getMoveDirection().equals(direction));
+        assertTrue(npcType.getMoveDirection() == (direction));
     }
 }
 

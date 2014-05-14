@@ -69,7 +69,6 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     private boolean dealDamage(){
-
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             if(!npcs.isEmpty()){
                 for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){

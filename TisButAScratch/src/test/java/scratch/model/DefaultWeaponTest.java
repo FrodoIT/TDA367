@@ -14,10 +14,6 @@ public class DefaultWeaponTest extends TestCase {
 
 	}
 
-	public void tearDown() throws Exception {
-
-	}
-
 	public void testAttack() throws Exception {
 		assertTrue(weapon.hasCooledDown()==true);
 		weapon.startCooldown();

@@ -105,18 +105,15 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testGetWeapon() throws Exception {
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        IWeapon expectedWeapon = new DefaultWeapon();
-        System.out.println(character.getWeapon());
-        System.out.println(expectedWeapon);
-        assertTrue(character.getWeapon().equals(expectedWeapon));
+        assertTrue(character.getWeapon().equals(new DefaultWeapon()));
     }
 
     @Test
     public void testAttack() throws Exception {
         AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getWeapon().hasCooledDown());
+        IWeapon weapon = character.getWeapon();
         character.attack();
-        assertFalse(character.getWeapon().hasCooledDown());
+        assertFalse(weapon.hasCooledDown());
     }
 
     @Test
@@ -153,7 +150,7 @@ public class AbstractCharacterTest extends TestCase {
         AbstractCharacter character = new Player(playerInput,
                 new Rectangle2D.Double(32,32,32,32), 1);
         character.setMoveDirection(MoveDirection.NONE);
-        assertTrue(character.getMoveDirection().equals(MoveDirection.NONE));
+        assertTrue(character.getMoveDirection() == (MoveDirection.NONE));
     }
 
     @Test
