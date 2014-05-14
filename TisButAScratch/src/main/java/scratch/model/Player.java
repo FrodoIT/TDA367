@@ -16,6 +16,8 @@ public final class Player extends AbstractCharacter {
     private IPlayerInput playerInput;
 	private boolean interactIsCooledDown = true;
 
+	private MoveDirection lookingDirection;
+
 	private Runnable cooldownReset = new Runnable() {
 		@Override
 		public void run() {
@@ -82,6 +84,9 @@ public final class Player extends AbstractCharacter {
                 deltaY = 0;
                 setMoveDirection(MoveDirection.NONE);
         }
+	    if (direction!=MoveDirection.NONE){
+		    lookingDirection=direction;
+	    }
 
         Vector2D newPosition = new Vector2D(getPosition().getX()+deltaX, getPosition().getY()+deltaY);
 
@@ -120,6 +125,9 @@ public final class Player extends AbstractCharacter {
 		Cooldown.cooldown(500, cooldownReset);
 	}
 
+	public MoveDirection getLookingDirection() {
+		return lookingDirection;
+	}
     public boolean isAttacking() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
