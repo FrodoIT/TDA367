@@ -71,10 +71,7 @@ public final class ServerController implements org.newdawn.slick.Game {
         }
         networkServer.start();
     }
-    
-    public Player addPlayer(){
-        
-    }
+
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
         TiledMap map = roomFactory.getMap();
