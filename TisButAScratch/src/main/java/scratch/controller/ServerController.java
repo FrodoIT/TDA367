@@ -59,15 +59,17 @@ public final class ServerController implements org.newdawn.slick.Game {
                             new RoomView(gameContainer, room, map)));
 
             for (Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()) {
-                npcControllerList.add(
-                        new NpcController(npcEntry.getValue(),
-                                new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx")));
+                NpcController npcController = new NpcController(npcEntry.getValue(),
+                        new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx"));
+                npcController.addListener(networkServer);
+                npcControllerList.add(npcController);
+
             }
             for (Player player : room.getPlayers()) {
-                PlayerController controller = new PlayerController(player,
+                PlayerController npcController = new PlayerController(player,
                         new PlayerView(player, gameContainer, "res/playerSprite.tmx"));
-                controller.addListener(networkServer);
-                playerControllerList.add(controller);
+                npcController.addListener(networkServer);
+                playerControllerList.add(npcController);
 
             }
         }
