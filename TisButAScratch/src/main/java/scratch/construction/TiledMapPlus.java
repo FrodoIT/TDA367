@@ -13,8 +13,8 @@ import java.util.*;
 public class TiledMapPlus extends TiledMap {
 
 	private List<IInteractiveObject> interactiveObjects;
-	private Map<String, Rectangle2D.Double> npcRectMap;
-	private Map<String, Rectangle2D.Double> playerRectMap;
+	private final Map<String, Rectangle2D.Double> npcRectMap;
+	//private final Map<String, Rectangle2D.Double> playerRectMap;
 
 	/**
 	 * Create a new tile map based on a given TMX file
@@ -26,7 +26,7 @@ public class TiledMapPlus extends TiledMap {
 		super(ref);
 
 		initializeInteractiveObjects();
-		playerRectMap = initializeObjectGroup("player");
+		//playerRectMap = initializeObjectGroup("player");
 		npcRectMap = initializeObjectGroup("npc");
 	}
 

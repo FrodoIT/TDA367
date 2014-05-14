@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package scratch.construction;
 
 import com.google.inject.Inject;
@@ -21,35 +20,37 @@ import java.util.TreeMap;
  * @author Ivar
  */
 //NOTE!!! If changed please edit the MockIMap too since the code should be identical.
+public class SlickMap implements IMap {
 
-public class SlickMap implements IMap{
     private final TiledMapPlus map;
     private final int collisionIndex;
     //Object map holds the start position of each object,
     //as well as the name of the object.
-    
-    private Map<String, Rectangle2D.Double> npcRectangleMap;
-    private Map<String, Rectangle2D.Double> objectRectangleMap = new TreeMap<>();
-    private Map<String, Rectangle2D.Double> playerRectangleMap;
+
+    private final Map<String, Rectangle2D.Double> npcRectangleMap;
+    private final Map<String, Rectangle2D.Double> objectRectangleMap;
+    //Nedan användes inte, kommenterar ut för findBugs
+    //private final Map<String, Rectangle2D.Double> playerRectangleMap;
 
     private final int height, width;
 
     @Inject
-    public SlickMap(TiledMapPlus map){
+    public SlickMap(TiledMapPlus map) {
         this.map = map;
-        height = map.getHeight()*map.getTileHeight();
-        width = map.getWidth()*map.getTileWidth();
+        height = map.getHeight() * map.getTileHeight();
+        width = map.getWidth() * map.getTileWidth();
         collisionIndex = map.getLayerIndex("collision");
+        objectRectangleMap = new TreeMap<>();
 
-	    npcRectangleMap = map.getNpcRectangleMap();
-		playerRectangleMap = map.getPlayerRectangleMap();
+        npcRectangleMap = map.getNpcRectangleMap();
+        //playerRectangleMap = map.getPlayerRectangleMap();
     }
 
     @Override
     public boolean isColliding(Vector2D coordinate) {
         try {
-            return (map.getTileId((int) coordinate.getX() / map.getTileWidth(),(int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
-        }catch(IndexOutOfBoundsException e){
+            return (map.getTileId((int) coordinate.getX() / map.getTileWidth(), (int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
+        } catch (IndexOutOfBoundsException e) {
             return false;
         }
     }
@@ -60,7 +61,7 @@ public class SlickMap implements IMap{
     }
 
     @Override
-    public boolean hasNpc(){
+    public boolean hasNpc() {
         return npcRectangleMap.isEmpty();
     }
 
@@ -69,23 +70,24 @@ public class SlickMap implements IMap{
 
         return height;
     }
+
     @Override
     public int getWidth() {
         return width;
     }
 
-	@Override
-	public List<IInteractiveObject> getInteractiveObjects() {
-		return map.getInteractiveObjects();
-	}
+    @Override
+    public List<IInteractiveObject> getInteractiveObjects() {
+        return map.getInteractiveObjects();
+    }
 
     @Override
     public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
         return npcRectangleMap;
     }
 
-	@Override
-	public Map<String, Rectangle2D.Double> getPlayerRectangleMap() {
-		return null;
-	}
+    @Override
+    public Map<String, Rectangle2D.Double> getPlayerRectangleMap() {
+        return null;
+    }
 }

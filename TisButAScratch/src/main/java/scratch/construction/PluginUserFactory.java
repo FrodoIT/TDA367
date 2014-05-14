@@ -18,11 +18,12 @@ import java.util.TreeMap;
  */
 public abstract class PluginUserFactory<T> {
     private final Map<Integer, T> givenTypeMap;
-    protected Map<Integer, Pluggable<?>> pluginMap = null;
+    private Map<Integer, Pluggable<?>> pluginMap;
     private final IMap map;
     public PluginUserFactory(IMap map){
         this.map = map;
         givenTypeMap = new TreeMap<>();
+        pluginMap = null;
     }
 
     public abstract void loadType();
@@ -32,6 +33,10 @@ public abstract class PluginUserFactory<T> {
 
     public Map<Integer, T> getGivenTypeMap() {
         return givenTypeMap;
+    }
+    
+    public void setPluginMap(Map<Integer,Pluggable<?>> pluginMap){
+        this.pluginMap = pluginMap;
     }
 
     public IMap getMap() {
