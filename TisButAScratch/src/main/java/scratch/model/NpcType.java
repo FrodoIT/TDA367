@@ -21,8 +21,6 @@ public final class NpcType extends AbstractCharacter {
     private String imagePath;
 	@Element(type = INPCMove.class)
     private INPCMove movementPattern;
-	@Element(type=IRoomData.class, required = false)
-    private MoveDirection lookingDirection = MoveDirection.SOUTH;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon,
                    int health, int moveSpeed, String imagePath,
