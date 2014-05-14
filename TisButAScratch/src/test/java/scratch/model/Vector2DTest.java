@@ -1,6 +1,7 @@
 package scratch.model;
 
 import junit.framework.TestCase;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import java.awt.geom.Point2D;
@@ -47,18 +48,7 @@ public class Vector2DTest extends TestCase {
 
     @Test
     public void testEquals(){
-        Vector2D vector = new Vector2D(new Point2D.Double(1,2),
-                new Point2D.Double(-2,6));
-        
-        assertTrue(vector.equals(vector));
-        assertFalse(vector.equals(null));
+        EqualsVerifier.forClass(Vector2D.class).verify();
 
-        Vector2D otherVector = new Vector2D(new Point2D.Double(4,2),
-                new Point2D.Double(-2,6));
-        assertFalse (vector.equals(otherVector));
-        otherVector =new Vector2D(new Point2D.Double(1,2),
-                new Point2D.Double(-2,6));
-
-        assertTrue(vector.equals(otherVector));
     }
 }
