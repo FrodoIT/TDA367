@@ -139,11 +139,11 @@ public final class NpcType extends AbstractCharacter {
 
     @Override
     public void write(Kryo kryo, Output output) {
-        System.out.println("Writing NpcType");
+        output.writeString(getImagePath());
     }
 
     @Override
     public void read(Kryo kryo, Input input) {
-        System.out.println("Reading NpcType");
+        System.out.println(input.readString());
     }
 }
