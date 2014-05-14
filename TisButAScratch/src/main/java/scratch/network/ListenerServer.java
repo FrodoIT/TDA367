@@ -16,16 +16,13 @@ import scratch.model.MoveDirection;
  */
 public class ListenerServer extends Listener {
 
-
+    @Override
+    public void connected (Connection connection){
+        System.out.println("A client connected");
+    }
+    
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof PacketMessage) {
-            
-            PacketMessage recievedHandshake = (PacketMessage) object;
-            System.out.println(recievedHandshake.getText());
-
-            PacketMessage response = new PacketMessage("Server response");
-            connection.sendTCP(response);
-        }
+        
     }
 }

@@ -13,6 +13,7 @@ import scratch.model.Game;
 import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.Room;
+import scratch.network.NetworkServer;
 import scratch.view.NpcView;
 import scratch.view.PlayerView;
 import scratch.view.RoomView;
@@ -26,7 +27,7 @@ import scratch.view.RoomView;
  */
 public final class ServerController implements org.newdawn.slick.Game {
 
-    private final NetworkController networkController;
+    private final NetworkServer networkServer;
     private final Game game;
     private List<PlayerController> playerControllerList;
     private List<NpcController> npcControllerList;
@@ -34,7 +35,7 @@ public final class ServerController implements org.newdawn.slick.Game {
 
     public ServerController(Game game, String ip) {
         this.game = game;
-        networkController = new NetworkController(game, ip);
+        networkServer = new NetworkServer(game);
         playerControllerList = new ArrayList<PlayerController>();
         roomControllerList = new ArrayList<RoomController>();
         npcControllerList = new ArrayList<NpcController>();
@@ -68,8 +69,11 @@ public final class ServerController implements org.newdawn.slick.Game {
                                 new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
             }
         }
-
-        networkController.start();
+        networkServer.start();
+    }
+    
+    public Player addPlayer(){
+        
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
@@ -79,20 +83,18 @@ public final class ServerController implements org.newdawn.slick.Game {
     }
 
     public void update(GameContainer container, int delta) throws SlickException {
-        if (networkController.isHost()) {
-            for (PlayerController playerController : playerControllerList) {
-                playerController.updatePlayer();
-            }
-
-            for (NpcController npcController : npcControllerList) {
-                npcController.updateNpc();
-            }
-
-            for (RoomController roomController : roomControllerList) {
-                roomController.updateRoom();
-            }
+        for (PlayerController playerController : playerControllerList) {
+            playerController.updatePlayer();
         }
-        networkController.update();
+
+        for (NpcController npcController : npcControllerList) {
+            npcController.updateNpc();
+        }
+
+        for (RoomController roomController : roomControllerList) {
+            roomController.updateRoom();
+        }
+        networkServer.update();
     }
 
     @Override
