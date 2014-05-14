@@ -24,7 +24,7 @@ import scratch.view.RoomView;
  * @author Anna Nylander
  *
  */
-public final class Controller implements org.newdawn.slick.Game {
+public final class ServerController implements org.newdawn.slick.Game {
 
     private final NetworkController networkController;
     private final Game game;
@@ -32,7 +32,7 @@ public final class Controller implements org.newdawn.slick.Game {
     private List<NpcController> npcControllerList;
     private List<RoomController> roomControllerList;
 
-    public Controller(Game game, String ip) {
+    public ServerController(Game game, String ip) {
         this.game = game;
         networkController = new NetworkController(game, ip);
         playerControllerList = new ArrayList<PlayerController>();

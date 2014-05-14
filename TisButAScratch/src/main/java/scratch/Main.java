@@ -2,11 +2,11 @@ package scratch;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-import scratch.controller.Controller;
+import scratch.controller.ServerController;
 import scratch.menu.Menu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-import scratch.controller.Controller;
+import scratch.controller.ServerController;
 import scratch.model.Game;
 
 /**
