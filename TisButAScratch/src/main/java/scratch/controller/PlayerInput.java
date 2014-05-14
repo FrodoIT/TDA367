@@ -5,8 +5,6 @@ import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;
 
 public class PlayerInput implements IPlayerInput {
-    private final int interactionKey = Input.KEY_Z;
-    private final int attackKey = Input.KEY_X;
     private final Input input;
 
     private MoveDirection moveDirection = MoveDirection.NONE;
@@ -61,12 +59,12 @@ public class PlayerInput implements IPlayerInput {
 
 
     private void registerInteractInput(Input input) {
-        setInteractStatus(input.isKeyDown(interactionKey));
+        setInteractStatus(input.isKeyDown(Input.KEY_Z));
 
     }
 
     private void registerAttackInput(Input input) {
-        setAttackStatus(input.isKeyDown(attackKey));
+        setAttackStatus(input.isKeyDown(Input.KEY_X));
     }
 
     @Override
