@@ -5,7 +5,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.*;
 
 /**
- * handels all interactive objects with a property
+ * handels all interactive objects with property:
  * objectType = door
  */
 public class DoorHandler {
@@ -14,28 +14,27 @@ public class DoorHandler {
 	private final Map<String, Set<IInteractiveObject>> doorMatchingMap = new HashMap<>();
 	private final Random random = new Random();
 
-	public void interactHappened(Room room, Player player, IInteractiveObject originDoor) {
+	public void interactHappened(Room room, AbstractCharacter character, IInteractiveObject originDoor) {
 		Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
 		IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
-
 
 		for (Map.Entry<Room, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
-				performTeleport(room, roomSetEntry.getKey(), exitDoor, player);
+				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
 
 				return;
 			}
 		}
 	}
 
-	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, Player player) {
-		originRoom.exitRoom(player);
-		targetRoom.enterRoom(player);
-		Rectangle2D.Double doorArea = exitDoor.getArea();
+	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, AbstractCharacter character) {
+		originRoom.exitRoom(character);
+		targetRoom.enterRoom(character);
+        Rectangle2D.Double doorArea = exitDoor.getArea();
 		int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
 		int y = (int) (doorArea.getY() - doorArea.getHeight()/2);
-		player.setPosition( new Vector2D(x, y) );
+		character.setPosition(new Vector2D(x, y));
 	}
 
 	private IInteractiveObject getOutDoor(Set<IInteractiveObject> connectedDoors, IInteractiveObject originDoor) {

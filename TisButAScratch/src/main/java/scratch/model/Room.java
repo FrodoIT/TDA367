@@ -41,15 +41,13 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     private void updateCharacterInteractions() {
-        for(IInteractiveObject interactiveObject : interactiveObjects){
-            for(AbstractCharacter character : charactersInteracting){
+        for(AbstractCharacter character : charactersInteracting){
+            for(IInteractiveObject interactiveObject : interactiveObjects){
                 if (character.getUnitTile().intersects(interactiveObject.getArea())){
-
-
-                    //interactiveObject.interact();
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
-
+                    doorHandler.interactHappened(this, character, interactiveObject );
+                    break;
                 }
             }
         }
@@ -148,21 +146,20 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     /**
-     * Adds the specified player from the Room
-     * @param player
+     * Adds the specified character from the Room
+     * @param character
      */
-    public void enterRoom(Player player){
-
-        players.add(player);
-        player.registerListener(this);
+    public void enterRoom(AbstractCharacter character){
+        players.add((Player)character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
+        character.registerListener(this);
     }
     /**
-     * Removes the specified player from the Room
-     * @param player
+     * Removes the specified character from the Room
+     * @param character
      */
-    public boolean exitRoom(Player player){
-        player.removeListener(this);
-        return players.remove(player);
+    public boolean exitRoom(AbstractCharacter character){
+        character.removeListener(this);
+        return players.remove(character);
     }
 
 

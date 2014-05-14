@@ -160,6 +160,7 @@ public abstract class AbstractCharacter {
         for(CharacterChangeListener listener : listenerList){
             listener.handleCharacterInteraction(this);
         }
+        doInteractCooldown();
     }
 
     public boolean isAlive(){

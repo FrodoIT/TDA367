@@ -4,6 +4,8 @@ import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
+
 /**
  * Logical representation of the Player in the game.
  * @author Anna Nylander
@@ -18,7 +20,7 @@ public final class Player extends AbstractCharacter {
 		@Override
 		public void run() {
 			interactIsCooledDown = true;
-		}
+        }
 	};
 
 	public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id){
@@ -86,11 +88,11 @@ public final class Player extends AbstractCharacter {
         for(CharacterChangeListener listener : super.getListenerList()) {
             listener.handleCharacterMovement(this, newPosition);
 
-            if (getPlayerInput().isInteracting()) {
+            if (isInteracting()) {
                 interact();
             }
 
-            if (getPlayerInput().isAttacking()) {
+            if (isAttacking()) {
                 attack();
             }
         }
@@ -114,7 +116,7 @@ public final class Player extends AbstractCharacter {
 
 	@Override
 	public void doInteractCooldown() {
-		interactIsCooledDown = false;
+        interactIsCooledDown = false;
 		Cooldown.cooldown(500, cooldownReset);
 	}
 
