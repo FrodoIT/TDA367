@@ -21,9 +21,9 @@ public class AbstractCharacterTest extends TestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        Injector injector = Guice.createInjector(new MockModule());
-        IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
-        IMap map = injector.getInstance(IMap.class);
+        final Injector injector = Guice.createInjector(new MockModule());
+        final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
+        final IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
         testCharacter = new Player(playerInput, new Rectangle2D.Double(32, 32, 32, 32), 1, "/res/playerSprite.tmx");
     }
@@ -44,16 +44,16 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testTakeDamage() throws Exception {
         testCharacter.takeDamage(4);
-        assertTrue(testCharacter.getHealth() == 6);
+        assertSame(testCharacter.getHealth(), 6);
 
         testCharacter.takeDamage(100);
-        assertTrue(testCharacter.getHealth() == 0);
+        assertSame(testCharacter.getHealth(), 0);
     }
 
     @Test
     public void testSetPosition() throws Exception {
         testCharacter.setPosition(new Vector2D(0, 0));
-        Vector2D expectedPosition = new Vector2D(0, 0);
+        final Vector2D expectedPosition = new Vector2D(0, 0);
         assertExpectedPosition(expectedPosition, testCharacter.getPosition());
     }
 
@@ -66,25 +66,25 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetHealth() throws Exception {
-        assertTrue(testCharacter.getHealth() == 10);
+        assertSame(testCharacter.getHealth(), 10);
         testCharacter.takeDamage(100);
-        assertTrue(testCharacter.getHealth() == 0);
+        assertSame(testCharacter.getHealth(), 0);
     }
 
     @Test
     public void testGetPosition() throws Exception {
-        assertTrue(testCharacter.getPosition().getX() == 32);
-        assertTrue(testCharacter.getPosition().getY() == 32);
+        assertSame(testCharacter.getPosition().getX(), 32);
+        assertSame(testCharacter.getPosition().getY(), 32);
     }
 
     @Test
     public void testGetDamage() throws Exception {
-        assertTrue(testCharacter.getDamage() == 2);
+        assertSame(testCharacter.getDamage(), 2);
     }
 
     @Test
     public void testGetMovementSpeed() throws Exception {
-        assertTrue(testCharacter.getMovementSpeed() == 2);
+        assertSame(testCharacter.getMovementSpeed(), 2);
     }
 
     @Test
@@ -94,14 +94,14 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testAttack() throws Exception {
-        IWeapon weapon = testCharacter.getWeapon();
+        final IWeapon weapon = testCharacter.getWeapon();
         testCharacter.attack();
         assertFalse(weapon.hasCooledDown());
     }
 
     @Test
     public void testGetID() throws Exception {
-        assertTrue(testCharacter.getId() == 1);
+        assertSame(testCharacter.getId(), 1);
     }
 
     @Test
@@ -113,18 +113,18 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testSetHealth() throws Exception {
         testCharacter.setHealth(40);
-        assertTrue(testCharacter.getHealth() == 40);
+        assertSame(testCharacter.getHealth(), 40);
     }
 
     @Test
     public void testGetId() throws Exception {
-        assertTrue(testCharacter.getId() == 1);
+        assertSame(testCharacter.getId(), 1);
     }
 
     @Test
     public void testGetMoveDirection() throws Exception {
         testCharacter.setMoveDirection(MoveDirection.NONE);
-        assertTrue(testCharacter.getMoveDirection() == (MoveDirection.NONE));
+        assertSame(testCharacter.getMoveDirection(), MoveDirection.NONE);
     }
 
     @Test
@@ -133,15 +133,16 @@ public class AbstractCharacterTest extends TestCase {
     }
 
     @Test
-    public void assertExpectedPosition(Vector2D a, Vector2D b) throws Exception {
-        double epsilon = 0.0000000001;
+    public void assertExpectedPosition(Vector2D a, Vector2D b) {
+        final double epsilon = 0.0000000001;
         assertTrue(Math.abs(a.getX() - b.getX())< epsilon &&
                 Math.abs(a.getY() - b.getY()) <epsilon);
     }
 
-    public void testSetId() throws Exception {
+    @Test
+    public void testSetId() {
         testCharacter.setId(4);
-        assertTrue(testCharacter.getId() == 4);
+        assertSame(testCharacter.getId(), 4);
     }
 
 }
