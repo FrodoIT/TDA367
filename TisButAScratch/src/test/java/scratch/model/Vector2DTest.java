@@ -13,10 +13,10 @@ public class Vector2DTest extends TestCase {
 
     @Test
     public void testGetMagnitude() throws Exception {
-        Point2D.Double startPoint = new Point2D.Double(0,0);
-        Point2D.Double endPoint = new Point2D.Double(1,0);
-        Vector2D unitVector = new Vector2D(startPoint, endPoint);
-        assertTrue(unitVector.getMagnitude() == 1);
+        final Point2D.Double startPoint = new Point2D.Double(0,0);
+        final Point2D.Double endPoint = new Point2D.Double(1,0);
+        final Vector2D unitVector = new Vector2D(startPoint, endPoint);
+        assertSame(unitVector.getMagnitude(), 1);
 
     }
 
@@ -27,22 +27,22 @@ public class Vector2DTest extends TestCase {
      */
     @Test
     public void testGetNormalisedVector() throws Exception {
-        Point2D.Double startPoint = new Point2D.Double(1,0);
-        Point2D.Double endPoint = new Point2D.Double(6,9);
-        Vector2D longVector = new Vector2D(startPoint, endPoint);
+        final Point2D.Double startPoint = new Point2D.Double(1,0);
+        final Point2D.Double endPoint = new Point2D.Double(6,9);
+        final Vector2D longVector = new Vector2D(startPoint, endPoint);
         assertTrue(longVector.getNormalisedVector().getMagnitude() > 0.99999);
         assertTrue(longVector.getNormalisedVector().getMagnitude() < 1);
     }
 
     @Test
     public void testGetX() throws Exception {
-        Vector2D vector = new Vector2D(1,5);
-        assertTrue(vector.getX() == 1);
+        final Vector2D vector = new Vector2D(1,5);
+        assertSame(vector.getX(), 1);
     }
     @Test
     public void testGetY() throws Exception {
-        Vector2D vector = new Vector2D(1,4);
-        assertTrue(vector.getY() == 4);
+        final Vector2D vector = new Vector2D(1,4);
+        assertSame(vector.getY(), 4);
     }
 
     @Test
