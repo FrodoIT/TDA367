@@ -17,20 +17,20 @@ public class GameTest extends TestCase {
 
 	private Game game;
 	private Player player;
-	private Injector injector = Guice.createInjector(new MockModule());
+	private final Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
-	public void initialize() throws Exception {
-		game = new Game();
-                List<Room> rooms = new ArrayList<>();
-                rooms.add(new Room(new MockIMap(), new DoorHandler()));
-                game.setMap(rooms);
-		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
-	}
+	public void initialize() {
+        game = new Game();
+        final List<Room> rooms = new ArrayList<>();
+        rooms.add(new Room(new MockIMap(), new DoorHandler()));
+        game.setMap(rooms);
+        final IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
+        player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
+    }
 
 	@Test
-	public void testAddPlayer() throws Exception {
+	public void testAddPlayer() {
 		initialize();
 		game.addPlayer(player);
 		assertTrue(game.getPlayers().contains(player));
@@ -38,10 +38,8 @@ public class GameTest extends TestCase {
 	}
 
 	@Test
-	public void testRemovePlayer() throws Exception {
+	public void testRemovePlayer() {
 		initialize();
-		System.out.println("player" + player);
-		System.out.println("model" + game);
 		game.addPlayer(player);
 		game.removePlayer(player);
 		assertTrue(game.getPlayers().isEmpty());
@@ -49,7 +47,7 @@ public class GameTest extends TestCase {
 
 
 	@Test
-	public void testUpdate() throws Exception {
+	public void testUpdate() {
 		//TODO can't figure out anything to test. the update method just forwards the update to active rooms
 	}
 }
