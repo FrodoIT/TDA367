@@ -14,7 +14,6 @@ import java.util.Random;
  *
  */
 public final class Player extends AbstractCharacter {
-
     private IPlayerInput playerInput;
     private boolean interactIsCooledDown = true;
 
