@@ -29,9 +29,7 @@ public class CharacterView {
     public CharacterView (AbstractCharacter character){
         this.character = character;
         try {
-            String imagePath = character.getImagePath();
-            System.out.println("Trying to load imagepath: " + imagePath);
-            spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
+            spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
         } catch (SlickException e){
             System.out.println(e.toString());
         }
