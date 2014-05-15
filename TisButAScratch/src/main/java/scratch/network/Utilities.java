@@ -22,10 +22,8 @@ import scratch.model.weapons.*;
  */
 public class Utilities {
     public static void kryoRegister(Kryo kryo){
-        kryo.register(PacketMessage.class);
         
         //Looks ugly as shit, is there a different solution?
-        kryo.register(PacketGame.class);
         kryo.register(Character.class);
         kryo.register(Constants.class);
         kryo.register(DoorHandler.class);
@@ -47,7 +45,6 @@ public class Utilities {
         kryo.register(ArrayList.class);
         
         kryo.register(Vector2D.class);
-        kryo.register(PacketCharacter.class);
         kryo.register(Point2D.Double.class);
         
         //Register constructionpackage
