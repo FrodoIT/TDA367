@@ -12,7 +12,7 @@ public interface IWeapon {
     int getDamage();
     int getRange();
     Rectangle2D.Double getAttackArea();
-    public void startCooldown();
+    void startCooldown();
     boolean hasCooledDown();
 
 }
