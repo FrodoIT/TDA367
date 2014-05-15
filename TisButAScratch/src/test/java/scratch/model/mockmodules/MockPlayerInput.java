@@ -8,8 +8,8 @@ import scratch.model.MoveDirection;
  */
 public class MockPlayerInput implements IPlayerInput{
     private MoveDirection moveDirection = MoveDirection.EAST;
-    private boolean attack = false;
-    private boolean interact = false;
+    private boolean attack;
+    private boolean interact;
 
 
     @Override
