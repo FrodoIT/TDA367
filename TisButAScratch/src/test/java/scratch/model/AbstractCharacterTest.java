@@ -14,6 +14,7 @@ import java.awt.geom.Rectangle2D;
 
 public class AbstractCharacterTest extends TestCase {
 
+    private final double epsilon = Math.pow(10, -10);
     private Room room;
     private AbstractCharacter testCharacter;
 
@@ -73,8 +74,9 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetPosition() throws Exception {
-        assertSame(testCharacter.getPosition().getX(), 32);
-        assertSame(testCharacter.getPosition().getY(), 32);
+        Vector2D pos = testCharacter.getPosition();
+        assertEquals(32, pos.getX(), epsilon);
+        assertEquals(32, pos.getY(), epsilon);
     }
 
     @Test
@@ -134,9 +136,8 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void assertExpectedPosition(Vector2D a, Vector2D b) {
-        final double epsilon = 0.0000000001;
-        assertTrue(Math.abs(a.getX() - b.getX())< epsilon &&
-                Math.abs(a.getY() - b.getY()) <epsilon);
+        assertEquals(a.getX(), b.getX(), epsilon);
+        assertEquals(a.getY(), b.getY(), epsilon);
     }
 
     @Test

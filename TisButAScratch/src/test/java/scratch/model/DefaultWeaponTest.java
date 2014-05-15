@@ -21,7 +21,7 @@ public class DefaultWeaponTest extends TestCase {
 	}
 
     @Test
-	public void testAttack() throws Exception {
+	public void testAttack() {
 		assertTrue(weapon.hasCooledDown());
 		weapon.startCooldown();
 		assertFalse(weapon.hasCooledDown());
@@ -36,29 +36,29 @@ public class DefaultWeaponTest extends TestCase {
 	}
 
     @Test
-	public void testGetRange() throws Exception{
+	public void testGetRange() {
 		assertSame(weapon.getRange(), 1);
 	}
 
     @Test
-	public void testGetAttackArea() throws Exception{
+	public void testGetAttackArea() {
 		assertTrue(weapon.getAttackArea().intersects(0, 0, 32, 32));
 	}
 
     @Test
-	public void testEquals() throws Exception{
+	public void testEquals() {
 		EqualsVerifier.forClass(DefaultWeapon.class).verify();
 	}
 
     @Test
-	public void testHashCode() throws Exception{
+	public void testHashCode() {
 		final DefaultWeapon weapon1 = new DefaultWeapon();
 		if(weapon1.equals(weapon)){
-			assertSame(weapon1.hashCode(), weapon.hashCode());
+			assertEquals(weapon1.hashCode(), weapon.hashCode());
 		}
 		weapon1.startCooldown();
 		if(weapon1.equals(weapon)){
-			assertSame(weapon1.hashCode(), weapon.hashCode());
+			assertEquals(weapon1.hashCode(), weapon.hashCode());
 		}
 	}
 

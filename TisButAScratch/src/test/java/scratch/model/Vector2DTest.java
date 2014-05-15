@@ -11,12 +11,14 @@ import java.awt.geom.Point2D;
  */
 public class Vector2DTest extends TestCase {
 
+    final private double epsilon = Math.pow(10, -10);
+
     @Test
     public void testGetMagnitude() throws Exception {
         final Point2D.Double startPoint = new Point2D.Double(0,0);
         final Point2D.Double endPoint = new Point2D.Double(1,0);
         final Vector2D unitVector = new Vector2D(startPoint, endPoint);
-        assertSame(unitVector.getMagnitude(), 1);
+        assertEquals(1.d, unitVector.getMagnitude(), epsilon);
 
     }
 
@@ -37,12 +39,12 @@ public class Vector2DTest extends TestCase {
     @Test
     public void testGetX() throws Exception {
         final Vector2D vector = new Vector2D(1,5);
-        assertSame(vector.getX(), 1);
+        assertEquals(1.d, vector.getX(), epsilon);
     }
     @Test
     public void testGetY() throws Exception {
         final Vector2D vector = new Vector2D(1,4);
-        assertSame(vector.getY(), 4);
+        assertEquals(4.d, vector.getY(), epsilon);
     }
 
     @Test
