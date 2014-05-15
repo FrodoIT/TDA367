@@ -69,7 +69,7 @@ public final class NpcType extends AbstractCharacter {
     public void update() {
         Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
-        for (CharacterChangeListener characterListener : getListenerList()) {
+        for (CharacterChangeListener characterListener : getListeners()) {
             characterListener.handleCharacterMovement(this, newPosition);
         }
         if (isAttacking()) {

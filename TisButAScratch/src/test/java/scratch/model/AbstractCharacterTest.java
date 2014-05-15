@@ -31,14 +31,14 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testRegisterListener() throws Exception {
         testCharacter.registerListener(room);
-        assertFalse(testCharacter.getListenerList().isEmpty());
+        assertFalse(testCharacter.getListeners().isEmpty());
     }
 
     @Test
     public void testRemoveListener() throws Exception {
         testCharacter.registerListener(room);
         testCharacter.removeListener(room);
-        assertTrue(testCharacter.getListenerList().isEmpty());
+        assertTrue(testCharacter.getListeners().isEmpty());
     }
 
     @Test
