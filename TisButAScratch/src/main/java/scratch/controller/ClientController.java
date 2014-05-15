@@ -26,13 +26,12 @@ public final class ClientController extends Listener implements org.newdawn.slic
     private List<PlayerController> playerControllerList;
     private List<NpcController> npcControllerList;
     private List<RoomController> roomControllerList;
-    private GameContainer gameContainer;
     private final NetworkClient client;
 
     public ClientController(String ip) {
-        playerControllerList = new ArrayList<PlayerController>();
-        roomControllerList = new ArrayList<RoomController>();
-        npcControllerList = new ArrayList<NpcController>();
+        playerControllerList = new ArrayList<>();
+        roomControllerList = new ArrayList<>();
+        npcControllerList = new ArrayList<>();
         client = new NetworkClient(ip);
     }
 
@@ -40,18 +39,9 @@ public final class ClientController extends Listener implements org.newdawn.slic
     public void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
-        this.gameContainer = gameContainer;
-        RoomFactory roomFactory = new RoomFactory();
-        TiledMap map = getTiledMap(roomFactory);
         //Send this class to be set as listener for the connection
         client.start(this);
 
-    }
-
-    private TiledMap getTiledMap(RoomFactory roomFactory) {
-        TiledMap map = roomFactory.getMap();
-
-        return map;
     }
 
     public void playerRecieved(Player player) {
@@ -68,7 +58,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void update(GameContainer container, int delta) {
         //TODO: Send to server what keys are pressed
     }
 
