@@ -1,8 +1,5 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.IWeapon;
@@ -81,8 +78,10 @@ public final class NpcType extends AbstractCharacter {
     }
 
     private void calculateMoveDirection(Vector2D newPosition) {
-        double diffX = newPosition.getX() - getUnitTile().x;
-        double diffY = newPosition.getY() - getUnitTile().y;
+        Rectangle2D.Double unitTile = getUnitTile();
+
+        double diffX = newPosition.getX() - unitTile.x;
+        double diffY = newPosition.getY() - unitTile.y;
         final double toDegrees = 180 / Math.PI;
         double theta = Math.atan(diffY / diffX) * toDegrees;
         MoveDirection moveDirection = MoveDirection.NONE;
@@ -115,8 +114,9 @@ public final class NpcType extends AbstractCharacter {
         this.movementPattern = movementPattern;
     }
 
+    /* TODO Why does NpcType need a equals method when all AbstractCharacters equal do is compare ids?
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
@@ -128,6 +128,7 @@ public final class NpcType extends AbstractCharacter {
                 && this.getMovementPattern() == rhs.getMovementPattern());
 
     }
+    */
 
     public INPCMove getMovementPattern() {
         return movementPattern;

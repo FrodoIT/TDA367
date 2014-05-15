@@ -3,7 +3,10 @@ package scratch.model.mockModules;
 import org.newdawn.slick.SlickException;
 import scratch.construction.SlickMap;
 import scratch.construction.TiledMapPlus;
-import scratch.model.*;
+import scratch.model.IMap;
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;

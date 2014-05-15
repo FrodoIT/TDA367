@@ -21,7 +21,7 @@ public final class DefaultWeapon implements IWeapon {
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
 	private boolean cooledDown = true;
-	private static Runnable runnable;
+	private final Runnable runnable;
 
     public DefaultWeapon(){
         damage = 2;
@@ -81,22 +81,25 @@ public final class DefaultWeapon implements IWeapon {
 
 		DefaultWeapon that = (DefaultWeapon) o;
 
-		if (attackInterval != that.attackInterval) return false;
-		if (cooledDown != that.cooledDown) return false;
-		if (damage != that.damage) return false;
-		if (range != that.range) return false;
-		if (attackArea != null ? !attackArea.equals(that.attackArea) : that.attackArea != null) return false;
-
-		return true;
+		return attackInterval == that.attackInterval &&
+		damage == that.damage &&
+		range == that.range &&
+        attackArea == null ? attackArea == that.attackArea : attackArea.equals(that.attackArea);
 	}
 
 	@Override
     public int hashCode() {
+
+        return 31 * damage +
+                31 * range +
+                31 * (attackArea != null ? attackArea.hashCode() : 0) +
+                31* attackInterval;
+        /*
         int result = damage;
         result = 31 * result + range;
         result = 31 * result + (attackArea != null ? attackArea.hashCode() : 0);
         result = 31 * result + attackInterval;
-        result = 31 * result + (cooledDown ? 1 : 0);
         return 31 * result + (runnable != null ? runnable.hashCode() : 0);
+        */
     }
 }

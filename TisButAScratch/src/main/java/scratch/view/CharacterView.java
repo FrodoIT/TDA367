@@ -6,7 +6,6 @@
 
 package scratch.view;
 
-import java.awt.geom.Rectangle2D;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -14,9 +13,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.AbstractCharacter;
-import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  *
@@ -29,10 +29,11 @@ public class CharacterView {
     public CharacterView (AbstractCharacter character){
         this.character = character;
         try {
-            System.out.println("Trying to load imagepath: " + character.getImagePath());
-            spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
+            String imagePath = character.getImagePath();
+            System.out.println("Trying to load imagepath: " + imagePath);
+            spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
         } catch (SlickException e){
-            throw new RuntimeException("Error loading sprite");
+            System.out.println(e.toString());
         }
     }
     

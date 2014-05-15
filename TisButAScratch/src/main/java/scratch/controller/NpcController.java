@@ -1,11 +1,11 @@
 package scratch.controller;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import scratch.model.Game;
 import org.newdawn.slick.GameContainer;
 import scratch.model.NpcType;
 import scratch.view.CharacterView;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * Created by pippin on 5/10/14.

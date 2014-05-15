@@ -1,10 +1,7 @@
 package scratch.model;
 
 import junit.framework.TestCase;
-import nl.jqno.equalsverifier.EqualsVerifier;
 import scratch.model.weapons.DefaultWeapon;
-
-import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Anna on 2014-05-02.
@@ -40,8 +37,7 @@ public class DefaultWeaponTest extends TestCase {
 
 	public void testEquals() throws Exception{
 		//EqualsVerifier.forClass(DefaultWeapon.class).verify();
-		//TODO
-
+        //TODO halp...
 	}
 	public void testHashCode() throws Exception{
 		DefaultWeapon weapon1 = new DefaultWeapon();

@@ -2,10 +2,6 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,17 +12,13 @@ import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.Room;
 import scratch.network.NetworkServer;
-import scratch.view.NpcView;
-import scratch.view.PlayerView;
-import scratch.view.RoomView;
-
+import scratch.view.CharacterView;
 import scratch.view.RoomView;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import scratch.view.CharacterView;
 
 /**
  * The main controller class to control updates, rendering, initiating and

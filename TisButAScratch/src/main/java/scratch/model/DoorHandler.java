@@ -1,6 +1,5 @@
 package scratch.model;
 
-import javax.xml.transform.sax.SAXSource;
 import java.awt.geom.Rectangle2D;
 import java.util.*;
 

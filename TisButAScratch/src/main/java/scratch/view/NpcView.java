@@ -24,7 +24,6 @@ public class NpcView {
     private SpriteDirectionRenderer spriteHandler;
     private Rectangle2D.Double attackArea;
     private final NpcType npc;
-    private final GameContainer gameContainer;
     private final Graphics graphics;
 
     public NpcView(NpcType npc, GameContainer gameContainer, String imagePath) {
@@ -34,8 +33,7 @@ public class NpcView {
             e.printStackTrace();
         }
         this.npc = npc;
-        this.gameContainer = gameContainer;
-        graphics = this.gameContainer.getGraphics();
+        graphics = gameContainer.getGraphics();
     }
 
     public void render() {

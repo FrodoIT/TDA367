@@ -14,7 +14,7 @@ import java.util.Random;
 @AIPlugin(id = 2)
 public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	@Inject
-	private Random ran = new Random();
+	private final Random ran = new Random(2345);
 	private IRoomData roomData;
 
 	@Override
@@ -25,16 +25,18 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	@Override
 	public Vector2D calculateNewPosition(NpcType npc) {
 
-		Vector2D currentPos = npc.getPosition();
+        final Vector2D currentPos = npc.getPosition();
 		return new Vector2D(currentPos.getX() + ran.nextInt(3)-1, currentPos.getY() + ran.nextInt(3)-1);
 	}
 
 	public boolean isAttacking(NpcType npc){
-		for(Player player: roomData.getPlayers()){
-			if(isWithinRange(player.getPosition(), npc.getPosition())){
-				return true;
-			}
-		}
+        if (roomData != null) {
+            for (final Player player : roomData.getPlayers()) {
+                if (isWithinRange(player.getPosition(), npc.getPosition())) {
+                    return true;
+                }
+            }
+        }
 		return false;
 	}
 
@@ -45,7 +47,7 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 
 	private boolean isWithinRange(Vector2D playerPos, Vector2D npcPos){
 		//+16 to get the center of the character, playerpos returns the point of the right high corner
-		Vector2D vector2D= new  Vector2D(new Point2D.Double(playerPos.getX()+16, playerPos.getY()+16), new Point2D.Double(npcPos.getX()+16, npcPos.getY()+16));
-		return(vector2D.getMagnitude()<= 48);
+        final Vector2D vector2D = new  Vector2D(new Point2D.Double(playerPos.getX()+16, playerPos.getY()+16), new Point2D.Double(npcPos.getX()+16, npcPos.getY()+16));
+		return vector2D.getMagnitude()<= 48;
 	}
 }

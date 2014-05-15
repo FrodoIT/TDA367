@@ -1,14 +1,12 @@
 package scratch.controller;
 
 import com.google.inject.Inject;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import scratch.model.Player;
-import scratch.network.NetworkServer;
-import scratch.view.PlayerView;
 import org.newdawn.slick.GameContainer;
 import scratch.model.Player;
 import scratch.view.CharacterView;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  * Class to collect input for the player.

@@ -5,13 +5,13 @@
  */
 package scratch.menu;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.controller.ClientController;
 import scratch.controller.ServerController;
 import scratch.model.Game;
+
+import javax.swing.*;
 
 /**
  *

@@ -2,15 +2,16 @@ package scratch.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockIMap;
 import scratch.model.mockModules.MockModule;
 import scratch.model.mockModules.MockPlayerInput;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameTest extends TestCase {
 

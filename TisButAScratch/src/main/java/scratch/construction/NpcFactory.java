@@ -2,23 +2,20 @@ package scratch.construction;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import scratch.construction.plugin.exported.SimpleNPCPlugin;
-import scratch.model.*;
+import scratch.model.IMap;
+import scratch.model.NpcType;
+import scratch.model.Room;
+import scratch.model.Vector2D;
 
-import java.awt.geom.Rectangle2D;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOError;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
-public final class NpcFactory extends PluginUserFactory<NpcType> {
+public final class NpcFactory extends AbstractPluginUserFactory<NpcType> {
 
     public static final String KEY = "npc_factory";
     public static final String BASICMONSTER = "basicMonster";
     public static final String SPECIALMONSTER = "specialMonster";
-    private Room room;
+    private final Room room;
 
     public NpcFactory(IMap map, Room room) {
         super(map);
@@ -29,14 +26,14 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
     @Override
     public void loadType() {
 
-        List<NpcSpecification> npcs = super.getMap().getNpcSpecifications();
+        final List<NpcSpecification> npcs = super.getMap().getNpcSpecifications();
 
 	    //TODO viktigt för att vi inte ska lägga till i mappen med samma nyckel.
         //ska mappen vara kvar eller ersättas med en lista?, just nu är det endast NpcFactory som
         // extendar PluginUserFactory.
         int keyToConstant = 0;
         for (NpcSpecification npc : npcs) {
-            NpcType loadedNpc = NPCXML(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
+            final NpcType loadedNpc = loadNpc(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
             super.getGivenTypeMap().put(keyToConstant++, loadedNpc);
         }
     }
@@ -52,14 +49,13 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
      * @param position The position the npc should have
      * @return A npc with the attributes as in the xml file.
      */
-    private NpcType NPCXML(String file, Vector2D position, int id) {
-        Serializer serializer = new Persister(new MyMatcher());
-        //file= "res/"+file+".xml";
-        StringBuilder fileBuild = new StringBuilder();
+	private NpcType loadNpc(String file, Vector2D position, int id){
+		final Serializer serializer = new Persister(new MyMatcher());
+        final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");
         fileBuild.append(file);
         fileBuild.append(".xml");
-        File source = new File(fileBuild.toString());
+        final File source = new File(fileBuild.toString());
         NpcType npc;
         try {
             npc = serializer.read(NpcType.class, source);

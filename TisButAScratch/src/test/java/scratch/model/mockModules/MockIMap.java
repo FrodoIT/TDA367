@@ -1,7 +1,5 @@
 package scratch.model.mockModules;
 
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.NpcSpecification;
 import scratch.model.IInteractiveObject;
 import scratch.model.IMap;

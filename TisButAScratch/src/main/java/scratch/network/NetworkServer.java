@@ -7,14 +7,12 @@ package scratch.network;
 
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import java.awt.event.ActionEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
-import java.io.IOException;
-import scratch.model.Game;
 import scratch.model.NpcType;
 import scratch.model.Player;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.IOException;
 
 
 /**

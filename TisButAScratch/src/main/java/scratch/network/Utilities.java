@@ -7,14 +7,15 @@
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
+import scratch.construction.*;
+import scratch.model.*;
+import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.IWeapon;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import scratch.construction.*;
-import scratch.model.*;
-import scratch.model.AbstractCharacter;
-import scratch.model.weapons.*;
 
 /**
  *
@@ -51,7 +52,7 @@ public class Utilities {
         kryo.register(INPCMoveTransformer.class);
         kryo.register(MyMatcher.class);
         kryo.register(NpcFactory.class);
-        kryo.register(PluginUserFactory.class);
+        kryo.register(AbstractPluginUserFactory.class);
         kryo.register(RectangleTransformer.class);
         kryo.register(RoomFactory.class);
         kryo.register(SlickMap.class);

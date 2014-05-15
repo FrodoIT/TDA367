@@ -25,7 +25,7 @@ public class SlickMap implements IMap {
 
     private final TiledMapPlus map;
     private final int collisionIndex;
-    private Map<String, Rectangle2D.Double> objectRectangleMap = new TreeMap<>();
+    private final Map<String, Rectangle2D.Double> objectRectangleMap;
     private final int height, width;
 
     @Inject
@@ -41,7 +41,7 @@ public class SlickMap implements IMap {
     @Override
     public boolean isColliding(Vector2D coordinate) {
         try {
-            return (map.getTileId((int) coordinate.getX() / map.getTileWidth(), (int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0);
+            return map.getTileId((int) coordinate.getX() / map.getTileWidth(), (int) coordinate.getY() / map.getTileHeight(), collisionIndex) != 0;
         } catch (IndexOutOfBoundsException e) {
             return false;
         }

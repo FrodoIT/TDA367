@@ -3,11 +3,8 @@ package scratch.construction;
 import org.simpleframework.xml.transform.Matcher;
 import org.simpleframework.xml.transform.Transform;
 import scratch.model.INPCMove;
-import scratch.model.IRoomData;
-import scratch.model.MoveDirection;
 import scratch.model.weapons.IWeapon;
 
-import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 /**

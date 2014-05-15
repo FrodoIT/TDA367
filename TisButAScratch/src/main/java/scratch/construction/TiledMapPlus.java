@@ -6,15 +6,16 @@ import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tejp on 2014-05-08.
  */
 public class TiledMapPlus extends TiledMap {
 
-	private List<IInteractiveObject> interactiveObjects = new ArrayList<>();
-    private List<NpcSpecification> npcSpecifications = new ArrayList<>();
+	private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
+    private final List<NpcSpecification> npcSpecifications = new ArrayList<>();
 
 	/**
 	 * Create a new tile map based on a given TMX file
@@ -30,13 +31,14 @@ public class TiledMapPlus extends TiledMap {
     }
 
 	private void initializeNpcSpecifications() {
-		for (Object oGroup : objectGroups) {
-			ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! "npc".equals( objectGroup.name ) )
-				continue;
+		for (final Object oGroup : objectGroups) {
+			final ObjectGroup objectGroup = (ObjectGroup) oGroup;
+			if ( ! "npc".equals( objectGroup.name ) ) {
+                continue;
+            }
 
-			for (Object gObject : objectGroup.objects) {
-				GroupObject groupObject = (GroupObject) gObject;
+			for (final Object gObject : objectGroup.objects) {
+				final GroupObject groupObject = (GroupObject) gObject;
 				npcSpecifications.add( new NpcSpecification(
                                 groupObject.props.getProperty("npcType"),
                                 Integer.parseInt(groupObject.props.getProperty("id")),
@@ -54,13 +56,14 @@ public class TiledMapPlus extends TiledMap {
 	}
 
 	private void initializeInteractiveObjects() {
-		for (Object oGroup : objectGroups) {
-			ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! "interactive".equals(objectGroup.name))
-				continue;
+		for (final Object oGroup : objectGroups) {
+            final ObjectGroup objectGroup = (ObjectGroup) oGroup;
+			if ( ! "interactive".equals(objectGroup.name)) {
+                continue;
+            }
 
-			for (Object gObject : objectGroup.objects) {
-				GroupObject groupObject = (GroupObject) gObject;
+			for (final Object gObject : objectGroup.objects) {
+                final GroupObject groupObject = (GroupObject) gObject;
 
 				interactiveObjects.add(
 						new InteractiveObject(

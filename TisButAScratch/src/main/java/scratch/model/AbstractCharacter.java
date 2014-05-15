@@ -4,8 +4,9 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
 import scratch.model.weapons.IWeapon;
-import org.simpleframework.xml.*;
 
 import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
@@ -163,7 +164,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
