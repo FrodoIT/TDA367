@@ -130,6 +130,7 @@ public final class ServerController extends Listener implements org.newdawn.slic
     
     @Override
     public void received(Connection connection, Object object) {
-        
+        //TODO We recieved something
+        System.out.println("We recieved something");
     }
 }

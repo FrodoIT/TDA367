@@ -37,8 +37,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
     @Element(type = MoveDirection.class, required = false)
     private MoveDirection moveDirection = MoveDirection.SOUTH;
     @Element
-    private boolean alive;
-    @Element
     private String imagePath;
 
 
@@ -50,7 +48,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
         this.id = id;
         this.imagePath = imagePath;
         moveDirection = MoveDirection.SOUTH;
-        alive = true;
     }
 
     public void registerListener(CharacterChangeListener listener) {
@@ -79,7 +76,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
         health = health - Math.abs(dmg);
 
         if (Math.abs(dmg) > health) {
-            alive = false;
             health = 0;
         }
     }
@@ -160,7 +156,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     }
 
     public boolean isAlive() {
-        return alive;
+        return getHealth() != 0;
     }
 
     @Override
