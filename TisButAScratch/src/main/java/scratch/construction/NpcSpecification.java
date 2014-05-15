@@ -7,9 +7,9 @@ import java.awt.geom.Rectangle2D;
  */
 public class NpcSpecification {
 
-    private String pluginName;
-    private int id;
-    private Rectangle2D.Double area;
+    private final String pluginName;
+    private final int id;
+    private final Rectangle2D.Double area;
 
     public NpcSpecification(String pluginName, int id, Rectangle2D.Double area) {
         this.pluginName = pluginName;

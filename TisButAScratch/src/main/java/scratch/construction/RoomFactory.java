@@ -20,10 +20,10 @@ import java.util.TreeMap;
 public final class RoomFactory {
 
     private TiledMapPlus map;
-    private List<Room> rooms;
-    private Map<String, PluginUserFactory> pluginUserFactories;
-    private SlickMap slickMap;
-	private DoorHandler doorHandler = new DoorHandler();
+    private final List<Room> rooms;
+    private final Map<String, AbstractPluginUserFactory> pluginUserFactories;
+    private final SlickMap slickMap;
+	private final DoorHandler doorHandler = new DoorHandler();
 
     public RoomFactory() {
         try {
@@ -31,7 +31,7 @@ public final class RoomFactory {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        pluginUserFactories = new TreeMap<String, PluginUserFactory>();
+        pluginUserFactories = new TreeMap<String, AbstractPluginUserFactory>();
         slickMap = new SlickMap(map);
         rooms = new ArrayList<Room>();
         addRooms();
@@ -48,7 +48,7 @@ public final class RoomFactory {
 	 */
 	private void setupDoorHandler() {
 
-		for (IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+		for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
 			if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
 				doorHandler.addDoor(rooms.get(0), interactiveObject);
 			}
@@ -57,20 +57,15 @@ public final class RoomFactory {
 	}
 
 	private void addInteractiveObjectstoRoom() {
-
-	    for (IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+	    for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
 		    rooms.get(0).addInteractivObject(interactiveObject);
 	    }
 
     }
 
     private void addNpcstoRoom(){
-        NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
+        final NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
         rooms.get(0).addNpc(npcFactory.getGivenTypeMap());
-    }
-
-    public void initialiseRoom(Room room){
-
     }
 
     private void addRooms() {
@@ -92,7 +87,7 @@ public final class RoomFactory {
         return map;
     }
 
-    public Map<String, PluginUserFactory> getPluginUserFactories() {
+    public Map<String, AbstractPluginUserFactory> getPluginUserFactories() {
         return pluginUserFactories;
     }
 
