@@ -7,6 +7,9 @@ import scratch.model.*;
 
 import java.awt.geom.Rectangle2D;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOError;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +36,6 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 	    // extendar PluginUserFactory.
 	    int keyToConstant = 0;
 	    for(NpcSpecification npc: npcs) {
-		    System.out.println(npc.getPluginName());
 		    NpcType loadedNpc = NPCXML(npc.getPluginName(), new Vector2D(npc.getArea().getX(), npc.getArea().getY()), npc.getId());
 		    super.getGivenTypeMap().put(keyToConstant++, loadedNpc);
 	    }
@@ -48,19 +50,25 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
 	 */
 	private NpcType NPCXML(String file, Vector2D position, int id){
 		Serializer serializer = new Persister(new MyMatcher());
-		file= "res/"+file+".xml";
-		File source = new File(file);
+		//file= "res/"+file+".xml";
+        StringBuilder fileBuild = new StringBuilder();
+        fileBuild.append("res/");
+        fileBuild.append(file);
+        fileBuild.append(".xml");
+		File source = new File(fileBuild.toString());
+        NpcType npc;
 		try {
-			NpcType npc= serializer.read(NpcType.class, source);
-			System.out.println(npc.toString());
-			npc.setPosition(position);
-			npc.setId(id);
-			npc.getMovementPattern().setRoomData(room);
-			npc.registerListener(room);
-			return npc;
+			npc = serializer.read(NpcType.class, source);
+
 		} catch (Exception e) {
-			System.out.println("XML-READING FAILED: " + e.toString());
+			System.out.println(e.toString());
+            return null;
 		}
-		return null;
+
+        npc.setPosition(position);
+        npc.setId(id);
+        npc.getMovementPattern().setRoomData(room);
+        npc.registerListener(room);
+        return npc;
 	}
 }
