@@ -15,26 +15,25 @@ import java.awt.geom.Rectangle2D;
  */
 public class RoomTest extends TestCase {
 	private Room room;
-
+    private final Injector injector = Guice.createInjector(new MockModule());
 	@Before
+    @Override
 	public void setUp() {
-		Injector injector = Guice.createInjector(new MockModule());
-		IMap map = injector.getInstance(MockIMap.class);
+        final IMap map = injector.getInstance(MockIMap.class);
 		room= new Room(map, new DoorHandler());
 	}
 
 	//made to create mock-players used in tests
 	private Player createPlayerForTest(int id) {
-		Injector injector = Guice.createInjector(new MockModule());
-		IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
+		final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
 		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id, "/res/playerSprite.tmx");
 	}
 
 
     @Test
-    public void testUpdate() throws Exception {
+    public void testUpdate() {
 
-        Player testPlayer = createPlayerForTest(1);
+        final Player testPlayer = createPlayerForTest(1);
         room.enterRoom(testPlayer);
         testPlayer.attack();
         testPlayer.interact();
@@ -51,26 +50,27 @@ public class RoomTest extends TestCase {
     }
 
     @Test
-	public void testEnterRoom() throws Exception {
-		Player player1 = createPlayerForTest(0);
+	public void testEnterRoom() {
+		final Player player1 = createPlayerForTest(0);
 		room.enterRoom(player1);
 		assertTrue(room.getPlayers().contains(player1));
 	}
     @Test
-	public void testExitRoom() throws Exception {
-		Player player1 = createPlayerForTest(0);
-		Player player2 = createPlayerForTest(1);
+	public void testExitRoom() {
+		final Player player1 = createPlayerForTest(0);
+		final Player player2 = createPlayerForTest(1);
 		room.enterRoom(player1);
 		room.enterRoom(player2);
 		room.exitRoom(player1);
-		assertTrue(!room.getPlayers().contains(player1) && room.getPlayers().get(0).getId()==1);
+		assertFalse(room.getPlayers().contains(player1));
+        assertSame(room.getPlayers().get(0).getId(), 1);
 		room.exitRoom(player2);
 		assertTrue(room.getPlayers().isEmpty());
 	}
 
 	@Test(expected=NullPointerException.class)
-	public void testExitRoomException() throws Exception {
-		Player player = createPlayerForTest(0);
+	public void testExitRoomException() {
+		final Player player = createPlayerForTest(0);
 		room.exitRoom(player);
 		assertTrue(room.getPlayers().isEmpty());
 	}
