@@ -11,7 +11,6 @@ public class MockPlayerInput implements IPlayerInput{
     private boolean attack;
     private boolean interact;
 
-
     @Override
     public boolean isAttacking() {
         return attack;
