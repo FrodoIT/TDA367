@@ -92,7 +92,7 @@ public final class Player extends AbstractCharacter {
         }
         Vector2D newPosition = new Vector2D(getPosition().getX() + deltaX, getPosition().getY() + deltaY);
 
-        for (CharacterChangeListener listener : super.getListenerList()) {
+        for (CharacterChangeListener listener : super.getListeners()) {
             listener.handleCharacterMovement(this, newPosition);
 
             if (isInteracting()) {

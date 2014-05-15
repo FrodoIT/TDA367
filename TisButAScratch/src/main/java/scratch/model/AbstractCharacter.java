@@ -25,7 +25,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     @Element(type = Rectangle2D.Double.class, required = false)
     private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
-    private List<CharacterChangeListener> listenerList = new ArrayList<>();
     @Element(type = IWeapon.class)
     private IWeapon weapon;
     @Element
@@ -41,6 +40,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     @Element
     private String imagePath;
 
+    final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
     public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id, String imagePath) {
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
@@ -54,7 +54,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     }
 
     public void registerListener(CharacterChangeListener listener) {
-        listenerList.add(listener);
+        listeners.add(listener);
     }
 
     AbstractCharacter() {
@@ -72,7 +72,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     public abstract boolean isAttacking();
 
     public void removeListener(CharacterChangeListener listener) {
-        listenerList.remove(listener);
+        listeners.remove(listener);
     }
 
     public void takeDamage(int dmg) {
@@ -144,7 +144,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     public void attack() {
         if (weapon.hasCooledDown()) {
-            for (CharacterChangeListener listener : listenerList) {
+            for (CharacterChangeListener listener : listeners) {
                 listener.handleCharacterAttack(this);
 
             }
@@ -153,7 +153,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     }
 
     public void interact() {
-        for (CharacterChangeListener listener : listenerList) {
+        for (CharacterChangeListener listener : listeners) {
             listener.handleCharacterInteraction(this);
         }
         doInteractCooldown();
@@ -182,8 +182,8 @@ public abstract class AbstractCharacter implements KryoSerializable{
         return 31 * id;
     }
 
-    public List<CharacterChangeListener> getListenerList() {
-        return listenerList;
+    public List<CharacterChangeListener> getListeners() {
+        return listeners;
     }
 
     @Override
