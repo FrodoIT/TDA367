@@ -7,12 +7,11 @@ package scratch.network;
 
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import scratch.model.NpcType;
-import scratch.model.Player;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import scratch.model.AbstractCharacter;
+
 
 
 /**
@@ -29,22 +28,21 @@ public class NetworkServer implements PropertyChangeListener{
 
     }
 
-    public void start(Listener listener) {
+    public void start(Listener listener){
         server.start();
         try {
             server.bind(54555, 54777);
         } catch (IOException e) {
-            throw new RuntimeException("Could not bind to ports");
+            System.out.println("Could not bind to ports, multiplayer will not be available");
         }
         server.addListener(listener);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getNewValue() instanceof Player){
-            server.sendToAllTCP((Player)evt.getNewValue());
-        } else if (evt.getNewValue() instanceof NpcType){
-            server.sendToAllTCP((NpcType)evt.getNewValue());
+        Object newValue = evt.getNewValue();
+        if (newValue instanceof AbstractCharacter){
+            server.sendToAllTCP(newValue);
         }
         
     }

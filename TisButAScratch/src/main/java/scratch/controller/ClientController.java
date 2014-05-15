@@ -1,6 +1,7 @@
 package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,7 +41,9 @@ public final class ClientController extends Listener implements org.newdawn.slic
         //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
         //Send this class to be set as listener for the connection
+
         client.start(this);
+
 
     }
 

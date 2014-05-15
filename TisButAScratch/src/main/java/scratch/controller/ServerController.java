@@ -1,6 +1,7 @@
 package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -73,7 +74,10 @@ public final class ServerController extends Listener implements org.newdawn.slic
                                 new CharacterView(player)));
             }
         }
+
         networkServer.start(this);
+
+        
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {

@@ -5,7 +5,9 @@
  */
 package scratch.network;
 
+import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
@@ -25,13 +27,13 @@ public class NetworkClient {
 
     }
 
-    public void start(Listener listener) {
+    public void start(Listener listener){
         client.start();
 
         try {
             client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
-            throw new RuntimeException("Could not connect to IP");
+            System.out.println("Could not connect to server, expect disaster");
         }
         client.addListener(listener);
     }
