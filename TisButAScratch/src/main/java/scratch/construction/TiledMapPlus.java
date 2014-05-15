@@ -3,6 +3,7 @@ package scratch.construction;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 
 import java.awt.geom.Rectangle2D;
 import java.util.*;
@@ -55,7 +56,7 @@ public class TiledMapPlus extends TiledMap {
 	private void initializeInteractiveObjects() {
 		for (Object oGroup : objectGroups) {
 			ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! objectGroup.name.equals("interactive"))
+			if ( ! "interactive".equals(objectGroup.name))
 				continue;
 
 			for (Object gObject : objectGroup.objects) {
@@ -83,39 +84,5 @@ public class TiledMapPlus extends TiledMap {
 
 	public List<IInteractiveObject> getInteractiveObjects() {
 		return interactiveObjects;
-	}
-
-	class InteractiveObject implements IInteractiveObject {
-
-		private String name, type;
-		private Rectangle2D.Double rect;
-		private Properties properties;
-
-		InteractiveObject(String name, String type, int x, int y, int width, int height, Properties properties) {
-			this.name = name;
-			this.type = type;
-			this.rect = new Rectangle2D.Double(x, y, width, height);
-			this.properties = properties;
-		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public String getType() {
-			return type;
-		}
-
-		@Override
-		public Rectangle2D.Double getArea() {
-			return rect;
-		}
-
-		@Override
-		public Properties getProperties() {
-			return properties;
-		}
 	}
 }
