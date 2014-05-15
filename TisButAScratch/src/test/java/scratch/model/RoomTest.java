@@ -27,7 +27,7 @@ public class RoomTest extends TestCase {
 	private Player createPlayerForTest(int id) {
 		Injector injector = Guice.createInjector(new MockModule());
 		IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
-		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id, "/res/monster.tmx");
+		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id, "/res/playerSprite.tmx");
 	}
 
 

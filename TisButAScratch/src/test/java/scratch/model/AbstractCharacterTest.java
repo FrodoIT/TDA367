@@ -28,7 +28,7 @@ public class AbstractCharacterTest extends TestCase {
         playerInput = injector.getInstance(IPlayerInput.class);
         IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
-	    testCharacter = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/monster.tmx");
+	    testCharacter = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
     }
 
     @Test
