@@ -16,14 +16,13 @@ import java.util.TreeMap;
  * pluginMap = PluginLoader.loadPlugins(Class anotationType)
  * in constructor when extending this class
  */
-public abstract class PluginUserFactory<T> {
+public abstract class AbstractPluginUserFactory<T> {
     private final Map<Integer, T> givenTypeMap;
     private Map<Integer, Pluggable<?>> pluginMap;
     private final IMap map;
-    public PluginUserFactory(IMap map){
+    public AbstractPluginUserFactory(IMap map){
         this.map = map;
         givenTypeMap = new TreeMap<>();
-        pluginMap = null;
     }
 
     public abstract void loadType();
