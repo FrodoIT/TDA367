@@ -1,5 +1,4 @@
 <NPCType id="0">
-<alive>true</alive>
 <health>10</health>
 <imagePath>/res/playerSprite.tmx</imagePath>
 <weapon>DefaultWeapon</weapon>
