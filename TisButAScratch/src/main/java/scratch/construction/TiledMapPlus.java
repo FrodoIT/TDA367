@@ -6,7 +6,8 @@ import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by tejp on 2014-05-08.

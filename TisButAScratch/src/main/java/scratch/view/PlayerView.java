@@ -1,17 +1,12 @@
 package scratch.view;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;
 import scratch.model.Player;
 import scratch.model.Vector2D;
-
-import java.awt.geom.Rectangle2D;
 
 /**
  *

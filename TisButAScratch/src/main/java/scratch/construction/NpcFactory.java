@@ -2,16 +2,13 @@ package scratch.construction;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import scratch.construction.plugin.exported.SimpleNPCPlugin;
-import scratch.model.*;
+import scratch.model.IMap;
+import scratch.model.NpcType;
+import scratch.model.Room;
+import scratch.model.Vector2D;
 
-import java.awt.geom.Rectangle2D;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOError;
-import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public final class NpcFactory extends PluginUserFactory<NpcType> {
 

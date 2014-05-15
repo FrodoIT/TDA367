@@ -9,7 +9,6 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
-import scratch.model.Game;
 
 /**
  *

@@ -7,7 +7,6 @@ import scratch.construction.SlickMap;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @ImplementedBy(SlickMap.class)
 public interface IMap {

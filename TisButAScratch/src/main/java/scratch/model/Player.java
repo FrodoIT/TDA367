@@ -1,13 +1,9 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Random;
 
 /**
  * Logical representation of the Player in the game.

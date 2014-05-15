@@ -1,6 +1,9 @@
 package scratch.model.mockModules;
 
-import scratch.model.*;
+import scratch.model.INPCMove;
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Vector2D;
 
 import java.awt.geom.Point2D;
 

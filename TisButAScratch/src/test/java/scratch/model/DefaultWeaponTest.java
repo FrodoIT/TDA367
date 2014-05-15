@@ -1,10 +1,7 @@
 package scratch.model;
 
 import junit.framework.TestCase;
-import nl.jqno.equalsverifier.EqualsVerifier;
 import scratch.model.weapons.DefaultWeapon;
-
-import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Anna on 2014-05-02.

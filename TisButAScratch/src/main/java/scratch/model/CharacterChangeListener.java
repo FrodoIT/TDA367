@@ -1,7 +1,5 @@
 package scratch.model;
 
-import java.awt.geom.Rectangle2D;
-
 /**
  * Created by pippin on 5/8/14.
  */

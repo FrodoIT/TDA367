@@ -4,7 +4,6 @@ import org.simpleframework.xml.transform.Transform;
 import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
 import scratch.construction.plugin.PluginLoader;
-import scratch.construction.plugin.exported.SimpleNPCPlugin;
 import scratch.model.INPCMove;
 
 import java.util.Map;

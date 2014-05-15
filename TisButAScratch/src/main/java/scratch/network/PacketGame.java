@@ -6,11 +6,11 @@
 
 package scratch.network;
 
-import java.util.ArrayList;
-import java.util.List;
 import scratch.model.AbstractCharacter;
 import scratch.model.Game;
-import scratch.model.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

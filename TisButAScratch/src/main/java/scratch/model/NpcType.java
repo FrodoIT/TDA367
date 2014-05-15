@@ -1,8 +1,5 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.IWeapon;

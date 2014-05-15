@@ -5,7 +5,6 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Test;
 
 import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
 
 /**
  * Created by pippin on 4/30/14.

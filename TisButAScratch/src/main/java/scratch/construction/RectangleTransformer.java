@@ -3,7 +3,6 @@ package scratch.construction;
 import org.simpleframework.xml.transform.Transform;
 
 import java.awt.geom.Rectangle2D;
-import java.util.List;
 
 /**
  * Created by Anna on 2014-05-08.

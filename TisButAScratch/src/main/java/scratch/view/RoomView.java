@@ -1,12 +1,6 @@
 package scratch.view;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.NpcType;
-import scratch.model.Room;
-
-import java.util.Map;
 
 /**
  *

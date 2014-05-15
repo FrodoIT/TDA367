@@ -2,14 +2,10 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 import scratch.model.DoorHandler;
 import scratch.model.IInteractiveObject;
-import scratch.model.NpcType;
 import scratch.model.Room;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
