@@ -25,7 +25,7 @@ public class GameTest extends TestCase {
                 rooms.add(new Room(new MockIMap(), new DoorHandler()));
                 game.setMap(rooms);
 		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
+		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
 	}
 
 	@Test

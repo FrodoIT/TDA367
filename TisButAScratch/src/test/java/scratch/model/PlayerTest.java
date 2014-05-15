@@ -22,7 +22,7 @@ public class PlayerTest extends TestCase {
     @Test
     public void testIsAttacking() {
         playerInput.setAttackStatus(true);
-        Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1);
+        Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/monster.tmx");
         assertTrue(testPlayer.isAttacking());
     }
 
@@ -34,7 +34,7 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testUpdate() throws Exception {
-        Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
+        Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1, "/res/monster.tmx");
         //Test None:
         assertPlayerDirection(player, MoveDirection.NONE);
 

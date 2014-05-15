@@ -19,7 +19,7 @@ public class NpcTypeTest extends TestCase {
         IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
 		IWeapon weapon= injector.getInstance(IWeapon.class);
         IMap map = injector.getInstance(IMap.class);
-        Player player = new Player(playerInput , new Rectangle2D.Double(50,50,32,32), 1);
+        Player player = new Player(playerInput , new Rectangle2D.Double(50,50,32,32), 1, "/res/monster.tmx");
         INPCMove npcMove = injector.getInstance(INPCMove.class);
         Room room = new Room(map, new DoorHandler());
         room.enterRoom(player);
