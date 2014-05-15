@@ -4,10 +4,6 @@ import com.google.inject.Inject;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The weapon DefaultWeapon:
@@ -24,7 +20,7 @@ public final class DefaultWeapon implements IWeapon {
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
 	private boolean cooledDown = true;
-	Runnable runnable;
+	private static Runnable runnable;
 
     public DefaultWeapon(){
         damage = 2;
@@ -84,14 +80,14 @@ public final class DefaultWeapon implements IWeapon {
 
         DefaultWeapon that = (DefaultWeapon) o;
 
-        if (attackInterval != that.attackInterval) return false;
-        if (cooledDown != that.cooledDown) return false;
-        if (damage != that.damage) return false;
-        if (range != that.range) return false;
-        if (attackArea != null ? !attackArea.equals(that.attackArea) : that.attackArea != null) return false;
-        if (runnable != null ? !runnable.equals(that.runnable) : that.runnable != null) return false;
-
-        return true;
+        return attackInterval == that.attackInterval &&
+        cooledDown == that.cooledDown &&
+        damage == that.damage &&
+        range == that.range &&
+        attackArea != null &&
+        attackArea.equals(that.attackArea) &&
+        runnable != null &&
+        runnable.equals(that.runnable);
     }
 
     @Override
