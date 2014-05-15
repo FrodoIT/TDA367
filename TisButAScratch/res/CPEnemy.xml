@@ -1,7 +1,7 @@
 <NPCType id="0">
     <alive>true</alive>
     <health>10</health>
-    <imagePath>/res/monster.tmx</imagePath>
+    <imagePath>/res/playerSprite.tmx</imagePath>
     <weapon>DefaultWeapon</weapon>
     <unitTile>0,0,32,32</unitTile> <!-- dont change, first two numbers wont matter and last two should be 32 -->
     <movementPattern>2</movementPattern> <!-- ID of the plugin -->

@@ -58,9 +58,10 @@ public final class Controller implements org.newdawn.slick.Game {
                             new RoomView(map)));
 
             for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
+                NpcType npc = npcEntry.getValue();
                 npcControllerList.add(
-                        new NpcController(npcEntry.getValue(),
-                                new NpcView()));
+                        new NpcController(npc,
+                                new CharacterView(npc)));
             }
             for(Player player : room.getPlayers()){
                 playerControllerList.add(
@@ -104,12 +105,7 @@ public final class Controller implements org.newdawn.slick.Game {
         }
 
         for(NpcController npcController : npcControllerList){
-
-            TiledMap map = new TiledMap("/res/playerSprite.tmx");
-
-            SpriteDirectionRenderer spriteHandler = new SpriteDirectionRenderer(map);
-
-            npcController.getNpcView().render(npcController.getNpc(), spriteHandler, graphics);
+            npcController.render(gameContainer);
         }
 
         for(PlayerController playerController : playerControllerList){

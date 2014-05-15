@@ -1,9 +1,11 @@
 package scratch.controller;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.Game;
 import scratch.model.NpcType;
+import scratch.view.CharacterView;
 import scratch.view.NpcView;
 import scratch.view.SpriteDirectionRenderer;
 
@@ -12,23 +14,24 @@ import scratch.view.SpriteDirectionRenderer;
  */
 public class NpcController {
     private final NpcType npc;
-    private final NpcView npcView;
-    private SpriteDirectionRenderer spriteHandler;
+    private final CharacterView view;
 
 
-    public NpcController(NpcType npc, NpcView npcView) {
+    public NpcController(NpcType npc, CharacterView view) {
         this.npc = npc;
-        this.npcView = npcView;
-
-
+        this.view = view;
     }
 
     public void updateNpc(){
         npc.update();
     }
 
-    public NpcView getNpcView() {
-        return npcView;
+    public CharacterView getView() {
+        return view;
+    }
+    
+    public void render(GameContainer gameContainer){
+        view.render(gameContainer);
     }
 
     public NpcType getNpc() {

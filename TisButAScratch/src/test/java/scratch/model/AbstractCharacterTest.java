@@ -16,19 +16,17 @@ public class AbstractCharacterTest extends TestCase {
 
     private IPlayerInput playerInput;
     private Room room;
-	private AbstractCharacter testCharacter;
-
-
+    private AbstractCharacter testCharacter;
 
     @Before
     @Override
     public void setUp() throws Exception {
-	    super.setUp();
+        super.setUp();
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
         IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
-	    testCharacter = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
+        testCharacter = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 1, "/res/playerSprite.tmx");
     }
 
     @Test
@@ -53,11 +51,10 @@ public class AbstractCharacterTest extends TestCase {
         assertTrue(testCharacter.getHealth() == 0);
     }
 
-
     @Test
     public void testSetPosition() throws Exception {
         testCharacter.setPosition(new Vector2D(0, 0));
-        Vector2D expectedPosition = new Vector2D(0,0);
+        Vector2D expectedPosition = new Vector2D(0, 0);
         assertExpectedPosition(expectedPosition, testCharacter.getPosition());
     }
 
@@ -88,7 +85,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetMovementSpeed() throws Exception {
-        assertTrue (testCharacter.getMovementSpeed() == 2);
+        assertTrue(testCharacter.getMovementSpeed() == 2);
     }
 
     @Test
@@ -138,14 +135,13 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void assertExpectedPosition(Vector2D a, Vector2D b) throws Exception {
-        assertTrue (a.getX() == b.getX() && a.getY() == b.getY());
+        assertTrue(a.getX() == b.getX() && a.getY() == b.getY());
     }
 
-	public void testSetId() throws Exception{
-		int oldId = testCharacter.getId();
-		testCharacter.setId(4);
-		assertTrue(testCharacter.getId()==4);
-	}
+    public void testSetId() throws Exception {
+        int oldId = testCharacter.getId();
+        testCharacter.setId(4);
+        assertTrue(testCharacter.getId() == 4);
+    }
 
 }
-
