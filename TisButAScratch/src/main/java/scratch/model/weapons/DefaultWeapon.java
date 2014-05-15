@@ -81,10 +81,12 @@ public final class DefaultWeapon implements IWeapon {
 
 		DefaultWeapon that = (DefaultWeapon) o;
 
-		return attackInterval == that.attackInterval &&
+        final boolean attackAreaEquals = attackArea == null ? attackArea == that.attackArea : attackArea.equals(that.attackArea);
+
+		return  attackAreaEquals &&
+        attackInterval == that.attackInterval &&
 		damage == that.damage &&
-		range == that.range &&
-        attackArea == null ? attackArea == that.attackArea : attackArea.equals(that.attackArea);
+		range == that.range ;
 	}
 
 	@Override
