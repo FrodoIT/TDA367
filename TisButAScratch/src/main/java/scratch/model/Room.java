@@ -15,7 +15,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private List<Player> players;
     private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private List<AbstractCharacter> characterInteractAreaMap = new ArrayList<>();
+    private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
@@ -33,7 +33,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
 
     public void update(){
-        updateCharacterMovements();
+	    updateCharacterMovements();
         updateCharacterAttacks();
         updateCharacterInteractions();
     }
@@ -43,18 +43,17 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     private void updateCharacterInteractions() {
-        for(IInteractiveObject interactiveObject : interactiveObjects){
-            for(AbstractCharacter inputEntry : characterInteractAreaMap){
-                if (inputEntry.getUnitTile().intersects(interactiveObject.getArea())){
-
-
-                    //interactiveObject.interact();
+        for(AbstractCharacter character : charactersInteracting){
+            for(IInteractiveObject interactiveObject : interactiveObjects){
+                if (character.getUnitTile().intersects(interactiveObject.getArea())){
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
+                    doorHandler.interactHappened(this, character, interactiveObject );
+                    break;
                 }
             }
         }
-        characterInteractAreaMap.clear();
+        charactersInteracting.clear();
     }
 
     private void updateCharacterMovements() {
@@ -72,7 +71,6 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     private boolean dealDamage(){
-
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             if(!npcs.isEmpty()){
                 for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
@@ -149,21 +147,20 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     /**
-     * Adds the specified player from the Room
-     * @param player
+     * Adds the specified character from the Room
+     * @param character
      */
-    public void enterRoom(Player player){
-
-        players.add(player);
-        player.registerListener(this);
+    public void enterRoom(AbstractCharacter character){
+        players.add((Player)character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
+        character.registerListener(this);
     }
     /**
-     * Removes the specified player from the Room
-     * @param player
+     * Removes the specified character from the Room
+     * @param character
      */
-    public boolean exitRoom(Player player){
-        player.removeListener(this);
-        return players.remove(player);
+    public boolean exitRoom(AbstractCharacter character){
+        character.removeListener(this);
+        return players.remove(character);
     }
 
 
@@ -214,6 +211,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     @Override
     public void handleCharacterAttack(AbstractCharacter character) {
         areaUnderAttack.add(character);
+        System.out.println("Attack added from " + character);
     }
 
     public Map<AbstractCharacter, Vector2D> getCharacterMovementMap() {
@@ -221,7 +219,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     public List<AbstractCharacter> getCharacterInteractAreaMap() {
-        return characterInteractAreaMap;
+        return charactersInteracting;
     }
 
     public DoorHandler getDoorHandler() {
@@ -230,6 +228,6 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     @Override
     public void handleCharacterInteraction(AbstractCharacter character) {
-        characterInteractAreaMap.add(character);
+        charactersInteracting.add(character);
     }
 }

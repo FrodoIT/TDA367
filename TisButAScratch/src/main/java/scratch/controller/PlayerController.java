@@ -6,29 +6,32 @@ import java.beans.PropertyChangeSupport;
 import scratch.model.Player;
 import scratch.network.NetworkServer;
 import scratch.view.PlayerView;
+import org.newdawn.slick.GameContainer;
+import scratch.model.Player;
+import scratch.view.CharacterView;
 
 /**
  * Class to collect input for the player.
+ *
  * @author Anna Nylander
  *
  */
-public final class PlayerController{
+public final class PlayerController {
+
     @Inject
     private Player player;
-    private final PlayerView playerView;
     private final PropertyChangeSupport listeners;
-    
+    private final CharacterView characterView;
 
-    public PlayerController(Player player, PlayerView playerView){
+    public PlayerController(Player player, CharacterView characterView) {
         this.player = player;
-        this.playerView = playerView;
+        this.characterView = characterView;
         listeners = new PropertyChangeSupport(this);
     }
     
     public void addListener(PropertyChangeListener listener){
         listeners.addPropertyChangeListener(listener);
     }
-
 
     public void updatePlayer() {
         player.update();
@@ -43,10 +46,12 @@ public final class PlayerController{
         this.player = player;
     }
 
-
-    public PlayerView getPlayerView() {
-        return playerView;
+    public void render(GameContainer gameContainer) {
+        characterView.render(gameContainer);
     }
 
+    public CharacterView getView() {
+        return characterView;
+    }
 
 }

@@ -17,6 +17,7 @@ import scratch.model.Player;
 import scratch.model.Room;
 import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
+import scratch.view.CharacterView;
 import scratch.view.NpcView;
 import scratch.view.PlayerView;
 import scratch.view.RoomView;
@@ -70,7 +71,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
             }
         }
         if (!found) {
-            playerControllerList.add(new PlayerController(player, new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+            playerControllerList.add(new PlayerController(player, new CharacterView(player)));
         }
     }
 
@@ -87,11 +88,11 @@ public final class ClientController extends Listener implements org.newdawn.slic
         }
 
         for (NpcController npcController : npcControllerList) {
-            npcController.getNpcView().render();
+            npcController.render(gameContainer);
         }
 
         for (PlayerController playerController : playerControllerList) {
-            playerController.getPlayerView().render();
+            playerController.render(gameContainer);
         }
     }
 

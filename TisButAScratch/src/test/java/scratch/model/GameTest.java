@@ -2,51 +2,50 @@ package scratch.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.model.mockModules.MockIMap;
 import scratch.model.mockModules.MockModule;
 import scratch.model.mockModules.MockPlayerInput;
 
-import java.awt.geom.Rectangle2D;
+public class GameTest extends TestCase {
 
-public class ModelTest extends TestCase {
-
-	private Game m;
-	private Player p;
+	private Game game;
+	private Player player;
 	private Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
 	public void initialize() throws Exception {
-		m = new Game();
-
+		game = new Game();
+                List<Room> rooms = new ArrayList<>();
+                rooms.add(new Room(new MockIMap(), new DoorHandler()));
+                game.setMap(rooms);
 		IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-		p = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0);
+		player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
 	}
 
 	@Test
 	public void testAddPlayer() throws Exception {
 		initialize();
-		m.addPlayer(p);
-		assertTrue(m.getPlayers().contains(p));
+		game.addPlayer(player);
+		assertTrue(game.getPlayers().contains(player));
 
 	}
 
 	@Test
 	public void testRemovePlayer() throws Exception {
 		initialize();
-		System.out.println("player" + p);
-		System.out.println("model" + m);
-		m.addPlayer(p);
-		m.removePlayer(p);
-		assertTrue(m.getPlayers().isEmpty());
+		System.out.println("player" + player);
+		System.out.println("model" + game);
+		game.addPlayer(player);
+		game.removePlayer(player);
+		assertTrue(game.getPlayers().isEmpty());
 	}
 
-	@Test
-	public void testSetMap() throws Exception {
-		//TODO currently untestable... you're not able to se any result
-		assertTrue(false);
-	}
 
 	@Test
 	public void testUpdate() throws Exception {

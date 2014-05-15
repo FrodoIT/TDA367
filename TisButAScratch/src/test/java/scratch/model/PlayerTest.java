@@ -11,38 +11,30 @@ import java.awt.geom.Rectangle2D;
 
 public class PlayerTest extends TestCase {
     private IPlayerInput playerInput;
-    private IRoomData roomData;
-
 
     @Before
-    public void setup(){
+    @Override
+    public void setUp(){
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
-        roomData = injector.getInstance(IRoomData.class);
     }
 
     @Test
     public void testIsAttacking() {
-        setup();
-
         playerInput.setAttackStatus(true);
-        Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1);
+        Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
         assertTrue(testPlayer.isAttacking());
-
-        playerInput.setAttackStatus(false);
-        assertFalse(testPlayer.isAttacking());
     }
 
     private void assertPlayerDirection(Player player, MoveDirection direction){
         playerInput.setMoveDirection(direction);
         player.update();
-        assertTrue(player.getMoveDirection().equals(direction));
+        assertTrue(player.getMoveDirection() == (direction));
     }
 
     @Test
     public void testUpdate() throws Exception {
-        setup();
-        Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
+        Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1, "/res/playerSprite.tmx");
         //Test None:
         assertPlayerDirection(player, MoveDirection.NONE);
 

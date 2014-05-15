@@ -15,14 +15,10 @@ import java.util.Map;
  */
 
 public final class RoomView {
-    private final Room room;
     private final TiledMap map;
-    private final GameContainer gameContainer;
 
-    public RoomView(GameContainer gameContainer, Room room, TiledMap map) {
-        this.room = room;
+    public RoomView(TiledMap map) {
         this.map = map;
-        this.gameContainer = gameContainer;
 
     }
 

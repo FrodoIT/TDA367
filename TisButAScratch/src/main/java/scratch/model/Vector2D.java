@@ -1,10 +1,8 @@
 package scratch.model;
 
-import org.simpleframework.xml.Element;
-
 import java.awt.geom.Point2D;
 
-public class Vector2D {
+public final class Vector2D {
 	private final Point2D.Double vectorInfo;
 	private final double magnitude;
         
@@ -48,17 +46,25 @@ public class Vector2D {
 		return String.format("(%f, %f) %f", vectorInfo.x, vectorInfo.y, magnitude);
 	}
 
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj == null || !obj.getClass().equals(this.getClass())) {
-			return false;
-		}
-		Vector2D rhs = (Vector2D) obj;
-		if (this.getX() == rhs.getX() && getY() == rhs.getY() && getMagnitude() == rhs.getMagnitude()) {
-			return true;
-		}
-		return false;
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vector2D)) return false;
+
+        Vector2D vector2D = (Vector2D) o;
+
+        if (Double.compare(vector2D.magnitude, magnitude) != 0) return false;
+        if (vectorInfo != null ? !vectorInfo.equals(vector2D.vectorInfo) : vector2D.vectorInfo != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = vectorInfo != null ? vectorInfo.hashCode() : 0;
+        temp = Double.doubleToLongBits(magnitude);
+        return 31 * result + (int) (temp ^ (temp >>> 32));
+    }
 }

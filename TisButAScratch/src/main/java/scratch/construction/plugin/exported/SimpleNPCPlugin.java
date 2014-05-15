@@ -26,14 +26,15 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
     public Vector2D calculateNewPosition(NpcType npc) {
         Vector2D playerPos = roomData.getPlayers().get(0).getPosition();
         Vector2D npcPos = npc.getPosition();
-        Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()), new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
+        Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()),
+                new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
         int moveSpeed = npc.getMovementSpeed();
         return new Vector2D(npcPos.getX() + directionVector.getX() * moveSpeed, npcPos.getY() + directionVector.getY() * moveSpeed);
 
     }
 
 	public boolean isAttacking(NpcType npc){
-		for(Player player: roomData.getPlayers()){
+        for(Player player: roomData.getPlayers()){
 			if(isWithinRange(player.getPosition(), npc.getPosition())){
 				return true;
 			}

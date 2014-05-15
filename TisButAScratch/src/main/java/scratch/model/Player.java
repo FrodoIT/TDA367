@@ -7,6 +7,7 @@ import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 /**
  * Logical representation of the Player in the game.
@@ -34,8 +35,8 @@ public final class Player extends AbstractCharacter {
         playerInput = null;
     }
     
-    public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id) {
-        super(unitTile, new DefaultWeapon(), 10, 2, id);
+    public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id, String imagePath) {
+        super(unitTile, new DefaultWeapon(), 10, 2, id, imagePath);
         this.playerInput = playerInput;
     }
 
@@ -93,17 +94,16 @@ public final class Player extends AbstractCharacter {
                 deltaY = 0;
                 setMoveDirection(MoveDirection.NONE);
         }
-
         Vector2D newPosition = new Vector2D(getPosition().getX() + deltaX, getPosition().getY() + deltaY);
 
         for (CharacterChangeListener listener : super.getListenerList()) {
             listener.handleCharacterMovement(this, newPosition);
 
-            if (getPlayerInput().isInteracting()) {
+            if (isInteracting()) {
                 interact();
             }
 
-            if (getPlayerInput().isAttacking()) {
+            if (isAttacking()) {
                 attack();
             }
         }
@@ -130,6 +130,7 @@ public final class Player extends AbstractCharacter {
         interactIsCooledDown = false;
         Cooldown.cooldown(500, cooldownReset);
     }
+
 
     public boolean isAttacking() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();

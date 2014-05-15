@@ -3,6 +3,7 @@ package scratch.model;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import junit.framework.TestCase;
+import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockModules.MockModule;
@@ -14,31 +15,28 @@ import java.awt.geom.Rectangle2D;
 public class AbstractCharacterTest extends TestCase {
 
     private IPlayerInput playerInput;
-    private IMap map;
     private Room room;
-
+    private AbstractCharacter testCharacter;
 
     @Before
-    public void setup(){
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
         Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
-        map = injector.getInstance(IMap.class);
+        IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
+        testCharacter = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 1, "/res/playerSprite.tmx");
     }
 
     @Test
-    public void testRegisterListener(){
-        setup();
-        AbstractCharacter testCharacter = new Player(
-                playerInput, new Rectangle2D.Double(0,0,32,32), 1);
+    public void testRegisterListener() throws Exception {
         testCharacter.registerListener(room);
         assertFalse(testCharacter.getListenerList().isEmpty());
     }
 
     @Test
     public void testRemoveListener() throws Exception {
-        AbstractCharacter testCharacter = new Player(
-                playerInput, new Rectangle2D.Double(0,0,32,32), 1);
         testCharacter.registerListener(room);
         testCharacter.removeListener(room);
         assertTrue(testCharacter.getListenerList().isEmpty());
@@ -46,142 +44,104 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testTakeDamage() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        character.takeDamage(4);
-        assertTrue(character.getHealth() == 6);
+        testCharacter.takeDamage(4);
+        assertTrue(testCharacter.getHealth() == 6);
 
-        character.takeDamage(100);
-        assertTrue(character.getHealth() == 0);
-    }
-
-    @Test
-    public void testEquals() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.equals(character));
-        assertFalse(character.equals(null));
-
-        AbstractCharacter otherCharacter = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 2);
-        assertFalse (character.equals(otherCharacter));
-        otherCharacter = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-
-        assertTrue(character.equals(otherCharacter));
-
+        testCharacter.takeDamage(100);
+        assertTrue(testCharacter.getHealth() == 0);
     }
 
     @Test
     public void testSetPosition() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        character.setPosition(new Vector2D(0, 0));
-        Vector2D expectedPosition = new Vector2D(0,0);
-        assertExpectedPosition(expectedPosition, character.getPosition());
+        testCharacter.setPosition(new Vector2D(0, 0));
+        Vector2D expectedPosition = new Vector2D(0, 0);
+        assertExpectedPosition(expectedPosition, testCharacter.getPosition());
     }
 
     @Test
     public void testIsAlive() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.isAlive());
-        character.takeDamage(100);
-        assertFalse(character.isAlive());
+        assertTrue(testCharacter.isAlive());
+        testCharacter.takeDamage(100);
+        assertFalse(testCharacter.isAlive());
     }
 
     @Test
     public void testGetHealth() throws Exception {
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getHealth() == 10);
-        character.takeDamage(100);
-        assertTrue(character.getHealth() == 0);
+        assertTrue(testCharacter.getHealth() == 10);
+        testCharacter.takeDamage(100);
+        assertTrue(testCharacter.getHealth() == 0);
     }
 
     @Test
     public void testGetPosition() throws Exception {
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getPosition().getX() == 32);
-        assertTrue(character.getPosition().getY() == 32);
+        assertTrue(testCharacter.getPosition().getX() == 32);
+        assertTrue(testCharacter.getPosition().getY() == 32);
     }
 
     @Test
     public void testGetDamage() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getDamage() == 2);
+        assertTrue(testCharacter.getDamage() == 2);
     }
 
     @Test
     public void testGetMovementSpeed() throws Exception {
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue (character.getMovementSpeed() == 2);
+        assertTrue(testCharacter.getMovementSpeed() == 2);
     }
 
     @Test
     public void testGetWeapon() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        IWeapon expectedWeapon = new DefaultWeapon();
-        System.out.println(character.getWeapon());
-        System.out.println(expectedWeapon);
-        assertTrue(character.getWeapon().equals(expectedWeapon));
+        assertTrue(testCharacter.getWeapon().equals(new DefaultWeapon()));
     }
 
     @Test
     public void testAttack() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getWeapon().hasCooledDown());
-        character.attack();
-        assertFalse(character.getWeapon().hasCooledDown());
+        IWeapon weapon = testCharacter.getWeapon();
+        testCharacter.attack();
+        assertFalse(weapon.hasCooledDown());
     }
 
     @Test
     public void testGetID() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getId() == 1);
+        assertTrue(testCharacter.getId() == 1);
     }
 
     @Test
     public void testGetUnitTile() throws Exception {
-        setup();
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getUnitTile().equals(
+        assertTrue(testCharacter.getUnitTile().equals(
                 new Rectangle2D.Double(32, 32, 32, 32)));
     }
 
     @Test
     public void testSetHealth() throws Exception {
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        character.setHealth(40);
-        assertTrue(character.getHealth() == 40);
+        testCharacter.setHealth(40);
+        assertTrue(testCharacter.getHealth() == 40);
     }
 
     @Test
     public void testGetId() throws Exception {
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        assertTrue(character.getId() == 1);
+        assertTrue(testCharacter.getId() == 1);
     }
 
     @Test
     public void testGetMoveDirection() throws Exception {
-        AbstractCharacter character = new Player(playerInput,
-                new Rectangle2D.Double(32,32,32,32), 1);
-        character.setMoveDirection(MoveDirection.NONE);
-        assertTrue(character.getMoveDirection().equals(MoveDirection.NONE));
+        testCharacter.setMoveDirection(MoveDirection.NONE);
+        assertTrue(testCharacter.getMoveDirection() == (MoveDirection.NONE));
     }
-    
+
     @Test
-    public void assertExpectedPosition(Vector2D a, Vector2D b){
-        assertTrue (a.getX() == b.getX());
-        assertTrue (a.getY() == b.getY());
+    public void testEquals() throws Exception {
+        EqualsVerifier.forClass(AbstractCharacter.class).verify();
     }
+
+    @Test
+    public void assertExpectedPosition(Vector2D a, Vector2D b) throws Exception {
+        assertTrue(a.getX() == b.getX() && a.getY() == b.getY());
+    }
+
+    public void testSetId() throws Exception {
+        int oldId = testCharacter.getId();
+        testCharacter.setId(4);
+        assertTrue(testCharacter.getId() == 4);
+    }
+
 }

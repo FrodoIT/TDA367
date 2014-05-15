@@ -52,14 +52,12 @@ public class Utilities {
         
         //Register constructionpackage
         kryo.register(INPCMoveTransformer.class);
-        kryo.register(InteractiveObjectFactory.class);
         kryo.register(MyMatcher.class);
         kryo.register(NpcFactory.class);
         kryo.register(PluginUserFactory.class);
         kryo.register(RectangleTransformer.class);
         kryo.register(RoomFactory.class);
         kryo.register(SlickMap.class);
-        kryo.register(Test.class);
         kryo.register(TiledMapPlus.class);
         kryo.register(WeaponTranformer.class);
         

@@ -14,14 +14,12 @@ import java.awt.geom.Rectangle2D;
  * Created by Anna on 2014-05-02.
  */
 public class RoomTest extends TestCase {
-	private IMap map;
 	private Room room;
-    private IRoomData iRoomData;
 
 	@Before
 	public void setUp() {
 		Injector injector = Guice.createInjector(new MockModule());
-		map = injector.getInstance(MockIMap.class);
+		IMap map = injector.getInstance(MockIMap.class);
 		room= new Room(map, new DoorHandler());
 	}
 
@@ -29,7 +27,7 @@ public class RoomTest extends TestCase {
 	private Player createPlayerForTest(int id) {
 		Injector injector = Guice.createInjector(new MockModule());
 		IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
-		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id);
+		return new Player(playerInput, new Rectangle2D.Double(0,0,32,32),id, "/res/playerSprite.tmx");
 	}
 
 
@@ -54,12 +52,9 @@ public class RoomTest extends TestCase {
 
     @Test
 	public void testEnterRoom() throws Exception {
-		assertTrue(room.getPlayers().isEmpty());
 		Player player1 = createPlayerForTest(0);
-		Player player2 = createPlayerForTest(0);
 		room.enterRoom(player1);
-		room.enterRoom(player2);
-		assertTrue(room.getPlayers().contains(player1) && room.getPlayers().contains(player2));
+		assertTrue(room.getPlayers().contains(player1));
 	}
     @Test
 	public void testExitRoom() throws Exception {
@@ -67,10 +62,8 @@ public class RoomTest extends TestCase {
 		Player player2 = createPlayerForTest(1);
 		room.enterRoom(player1);
 		room.enterRoom(player2);
-		assertTrue(!room.getPlayers().isEmpty());
 		room.exitRoom(player1);
 		assertTrue(!room.getPlayers().contains(player1) && room.getPlayers().get(0).getId()==1);
-		assertEquals(1,room.getPlayers().get(0).getId());
 		room.exitRoom(player2);
 		assertTrue(room.getPlayers().isEmpty());
 	}

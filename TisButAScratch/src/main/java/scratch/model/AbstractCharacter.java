@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.io.Output;
 import scratch.model.weapons.IWeapon;
 import org.simpleframework.xml.*;
 
+import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +18,13 @@ import java.util.List;
  *
  * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
  */
-@Root
-public abstract class AbstractCharacter implements KryoSerializable {
 
-    @Element(type = Rectangle2D.Double.class)
-    private Rectangle2D.Double unitTile;
-    private List<CharacterChangeListener> listenerList;
+@Immutable
+public abstract class AbstractCharacter implements KryoSerializable{
+
+    @Element(type = Rectangle2D.Double.class, required = false)
+    private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
+    private List<CharacterChangeListener> listenerList = new ArrayList<>();
     @Element(type = IWeapon.class)
     private IWeapon weapon;
     @Element
@@ -35,16 +37,19 @@ public abstract class AbstractCharacter implements KryoSerializable {
     private MoveDirection moveDirection = MoveDirection.SOUTH;
     @Element
     private boolean alive;
+    @Element
+    private String imagePath;
 
-    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id) {
+
+    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id, String imagePath) {
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
         this.movementSpeed = movementSpeed;
         this.id = id;
+        this.imagePath = imagePath;
         moveDirection = MoveDirection.SOUTH;
         alive = true;
-        listenerList = new ArrayList<>();
     }
 
     public void registerListener(CharacterChangeListener listener) {
@@ -80,26 +85,6 @@ public abstract class AbstractCharacter implements KryoSerializable {
 
     public abstract void update();
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || !obj.getClass().equals(this.getClass())) {
-            return false;
-        }
-
-        AbstractCharacter rhs = (AbstractCharacter) obj;
-
-        if (this.getUnitTile().equals(rhs.getUnitTile()) && this.getWeapon().equals(rhs.getWeapon())
-                && this.getHealth() == rhs.getHealth() && this.getMovementSpeed() == rhs.getMovementSpeed()
-                && this.getId() == rhs.getId() && this.getMoveDirection().equals(rhs.getMoveDirection())
-                && this.isAlive() == rhs.isAlive()) {
-
-            return true;
-        }
-        return false;
-    }
 
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
@@ -151,6 +136,10 @@ public abstract class AbstractCharacter implements KryoSerializable {
                 unitTile.y + (32 * weapon.getRange() * moveDirection.getY()),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
+    
+    public String getImagePath(){
+        return imagePath;
+    }
 
     public void attack() {
         if (weapon.hasCooledDown()) {
@@ -166,10 +155,30 @@ public abstract class AbstractCharacter implements KryoSerializable {
         for (CharacterChangeListener listener : listenerList) {
             listener.handleCharacterInteraction(this);
         }
+        doInteractCooldown();
     }
 
     public boolean isAlive() {
         return alive;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractCharacter)) {
+            return false;
+        }
+
+        AbstractCharacter character = (AbstractCharacter) o;
+
+        return (id == character.id);
+    }
+
+    @Override
+    public final int hashCode() {
+        return 31 * id;
     }
 
     public List<CharacterChangeListener> getListenerList() {

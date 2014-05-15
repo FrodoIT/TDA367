@@ -1,12 +1,9 @@
 package scratch.model.weapons;
 
 import com.google.inject.Inject;
+import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The weapon DefaultWeapon:
@@ -15,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  Range = 1
  * @author Alma Ottedag
  */
+
 public final class DefaultWeapon implements IWeapon {
 	@Inject
     private final int damage;
@@ -23,9 +21,7 @@ public final class DefaultWeapon implements IWeapon {
     //Minimum time between attacks in milliseconds
     private final int attackInterval;
 	private boolean cooledDown = true;
-	Runnable runnable;
-
-	private ScheduledExecutorService schdoodle = Executors.newScheduledThreadPool(1);
+	private static Runnable runnable;
 
     public DefaultWeapon(){
         damage = 2;
@@ -44,13 +40,10 @@ public final class DefaultWeapon implements IWeapon {
 
     @Override
 	public void startCooldown() {
-        if (!cooledDown)
-            return;
-		cooledDown =false;
-		schdoodle.schedule(runnable,
-				attackInterval,
-				TimeUnit.MILLISECONDS
-		);
+        if (cooledDown) {
+	        cooledDown = false;
+	        Cooldown.cooldown(attackInterval, runnable);
+        }
 	}
 
 	/**
@@ -81,19 +74,29 @@ public final class DefaultWeapon implements IWeapon {
 		return attackInterval;
 	}
 
-    @Override
-    public boolean equals(Object o){
-        if(this == o)
-            return true;
-        if(o == null)
-            return false;
-        if(o instanceof DefaultWeapon){
-            DefaultWeapon test = (DefaultWeapon) o;
-            return (this.getDamage() == test.getDamage() &&
-                    this.getAttackArea().equals(test.getAttackArea()) &&
-                    this.getAttackInterval() == test.getAttackInterval() &&
-                    this.getRange() == test.getRange());
-        }
-        return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DefaultWeapon that = (DefaultWeapon) o;
+
+		if (attackInterval != that.attackInterval) return false;
+		if (cooledDown != that.cooledDown) return false;
+		if (damage != that.damage) return false;
+		if (range != that.range) return false;
+		if (attackArea != null ? !attackArea.equals(that.attackArea) : that.attackArea != null) return false;
+
+		return true;
+	}
+
+	@Override
+    public int hashCode() {
+        int result = damage;
+        result = 31 * result + range;
+        result = 31 * result + (attackArea != null ? attackArea.hashCode() : 0);
+        result = 31 * result + attackInterval;
+        result = 31 * result + (cooledDown ? 1 : 0);
+        return 31 * result + (runnable != null ? runnable.hashCode() : 0);
     }
 }

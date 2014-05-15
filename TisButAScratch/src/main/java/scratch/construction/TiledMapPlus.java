@@ -3,6 +3,7 @@ package scratch.construction;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 
 import java.awt.geom.Rectangle2D;
 import java.util.*;
@@ -12,9 +13,8 @@ import java.util.*;
  */
 public class TiledMapPlus extends TiledMap {
 
-	private List<IInteractiveObject> interactiveObjects;
-	private Map<String, Rectangle2D.Double> npcRectMap;
-	private Map<String, Rectangle2D.Double> playerRectMap;
+	private List<IInteractiveObject> interactiveObjects = new ArrayList<>();
+    private List<NpcSpecification> npcSpecifications = new ArrayList<>();
 
 	/**
 	 * Create a new tile map based on a given TMX file
@@ -26,41 +26,37 @@ public class TiledMapPlus extends TiledMap {
 		super(ref);
 
 		initializeInteractiveObjects();
-		playerRectMap = initializeObjectGroup("player");
-		npcRectMap = initializeObjectGroup("npc");
-	}
+		initializeNpcSpecifications();
+    }
 
-	private Map<String, Rectangle2D.Double> initializeObjectGroup(String objectGroupName) {
-		Map<String, Rectangle2D.Double> objectRectMap = new HashMap<>();
-
+	private void initializeNpcSpecifications() {
 		for (Object oGroup : objectGroups) {
 			ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			System.out.println(objectGroup.name);
-			if ( ! objectGroup.name.equals( objectGroupName ))
+			if ( ! "npc".equals( objectGroup.name ) )
 				continue;
 
 			for (Object gObject : objectGroup.objects) {
 				GroupObject groupObject = (GroupObject) gObject;
-				objectRectMap.put(
-						groupObject.name,
-						new Rectangle2D.Double(
-								groupObject.x,
-								groupObject.y,
-								groupObject.width,
-								groupObject.height
-						)
-				);
+				npcSpecifications.add( new NpcSpecification(
+                                groupObject.props.getProperty("npcType"),
+                                Integer.parseInt(groupObject.props.getProperty("id")),
+                                new Rectangle2D.Double(
+                                        groupObject.x,
+                                        groupObject.y,
+                                        groupObject.width,
+                                        groupObject.height
+                                )
+
+                        )
+                );
 			}
 		}
-		return objectRectMap;
 	}
 
 	private void initializeInteractiveObjects() {
-		List<IInteractiveObject> interactiveObjects = new ArrayList<>();
-
 		for (Object oGroup : objectGroups) {
 			ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! objectGroup.name.equals("interactive"))
+			if ( ! "interactive".equals(objectGroup.name))
 				continue;
 
 			for (Object gObject : objectGroup.objects) {
@@ -80,53 +76,13 @@ public class TiledMapPlus extends TiledMap {
 			}
 
 		}
-		this.interactiveObjects = interactiveObjects;
 	}
 
-	public Map<String, Rectangle2D.Double> getPlayerRectangleMap () {
-		return npcRectMap;
-	}
-
-
-	public Map<String, Rectangle2D.Double> getNpcRectangleMap () {
-		return npcRectMap;
+	public List<NpcSpecification> getNpcSpecifications () {
+		return npcSpecifications;
 	}
 
 	public List<IInteractiveObject> getInteractiveObjects() {
 		return interactiveObjects;
-	}
-
-	class InteractiveObject implements IInteractiveObject {
-
-		private String name, type;
-		private Rectangle2D.Double rect;
-		private Properties properties;
-
-		InteractiveObject(String name, String type, int x, int y, int width, int height, Properties properties) {
-			this.name = name;
-			this.type = type;
-			this.rect = new Rectangle2D.Double(x, y, width, height);
-			this.properties = properties;
-		}
-
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public String getType() {
-			return type;
-		}
-
-		@Override
-		public Rectangle2D.Double getArea() {
-			return rect;
-		}
-
-		@Override
-		public Properties getProperties() {
-			return properties;
-		}
 	}
 }

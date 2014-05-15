@@ -20,6 +20,14 @@ import scratch.view.NpcView;
 import scratch.view.PlayerView;
 import scratch.view.RoomView;
 
+import scratch.view.RoomView;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import scratch.view.CharacterView;
+
 /**
  * The main controller class to control updates, rendering, initiating and
  * delegate tasks to other controllers.
@@ -51,28 +59,26 @@ public final class ServerController extends Listener implements org.newdawn.slic
         TiledMap map = getTiledMap(roomFactory);
         Player tempPlayer = new Player(
                 new PlayerInput(gameContainer.getInput()),
-                new Rectangle2D.Double(0, 0, 32, 32), 2);
+                new Rectangle2D.Double(0,0,32,32), 2, "/res/playerSprite.tmx");
 
         game.addPlayer(tempPlayer);
 
-        for (Room room : roomFactory.getRooms()) {
+
+
+        for(Room room : roomFactory.getRooms()){
             roomControllerList.add(
                     new RoomController(room,
-                            new RoomView(gameContainer, room, map)));
-
-            for (Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()) {
-                NpcController npcController = new NpcController(npcEntry.getValue(),
-                        new NpcView(npcEntry.getValue(), gameContainer, "/res/playerSprite.tmx"));
-                npcController.addListener(networkServer);
-                npcControllerList.add(npcController);
-
+                            new RoomView(map)));
+            for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
+                NpcType npc = npcEntry.getValue();
+                npcControllerList.add(
+                        new NpcController(npc,
+                                new CharacterView(npc)));
             }
-            for (Player player : room.getPlayers()) {
-                PlayerController npcController = new PlayerController(player,
-                        new PlayerView(player, gameContainer, "res/playerSprite.tmx"));
-                npcController.addListener(networkServer);
-                playerControllerList.add(npcController);
-
+            for(Player player : room.getPlayers()){
+                playerControllerList.add(
+                        new PlayerController(player,
+                                new CharacterView(player)));
             }
         }
         networkServer.start(this);
@@ -84,8 +90,9 @@ public final class ServerController extends Listener implements org.newdawn.slic
         return map;
     }
 
+    @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        for (PlayerController playerController : playerControllerList) {
+        for (PlayerController playerController: playerControllerList){
             playerController.updatePlayer();
         }
 
@@ -105,12 +112,12 @@ public final class ServerController extends Listener implements org.newdawn.slic
             roomController.getRoomView().render();
         }
 
-        for (NpcController npcController : npcControllerList) {
-            npcController.getNpcView().render();
+        for(NpcController npcController : npcControllerList){
+            npcController.render(gameContainer);
         }
 
-        for (PlayerController playerController : playerControllerList) {
-            playerController.getPlayerView().render();
+        for(PlayerController playerController : playerControllerList){
+            playerController.render(gameContainer);
         }
     }
 

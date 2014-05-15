@@ -2,6 +2,7 @@ package scratch.model.mockModules;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import scratch.construction.NpcSpecification;
 import scratch.model.IInteractiveObject;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
@@ -14,15 +15,6 @@ import java.util.Map;
  * Created by Anna on 2014-05-05.
  */
 public class MockIMap implements IMap {
-	private TiledMap map;
-
-	public void createMockObject() {
-		try {
-			map = new TiledMap("res/untitled.tmx");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public boolean isColliding(Vector2D coordinate) {
@@ -55,7 +47,7 @@ public class MockIMap implements IMap {
 	}
 
 	@Override
-	public Map<String, Rectangle2D.Double> getNpcRectangleMap() {
+	public List<NpcSpecification> getNpcSpecifications() {
 		return null;
 	}
 
