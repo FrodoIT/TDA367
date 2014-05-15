@@ -27,18 +27,19 @@ public class SpriteDirectionRenderer {
     private final TiledMap map;
 
     public SpriteDirectionRenderer(TiledMap map) {
-        int nbrOfSprites = map.getWidth();
-        if (nbrOfSprites % 4 != 0)
+        final int nbrOfSprites = map.getWidth();
+        if (nbrOfSprites % 4 != 0) {
             throw new IllegalArgumentException();
+        }
 
         this.map = map;
 
         imagesPerDirection = nbrOfSprites / 4;
 
-        Image [] movementSouth = new Image[imagesPerDirection];
-        Image [] movementEast = new Image[imagesPerDirection];
-        Image [] movementNorth = new Image[imagesPerDirection];
-        Image [] movementWest = new Image[imagesPerDirection];
+        final Image [] movementSouth = new Image[imagesPerDirection];
+        final Image [] movementEast = new Image[imagesPerDirection];
+        final Image [] movementNorth = new Image[imagesPerDirection];
+        final Image [] movementWest = new Image[imagesPerDirection];
 
         setupMovementDirectionSprite(movementSouth, SOUTH);
         setupMovementDirectionSprite(movementEast, EAST);
@@ -52,10 +53,10 @@ public class SpriteDirectionRenderer {
             //one direction then it would be wiser to let the duration depend on the number of images
         }
 
-        Animation north = new Animation(movementNorth, duration, true);
-        Animation south = new Animation(movementSouth, duration, true);
-        Animation west = new Animation(movementWest, duration, true);
-        Animation east = new Animation(movementEast, duration, true);
+        final Animation north = new Animation(movementNorth, duration, true);
+        final Animation south = new Animation(movementSouth, duration, true);
+        final Animation west = new Animation(movementWest, duration, true);
+        final Animation east = new Animation(movementEast, duration, true);
         sprite = south;
 
 
@@ -86,11 +87,11 @@ public class SpriteDirectionRenderer {
      * @param directionIndex South, East, North, West is represented by 0, 1, 2, 3 respectively
      */
     private void setupMovementDirectionSprite(Image[] spriteDirectionImages, int directionIndex) {
-        int spriteLayerIndex = map.getLayerIndex("sprite");
-        int imageAmountForDirection = directionIndex * imagesPerDirection;
-
         for (int i = 0 ; i < spriteDirectionImages.length ; i++) {
-            spriteDirectionImages[i] = map.getTileImage(i + imageAmountForDirection, 0, spriteLayerIndex);
+            spriteDirectionImages[i] = map.getTileImage(
+                    i + directionIndex * imagesPerDirection,
+                    0,
+                    map.getLayerIndex("sprite"));
         }
     }
 
