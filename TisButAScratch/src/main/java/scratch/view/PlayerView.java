@@ -37,7 +37,7 @@ public class PlayerView {
     }
 
 
-    public void render() {
+    public void render(GameContainer gameContainer) {
         Vector2D position = player.getPosition();
         IPlayerInput playerInput = player.getPlayerInput();
 

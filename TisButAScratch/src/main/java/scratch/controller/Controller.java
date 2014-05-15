@@ -18,6 +18,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import scratch.view.CharacterView;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -46,14 +47,11 @@ public final class Controller implements org.newdawn.slick.Game {
         TiledMap map = getTiledMap(roomFactory);
         Player tempPlayer = new Player(
                 new PlayerInput(gameContainer.getInput()),
-                new Rectangle2D.Double(0,0,32,32), 2);
+                new Rectangle2D.Double(0,0,32,32), 2, "/res/playerSprite.tmx");
 
         game.addPlayer(tempPlayer);
 
-        PlayerController playerController = new PlayerController(tempPlayer,
-                new PlayerView(tempPlayer, gameContainer, "/res/playerSprite.tmx"));
 
-        playerControllerList.add(playerController);
 
         for(Room room : roomFactory.getRooms()){
             roomControllerList.add(
@@ -68,7 +66,7 @@ public final class Controller implements org.newdawn.slick.Game {
             for(Player player : room.getPlayers()){
                 playerControllerList.add(
                         new PlayerController(player,
-                                new PlayerView(player, gameContainer, "res/playerSprite.tmx")));
+                                new CharacterView(player)));
             }
         }
 
@@ -116,7 +114,7 @@ public final class Controller implements org.newdawn.slick.Game {
         }
 
         for(PlayerController playerController : playerControllerList){
-            playerController.getPlayerView().render();
+            playerController.render(gameContainer);
         }
     }
 

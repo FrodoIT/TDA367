@@ -1,70 +1,66 @@
 package scratch.model;
 
-
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
 
-
 /**
  * A class that represents a character not controlled by the player
+ *
  * @author Ivar
  *
  */
 @Root
 
 public final class NpcType extends AbstractCharacter {
+
     @Element
     private boolean hostile;
-	@Element
-    private String imagePath;
-	@Element(type = INPCMove.class)
+    @Element(type = INPCMove.class)
     private INPCMove movementPattern;
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon,
-                   int health, int moveSpeed, String imagePath,
-                   int id, INPCMove movementPattern, CharacterChangeListener listener){
-        super(unitTile, weapon, health, moveSpeed, id);
-        this.imagePath = imagePath;
+            int health, int moveSpeed, String imagePath,
+            int id, INPCMove movementPattern, CharacterChangeListener listener) {
+        super(unitTile, weapon, health, moveSpeed, id, imagePath);
         this.movementPattern = movementPattern;
         hostile = true;
 
     }
 
-	//used for xml-parsing
-	private NpcType(){
-		super();
-	}
+    //used for xml-parsing
+    private NpcType() {
+        super();
+    }
 
     /**
      * Call to determine if NPC is hostile
+     *
      * @return
      */
-    
-    public boolean isHostile(){
+    public boolean isHostile() {
         return hostile;
     }
 
-
     @Override
     public boolean isInteracting() {
-            return false;
-    }
-
-	@Override
-	public void doInteractCooldown() {
-		//Npc don't do interact atm
-	}
-
-	@Override
-    public boolean isAttacking() {
-            return getWeapon().hasCooledDown() && movementPattern.isAttacking(this);
+        return false;
     }
 
     @Override
-    public void update(){
+    public void doInteractCooldown() {
+        //Npc don't do interact atm
+    }
+
+    @Override
+    public boolean isAttacking() {
+        return getWeapon().hasCooledDown() && movementPattern.isAttacking(this);
+    }
+
+    @Override
+    public void update() {
         Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
         for (CharacterChangeListener characterListener : getListenerList()) {
@@ -76,8 +72,7 @@ public final class NpcType extends AbstractCharacter {
         }
     }
 
-
-    private void calculateMoveDirection(Vector2D newPosition){
+    private void calculateMoveDirection(Vector2D newPosition) {
         double diffX = newPosition.getX() - getUnitTile().x;
         double diffY = newPosition.getY() - getUnitTile().y;
         final double toDegrees = 180 / Math.PI;
@@ -108,18 +103,11 @@ public final class NpcType extends AbstractCharacter {
         setMoveDirection(moveDirection);
     }
 
-    public String getImagePath(){
-        return imagePath;
-    }
-
-    
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;
     }
 
-
-
-    public INPCMove getMovementPattern(){
+    public INPCMove getMovementPattern() {
         return movementPattern;
     }
 }
