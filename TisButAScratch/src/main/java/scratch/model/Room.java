@@ -19,7 +19,6 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private Map<Integer, NpcType> npcs;
     private final IMap map;
-    private boolean isUpdatingPlayers, isUpdatingNpcs;
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
 

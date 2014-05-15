@@ -14,7 +14,6 @@ import java.awt.geom.Rectangle2D;
 
 public class AbstractCharacterTest extends TestCase {
 
-    private IPlayerInput playerInput;
     private Room room;
     private AbstractCharacter testCharacter;
 
@@ -23,10 +22,10 @@ public class AbstractCharacterTest extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         Injector injector = Guice.createInjector(new MockModule());
-        playerInput = injector.getInstance(IPlayerInput.class);
+        IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
-        testCharacter = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 1, "/res/playerSprite.tmx");
+        testCharacter = new Player(playerInput, new Rectangle2D.Double(32, 32, 32, 32), 1, "/res/playerSprite.tmx");
     }
 
     @Test
@@ -135,11 +134,12 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void assertExpectedPosition(Vector2D a, Vector2D b) throws Exception {
-        assertTrue(a.getX() == b.getX() && a.getY() == b.getY());
+        double epsilon = 0.0000000001;
+        assertTrue(Math.abs(a.getX() - b.getX())< epsilon &&
+                Math.abs(a.getY() - b.getY()) <epsilon);
     }
 
     public void testSetId() throws Exception {
-        int oldId = testCharacter.getId();
         testCharacter.setId(4);
         assertTrue(testCharacter.getId() == 4);
     }

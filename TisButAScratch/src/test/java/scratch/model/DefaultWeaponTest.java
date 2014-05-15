@@ -40,8 +40,7 @@ public class DefaultWeaponTest extends TestCase {
 
 	public void testEquals() throws Exception{
 		//EqualsVerifier.forClass(DefaultWeapon.class).verify();
-		//TODO
-
+        //TODO halp...
 	}
 	public void testHashCode() throws Exception{
 		DefaultWeapon weapon1 = new DefaultWeapon();

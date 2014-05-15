@@ -52,9 +52,8 @@ public final class NpcFactory extends PluginUserFactory<NpcType> {
      * @param position The position the npc should have
      * @return A npc with the attributes as in the xml file.
      */
-    private NpcType NPCXML(String file, Vector2D position, int id) {
-        Serializer serializer = new Persister(new MyMatcher());
-        //file= "res/"+file+".xml";
+	private NpcType NPCXML(String file, Vector2D position, int id){
+		Serializer serializer = new Persister(new MyMatcher());
         StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");
         fileBuild.append(file);

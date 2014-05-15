@@ -14,7 +14,7 @@ import java.util.Random;
 @AIPlugin(id = 2)
 public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	@Inject
-	private Random ran = new Random();
+	private Random ran = new Random(2345);
 	private IRoomData roomData;
 
 	@Override
@@ -30,11 +30,13 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	}
 
 	public boolean isAttacking(NpcType npc){
-		for(Player player: roomData.getPlayers()){
-			if(isWithinRange(player.getPosition(), npc.getPosition())){
-				return true;
-			}
-		}
+        if (roomData != null) {
+            for (Player player : roomData.getPlayers()) {
+                if (isWithinRange(player.getPosition(), npc.getPosition())) {
+                    return true;
+                }
+            }
+        }
 		return false;
 	}
 

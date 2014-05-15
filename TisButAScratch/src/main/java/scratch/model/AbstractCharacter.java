@@ -163,7 +163,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) {
             return true;
         }
