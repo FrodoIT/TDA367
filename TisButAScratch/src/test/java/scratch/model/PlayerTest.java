@@ -15,26 +15,26 @@ public class PlayerTest extends TestCase {
     @Before
     @Override
     public void setUp(){
-        Injector injector = Guice.createInjector(new MockModule());
+        final Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
     }
 
     @Test
     public void testIsAttacking() {
         playerInput.setAttackStatus(true);
-        Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
+        final Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
         assertTrue(testPlayer.isAttacking());
     }
 
     private void assertPlayerDirection(Player player, MoveDirection direction){
         playerInput.setMoveDirection(direction);
         player.update();
-        assertTrue(player.getMoveDirection() == (direction));
+        assertSame(player.getMoveDirection(), direction);
     }
 
     @Test
     public void testUpdate() throws Exception {
-        Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1, "/res/playerSprite.tmx");
+        final Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1, "/res/playerSprite.tmx");
         //Test None:
         assertPlayerDirection(player, MoveDirection.NONE);
 
