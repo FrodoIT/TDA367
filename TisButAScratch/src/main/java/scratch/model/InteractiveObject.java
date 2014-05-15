@@ -5,9 +5,9 @@ import java.util.Properties;
 
 public class InteractiveObject implements IInteractiveObject {
 
-    private String name, type;
-    private Rectangle2D.Double rect;
-    private Properties properties;
+    private final String name, type;
+    private final Rectangle2D.Double rect;
+    private final Properties properties;
 
     public InteractiveObject(String name, String type, int x, int y, int width, int height, Properties properties) {
         this.name = name;
