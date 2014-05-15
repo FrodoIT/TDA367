@@ -10,7 +10,6 @@ import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.Room;
 import scratch.view.NpcView;
-import scratch.view.PlayerView;
 import scratch.view.RoomView;
 import scratch.view.SpriteDirectionRenderer;
 
