@@ -1,4 +1,4 @@
-package scratch.model.mockModules;
+package scratch.model.mockmodules;
 
 import scratch.construction.NpcSpecification;
 import scratch.model.IInteractiveObject;

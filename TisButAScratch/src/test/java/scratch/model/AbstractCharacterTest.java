@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
-import scratch.model.mockModules.MockModule;
+import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 

@@ -1,4 +1,4 @@
-package scratch.model.mockModules;
+package scratch.model.mockmodules;
 
 import org.newdawn.slick.SlickException;
 import scratch.construction.SlickMap;

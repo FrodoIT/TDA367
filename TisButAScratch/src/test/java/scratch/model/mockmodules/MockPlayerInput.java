@@ -1,4 +1,4 @@
-package scratch.model.mockModules;
+package scratch.model.mockmodules;
 
 import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;

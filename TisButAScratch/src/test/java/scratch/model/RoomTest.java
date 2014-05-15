@@ -5,8 +5,8 @@ import com.google.inject.Injector;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import scratch.model.mockModules.MockIMap;
-import scratch.model.mockModules.MockModule;
+import scratch.model.mockmodules.MockIMap;
+import scratch.model.mockmodules.MockModule;
 
 import java.awt.geom.Rectangle2D;
 

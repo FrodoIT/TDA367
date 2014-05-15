@@ -1,4 +1,4 @@
-package scratch.model.mockModules;
+package scratch.model.mockmodules;
 
 import com.google.inject.AbstractModule;
 import scratch.model.IMap;
