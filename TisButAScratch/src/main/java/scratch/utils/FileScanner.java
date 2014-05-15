@@ -15,12 +15,17 @@ import java.util.List;
  * @author Ivar
  */
 public class FileScanner {
+
+    private FileScanner() {
+
+    }
+
     public static List<File> getFiles(File path) {
-        List<File> files = new ArrayList<File>();
-        File[] entries = path.listFiles();
+        final List<File> files = new ArrayList<File>();
+        final File[] entries = path.listFiles();
         
         if (entries != null) {
-            for (File f : entries) {
+            for (final File f : entries) {
                 if (!f.isDirectory()){
                     files.add(f);
                 }
