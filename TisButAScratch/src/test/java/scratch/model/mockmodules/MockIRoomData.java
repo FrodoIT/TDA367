@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MockIRoomData implements IRoomData{
-    private List<Player> players = new ArrayList<Player>();
-    private Map<Integer, NpcType> npcs = new TreeMap<Integer, NpcType>();
+    private final List<Player> players = new ArrayList<Player>();
+    private final Map<Integer, NpcType> npcs = new TreeMap<Integer, NpcType>();
     private IMap map;
 
 
