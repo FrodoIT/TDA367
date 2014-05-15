@@ -1,13 +1,8 @@
 package scratch.controller;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.Game;
 import scratch.model.NpcType;
 import scratch.view.CharacterView;
-import scratch.view.NpcView;
-import scratch.view.SpriteDirectionRenderer;
 
 /**
  * Created by pippin on 5/10/14.

@@ -9,9 +9,7 @@ import scratch.model.Game;
 import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.Room;
-import scratch.view.NpcView;
 import scratch.view.RoomView;
-import scratch.view.SpriteDirectionRenderer;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
