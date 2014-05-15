@@ -12,6 +12,7 @@ import java.awt.geom.Rectangle2D;
  Range = 1
  * @author Alma Ottedag
  */
+
 public final class DefaultWeapon implements IWeapon {
 	@Inject
     private final int damage;
@@ -39,10 +40,10 @@ public final class DefaultWeapon implements IWeapon {
 
     @Override
 	public void startCooldown() {
-        if (!cooledDown)
-            return;
-		cooledDown =false;
-        Cooldown.cooldown(attackInterval, runnable);
+        if (cooledDown) {
+	        cooledDown = false;
+	        Cooldown.cooldown(attackInterval, runnable);
+        }
 	}
 
 	/**
@@ -73,24 +74,23 @@ public final class DefaultWeapon implements IWeapon {
 		return attackInterval;
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DefaultWeapon)) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
 
-        DefaultWeapon that = (DefaultWeapon) o;
+		DefaultWeapon that = (DefaultWeapon) o;
 
-        return attackInterval == that.attackInterval &&
-        cooledDown == that.cooledDown &&
-        damage == that.damage &&
-        range == that.range &&
-        attackArea != null &&
-        attackArea.equals(that.attackArea) &&
-        runnable != null &&
-        runnable.equals(that.runnable);
-    }
+		if (attackInterval != that.attackInterval) return false;
+		if (cooledDown != that.cooledDown) return false;
+		if (damage != that.damage) return false;
+		if (range != that.range) return false;
+		if (attackArea != null ? !attackArea.equals(that.attackArea) : that.attackArea != null) return false;
 
-    @Override
+		return true;
+	}
+
+	@Override
     public int hashCode() {
         int result = damage;
         result = 31 * result + range;
