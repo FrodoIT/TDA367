@@ -11,5 +11,5 @@ package scratch.construction.plugin;
  * @author Ivar
  */
 public interface Pluggable<T> {
-    public T get();
+    T get();
 }

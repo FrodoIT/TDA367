@@ -21,17 +21,17 @@ import java.util.logging.Logger;
  * @author Ivar
  */
 public class PluginLoader {
-    public static final String pluginPath = "target/classes/scratch/construction/plugin/exported/";
+    public static final String PLUGIN_PATH = "target/classes/scratch/construction/plugin/exported/";
 
     private static List<Class<?>> getPluginClasses (Class annotationType) {
-        List<File> files = FileScanner.getFiles(new File(pluginPath));
-        PluginClassLoader pluginClassLoader = new PluginClassLoader();
-        List<Class<?>> classList = new ArrayList<Class<?>>();
-        for(File file: files) {
-            String fileName = file.getName();
-            String strippedName = fileName.substring(0, fileName.indexOf(".class"));
+        final List<File> files = FileScanner.getFiles(new File(PLUGIN_PATH));
+        final PluginClassLoader pluginClassLoader = new PluginClassLoader();
+        final List<Class<?>> classList = new ArrayList<Class<?>>();
+        for(final File file: files) {
+            final String fileName = file.getName();
+            final String strippedName = fileName.substring(0, fileName.indexOf(".class"));
             try {
-                Class loadedClass = pluginClassLoader.loadClass(strippedName);
+                final Class loadedClass = pluginClassLoader.loadClass(strippedName);
                 if(loadedClass.getAnnotation(annotationType) != null) {
                     classList.add(loadedClass);
                 }
@@ -43,8 +43,8 @@ public class PluginLoader {
     }
 
     private static Map<Integer, Pluggable<?>> getPluginsFromPluginClasses(List<Class<?>> classList) {
-        Map<Integer, Pluggable<?>> map =  new HashMap<Integer, Pluggable<?>>();
-        for(Class<?> aClass : classList ) {
+        final Map<Integer, Pluggable<?>> map =  new HashMap<Integer, Pluggable<?>>();
+        for(final Class<?> aClass : classList ) {
             Object newInstance = null;
 
             try {
