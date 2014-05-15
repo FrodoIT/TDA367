@@ -12,13 +12,13 @@ public class MockINPCMove implements INPCMove {
     @Override
     public Vector2D calculateNewPosition(NpcType npc) {
 
-            Vector2D npcPos = npc.getPosition();
+        final Vector2D npcPos = npc.getPosition();
         if (npcPos.equals(new Vector2D(50,50))){
-            return (new Vector2D(50,50));
+            return new Vector2D(50,50);
         }
-            Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()),
+        final Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()),
                     new Point2D.Double(50, 50)).getNormalisedVector();
-            return new Vector2D(npcPos.getX() + directionVector.getX(),
+        return new Vector2D(npcPos.getX() + directionVector.getX(),
                     npcPos.getY() + directionVector.getY());
     }
 
