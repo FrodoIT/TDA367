@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.DoorHandler;
 import scratch.model.IInteractiveObject;
+import scratch.model.NpcType;
 import scratch.model.Room;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public final class RoomFactory {
 
     private TiledMapPlus map;
     private final List<Room> rooms;
-    private final Map<String, AbstractPluginUserFactory> pluginUserFactories;
+    private final NpcFactory npcFactory;
     private final SlickMap slickMap;
 	private final DoorHandler doorHandler = new DoorHandler();
 
@@ -31,11 +32,10 @@ public final class RoomFactory {
         } catch (SlickException e) {
             e.printStackTrace();
         }
-        pluginUserFactories = new TreeMap<String, AbstractPluginUserFactory>();
         slickMap = new SlickMap(map);
-        rooms = new ArrayList<Room>();
+        rooms = new ArrayList<>();
         addRooms();
-        addSubFactories();
+        npcFactory = new NpcFactory(rooms);
         addInteractiveObjectstoRoom();
 	    setupDoorHandler();
         addNpcstoRoom();
@@ -47,7 +47,6 @@ public final class RoomFactory {
 	 * from one door to another when a door is interacted with
 	 */
 	private void setupDoorHandler() {
-
 		for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
 			if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
 				doorHandler.addDoor(rooms.get(0), interactiveObject);
@@ -64,18 +63,16 @@ public final class RoomFactory {
     }
 
     private void addNpcstoRoom(){
-        final NpcFactory npcFactory = ((NpcFactory)pluginUserFactories.get(NpcFactory.KEY));
-        rooms.get(0).addNpc(npcFactory.getGivenTypeMap());
+        for (Room room : rooms) {
+            for (NpcType npcType : npcFactory.getNpcsForRoom(room)) {
+                room.addNpc(npcType);
+            }
+        }
     }
 
     private void addRooms() {
         //TODO: This should be further extended when several rooms are implemented.
         rooms.add(new Room(slickMap, doorHandler));
-    }
-
-    private void addSubFactories() {
-        pluginUserFactories.put(NpcFactory.KEY, new NpcFactory(slickMap, rooms.get(0)));
-        //pluginUserFactories.put(InteractiveObjectFactory.KEY, new InteractiveObjectFactory(slickMap));
     }
 
     public TiledMap getTiledMap() {
@@ -85,10 +82,6 @@ public final class RoomFactory {
 
     public TiledMap getMap() {
         return map;
-    }
-
-    public Map<String, AbstractPluginUserFactory> getPluginUserFactories() {
-        return pluginUserFactories;
     }
 
     public List<Room> getRooms() {

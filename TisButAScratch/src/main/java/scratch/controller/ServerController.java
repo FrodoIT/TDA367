@@ -62,8 +62,7 @@ public final class ServerController extends Listener implements org.newdawn.slic
             roomControllerList.add(
                     new RoomController(room,
                             new RoomView(map)));
-            for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
-                NpcType npc = npcEntry.getValue();
+            for(NpcType npc : room.getNpcs()){
                 npcControllerList.add(
                         new NpcController(npc,
                                 new CharacterView(npc)));

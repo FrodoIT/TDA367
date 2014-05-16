@@ -17,12 +17,10 @@ import java.util.Map;
 public class Game implements KryoSerializable {
 
     private List<Player> playerList;
-    private List<NpcType> npcList;
     private Room activeRoom;
 
     public Game() {
-        npcList = new ArrayList<NpcType>();
-        playerList = new ArrayList<Player>();
+        playerList = new ArrayList<>();
         activeRoom = null;
 
     }
@@ -36,10 +34,8 @@ public class Game implements KryoSerializable {
         return true;
     }
 
-    public void addNpcs() {
-        for (Map.Entry<Integer, NpcType> npcTypeEntry : activeRoom.getNpcs().entrySet()) {
-            this.npcList.add(npcTypeEntry.getValue());
-        }
+    public List<NpcType> getNpcs() {
+        return activeRoom.getNpcs();
     }
 
     public List<Player> getPlayers() {
@@ -52,7 +48,7 @@ public class Game implements KryoSerializable {
         for (Player player:activeRoom.getPlayers()){
             characters.add((AbstractCharacter)player);
         }
-        for (NpcType npc:activeRoom.getNpcs().values()){
+        for (NpcType npc:activeRoom.getNpcs()){
             characters.add((AbstractCharacter)npc);
         }
         return characters;

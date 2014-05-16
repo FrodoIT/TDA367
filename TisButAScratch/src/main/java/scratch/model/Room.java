@@ -17,7 +17,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
     private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
-    private Map<Integer, NpcType> npcs;
+    private List<NpcType> npcs;
     private final IMap map;
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
@@ -27,12 +27,12 @@ public final class Room implements IRoomData, CharacterChangeListener{
         this.doorHandler = doorHandler;
         players = new ArrayList();
         interactiveObjects = new ArrayList<>();
-        npcs = new TreeMap<Integer, NpcType>();
+        npcs = new ArrayList<>();
     }
 
 
     public void update(){
-	    updateCharacterMovements();
+        updateCharacterMovements();
         updateCharacterAttacks();
         updateCharacterInteractions();
     }
@@ -72,10 +72,10 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private boolean dealDamage(){
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             if(!npcs.isEmpty()){
-                for(Map.Entry<Integer, NpcType> npcEntry: npcs.entrySet()){
-                    if((npcEntry.getValue().getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
-                            !attackingCharacter.getClass().equals(npcEntry.getValue().getClass())){
-                        npcEntry.getValue().takeDamage(attackingCharacter.getDamage());
+                for(NpcType npc: npcs){
+                    if((npc.getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
+                            !attackingCharacter.getClass().equals(npc.getClass())){
+                        npc.takeDamage(attackingCharacter.getDamage());
 
                         break; //an attack should only damage one character at the time. Should it? Should it really?
                     }
@@ -141,8 +141,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
         this.interactiveObjects.add(interactiveObject);
     }
 
-    public void addNpc(Map<Integer, NpcType> npcs) {
-        this.npcs = npcs;
+    public void addNpc(NpcType npc) {
+        npcs.add(npc);
     }
 
     /**
@@ -185,7 +185,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     @Override
-    public Map<Integer, NpcType> getNpcs() {
+    public List<NpcType> getNpcs() {
         return npcs;
     }
 
