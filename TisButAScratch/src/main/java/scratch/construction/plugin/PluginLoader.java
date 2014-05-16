@@ -60,10 +60,7 @@ public final class PluginLoader {
 
             if(newInstance != null) {
                 System.out.println(aClass.toString());
-                if(aClass.isAnnotationPresent(InteractionPlugin.class)) {
-
-                    map.put(aClass.getAnnotation(InteractionPlugin.class).id(),(Pluggable<?>) newInstance);
-                } else {
+                if(aClass.isAnnotationPresent(AIPlugin.class)) {
                     map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
                 }
             }
