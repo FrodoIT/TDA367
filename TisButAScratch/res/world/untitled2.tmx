@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="19" y="19"/>
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA5NjYGCQG8WjeBSP4iGAAbwfCjKwBAAA
+  </data>
+ </layer>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door1" type="object" x="80" y="178" width="32" height="32">
+   <properties>
+    <property name="connection" value="1"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc2" type="hostile" x="183" y="416" width="41" height="38">
+   <properties>
+    <property name="id" value="200"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="525" y="403" width="41" height="38">
+   <properties>
+    <property name="id" value="202"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="334" y="407" width="41" height="38">
+   <properties>
+    <property name="id" value="201"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAxNhYGAQohIWBWJuBuxACQlj42MDnHjMQzebGEDIPHRzCJlLqXnofHqYR2xYUds8bOpw+ZdQuiDVPGQzsYUZLruISX9KWDAuQGx6JhYMBfNkgJiJSlgWiAHz4DDYsAQAAA==
+  </data>
+ </layer>
+</map>
