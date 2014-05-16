@@ -32,7 +32,7 @@ public class NpcTypeTest extends TestCase {
     @Test
 	public void testTakeDamage() {
 		npcType.takeDamage(2);
-		assertSame(npcType.getHealth(), 0);
+		assertEquals(0, npcType.getHealth());
 	}
 
     @Test

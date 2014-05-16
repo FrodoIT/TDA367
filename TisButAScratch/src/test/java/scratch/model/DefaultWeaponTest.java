@@ -37,7 +37,7 @@ public class DefaultWeaponTest extends TestCase {
 
     @Test
 	public void testGetRange() {
-		assertSame(weapon.getRange(), 1);
+		assertEquals(1, weapon.getRange());
 	}
 
     @Test
