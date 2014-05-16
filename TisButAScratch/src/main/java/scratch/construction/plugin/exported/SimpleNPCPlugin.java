@@ -25,7 +25,7 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     @Override
     public SimpleNPCPlugin clone() {
-        SimpleNPCPlugin plugin = new SimpleNPCPlugin();
+        final SimpleNPCPlugin plugin = new SimpleNPCPlugin();
         plugin.roomData = this.roomData;
         return plugin;
     }

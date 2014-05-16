@@ -97,7 +97,7 @@ public final class ClientController extends Listener{
 
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         for (final RoomController roomController : roomControllerList) {
-            roomController.getRoomView().render();
+            roomController.render();
         }
 
         for (final NpcController npcController : npcControllerList) {

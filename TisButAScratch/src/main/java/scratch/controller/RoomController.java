@@ -20,7 +20,8 @@ public class RoomController {
         }
     }
 
-    public void renderRoom() {
+    public void render() {
+        System.out.println(room);
         if (room.isActive()) {
             roomView.render();
         }

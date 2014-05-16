@@ -104,7 +104,7 @@ public final class ServerController extends Listener{
         }
 
         for (final NpcController npcController : npcControllerList) {
-//            npcController.updateNpc();
+            npcController.updateNpc();
         }
 
         for (final RoomController roomController : roomControllerList) {
