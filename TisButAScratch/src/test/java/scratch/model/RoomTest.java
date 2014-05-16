@@ -19,15 +19,12 @@ import java.util.TreeMap;
 public class RoomTest extends TestCase {
 	private Room room;
     private final Injector injector = Guice.createInjector(new MockModule());
-    private INPCMove move;
-    private IInteractiveObject interactiveObject;
+
 
 	@Before
     @Override
 	public void setUp() {
         IMap map = injector.getInstance(MockIMap.class);
-        interactiveObject = injector.getInstance(IInteractiveObject.class);
-        move = injector.getInstance(INPCMove.class);
 		room= new Room(map, new DoorHandler());
 	}
 
@@ -45,8 +42,7 @@ public class RoomTest extends TestCase {
         final Player testPlayer = createPlayerForTest(1);
         room.enterRoom(testPlayer);
         testPlayer.setMovementSpeed(0);
-        //System.out.println(interactiveObject);
-       // room.addInteractivObject(interactiveObject);
+        final INPCMove move = injector.getInstance(INPCMove.class);
         NpcType testNpc = new NpcType(new Rectangle2D.Double(50,55,100,100),
                 new MockIWeapon(), 100, 0, "test", 10, move, room);
         testNpc.setMoveDirection(MoveDirection.NONE);
@@ -82,14 +78,9 @@ public class RoomTest extends TestCase {
     @Test
 	public void testExitRoom() {
 		final Player player1 = createPlayerForTest(0);
-		final Player player2 = createPlayerForTest(1);
 		room.enterRoom(player1);
-		room.enterRoom(player2);
-		room.exitRoom(player1);
-		assertFalse(room.getPlayers().contains(player1));
-        assertSame(room.getPlayers().get(0).getId(), 1);
-		room.exitRoom(player2);
-		assertTrue(room.getPlayers().isEmpty());
+        room.exitRoom(player1);
+        assertFalse(room.getPlayers().contains(player1));
 	}
 
 	@Test(expected=NullPointerException.class)
