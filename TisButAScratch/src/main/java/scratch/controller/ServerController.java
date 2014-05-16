@@ -56,9 +56,9 @@ public final class ServerController extends Listener implements org.newdawn.slic
         game.addPlayer(newPlayer);
 
         for(final Room room : roomFactory.getRooms()){
-            roomControllerList.add(
-                    new RoomController(room,
-                            new RoomView(map)));
+            RoomController roomController = new RoomController(room, new RoomView(map));
+            //TODO: Add server as listener to room
+            roomControllerList.add(roomController);
 
             for(final NpcType npc : room.getNpcs()){
                 npcControllerList.add(
@@ -66,9 +66,9 @@ public final class ServerController extends Listener implements org.newdawn.slic
                                 new CharacterView(npc)));
             }
             for(final Player player : room.getPlayers()){
-                playerControllerList.add(
-                        new PlayerController(player,
-                                new CharacterView(player)));
+                PlayerController playerController = new PlayerController(player, new CharacterView(player));
+                playerController.addListener(networkServer);
+                playerControllerList.add(playerController);
             }
         }
 
@@ -120,7 +120,7 @@ public final class ServerController extends Listener implements org.newdawn.slic
     
     @Override
     public void connected(Connection connection) {
-        connection.sendTCP(game);
+        //connection.sendTCP(game);
     }
     
     @Override

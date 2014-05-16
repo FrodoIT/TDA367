@@ -7,15 +7,9 @@
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
-import scratch.construction.*;
-import scratch.model.*;
-import scratch.model.weapons.DefaultWeapon;
-import scratch.model.weapons.IWeapon;
-
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.awt.geom.Rectangle2D;
+import scratch.model.AbstractCharacter;
+import scratch.model.Player;
 
 /**
  *
@@ -23,41 +17,8 @@ import java.util.HashSet;
  */
 public class Utilities {
     public static void kryoRegister(Kryo kryo){
-        
-        //Looks ugly as shit, is there a different solution?
-        kryo.register(Character.class);
-        kryo.register(Constants.class);
-        kryo.register(DoorHandler.class);
-        kryo.register(IInteractiveObject.class);
-        kryo.register(IMap.class);
-        kryo.register(INPCMove.class);
-        kryo.register(IPlayerInput.class);
-        kryo.register(IRoomData.class);
-        kryo.register(Game.class);
-        kryo.register(MoveDirection.class);
-        kryo.register(NpcType.class);
+        kryo.register(AbstractCharacter.class);
+        kryo.register(Rectangle2D.Double.class);
         kryo.register(Player.class);
-        kryo.register(Room.class);
-        kryo.register(Vector2D.class);
-        kryo.register(DefaultWeapon.class);
-        kryo.register(IWeapon.class);
-        kryo.register(HashMap.class);
-        kryo.register(HashSet.class);
-        kryo.register(ArrayList.class);
-        
-        kryo.register(Vector2D.class);
-        kryo.register(Point2D.Double.class);
-        
-        //Register constructionpackage
-        kryo.register(INPCMoveTransformer.class);
-        kryo.register(MyMatcher.class);
-        kryo.register(NpcFactory.class);
-        kryo.register(RectangleTransformer.class);
-        kryo.register(RoomFactory.class);
-        kryo.register(SlickMap.class);
-        kryo.register(TiledMapPlus.class);
-        kryo.register(WeaponTranformer.class);
-        
-        
     }
 }

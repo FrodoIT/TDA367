@@ -61,7 +61,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-
+        /*
         for (final RoomController roomController : roomControllerList) {
             roomController.getRoomView().render();
         }
@@ -72,13 +72,13 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
         for (final PlayerController playerController : playerControllerList) {
             playerController.render(gameContainer);
-        }
+        }*/
     }
 
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof Player) {
-            playerRecieved((Player) object);
+            //playerRecieved((Player) object);
         }
     }
 

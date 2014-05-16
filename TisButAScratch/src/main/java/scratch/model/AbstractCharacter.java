@@ -2,6 +2,8 @@ package scratch.model;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.Registration;
+import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import org.simpleframework.xml.Attribute;
@@ -184,12 +186,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     @Override
     public void write(Kryo kryo, Output output) {
-        output.writeInt(getId());
-        output.writeDouble(unitTile.x);
-        output.writeDouble(unitTile.y);
-        output.writeDouble(unitTile.width);
-        output.writeDouble(unitTile.height);
-        
+        kryo.writeObject(output, unitTile);
     }
 
     public void setMovementSpeed(int movementSpeed) {
@@ -198,12 +195,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     @Override
     public void read(Kryo kryo, Input input) {
-        id = input.readInt();
-        double x = input.readInt();
-        double y = input.readInt();
-        double w = input.readInt();
-        double h = input.readInt();
-        unitTile = new Rectangle2D.Double(x, y, w, h);
-        moveDirection = MoveDirection.NONE;
+        unitTile = kryo.readObject(input, Rectangle2D.Double.class, kryo.getSerializer(Rectangle2D.Double.class));
     }
 }
