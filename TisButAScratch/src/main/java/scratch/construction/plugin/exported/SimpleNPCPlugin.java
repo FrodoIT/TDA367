@@ -55,6 +55,11 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
     }
 
     private Vector2D getClosestPlayer(NpcType npc) {
-        return roomData.getPlayers().get(0).getPosition();
+        if (roomData.getPlayers().isEmpty()){
+            return npc.getPosition();
+        } else {
+            return roomData.getPlayers().get(0).getPosition();
+        }
+        
     }
 }
