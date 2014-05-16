@@ -46,12 +46,12 @@ public final class ClientController extends Listener implements org.newdawn.slic
     public void init(GameContainer gameContainer) throws SlickException {
         gameContainer.setTargetFrameRate(60);
         //Send this class to be set as listener for the connection
-        
+
         final RoomFactory roomFactory = new RoomFactory();
 
         for (final Room room : roomFactory.getRooms()) {
 
-	        final TiledMap map = ((SlickMap)room.getMap()).getMap();
+            final TiledMap map = ((SlickMap) room.getMap()).getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
@@ -81,7 +81,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
             }
         } else if (character instanceof NpcType) {
             boolean found = false;
-            
+
             for (final NpcController npcController : npcControllerList) {
                 if (npcController.getId() == character.getId()) {
                     npcController.setNpc((NpcType) character);
@@ -116,9 +116,6 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof Room) {
-            System.out.println("We recieved a Room");
-        }
         if (object instanceof AbstractCharacter) {
             characterRecieved((AbstractCharacter) object);
         }
