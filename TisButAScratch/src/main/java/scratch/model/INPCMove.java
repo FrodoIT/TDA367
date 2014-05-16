@@ -7,6 +7,6 @@ import scratch.construction.plugin.exported.SimpleNPCPlugin;
 @ImplementedBy(SimpleNPCPlugin.class)
 public interface INPCMove {
     Vector2D calculateNewPosition(NpcType npc);
-    boolean isAttacking(NpcType npc);
+    boolean isPromptingAnAttack(NpcType npc);
     void setRoomData(IRoomData roomData);
 }

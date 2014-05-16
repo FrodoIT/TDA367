@@ -23,7 +23,7 @@ public class PlayerTest extends TestCase {
     public void testIsAttacking() {
         playerInput.setAttackStatus(true);
         final Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
-        assertTrue(testPlayer.isAttacking());
+        assertTrue(testPlayer.isPromptingAnAttack());
     }
 
     private void assertPlayerDirection(Player player, MoveDirection direction){

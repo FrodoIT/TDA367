@@ -99,16 +99,16 @@ public final class Player extends AbstractCharacter {
                 interact();
             }
 
-            if (isAttacking()) {
-                attack();
+            if (isPromptingAnAttack()) {
+                performAttack();
             }
         }
     }
 
     /**
-     * Give Player opportunity to execute an attack
+     * Give Player opportunity to execute an performAttack
      *
-     * @return null if no attack is done, otherwise the area that the NPC
+     * @return null if no performAttack is done, otherwise the area that the NPC
      * attacks
      * @pre The player has pressed attackbutton and the weapon has cooldowned.
      */
@@ -122,13 +122,13 @@ public final class Player extends AbstractCharacter {
     }
 
     @Override
-    public void doInteractCooldown() {
+    public void performInteractCooldown() {
         interactIsCooledDown = false;
         Cooldown.cooldown(500, cooldownReset);
     }
 
 
-    public boolean isAttacking() {
+    public boolean isPromptingAnAttack() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
 }

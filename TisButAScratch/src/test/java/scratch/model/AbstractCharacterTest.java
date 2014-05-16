@@ -97,7 +97,7 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testAttack() throws Exception {
         final IWeapon weapon = testCharacter.getWeapon();
-        testCharacter.attack();
+        testCharacter.performAttack();
         assertFalse(weapon.hasCooledDown());
     }
 

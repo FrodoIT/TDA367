@@ -33,7 +33,7 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     }
 
-	public boolean isAttacking(NpcType npc){
+	public boolean isPromptingAnAttack(NpcType npc){
         for(final Player player: roomData.getPlayers()){
 			if(isWithinRange(player.getPosition(), npc.getPosition())){
 				return true;

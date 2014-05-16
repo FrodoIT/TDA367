@@ -55,14 +55,14 @@ public final class NpcType extends AbstractCharacter {
     }
 
     @Override
-    public void doInteractCooldown() {
+    public void performInteractCooldown() {
         //Npc don't do interact atm
     }
 
     @Override
-    public boolean isAttacking() {
+    public boolean isPromptingAnAttack() {
 
-        return getWeapon().hasCooledDown() && movementPattern.isAttacking(this);
+        return getWeapon().hasCooledDown() && movementPattern.isPromptingAnAttack(this);
     }
 
     @Override
@@ -72,8 +72,8 @@ public final class NpcType extends AbstractCharacter {
         for (CharacterChangeListener characterListener : getListeners()) {
             characterListener.handleCharacterMovement(this, newPosition);
         }
-        if (isAttacking()) {
-            attack();
+        if (isPromptingAnAttack()) {
+            performAttack();
         }
     }
 
@@ -114,21 +114,6 @@ public final class NpcType extends AbstractCharacter {
         this.movementPattern = movementPattern;
     }
 
-    /* TODO Why does NpcType need a equals method when all AbstractCharacters equal do is compare ids?
-    @Override
-    public final boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (obj == null || !obj.getClass().equals(this.getClass())) {
-            return false;
-        }
-        NpcType rhs = (NpcType) obj;
-        return (super.equals(rhs) && this.isHostile() == rhs.isHostile() && this.getImagePath() == rhs.getImagePath()
-                && this.getMovementPattern() == rhs.getMovementPattern());
-
-    }
-    */
 
     public INPCMove getMovementPattern() {
         return movementPattern;

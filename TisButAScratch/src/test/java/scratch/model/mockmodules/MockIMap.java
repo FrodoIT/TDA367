@@ -16,7 +16,7 @@ public class MockIMap implements IMap {
 
 	@Override
 	public boolean isColliding(Vector2D coordinate) {
-		return false;
+       return false;
 	}
 
 	@Override
@@ -31,12 +31,12 @@ public class MockIMap implements IMap {
 
 	@Override
 	public int getHeight() {
-		return 0;
+		return 10000;
 	}
 
 	@Override
 	public int getWidth() {
-		return 0;
+		return 10000;
 	}
 
 	@Override

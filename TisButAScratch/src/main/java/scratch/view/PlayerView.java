@@ -40,7 +40,7 @@ public class PlayerView {
     public void render() {
         Vector2D position = player.getPosition();
 
-/*        if (player.isAttacking()) {
+/*        if (player.isPromptingAnAttack()) {
             attackArea = player.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));

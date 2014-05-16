@@ -64,9 +64,9 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     public abstract boolean isInteracting();
 
-    public abstract void doInteractCooldown();
+    public abstract void performInteractCooldown();
 
-    public abstract boolean isAttacking();
+    public abstract boolean isPromptingAnAttack();
 
     public void removeListener(CharacterChangeListener listener) {
         listeners.remove(listener);
@@ -138,7 +138,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
         return imagePath;
     }
 
-    public void attack() {
+    public void performAttack() {
         if (weapon.hasCooledDown()) {
             for (CharacterChangeListener listener : listeners) {
                 listener.handleCharacterAttack(this);
@@ -152,7 +152,7 @@ public abstract class AbstractCharacter implements KryoSerializable{
         for (CharacterChangeListener listener : listeners) {
             listener.handleCharacterInteraction(this);
         }
-        doInteractCooldown();
+        performInteractCooldown();
     }
 
     public boolean isAlive() {
@@ -190,6 +190,10 @@ public abstract class AbstractCharacter implements KryoSerializable{
         output.writeDouble(unitTile.width);
         output.writeDouble(unitTile.height);
         
+    }
+
+    public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 
     @Override

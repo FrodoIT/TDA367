@@ -23,8 +23,8 @@ public class MockINPCMove implements INPCMove {
     }
 
     @Override
-    public boolean isAttacking(NpcType npc) {
-        return false;
+    public boolean isPromptingAnAttack(NpcType npc) {
+        return true;
     }
 
     @Override

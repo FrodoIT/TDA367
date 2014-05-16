@@ -25,7 +25,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
 
-    public Room(IMap collisionMap, DoorHandler doorHandler){
+    public Room(IMap collisionMap, DoorHandler doorHandler) {
         this.map = collisionMap;
         this.doorHandler = doorHandler;
         players = new ArrayList();
@@ -34,8 +34,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
 
-    public void update(){
-        updateCharacterMovements();
+    public void update() {
+	    updateCharacterMovements();
         updateCharacterAttacks();
         updateCharacterInteractions();
     }
@@ -45,8 +45,8 @@ public final class Room implements IRoomData, CharacterChangeListener{
     }
 
     private void updateCharacterInteractions() {
-        for(AbstractCharacter character : charactersInteracting){
-            for(IInteractiveObject interactiveObject : interactiveObjects){
+        for (AbstractCharacter character : charactersInteracting){
+            for (IInteractiveObject interactiveObject : interactiveObjects){
                 if (character.getUnitTile().intersects(interactiveObject.getArea())){
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
@@ -60,7 +60,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private void updateCharacterMovements() {
 
-        for(Map.Entry<AbstractCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
+        for (Map.Entry<AbstractCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
             AbstractCharacter character = inputEntry.getKey();
             character.setPosition(allowedPosition(character.getUnitTile(), inputEntry.getValue()));
         }
@@ -72,7 +72,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
         areaUnderAttack.clear();
     }
 
-    private boolean dealDamage(){
+    private boolean dealDamage() {
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             if(!npcs.isEmpty()){
                 for(NpcType npc: npcs){
@@ -83,11 +83,11 @@ public final class Room implements IRoomData, CharacterChangeListener{
                         break; //an attack should only damage one character at the time. Should it? Should it really?
                     }
                 }
-                for(Player player: players){
-                    if((player.getUnitTile().intersects( attackingCharacter.getAttackArea()) )&&
-                            !attackingCharacter.getClass().equals(player.getClass())){
+
+                for (Player player: players) {
+                    if (player.getUnitTile().intersects( attackingCharacter.getAttackArea()) &&
+                            !(attackingCharacter instanceof Player)) {
                         player.takeDamage(attackingCharacter.getDamage());
-                        break;
                     }
                 }
             }
@@ -101,7 +101,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
      * @param toPosition the position we want to end at
      * @return the best allowed position
      */
-    private Vector2D allowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition){
+    private Vector2D allowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition) {
 
         double newX = toPosition.getX();
         double newXRight = newX + unitTile.getWidth();
@@ -113,12 +113,12 @@ public final class Room implements IRoomData, CharacterChangeListener{
         double returnY = oldY;
 
         //Check if new X position is allowed
-        if(0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))){
+        if (0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))){
             returnX = newX;
         }
 
         //Check if new Y position is allowed
-        if(0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))){
+        if (0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))){
             returnY = newY;
         }
         return new Vector2D(returnX, returnY);
@@ -130,7 +130,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
      * @param placeToPut the place to put objectToPlace at
      * @return true if there is a collision
      */
-    private boolean mapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut){
+    private boolean mapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
 
         Vector2D northWest = new Vector2D (placeToPut.getX() + 1, placeToPut.getY() + 1);
         Vector2D northEast = new Vector2D (placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
@@ -152,7 +152,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
      * Adds the specified character from the Room
      * @param character
      */
-    public void enterRoom(AbstractCharacter character){
+    public void enterRoom(AbstractCharacter character) {
         players.add((Player)character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
         character.registerListener(this);
     }
@@ -160,7 +160,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
      * Removes the specified character from the Room
      * @param character
      */
-    public boolean exitRoom(AbstractCharacter character){
+    public boolean exitRoom(AbstractCharacter character) {
         character.removeListener(this);
         return players.remove(character);
     }

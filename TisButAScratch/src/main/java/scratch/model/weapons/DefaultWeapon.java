@@ -47,8 +47,8 @@ public final class DefaultWeapon implements IWeapon {
 	}
 
 	/**
-	 * Tell the weapon to execute an attack
-	 * @return true if attack was done
+	 * Tell the weapon to execute an performAttack
+	 * @return true if performAttack was done
 	 */
 	@Override
 	public boolean hasCooledDown(){

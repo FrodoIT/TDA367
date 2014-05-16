@@ -40,7 +40,7 @@ public class NpcView {
         if (npc.isAlive()) {
             if (!npc.getWeapon().hasCooledDown()) {
                 //saves attackArea every time player fights co be able to continue to render it until the weaponCD is down.
-                if (npc.isAttacking()) {
+                if (npc.isPromptingAnAttack()) {
                     attackArea = npc.getAttackArea();
                 }
                 graphics.setColor(Color.blue);
