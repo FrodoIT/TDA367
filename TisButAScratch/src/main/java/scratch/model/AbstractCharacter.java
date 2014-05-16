@@ -2,8 +2,6 @@ package scratch.model;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoSerializable;
-import com.esotericsoftware.kryo.Registration;
-import com.esotericsoftware.kryo.Serializer;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import org.simpleframework.xml.Attribute;
@@ -21,9 +19,8 @@ import java.util.List;
  *
  * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
  */
-
 @Immutable
-public abstract class AbstractCharacter implements KryoSerializable{
+public abstract class AbstractCharacter implements KryoSerializable {
 
     @Element(type = Rectangle2D.Double.class, required = false)
     private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
@@ -84,7 +81,6 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     public abstract void update();
 
-
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
@@ -135,8 +131,8 @@ public abstract class AbstractCharacter implements KryoSerializable{
                 unitTile.y + (32 * weapon.getRange() * moveDirection.getY()),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
-    
-    public String getImagePath(){
+
+    public String getImagePath() {
         return imagePath;
     }
 
@@ -187,6 +183,11 @@ public abstract class AbstractCharacter implements KryoSerializable{
     @Override
     public void write(Kryo kryo, Output output) {
         kryo.writeObject(output, unitTile);
+        //kryo.writeObject(output, weapon);
+        kryo.writeObject(output, health);
+        kryo.writeObject(output, movementSpeed);
+        kryo.writeObject(output, moveDirection);
+        kryo.writeObject(output, imagePath);
     }
 
     public void setMovementSpeed(int movementSpeed) {
@@ -195,6 +196,12 @@ public abstract class AbstractCharacter implements KryoSerializable{
 
     @Override
     public void read(Kryo kryo, Input input) {
-        unitTile = kryo.readObject(input, Rectangle2D.Double.class, kryo.getSerializer(Rectangle2D.Double.class));
+        unitTile = kryo.readObject(input, Rectangle2D.Double.class);
+        //weapon = kryo.readObject(input, IWeapon.class);
+        health = kryo.readObject(input, Integer.class);
+        movementSpeed = kryo.readObject(input, Integer.class);
+        moveDirection = kryo.readObject(input, MoveDirection.class);
+        imagePath = kryo.readObject(input, String.class);
+        System.out.println("Succesfully read AbstractCharacter");
     }
 }
