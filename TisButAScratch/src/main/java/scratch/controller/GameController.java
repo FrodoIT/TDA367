@@ -16,14 +16,12 @@ import scratch.model.Game;
  */
 public class GameController implements org.newdawn.slick.Game {
 
-    private boolean host;
-    private String ip;
+    private final boolean host;
     private ServerController server;
-    private ClientController client;
+    private final ClientController client;
 
     public GameController(String ip) {
         host = false;
-        this.ip = ip;
         client = new ClientController(ip);
     }
 
