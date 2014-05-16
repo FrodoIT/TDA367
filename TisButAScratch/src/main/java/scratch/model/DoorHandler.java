@@ -14,10 +14,10 @@ public class DoorHandler {
 	private final Random random = new Random();
 
 	public void interactHappened(Room room, AbstractCharacter character, IInteractiveObject originDoor) {
-		Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
-		IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
+        final Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
+        final IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
-		for (Map.Entry<Room, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
+		for (final Map.Entry<Room, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
 				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
@@ -30,20 +30,20 @@ public class DoorHandler {
 	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, AbstractCharacter character) {
 		originRoom.exitRoom(character);
 		targetRoom.enterRoom(character);
-        Rectangle2D.Double doorArea = exitDoor.getArea();
-		int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
-		int y = (int) (doorArea.getY() - doorArea.getHeight()/2);
+        final Rectangle2D.Double doorArea = exitDoor.getArea();
+        final int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
+        final int y = (int) (doorArea.getY() - doorArea.getHeight()/2);
 		character.setPosition(new Vector2D(x, y));
 	}
 
 	private IInteractiveObject getOutDoor(Set<IInteractiveObject> connectedDoors, IInteractiveObject originDoor) {
-		List<IInteractiveObject> connDoorsExcludingOrigin = new ArrayList<>(connectedDoors);
+        final List<IInteractiveObject> connDoorsExcludingOrigin = new ArrayList<>(connectedDoors);
 		connDoorsExcludingOrigin.remove(originDoor);
         if (connDoorsExcludingOrigin.isEmpty()) {
             return originDoor; //if door has no connection. then go out the same door you tried to go in
         }
 
-		int randomIndex = random.nextInt(connDoorsExcludingOrigin.size());
+        final int randomIndex = random.nextInt(connDoorsExcludingOrigin.size());
 		return connDoorsExcludingOrigin.get(randomIndex);
 	}
 
@@ -59,7 +59,7 @@ public class DoorHandler {
 		}
 
 
-		String connection = (String)interactiveObject.getProperties().get("connection");
+        final String connection = (String)interactiveObject.getProperties().get("connection");
 		Set<IInteractiveObject> connectedDoors = doorMatchingMap.get(connection);
 
 		if (connectedDoors == null) {
@@ -72,7 +72,7 @@ public class DoorHandler {
 	}
 
 	public void addDoors(Room room, List<IInteractiveObject> interactiveObjects) {
-		for (IInteractiveObject interactiveObject : interactiveObjects) {
+		for (final IInteractiveObject interactiveObject : interactiveObjects) {
 			addDoor(room, interactiveObject);
 		}
 	}
