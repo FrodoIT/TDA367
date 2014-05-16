@@ -83,4 +83,7 @@ public class SlickMap implements IMap {
         return null;
     }
 
+	public TiledMapPlus getMap() {
+		return map;
+	}
 }

@@ -11,6 +11,7 @@ import java.util.List;
 public class Game {
 
     private List<Player> playerList;
+	private List<Room> rooms;
     private Room activeRoom;
 
     public Game() {
@@ -54,9 +55,10 @@ public class Game {
     }
 
     public void setMap(List<Room> gameMapRooms) {
-		//TODO: will need to be further implemented later.
-        //set the active room. Currently there should only be one.
+	    this.rooms= gameMapRooms;
         activeRoom = gameMapRooms.get(0);
+	    //TODO if index 0 isn't the spawn location then this is wrong.
+	    //maybe the spawn room should be searched for
     }
 
     public Room getActiveRoom() {

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by tejp on 2014-05-08.
  */
-public class TiledMapPlus extends TiledMap {
+public class TiledMapPlus  extends TiledMap {
 
 	private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
     private final List<NpcSpecification> npcSpecifications = new ArrayList<>();

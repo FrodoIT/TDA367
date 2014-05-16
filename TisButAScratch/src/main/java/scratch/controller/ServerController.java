@@ -10,6 +10,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import scratch.construction.MyMatcher;
 import scratch.construction.RoomFactory;
+import scratch.construction.SlickMap;
 import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.CharacterView;
@@ -49,7 +50,6 @@ public final class ServerController extends Listener implements org.newdawn.slic
         //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
         final RoomFactory roomFactory = new RoomFactory();
-        final TiledMap map = roomFactory.getMap();
         game.setMap(roomFactory.getRooms());
 
 	    //NOTE: The player created here wont have a room as listeners. this is added when the player
@@ -59,6 +59,8 @@ public final class ServerController extends Listener implements org.newdawn.slic
 	    game.addPlayer(newPlayer);
 
         for(final Room room : roomFactory.getRooms()){
+	        final TiledMap map = ((SlickMap)room.getMap()).getMap();
+	        //TODO refactor here. SlickMap and TiledMapPlus will be merged probably. Tejp fix
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
