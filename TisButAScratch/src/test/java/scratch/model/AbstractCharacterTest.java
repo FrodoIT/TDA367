@@ -45,10 +45,10 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testTakeDamage() throws Exception {
         testCharacter.takeDamage(4);
-        assertSame(testCharacter.getHealth(), 6);
+        assertEquals(6, testCharacter.getHealth());
 
         testCharacter.takeDamage(100);
-        assertSame(testCharacter.getHealth(), 0);
+        assertSame(0, testCharacter.getHealth());
     }
 
     @Test
@@ -67,9 +67,9 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetHealth() throws Exception {
-        assertSame(testCharacter.getHealth(), 10);
+        assertEquals(10, testCharacter.getHealth());
         testCharacter.takeDamage(100);
-        assertSame(testCharacter.getHealth(), 0);
+        assertEquals(0, testCharacter.getHealth());
     }
 
     @Test
@@ -81,12 +81,12 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetDamage() throws Exception {
-        assertSame(testCharacter.getDamage(), 2);
+        assertEquals(2, testCharacter.getDamage());
     }
 
     @Test
     public void testGetMovementSpeed() throws Exception {
-        assertSame(testCharacter.getMovementSpeed(), 2);
+        assertEquals(2, testCharacter.getMovementSpeed());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetID() throws Exception {
-        assertSame(testCharacter.getId(), 1);
+        assertSame(1, testCharacter.getId());
     }
 
     @Test
@@ -115,12 +115,12 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testSetHealth() throws Exception {
         testCharacter.setHealth(40);
-        assertSame(testCharacter.getHealth(), 40);
+        assertEquals(40, testCharacter.getHealth());
     }
 
     @Test
     public void testGetId() throws Exception {
-        assertSame(testCharacter.getId(), 1);
+        assertEquals(1, testCharacter.getId());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testSetId() {
         testCharacter.setId(4);
-        assertSame(testCharacter.getId(), 4);
+        assertSame(4, testCharacter.getId());
     }
 
 }
