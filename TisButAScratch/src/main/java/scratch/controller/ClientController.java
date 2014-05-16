@@ -96,7 +96,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void update(GameContainer container, int delta) {
-        //TODO: Send to server what keys are pressed
+        client.send(new PlayerInput(1, container.getInput()));
     }
 
     @Override

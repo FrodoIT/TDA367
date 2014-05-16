@@ -44,7 +44,7 @@ public final class Player extends AbstractCharacter {
 	}
     @Override
     public void update() {
-        playerInput.registerAllInput();
+//        playerInput.registerAllInput();
         int deltaX;
         int deltaY;
         int movementSpeed = getMovementSpeed();

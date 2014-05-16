@@ -1,21 +1,33 @@
 package scratch.controller;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Output;
 import org.newdawn.slick.Input;
 import scratch.model.IPlayerInput;
 import scratch.model.MoveDirection;
 
-public class PlayerInput implements IPlayerInput {
-    private final Input input;
+public class PlayerInput implements IPlayerInput, KryoSerializable {
 
+    private int id;
+    private Input input;
     private MoveDirection moveDirection = MoveDirection.NONE;
     private boolean attack, interact;
 
-    PlayerInput(Input input) {
+    PlayerInput() {
+
+    }
+
+    PlayerInput(int id, Input input) {
+        this.id = id;
         this.input = input;
+        registerMoveInput(input);
+        registerAttackInput(input);
+        registerInteractInput(input);
     }
 
     @Override
-    public void registerAllInput(){
+    public void registerAllInput() {
         registerMoveInput(input);
         registerAttackInput(input);
         registerInteractInput(input);
@@ -56,7 +68,6 @@ public class PlayerInput implements IPlayerInput {
             setMoveDirection(MoveDirection.NONE);
         }
     }
-
 
     private void registerInteractInput(Input input) {
         setInteractStatus(input.isKeyDown(Input.KEY_Z));
@@ -104,5 +115,20 @@ public class PlayerInput implements IPlayerInput {
         interact = false;
         moveDirection = MoveDirection.NONE;
     }
-}
 
+    @Override
+    public void write(Kryo kryo, Output output) {
+        kryo.writeObject(output, id);
+        kryo.writeObject(output, moveDirection);
+        kryo.writeObject(output, attack);
+        kryo.writeObject(output, interact);
+    }
+
+    @Override
+    public void read(Kryo kryo, com.esotericsoftware.kryo.io.Input input) {
+        id = kryo.readObject(input, Integer.class);
+        moveDirection = kryo.readObject(input, MoveDirection.class);
+        attack = kryo.readObject(input, Boolean.class);
+        interact = kryo.readObject(input, Boolean.class);
+    }
+}

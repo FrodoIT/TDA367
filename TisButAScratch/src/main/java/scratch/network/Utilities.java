@@ -9,6 +9,7 @@ package scratch.network;
 import com.esotericsoftware.kryo.Kryo;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import scratch.controller.PlayerInput;
 import scratch.model.AbstractCharacter;
 import scratch.model.MoveDirection;
 import scratch.model.NpcType;
@@ -26,6 +27,9 @@ public class Utilities {
         //Classes required for Room
         kryo.register(Room.class);
         kryo.register(ArrayList.class);
+        
+        //Required for PlayerInput
+        kryo.register(PlayerInput.class);
         
         
         //Classes required for Player

@@ -35,8 +35,8 @@ public class NetworkClient {
         }
         client.addListener(listener);
     }
-
-    public void update() {
-
+    
+    public void send(Object object){
+        client.sendTCP(object);
     }
 }
