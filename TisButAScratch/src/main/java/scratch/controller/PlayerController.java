@@ -19,11 +19,11 @@ public final class PlayerController {
     @Inject
     private Player player;
     private final PropertyChangeSupport listeners;
-    private final CharacterView characterView;
+    private final CharacterView view;
 
     public PlayerController(Player player, CharacterView characterView) {
         this.player = player;
-        this.characterView = characterView;
+        this.view = characterView;
         listeners = new PropertyChangeSupport(this);
     }
     
@@ -41,16 +41,16 @@ public final class PlayerController {
     }
     
     public void setPlayer(Player player){
-        characterView.setCharacter(player);
+        view.setCharacter(player);
         this.player = player;
     }
 
     public void render(GameContainer gameContainer) {
-        characterView.render(gameContainer);
+        view.render(gameContainer);
     }
 
     public CharacterView getView() {
-        return characterView;
+        return view;
     }
 
 }
