@@ -6,16 +6,17 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import scratch.construction.MyMatcher;
 import scratch.construction.RoomFactory;
-import scratch.model.Game;
-import scratch.model.NpcType;
-import scratch.model.Player;
-import scratch.model.Room;
+import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.CharacterView;
 import scratch.view.RoomView;
 
 import java.awt.geom.Rectangle2D;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +51,12 @@ public final class ServerController extends Listener implements org.newdawn.slic
         final RoomFactory roomFactory = new RoomFactory();
         final TiledMap map = roomFactory.getMap();
         game.setMap(roomFactory.getRooms());
-        final Player newPlayer = new Player(
-                new PlayerInput(gameContainer.getInput()),
-                new Rectangle2D.Double(0,0,32,32), 2, "/res/playerSprite.tmx");
-        game.addPlayer(newPlayer);
+
+	    //NOTE: The player created here wont have a room as listeners. this is added when the player
+	    //enters the first room. (game.addPlayer(newPlayer); enters a player to the first room)
+	    Player newPlayer = loadPlayer("StandardPlayer", new Vector2D(20,20), 1, gameContainer);
+	    System.out.println(newPlayer.toString());
+	    game.addPlayer(newPlayer);
 
         for(final Room room : roomFactory.getRooms()){
             RoomController roomController = new RoomController(room, new RoomView(map));
@@ -76,6 +79,26 @@ public final class ServerController extends Listener implements org.newdawn.slic
 
         
     }
+	private Player loadPlayer(String file, Vector2D position, int id, GameContainer gameContainer){
+		final Serializer serializer = new Persister(new MyMatcher());
+		final StringBuilder fileBuild = new StringBuilder();
+		fileBuild.append("res/");
+		fileBuild.append(file);
+		fileBuild.append(".xml");
+		final File source = new File(fileBuild.toString());
+		Player player;
+		try {
+			player = serializer.read(Player.class, source);
+
+		} catch (Exception e) {
+			System.out.println(e.toString());
+			return null;
+		}
+		player.setPosition(position);
+		player.setId(id);
+		player.setPlayerInput(new PlayerInput(gameContainer.getInput()));
+		return player;
+	}
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {

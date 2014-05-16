@@ -203,4 +203,18 @@ public abstract class AbstractCharacter implements KryoSerializable {
         moveDirection = kryo.readObject(input, MoveDirection.class);
         imagePath = kryo.readObject(input, String.class);
     }
+
+	@Override
+	public String toString() {
+		return "AbstractCharacter{" +
+				"unitTile=" + unitTile +
+				", weapon=" + weapon +
+				", health=" + health +
+				", movementSpeed=" + movementSpeed +
+				", id=" + id +
+				", moveDirection=" + moveDirection +
+				", imagePath='" + imagePath + '\'' +
+				", listeners=" + listeners +
+				'}';
+	}
 }

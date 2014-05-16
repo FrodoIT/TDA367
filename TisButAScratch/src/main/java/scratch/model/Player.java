@@ -1,5 +1,8 @@
 package scratch.model;
 
+import org.newdawn.slick.GameContainer;
+import org.simpleframework.xml.Element;
+import scratch.controller.PlayerInput;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.utils.Cooldown;
 
@@ -13,10 +16,11 @@ import java.awt.geom.Rectangle2D;
  *
  */
 public final class Player extends AbstractCharacter {
-
+	@Element (type = IPlayerInput.class, required = false)
     private IPlayerInput playerInput;
+	@Element (required = false)
     private boolean interactIsCooledDown = true;
-
+	@Element (type=Runnable.class, required = false)
     private Runnable cooldownReset = new Runnable() {
         @Override
         public void run() {
@@ -28,14 +32,16 @@ public final class Player extends AbstractCharacter {
      * Needed for serialization, should not be used
      */
     public Player(){
-        playerInput = null;
+        super();
     }
     
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id, String imagePath) {
         super(unitTile, new DefaultWeapon(), 10, 2, id, imagePath);
         this.playerInput = playerInput;
     }
-
+	public void setPlayerInput(PlayerInput playerInput){
+		this.playerInput=playerInput;
+	}
     @Override
     public void update() {
         playerInput.registerAllInput();
@@ -131,4 +137,13 @@ public final class Player extends AbstractCharacter {
     public boolean isPromptingAnAttack() {
         return playerInput.isAttacking() && getWeapon().hasCooledDown();
     }
+
+	@Override
+	public String toString() {
+		return super.toString() +"Player{" +
+				"playerInput=" + playerInput +
+				", interactIsCooledDown=" + interactIsCooledDown +
+				", cooldownReset=" + cooldownReset +
+				'}';
+	}
 }
