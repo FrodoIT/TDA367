@@ -12,6 +12,7 @@ import scratch.view.CharacterView;
 import java.util.ArrayList;
 import java.util.List;
 import scratch.model.AbstractCharacter;
+import scratch.model.NpcType;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -54,6 +55,17 @@ public final class ClientController extends Listener implements org.newdawn.slic
             if (!found) {
                 playerControllerList.add(new PlayerController((Player)character, new CharacterView(character)));
             }
+        } else if (character instanceof NpcType){
+            boolean found = false;
+            for (final NpcController npcController : npcControllerList) {
+                if (npcController.getId() == character.getId()) {
+                    npcController.setNpc((NpcType)character);
+                    found = true;
+                }
+            }
+            if (!found) {
+                npcControllerList.add(new NpcController((NpcType)character, new CharacterView(character)));
+            }            
         }
     }
 

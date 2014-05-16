@@ -11,36 +11,44 @@ import java.beans.PropertyChangeSupport;
  * Created by pippin on 5/10/14.
  */
 public class NpcController {
-    private final NpcType npc;
+
+    private NpcType npc;
     private final PropertyChangeSupport listeners;
     private final CharacterView view;
-
 
     public NpcController(NpcType npc, CharacterView view) {
         this.npc = npc;
         this.view = view;
         listeners = new PropertyChangeSupport(this);
     }
-    
-    public void addListener(PropertyChangeListener listener){
-        listeners.addPropertyChangeListener(listener);
 
+    public void addListener(PropertyChangeListener listener) {
+        listeners.addPropertyChangeListener(listener);
     }
 
-    public void updateNpc(){
+    public void updateNpc() {
         npc.update();
         listeners.firePropertyChange(null, null, npc);
+    }
+
+    public void setNpc(NpcType npc) {
+        view.setCharacter(npc);
+        this.npc = npc;
     }
 
     public CharacterView getView() {
         return view;
     }
-    
-    public void render(GameContainer gameContainer){
+
+    public void render(GameContainer gameContainer) {
         view.render(gameContainer);
     }
 
     public NpcType getNpc() {
         return npc;
+    }
+
+    public int getId() {
+        return npc.getId();
     }
 }
