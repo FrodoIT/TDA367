@@ -10,6 +10,7 @@ package scratch.construction.plugin;
  *
  * @author Ivar
  */
-public interface Pluggable<T> {
+public interface Pluggable<T> extends Cloneable{
     T get();
+    T clone();
 }

@@ -14,7 +14,7 @@ import java.util.Random;
 @AIPlugin(id = 2)
 public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 	@Inject
-	private final Random ran = new Random(2345);
+	private final Random ran = new Random(System.nanoTime());
 	private IRoomData roomData;
 
 	@Override
@@ -22,8 +22,19 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
 		return this;
 	}
 
-	@Override
+    @Override
+    public CPNPCPlugin clone() {
+        CPNPCPlugin plugin = new CPNPCPlugin();
+        plugin.roomData = this.roomData;
+        return new CPNPCPlugin();
+    }
+
+    @Override
 	public Vector2D calculateNewPosition(NpcType npc) {
+
+        if (roomData.getPlayers().isEmpty()) {
+            return npc.getPosition();
+        }
 
         final Vector2D currentPos = npc.getPosition();
 		return new Vector2D(currentPos.getX() + ran.nextInt(3)-1, currentPos.getY() + ran.nextInt(3)-1);
