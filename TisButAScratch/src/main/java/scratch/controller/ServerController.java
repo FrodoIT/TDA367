@@ -26,7 +26,7 @@ import java.util.List;
  * @author Anna Nylander
  *
  */
-public final class ServerController extends Listener implements org.newdawn.slick.Game {
+public final class ServerController extends Listener{
 
     private final NetworkServer networkServer;
     private final Game game;
@@ -43,10 +43,8 @@ public final class ServerController extends Listener implements org.newdawn.slic
         npcControllerList = new ArrayList<>();
     }
 
-    @Override
     public void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
-        gameContainer.setTargetFrameRate(60);
         final RoomFactory roomFactory = new RoomFactory();
         game.setMap(roomFactory.getRooms());
 
@@ -99,34 +97,19 @@ public final class ServerController extends Listener implements org.newdawn.slic
         return player;
     }
 
-    @Override
+    
     public void update(GameContainer container, int delta) throws SlickException {
         for (final PlayerController playerController : playerControllerList) {
             playerController.updatePlayer();
         }
 
         for (final NpcController npcController : npcControllerList) {
-            npcController.updateNpc();
+//            npcController.updateNpc();
         }
 
         for (final RoomController roomController : roomControllerList) {
             roomController.updateRoom();
         }
-    }
-
-    @Override
-    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-
-    }
-
-    @Override
-    public boolean closeRequested() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return "'Tis but a Scratch";
     }
 
     @Override

@@ -12,6 +12,7 @@ import scratch.controller.ServerController;
 import scratch.model.Game;
 
 import javax.swing.*;
+import scratch.controller.GameController;
 import scratch.network.Utilities;
 
 /**
@@ -28,9 +29,9 @@ public class Menu {
         final org.newdawn.slick.Game controller;
         
         if (Utilities.validIP(ip)) {
-            controller = new ClientController(ip);
+            controller = new GameController(ip);
         } else {
-            controller = new ServerController(game);
+            controller = new GameController(game);
             
         }
         AppGameContainer app = new AppGameContainer(controller);

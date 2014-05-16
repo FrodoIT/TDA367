@@ -27,7 +27,7 @@ import scratch.view.RoomView;
  * @author Anna Nylander
  *
  */
-public final class ClientController extends Listener implements org.newdawn.slick.Game {
+public final class ClientController extends Listener{
 
     private final List<PlayerController> playerControllerList;
     private final List<NpcController> npcControllerList;
@@ -42,9 +42,7 @@ public final class ClientController extends Listener implements org.newdawn.slic
         client = new NetworkClient(ip);
     }
 
-    @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        gameContainer.setTargetFrameRate(60);
         //Send this class to be set as listener for the connection
 
         final RoomFactory roomFactory = new RoomFactory();
@@ -94,12 +92,10 @@ public final class ClientController extends Listener implements org.newdawn.slic
         }
     }
 
-    @Override
     public void update(GameContainer container, int delta) {
         client.send(new PlayerInput(1, container.getInput()));
     }
 
-    @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         for (final RoomController roomController : roomControllerList) {
             roomController.getRoomView().render();
@@ -119,15 +115,5 @@ public final class ClientController extends Listener implements org.newdawn.slic
         if (object instanceof AbstractCharacter) {
             characterRecieved((AbstractCharacter) object);
         }
-    }
-
-    @Override
-    public boolean closeRequested() {
-        return true;
-    }
-
-    @Override
-    public String getTitle() {
-        return "'Tis but a Scratch";
     }
 }
