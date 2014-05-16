@@ -1,5 +1,8 @@
 package scratch.model.mockmodules;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -32,6 +35,16 @@ public class MockWeapon implements IWeapon{
     @Override
     public boolean hasCooledDown() {
         return false;
+    }
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

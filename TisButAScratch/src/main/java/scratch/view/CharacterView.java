@@ -17,13 +17,15 @@ import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Cannonbait
  */
 public class CharacterView {
-    private final AbstractCharacter character;
+    private AbstractCharacter character;
     private SpriteDirectionRenderer spriteHandler;
     
     public CharacterView (AbstractCharacter character){
@@ -31,19 +33,30 @@ public class CharacterView {
         try {
             spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
         } catch (SlickException e){
-            System.out.println(e.toString());
+            spriteHandler = null;
         }
     }
     
+    public void setCharacter (AbstractCharacter character){
+        this.character = character;
+    }
+    
     public void render(GameContainer gameContainer){
+        if (spriteHandler == null){
+            try {
+                spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
+            } catch (SlickException ex) {
+                Logger.getLogger(CharacterView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         Vector2D position = character.getPosition();
         Graphics graphics = gameContainer.getGraphics();
-        
+        /*
         if (character.isPromptingAnAttack()) {
             Rectangle2D.Double attackArea = character.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
-        }
+        }*/
 
         MoveDirection input= character.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(),position.getY());

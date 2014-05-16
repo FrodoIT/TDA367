@@ -202,6 +202,5 @@ public abstract class AbstractCharacter implements KryoSerializable {
         movementSpeed = kryo.readObject(input, Integer.class);
         moveDirection = kryo.readObject(input, MoveDirection.class);
         imagePath = kryo.readObject(input, String.class);
-        System.out.println("Succesfully read AbstractCharacter");
     }
 }

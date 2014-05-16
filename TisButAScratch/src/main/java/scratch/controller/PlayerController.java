@@ -41,6 +41,7 @@ public final class PlayerController {
     }
     
     public void setPlayer(Player player){
+        characterView.setCharacter(player);
         this.player = player;
     }
 
