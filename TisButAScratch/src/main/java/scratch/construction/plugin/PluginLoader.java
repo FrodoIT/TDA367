@@ -20,8 +20,11 @@ import java.util.logging.Logger;
  *
  * @author Ivar
  */
-public class PluginLoader {
+public final class PluginLoader {
     public static final String PLUGIN_PATH = "target/classes/scratch/construction/plugin/exported/";
+
+    private PluginLoader() {
+    }
 
     private static List<Class<?>> getPluginClasses (Class annotationType) {
         final List<File> files = FileScanner.getFiles(new File(PLUGIN_PATH));

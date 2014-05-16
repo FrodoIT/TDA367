@@ -9,7 +9,7 @@ import scratch.menu.Menu;
  * @revisedBy Anna Nylander
  *
  */
-public class Main {
+public final class Main {
 	public static void main (String[] args) throws SlickException{            
             Menu.mainMenu();
 	}

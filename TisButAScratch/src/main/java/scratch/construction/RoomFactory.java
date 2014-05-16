@@ -61,8 +61,8 @@ public final class RoomFactory {
     }
 
     private void addNpcstoRoom(){
-        for (Room room : rooms) {
-            for (NpcType npcType : npcFactory.getNpcsForRoom(room)) {
+        for (final Room room : rooms) {
+            for (final NpcType npcType : npcFactory.getNpcsForRoom(room)) {
                 room.addNpc(npcType);
             }
         }

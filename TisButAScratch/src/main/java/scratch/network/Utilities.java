@@ -52,7 +52,6 @@ public class Utilities {
         kryo.register(INPCMoveTransformer.class);
         kryo.register(MyMatcher.class);
         kryo.register(NpcFactory.class);
-        kryo.register(AbstractPluginUserFactory.class);
         kryo.register(RectangleTransformer.class);
         kryo.register(RoomFactory.class);
         kryo.register(SlickMap.class);

@@ -26,13 +26,11 @@ public final class NpcFactory {
     }
 
     public void loadNpcsFromMap() {
-        for (Room room : rooms) {
+        for (final Room room : rooms) {
             final List<NpcSpecification> npcSpecs = room.getMap().getNpcSpecifications();
 
-            System.out.println("mobbs found on map: " + npcSpecs.size());
-
-            List<NpcType> npcs = new ArrayList<>();
-            for (NpcSpecification npc : npcSpecs) {
+            final List<NpcType> npcs = new ArrayList<>();
+            for (final NpcSpecification npc : npcSpecs) {
                 final NpcType loadedNpc = loadNpc(
                         npc.getPluginName(),
                         new Vector2D(npc.getArea().getX(),npc.getArea().getY()),
