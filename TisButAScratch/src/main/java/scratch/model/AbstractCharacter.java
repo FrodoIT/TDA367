@@ -126,9 +126,10 @@ public abstract class AbstractCharacter implements KryoSerializable {
     }
 
     public Rectangle2D.Double getAttackArea() {
+        int range = weapon.getRange();
         return new Rectangle2D.Double(
-                unitTile.x + (32 * weapon.getRange() * moveDirection.getX()),
-                unitTile.y + (32 * weapon.getRange() * moveDirection.getY()),
+                unitTile.x + (32 * range * moveDirection.getX()),
+                unitTile.y + (32 * range * moveDirection.getY()),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 
