@@ -48,7 +48,7 @@ public class AbstractCharacterTest extends TestCase {
         assertEquals(6, testCharacter.getHealth());
 
         testCharacter.takeDamage(100);
-        assertSame(0, testCharacter.getHealth());
+        assertEquals(0, testCharacter.getHealth());
     }
 
     @Test
@@ -103,7 +103,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetID() throws Exception {
-        assertSame(1, testCharacter.getId());
+        assertEquals(1, testCharacter.getId());
     }
 
     @Test
@@ -143,7 +143,7 @@ public class AbstractCharacterTest extends TestCase {
     @Test
     public void testSetId() {
         testCharacter.setId(4);
-        assertSame(4, testCharacter.getId());
+        assertEquals(4, testCharacter.getId());
     }
 
 }
