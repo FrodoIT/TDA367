@@ -21,12 +21,13 @@ import java.util.List;
  */
 public final class ClientController extends Listener implements org.newdawn.slick.Game {
 
-    private List<PlayerController> playerControllerList;
-    private List<NpcController> npcControllerList;
-    private List<RoomController> roomControllerList;
+    private final List<PlayerController> playerControllerList;
+    private final List<NpcController> npcControllerList;
+    private final List<RoomController> roomControllerList;
     private final NetworkClient client;
 
     public ClientController(String ip) {
+        super();
         playerControllerList = new ArrayList<>();
         roomControllerList = new ArrayList<>();
         npcControllerList = new ArrayList<>();
@@ -35,18 +36,14 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
         //Send this class to be set as listener for the connection
-
         client.start(this);
-
-
     }
 
     public void playerRecieved(Player player) {
         boolean found = false;
-        for (PlayerController playerController : playerControllerList) {
+        for (final PlayerController playerController : playerControllerList) {
             if (playerController.getId() == player.getId()) {
                 playerController.setPlayer(player);
                 found = true;
@@ -65,15 +62,15 @@ public final class ClientController extends Listener implements org.newdawn.slic
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
 
-        for (RoomController roomController : roomControllerList) {
+        for (final RoomController roomController : roomControllerList) {
             roomController.getRoomView().render();
         }
 
-        for (NpcController npcController : npcControllerList) {
+        for (final NpcController npcController : npcControllerList) {
             npcController.render(gameContainer);
         }
 
-        for (PlayerController playerController : playerControllerList) {
+        for (final PlayerController playerController : playerControllerList) {
             playerController.render(gameContainer);
         }
     }

@@ -30,42 +30,41 @@ public final class ServerController extends Listener implements org.newdawn.slic
 
     private final NetworkServer networkServer;
     private final Game game;
-    private List<PlayerController> playerControllerList;
-    private List<NpcController> npcControllerList;
-    private List<RoomController> roomControllerList;
+    private final List<PlayerController> playerControllerList;
+    private final List<NpcController> npcControllerList;
+    private final List<RoomController> roomControllerList;
 
     public ServerController(Game game) {
+        super();
         this.game = game;
         networkServer = new NetworkServer();
-        playerControllerList = new ArrayList<PlayerController>();
-        roomControllerList = new ArrayList<RoomController>();
-        npcControllerList = new ArrayList<NpcController>();
+        playerControllerList = new ArrayList<>();
+        roomControllerList = new ArrayList<>();
+        npcControllerList = new ArrayList<>();
     }
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
-        RoomFactory roomFactory = new RoomFactory();
-        TiledMap map = getTiledMap(roomFactory);
-        Player tempPlayer = new Player(
+        final RoomFactory roomFactory = new RoomFactory();
+        final TiledMap map = getTiledMap(roomFactory);
+        final Player newPlayer = new Player(
                 new PlayerInput(gameContainer.getInput()),
                 new Rectangle2D.Double(0,0,32,32), 2, "/res/playerSprite.tmx");
+        game.addPlayer(newPlayer);
 
-        game.addPlayer(tempPlayer);
-
-
-
-        for(Room room : roomFactory.getRooms()){
+        for(final Room room : roomFactory.getRooms()){
             roomControllerList.add(
                     new RoomController(room,
                             new RoomView(map)));
-            for(NpcType npc : room.getNpcs()){
+
+            for(final NpcType npc : room.getNpcs()){
                 npcControllerList.add(
                         new NpcController(npc,
                                 new CharacterView(npc)));
             }
-            for(Player player : room.getPlayers()){
+            for(final Player player : room.getPlayers()){
                 playerControllerList.add(
                         new PlayerController(player,
                                 new CharacterView(player)));
@@ -78,22 +77,25 @@ public final class ServerController extends Listener implements org.newdawn.slic
     }
 
     private TiledMap getTiledMap(RoomFactory roomFactory) {
-        TiledMap map = roomFactory.getMap();
+        final TiledMap map = roomFactory.getMap();
+        
+        //TODO WHAT THE FUCK?
         game.setMap(roomFactory.getRooms());
+        
         return map;
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        for (PlayerController playerController: playerControllerList){
+        for (final PlayerController playerController: playerControllerList){
             playerController.updatePlayer();
         }
 
-        for (NpcController npcController : npcControllerList) {
+        for (final NpcController npcController : npcControllerList) {
             npcController.updateNpc();
         }
 
-        for (RoomController roomController : roomControllerList) {
+        for (final RoomController roomController : roomControllerList) {
             roomController.updateRoom();
         }
     }
@@ -101,15 +103,15 @@ public final class ServerController extends Listener implements org.newdawn.slic
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
 
-        for (RoomController roomController : roomControllerList) {
+        for (final RoomController roomController : roomControllerList) {
             roomController.getRoomView().render();
         }
 
-        for(NpcController npcController : npcControllerList){
+        for(final NpcController npcController : npcControllerList){
             npcController.render(gameContainer);
         }
 
-        for(PlayerController playerController : playerControllerList){
+        for(final PlayerController playerController : playerControllerList){
             playerController.render(gameContainer);
         }
     }
