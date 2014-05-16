@@ -1,5 +1,9 @@
 package scratch.model;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
 
 import java.awt.geom.Rectangle2D;
@@ -10,10 +14,12 @@ import java.util.Map;
 
 /**
  * Represents a single room and the contents in it.
+ *
  * @author Ivar Josefsson
  *
  */
-public final class Room implements IRoomData, CharacterChangeListener{
+public final class Room implements IRoomData, CharacterChangeListener, KryoSerializable {
+
     @Inject
 
     private List<Player> players;
@@ -21,9 +27,13 @@ public final class Room implements IRoomData, CharacterChangeListener{
     private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
     private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private List<NpcType> npcs;
-    private final IMap map;
+    private IMap map;
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
+
+    public Room() {
+
+    }
 
     public Room(IMap collisionMap, DoorHandler doorHandler) {
         this.map = collisionMap;
@@ -33,24 +43,23 @@ public final class Room implements IRoomData, CharacterChangeListener{
         npcs = new ArrayList<>();
     }
 
-
     public void update() {
-	    updateCharacterMovements();
+        updateCharacterMovements();
         updateCharacterAttacks();
         updateCharacterInteractions();
     }
 
-    public boolean hasPlayers(){
+    public boolean hasPlayers() {
         return !players.isEmpty();
     }
 
     private void updateCharacterInteractions() {
-        for (AbstractCharacter character : charactersInteracting){
-            for (IInteractiveObject interactiveObject : interactiveObjects){
-                if (character.getUnitTile().intersects(interactiveObject.getArea())){
+        for (AbstractCharacter character : charactersInteracting) {
+            for (IInteractiveObject interactiveObject : interactiveObjects) {
+                if (character.getUnitTile().intersects(interactiveObject.getArea())) {
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
-                    doorHandler.interactHappened(this, character, interactiveObject );
+                    doorHandler.interactHappened(this, character, interactiveObject);
                     break;
                 }
             }
@@ -74,19 +83,19 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     private boolean dealDamage() {
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
-            if(!npcs.isEmpty()){
-                for(NpcType npc: npcs){
-                    if((npc.getUnitTile().intersects( attackingCharacter.getAttackArea())) &&
-                            !attackingCharacter.getClass().equals(npc.getClass())){
+            if (!npcs.isEmpty()) {
+                for (NpcType npc : npcs) {
+                    if ((npc.getUnitTile().intersects(attackingCharacter.getAttackArea()))
+                            && !attackingCharacter.getClass().equals(npc.getClass())) {
                         npc.takeDamage(attackingCharacter.getDamage());
 
                         break; //an attack should only damage one character at the time. Should it? Should it really?
                     }
                 }
 
-                for (Player player: players) {
-                    if (player.getUnitTile().intersects( attackingCharacter.getAttackArea()) &&
-                            !(attackingCharacter instanceof Player)) {
+                for (Player player : players) {
+                    if (player.getUnitTile().intersects(attackingCharacter.getAttackArea())
+                            && !(attackingCharacter instanceof Player)) {
                         player.takeDamage(attackingCharacter.getDamage());
                     }
                 }
@@ -97,6 +106,7 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     /**
      * Called to determine the best allowed position
+     *
      * @param unitTile the position we start from
      * @param toPosition the position we want to end at
      * @return the best allowed position
@@ -113,12 +123,12 @@ public final class Room implements IRoomData, CharacterChangeListener{
         double returnY = oldY;
 
         //Check if new X position is allowed
-        if (0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))){
+        if (0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))) {
             returnX = newX;
         }
 
         //Check if new Y position is allowed
-        if (0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))){
+        if (0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))) {
             returnY = newY;
         }
         return new Vector2D(returnX, returnY);
@@ -126,16 +136,17 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     /**
      * Checks if there's a collision at the given coordinates
+     *
      * @param objectToPlace A "hitbox" of the object to place at placeToPut
      * @param placeToPut the place to put objectToPlace at
      * @return true if there is a collision
      */
     private boolean mapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
 
-        Vector2D northWest = new Vector2D (placeToPut.getX() + 1, placeToPut.getY() + 1);
-        Vector2D northEast = new Vector2D (placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
-        Vector2D southWest = new Vector2D(placeToPut.getX()+ 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
-        Vector2D southEast = new Vector2D (placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+        Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
+        Vector2D northEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
+        Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+        Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
 
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
@@ -150,21 +161,23 @@ public final class Room implements IRoomData, CharacterChangeListener{
 
     /**
      * Adds the specified character from the Room
+     *
      * @param character
      */
     public void enterRoom(AbstractCharacter character) {
-        players.add((Player)character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
+        players.add((Player) character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
         character.registerListener(this);
     }
+
     /**
      * Removes the specified character from the Room
+     *
      * @param character
      */
     public boolean exitRoom(AbstractCharacter character) {
         character.removeListener(this);
         return players.remove(character);
     }
-
 
     /**
      *
@@ -231,5 +244,25 @@ public final class Room implements IRoomData, CharacterChangeListener{
     @Override
     public void handleCharacterInteraction(AbstractCharacter character) {
         charactersInteracting.add(character);
+    }
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+        kryo.writeObject(output, players);
+        kryo.writeObject(output, npcs);
+        /*
+         private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
+         private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
+         private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
+         private List<NpcType> npcs;
+         private final IMap map;
+         private List<IInteractiveObject> interactiveObjects;
+         private DoorHandler doorHandler;*/
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        players = kryo.readObject(input, ArrayList.class);
+        npcs = kryo.readObject(input, ArrayList.class);
     }
 }

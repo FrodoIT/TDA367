@@ -11,8 +11,13 @@ import scratch.view.CharacterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.newdawn.slick.tiled.TiledMap;
+import scratch.construction.RoomFactory;
 import scratch.model.AbstractCharacter;
+import scratch.model.Game;
 import scratch.model.NpcType;
+import scratch.model.Room;
+import scratch.view.RoomView;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -40,6 +45,23 @@ public final class ClientController extends Listener implements org.newdawn.slic
     public void init(GameContainer gameContainer) throws SlickException {
         gameContainer.setTargetFrameRate(60);
         //Send this class to be set as listener for the connection
+        
+        final RoomFactory roomFactory = new RoomFactory();
+        final TiledMap map = roomFactory.getMap();
+
+        for (final Room room : roomFactory.getRooms()) {
+            RoomController roomController = new RoomController(room, new RoomView(map));
+            roomControllerList.add(roomController);
+
+            for (final NpcType npc : room.getNpcs()) {
+                NpcController npcController = new NpcController(npc, new CharacterView(npc));
+                npcControllerList.add(npcController);
+            }
+            for (final Player player : room.getPlayers()) {
+                PlayerController playerController = new PlayerController(player, new CharacterView(player));
+                playerControllerList.add(playerController);
+            }
+        }
         client.start(this);
     }
 
@@ -48,24 +70,25 @@ public final class ClientController extends Listener implements org.newdawn.slic
             boolean found = false;
             for (final PlayerController playerController : playerControllerList) {
                 if (playerController.getId() == character.getId()) {
-                    playerController.setPlayer((Player)character);
+                    playerController.setPlayer((Player) character);
                     found = true;
                 }
             }
             if (!found) {
-                playerControllerList.add(new PlayerController((Player)character, new CharacterView(character)));
+                playerControllerList.add(new PlayerController((Player) character, new CharacterView(character)));
             }
-        } else if (character instanceof NpcType){
+        } else if (character instanceof NpcType) {
             boolean found = false;
+            
             for (final NpcController npcController : npcControllerList) {
                 if (npcController.getId() == character.getId()) {
-                    npcController.setNpc((NpcType)character);
+                    npcController.setNpc((NpcType) character);
                     found = true;
                 }
             }
             if (!found) {
-                npcControllerList.add(new NpcController((NpcType)character, new CharacterView(character)));
-            }            
+                npcControllerList.add(new NpcController((NpcType) character, new CharacterView(character)));
+            }
         }
     }
 
@@ -91,6 +114,9 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void received(Connection connection, Object object) {
+        if (object instanceof Room) {
+            System.out.println("We recieved a Room");
+        }
         if (object instanceof AbstractCharacter) {
             characterRecieved((AbstractCharacter) object);
         }

@@ -8,10 +8,12 @@ package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import scratch.model.AbstractCharacter;
 import scratch.model.MoveDirection;
 import scratch.model.NpcType;
 import scratch.model.Player;
+import scratch.model.Room;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
@@ -21,6 +23,10 @@ import scratch.model.weapons.IWeapon;
  */
 public class Utilities {
     public static void kryoRegister(Kryo kryo){
+        //Classes required for Room
+        kryo.register(Room.class);
+        kryo.register(ArrayList.class);
+        
         
         //Classes required for Player
         kryo.register(Player.class);

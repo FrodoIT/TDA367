@@ -1,10 +1,5 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.KryoSerializable;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +8,7 @@ import java.util.List;
  * @author Alma Ottedag
  *
  */
-public class Game implements KryoSerializable {
+public class Game {
 
     private List<Player> playerList;
     private Room activeRoom;
@@ -67,16 +62,4 @@ public class Game implements KryoSerializable {
     public Room getActiveRoom() {
         return activeRoom;
     }
-
-    @Override
-    public void write(Kryo kryo, Output output) {
-        //TODO: Fix
-        System.out.println("We are sending a game");
-    }
-
-    @Override
-    public void read(Kryo kryo, Input input) {
-        System.out.println("We are reading a game");
-    }
-
 }

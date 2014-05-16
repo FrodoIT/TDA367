@@ -186,6 +186,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
         //kryo.writeObject(output, weapon);
         kryo.writeObject(output, health);
         kryo.writeObject(output, movementSpeed);
+        kryo.writeObject(output, id);
         kryo.writeObject(output, moveDirection);
         kryo.writeObject(output, imagePath);
     }
@@ -200,6 +201,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
         //weapon = kryo.readObject(input, IWeapon.class);
         health = kryo.readObject(input, Integer.class);
         movementSpeed = kryo.readObject(input, Integer.class);
+        id = kryo.readObject(input, Integer.class);
         moveDirection = kryo.readObject(input, MoveDirection.class);
         imagePath = kryo.readObject(input, String.class);
     }
