@@ -10,7 +10,7 @@ public final class Vector2D {
          * Should never be called, needed for serialisation of class.
          */
         public Vector2D(){
-            vectorInfo = null;
+            vectorInfo = new Point2D.Double(0,0);
             magnitude = 0;
         }
 

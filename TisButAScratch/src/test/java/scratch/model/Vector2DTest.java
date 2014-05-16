@@ -47,6 +47,13 @@ public class Vector2DTest extends TestCase {
         assertEquals(4.d, vector.getY(), epsilon);
     }
 
+	public void testEmptyConstucor(){
+		Vector2D vector2D = new Vector2D();
+		assertEquals(vector2D.getMagnitude(), 0);
+		assertEquals(vector2D.getX(),0);
+		assertEquals(vector2D.getY(),0);
+	}
+
     @Test
     public void testEquals(){
         EqualsVerifier.forClass(Vector2D.class).verify();
