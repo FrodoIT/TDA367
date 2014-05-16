@@ -5,9 +5,7 @@
  */
 package scratch.network;
 
-import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;

@@ -3,7 +3,10 @@ package scratch.model;
 import com.google.inject.Inject;
 
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a single room and the contents in it.

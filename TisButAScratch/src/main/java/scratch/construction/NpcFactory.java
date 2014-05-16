@@ -2,9 +2,6 @@ package scratch.construction;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
-import scratch.construction.plugin.AIPlugin;
-import scratch.construction.plugin.Pluggable;
-import scratch.construction.plugin.PluginLoader;
 import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.model.Vector2D;

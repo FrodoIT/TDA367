@@ -1,13 +1,10 @@
 package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
-import scratch.construction.RoomFactory;
 import scratch.model.Player;
 import scratch.network.NetworkClient;
 import scratch.view.CharacterView;

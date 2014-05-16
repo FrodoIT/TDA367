@@ -1,7 +1,6 @@
 package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.KryoNetException;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -19,7 +18,6 @@ import scratch.view.RoomView;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The main controller class to control updates, rendering, initiating and

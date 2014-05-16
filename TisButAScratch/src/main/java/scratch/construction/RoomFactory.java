@@ -9,8 +9,6 @@ import scratch.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
