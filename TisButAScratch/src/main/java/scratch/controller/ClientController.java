@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import scratch.construction.SlickMap;
 import scratch.model.Player;
 import scratch.network.NetworkClient;
 import scratch.view.CharacterView;
@@ -47,9 +48,10 @@ public final class ClientController extends Listener implements org.newdawn.slic
         //Send this class to be set as listener for the connection
         
         final RoomFactory roomFactory = new RoomFactory();
-        final TiledMap map = roomFactory.getMap();
 
         for (final Room room : roomFactory.getRooms()) {
+
+	        final TiledMap map = ((SlickMap)room.getMap()).getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
