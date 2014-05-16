@@ -48,7 +48,8 @@ public final class ServerController extends Listener implements org.newdawn.slic
         //TODO: This will need to change when we read from XML.
         gameContainer.setTargetFrameRate(60);
         final RoomFactory roomFactory = new RoomFactory();
-        final TiledMap map = getTiledMap(roomFactory);
+        final TiledMap map = roomFactory.getMap();
+        game.setMap(roomFactory.getRooms());
         final Player newPlayer = new Player(
                 new PlayerInput(gameContainer.getInput()),
                 new Rectangle2D.Double(0,0,32,32), 2, "/res/playerSprite.tmx");
@@ -74,15 +75,6 @@ public final class ServerController extends Listener implements org.newdawn.slic
         networkServer.start(this);
 
         
-    }
-
-    private TiledMap getTiledMap(RoomFactory roomFactory) {
-        final TiledMap map = roomFactory.getMap();
-        
-        //TODO WHAT THE FUCK?
-        game.setMap(roomFactory.getRooms());
-        
-        return map;
     }
 
     @Override
