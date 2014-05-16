@@ -2,12 +2,15 @@ package scratch.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
 import scratch.model.mockmodules.MockPlayerInput;
+import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -16,14 +19,28 @@ import java.util.List;
 public class GameTest extends TestCase {
 
 	private Game game;
-	private Player player;
+    private final List<Room> rooms = new ArrayList<>();
+    private Player player;
+    private NpcType npcType;
 	private final Injector injector = Guice.createInjector(new MockModule());
 
 	@Before
-	public void initialize() {
+	public void setUp() {
         game = new Game();
-        final List<Room> rooms = new ArrayList<>();
         rooms.add(new Room(new MockIMap(), new DoorHandler()));
+
+        npcType = new NpcType(new Rectangle2D.Double(0, 0, 32, 32),
+                new DefaultWeapon(),
+                10,
+                2,
+                "",
+                42,
+                injector.getInstance(INPCMove.class),
+                rooms.get(0)
+        );
+
+        rooms.get(0).addNpc(npcType);
+
         game.setMap(rooms);
         final IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
         player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
@@ -31,20 +48,40 @@ public class GameTest extends TestCase {
 
 	@Test
 	public void testAddPlayer() {
-		initialize();
 		game.addPlayer(player);
 		assertTrue(game.getPlayers().contains(player));
 
 	}
 
+    public void testAddPlayerWithoutRooms() {
+        Game game = new Game();
+        assertFalse(game.addPlayer(player));
+    }
+
 	@Test
 	public void testRemovePlayer() {
-		initialize();
 		game.addPlayer(player);
 		game.removePlayer(player);
 		assertTrue(game.getPlayers().isEmpty());
 	}
 
+    @Test
+    public void testGetCharacters() {
+        assertTrue(game.getCharacters().contains(npcType));
+        assertFalse(game.getCharacters().contains(player));
+        game.addPlayer(player);
+        assertTrue(game.getCharacters().contains(player));
+    }
+
+    @Test
+    public void testGetNpcs() {
+        assertTrue(game.getNpcs().contains(npcType));
+    }
+
+    @Test
+    public void testGetActiveRoom() {
+        assertSame(rooms.get(0), game.getActiveRoom());
+    }
 
 	@Test
 	public void testUpdate() {
