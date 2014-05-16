@@ -26,7 +26,7 @@ public final class RoomFactory {
 
     public RoomFactory() {
         try {
-            map = new TiledMapPlus("res/untitled.tmx");
+            map = new TiledMapPlus("res/world/untitled.tmx");
         } catch (SlickException e) {
             e.printStackTrace();
         }
