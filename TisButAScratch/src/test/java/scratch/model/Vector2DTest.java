@@ -49,9 +49,9 @@ public class Vector2DTest extends TestCase {
 
 	public void testEmptyConstucor(){
 		Vector2D vector2D = new Vector2D();
-		assertEquals(vector2D.getMagnitude(), 0);
-		assertEquals(vector2D.getX(),0);
-		assertEquals(vector2D.getY(),0);
+		assertEquals(vector2D.getMagnitude(), 0.d);
+		assertEquals(vector2D.getX(),0.d);
+		assertEquals(vector2D.getY(),0.d);
 	}
 
     @Test
