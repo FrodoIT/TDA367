@@ -117,17 +117,6 @@ public final class ServerController extends Listener implements org.newdawn.slic
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
 
-        for (final RoomController roomController : roomControllerList) {
-            roomController.getRoomView().render();
-        }
-
-        for (final NpcController npcController : npcControllerList) {
-            npcController.render(gameContainer);
-        }
-
-        for (final PlayerController playerController : playerControllerList) {
-            playerController.render(gameContainer);
-        }
     }
 
     @Override
