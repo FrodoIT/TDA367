@@ -29,6 +29,7 @@ public class Game {
         return true;
     }
 
+    //TODO bad method. either delete it or loop through all rooms and return all npcs in the game //Tejp
     public List<NpcType> getNpcs() {
         return activeRoom.getNpcs();
     }
@@ -57,7 +58,7 @@ public class Game {
     public void setMap(List<Room> gameMapRooms) {
 	    this.rooms= gameMapRooms;
         activeRoom = gameMapRooms.get(0);
-	    //TODO if index 0 isn't the spawn location then this is wrong.
+        //TODO if index 0 isn't the spawn location then this is wrong.
 	    //maybe the spawn room should be searched for
     }
 

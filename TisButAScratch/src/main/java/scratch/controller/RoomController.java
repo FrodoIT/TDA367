@@ -15,8 +15,14 @@ public class RoomController {
 
 
     public void updateRoom(){
-        if(room.hasPlayers()){
+        if(room.isActive()){
             room.update();
+        }
+    }
+
+    public void renderRoom() {
+        if (room.isActive()) {
+            roomView.render();
         }
     }
 

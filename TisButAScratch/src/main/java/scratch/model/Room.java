@@ -5,6 +5,7 @@ import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
+import scratch.construction.SlickMap;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -68,7 +69,6 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterMovements() {
-
         for (Map.Entry<AbstractCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
             AbstractCharacter character = inputEntry.getKey();
             character.setPosition(allowedPosition(character.getUnitTile(), inputEntry.getValue()));
@@ -81,6 +81,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         areaUnderAttack.clear();
     }
 
+    //TODO rewrite this method. Players cant attack if there are no enemies in the room? and why does it return a boolean?//Tejp
     private boolean dealDamage() {
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
             if (!npcs.isEmpty()) {
@@ -165,6 +166,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      * @param character
      */
     public void enterRoom(AbstractCharacter character) {
+        System.out.println("Enter room " + this);
         players.add((Player) character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
         character.registerListener(this);
     }
@@ -175,8 +177,13 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      * @param character
      */
     public boolean exitRoom(AbstractCharacter character) {
+        System.out.println("Leaving room" + this);
         character.removeListener(this);
         return players.remove(character);
+    }
+
+    public boolean isActive() {
+        return ! players.isEmpty();
     }
 
     /**

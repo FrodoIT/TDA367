@@ -23,7 +23,7 @@ public class INPCMoveTransformer implements Transform<INPCMove> {
 		}catch (NumberFormatException e){
 			e.printStackTrace();
 		}
-		return (INPCMove) plugins.get(id);
+		return (INPCMove) plugins.get(id).clone();
 	}
 
 	@Override

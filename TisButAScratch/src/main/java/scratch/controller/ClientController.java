@@ -48,7 +48,6 @@ public final class ClientController extends Listener{
         final RoomFactory roomFactory = new RoomFactory();
 
         for (final Room room : roomFactory.getRooms()) {
-
             final TiledMap map = ((SlickMap) room.getMap()).getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);

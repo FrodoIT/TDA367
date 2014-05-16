@@ -28,8 +28,8 @@ public final class NpcFactory {
     public void loadNpcsFromMap() {
         for (final Room room : rooms) {
             final List<NpcSpecification> npcSpecs = room.getMap().getNpcSpecifications();
-
             final List<NpcType> npcs = new ArrayList<>();
+
             for (final NpcSpecification npc : npcSpecs) {
                 final NpcType loadedNpc = loadNpc(
                         npc.getPluginName(),
@@ -76,6 +76,7 @@ public final class NpcFactory {
         npc.setId(id);
         npc.getMovementPattern().setRoomData(room);
         npc.registerListener(room);
+
         return npc;
     }
 }

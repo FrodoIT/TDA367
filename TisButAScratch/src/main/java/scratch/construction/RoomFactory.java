@@ -25,7 +25,6 @@ public final class RoomFactory {
 
     private List<TiledMapPlus> maps= new ArrayList<>();
     private final List<Room> rooms;
-    private final NpcFactory npcFactory;
     private List<SlickMap> slickMaps;
 	private final DoorHandler doorHandler = new DoorHandler();
 
@@ -34,9 +33,7 @@ public final class RoomFactory {
 		slickMaps = createSlickMaps(maps);
         rooms = createRooms();
 
-	    System.out.println("HAFHLAFKHJ" + rooms.size());
 
-        npcFactory = new NpcFactory(rooms);
 
         addInteractiveObjectstoRooms();
 	    setupDoorHandler();
@@ -44,28 +41,36 @@ public final class RoomFactory {
     }
 
 	private List<SlickMap> createSlickMaps(List<TiledMapPlus> maps){
-		final List<SlickMap> slickMap = new ArrayList<>();
+		final List<SlickMap> tempSlickMap = new ArrayList<>();
 		for(TiledMapPlus room : maps){
-			slickMap.add(new SlickMap(room));
+			tempSlickMap.add(new SlickMap(room));
 		}
-		return slickMap;
+		return tempSlickMap;
 	}
 
-	private List<TiledMapPlus> loadMaps(){
-		final List<File> worldFiles = FileScanner.getFiles(new File("res/world/"));
-		final List<TiledMapPlus> world = new ArrayList<>();
-		for(File room: worldFiles){
-			if(room.getName().endsWith(".tmx")){
-				try {
-					world.add(new TiledMapPlus(room.getCanonicalPath()));
-				} catch (IOException | SlickException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return world;
+    private List<TiledMapPlus> loadMaps(){
+        final List<File> worldFiles = FileScanner.getFiles(new File("res/world/"));
+        final List<TiledMapPlus> world = new ArrayList<>();
+        for(File room: worldFiles){
+            if(room.getName().endsWith(".tmx")){
+                try {
+                    world.add(new TiledMapPlus(room.getCanonicalPath()));
+                } catch (IOException | SlickException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return world;
 
-	}
+    }
+
+    private List<Room> createRooms() {
+        List<Room> tempRooms = new ArrayList<>();
+        for(SlickMap s: slickMaps){
+            tempRooms.add(new Room(s,doorHandler));
+        }
+        return tempRooms;
+    }
 
 	/**
 	 * gets all doors from all rooms.
@@ -73,10 +78,10 @@ public final class RoomFactory {
 	 * from one door to another when a door is interacted with
 	 */
 	private void setupDoorHandler() {
-		for (TiledMapPlus map : maps) {
-			for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+		for (Room room : rooms) {
+			for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
 				if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
-					doorHandler.addDoor(rooms.get(0), interactiveObject);
+					doorHandler.addDoor(room, interactiveObject);
 				}
 			}
 		}
@@ -84,27 +89,21 @@ public final class RoomFactory {
 	}
 
 	private void addInteractiveObjectstoRooms() {
-		for (TiledMapPlus map : maps) {
+		for (final Room room : rooms) {
+            TiledMapPlus map = ((SlickMap)room.getMap()).getMap();
 			for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
-				rooms.get(0).addInteractivObject(interactiveObject);
+                room.addInteractivObject(interactiveObject);
 			}
 		}
     }
 
     private void addNpcstoRoom(){
+        final NpcFactory npcFactory = new NpcFactory(rooms);
         for (final Room room : rooms) {
             for (final NpcType npcType : npcFactory.getNpcsForRoom(room)) {
                 room.addNpc(npcType);
             }
         }
-    }
-
-    private List<Room> createRooms() {
-	    List<Room> tempRooms = new ArrayList<>();
-	    for(SlickMap s: slickMaps){
-		    tempRooms.add(new Room(s,doorHandler));
-	    }
-	    return tempRooms;
     }
 
     public List<Room> getRooms() {
