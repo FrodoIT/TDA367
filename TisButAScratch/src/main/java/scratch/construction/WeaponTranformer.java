@@ -9,13 +9,10 @@ import scratch.model.weapons.IWeapon;
  */
 public class WeaponTranformer implements Transform<IWeapon> {
 	@Override
-	public IWeapon read(String value) throws Exception {
-        //TODO: There should not be any string comparisons, this should all be defined in XML.
+	public IWeapon read(String value) {
         final String defaultWeapon = "DefaultWeapon";
-        if(defaultWeapon.compareTo(value)==0) {
-			return new DefaultWeapon();
-		}
-		return null;
+		return defaultWeapon.compareTo(value)==0? new DefaultWeapon(): null;
+
 	}
 
 	@Override

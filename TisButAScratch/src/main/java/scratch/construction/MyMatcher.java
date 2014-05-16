@@ -3,7 +3,6 @@ package scratch.construction;
 import org.simpleframework.xml.transform.Matcher;
 import org.simpleframework.xml.transform.Transform;
 import scratch.model.INPCMove;
-import scratch.model.IPlayerInput;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -13,7 +12,7 @@ import java.awt.geom.Rectangle2D;
  */
 public class MyMatcher implements Matcher{
 	@Override
-	public Transform match(Class type) throws Exception {
+	public Transform match(Class type) {
 		if(type.equals(INPCMove.class) ){
 			return new INPCMoveTransformer();
 		}

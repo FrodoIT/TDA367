@@ -76,16 +76,12 @@ public final class DefaultWeapon implements IWeapon {
         return attackInterval;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+	public boolean equals(Object o) {
+		if (this == o) {return true;}
+		if (o == null || getClass() != o.getClass()) {return false;}
 
-        DefaultWeapon that = (DefaultWeapon) o;
+		final DefaultWeapon that = (DefaultWeapon) o;
+
 
         final boolean attackAreaEquals = attackArea == null ? attackArea == that.attackArea : attackArea.equals(that.attackArea);
 
@@ -97,11 +93,11 @@ public final class DefaultWeapon implements IWeapon {
 
     @Override
     public int hashCode() {
+        return 31 * damage +
+                31 * range +
+                31 * (attackArea == null ? 0: attackArea.hashCode()) +
+                31* attackInterval;
 
-        return 31 * damage
-                + 31 * range
-                + 31 * (attackArea != null ? attackArea.hashCode() : 0)
-                + 31 * attackInterval;
         /*
          int result = damage;
          result = 31 * result + range;

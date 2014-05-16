@@ -68,7 +68,7 @@ public final class NpcFactory {
             npc = serializer.read(NpcType.class, source);
 
         } catch (Exception e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
             return null;
         }
 

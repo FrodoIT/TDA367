@@ -38,7 +38,7 @@ public class PlayerView {
     }
 
     public void render() {
-        Vector2D position = player.getPosition();
+        final Vector2D position = player.getPosition();
 
 /*        if (player.isPromptingAnAttack()) {
             attackArea = player.getAttackArea();
@@ -46,7 +46,7 @@ public class PlayerView {
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }*/
 
-        MoveDirection input = player.getMoveDirection();
+        final MoveDirection input = player.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(), position.getY());
     }
 }

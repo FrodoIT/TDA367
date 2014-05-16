@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by Anna on 2014-05-02.
  */
-public class Cooldown {
+final public class Cooldown {
 	private static final ScheduledExecutorService SERVICE = Executors.newScheduledThreadPool(1);
 
     private Cooldown() {

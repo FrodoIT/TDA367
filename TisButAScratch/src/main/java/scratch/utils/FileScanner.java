@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author Ivar
  */
-public class FileScanner {
+final public class FileScanner {
 
     private FileScanner() {
 

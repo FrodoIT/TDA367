@@ -16,13 +16,18 @@ public class INPCMoveTransformer implements Transform<INPCMove> {
 	private static Map<Integer, Pluggable <?>> plugins = PluginLoader.loadPlugins(AIPlugin.class);
 
 	@Override
-	public INPCMove read(String value) throws Exception {
-		int id=Integer.parseInt(value);
+	public INPCMove read(String value){
+		int id=-1;
+		try {
+			id = Integer.parseInt(value);
+		}catch (NumberFormatException e){
+			e.printStackTrace();
+		}
 		return (INPCMove) plugins.get(id);
 	}
 
 	@Override
-	public String write(INPCMove value) throws Exception {
+	public String write(INPCMove value) {
 		return null;
 	}
 }

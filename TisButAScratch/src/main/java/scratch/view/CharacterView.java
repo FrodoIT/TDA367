@@ -34,6 +34,8 @@ public class CharacterView {
             spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
         } catch (SlickException e){
             spriteHandler = null;
+            e.printStackTrace();
+
         }
     }
     
@@ -58,7 +60,7 @@ public class CharacterView {
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }*/
 
-        MoveDirection input= character.getMoveDirection();
+        final MoveDirection input= character.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(),position.getY());
     }
     
