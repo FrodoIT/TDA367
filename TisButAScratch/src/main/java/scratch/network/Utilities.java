@@ -10,6 +10,7 @@ import com.esotericsoftware.kryo.Kryo;
 import java.awt.geom.Rectangle2D;
 import scratch.model.AbstractCharacter;
 import scratch.model.MoveDirection;
+import scratch.model.NpcType;
 import scratch.model.Player;
 import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
@@ -23,6 +24,9 @@ public class Utilities {
         
         //Classes required for Player
         kryo.register(Player.class);
+        
+        //Classes required for NpcType
+        kryo.register(NpcType.class);
         
         //Classes required for AbstractCharacter
         kryo.register(AbstractCharacter.class);

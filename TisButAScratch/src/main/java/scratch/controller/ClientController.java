@@ -11,6 +11,7 @@ import scratch.view.CharacterView;
 
 import java.util.ArrayList;
 import java.util.List;
+import scratch.model.AbstractCharacter;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -41,16 +42,18 @@ public final class ClientController extends Listener implements org.newdawn.slic
         client.start(this);
     }
 
-    public void playerRecieved(Player player) {
-        boolean found = false;
-        for (final PlayerController playerController : playerControllerList) {
-            if (playerController.getId() == player.getId()) {
-                playerController.setPlayer(player);
-                found = true;
+    public void characterRecieved(AbstractCharacter character) {
+        if (character instanceof Player) {
+            boolean found = false;
+            for (final PlayerController playerController : playerControllerList) {
+                if (playerController.getId() == character.getId()) {
+                    playerController.setPlayer((Player)character);
+                    found = true;
+                }
             }
-        }
-        if (!found) {
-            playerControllerList.add(new PlayerController(player, new CharacterView(player)));
+            if (!found) {
+                playerControllerList.add(new PlayerController((Player)character, new CharacterView(character)));
+            }
         }
     }
 
@@ -76,8 +79,8 @@ public final class ClientController extends Listener implements org.newdawn.slic
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof Player) {
-            playerRecieved((Player) object);
+        if (object instanceof AbstractCharacter) {
+            characterRecieved((AbstractCharacter) object);
         }
     }
 
