@@ -113,7 +113,6 @@ public final class ServerController extends Listener{
 
     @Override
     public void received(Connection connection, Object object) {
-        //TODO We recieved something
         if (object instanceof PacketPlayerInput){
             Player player = game.getPlayers().get(0);
             PacketPlayerInput input = (PacketPlayerInput)object;

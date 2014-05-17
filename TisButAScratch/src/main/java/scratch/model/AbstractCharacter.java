@@ -62,6 +62,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
         this.id = id;
         this.imagePath = imagePath;
         moveDirection = MoveDirection.SOUTH;
+        nextMoveDirection = new Vector2D();
     }
 
     public void registerListener(CharacterChangeListener listener) {
@@ -70,6 +71,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
 
     AbstractCharacter() {
         super();
+        nextMoveDirection = new Vector2D();
     }
 
     public void setId(int id) {
@@ -123,8 +125,8 @@ public abstract class AbstractCharacter implements KryoSerializable {
     }
 
     public void update() {
-        final double newX = getPosition().getX() + moveDirection.getX();
-        final double newY = getPosition().getY() + moveDirection.getY();
+        final double newX = getPosition().getX() + nextMoveDirection.getX();
+        final double newY = getPosition().getY() + nextMoveDirection.getY();
 
         Vector2D newPosition = new Vector2D(newX, newY);
 

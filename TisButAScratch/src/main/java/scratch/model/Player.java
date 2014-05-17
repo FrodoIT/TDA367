@@ -15,23 +15,25 @@ import java.awt.geom.Rectangle2D;
  *
  */
 public final class Player extends AbstractCharacter {
-	@Element (type = IPlayerInput.class, required = false)
+
+    @Element(type = IPlayerInput.class, required = false)
     private IPlayerInput playerInput;
 
     /**
      * Needed for serialization, should not be used
      */
-    public Player(){
+    public Player() {
         super();
     }
-    
+
     public Player(IPlayerInput playerInput, Rectangle2D.Double unitTile, int id, String imagePath) {
         super(unitTile, new DefaultWeapon(), 10, 2, id, imagePath);
         this.playerInput = playerInput;
     }
-	public void setPlayerInput(PlayerInput playerInput){
-		this.playerInput=playerInput;
-	}
+
+    public void setPlayerInput(PlayerInput playerInput) {
+        this.playerInput = playerInput;
+    }
 
 
     /*
@@ -41,9 +43,8 @@ public final class Player extends AbstractCharacter {
      * attacks
      * @pre The player has pressed attackbutton and the weapon has cooldowned.
      *
-    public IPlayerInput getPlayerInput() {
-        return playerInput;
-    }
-    */
-
+     public IPlayerInput getPlayerInput() {
+     return playerInput;
+     }
+     */
 }
