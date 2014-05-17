@@ -12,16 +12,22 @@ package scratch.network;
  */
 public class PacketNewPlayer {
     private int id;
+    private int roomId;
     
     public PacketNewPlayer(){
         
     }
     
-    public PacketNewPlayer(int id){
+    public PacketNewPlayer(int id, int roomId){
         this.id = id;
+        this.roomId = roomId;
     }
     
     public int getId(){
         return id;
+    }
+    
+    public int getRoomId() {
+        return roomId;
     }
 }

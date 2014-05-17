@@ -107,7 +107,7 @@ public final class ServerController extends Listener{
 
     @Override
     public void connected(Connection connection) {
-        connection.sendTCP(new PacketNewPlayer(nextPlayerId));
+        connection.sendTCP(new PacketNewPlayer(nextPlayerId, 101));
         nextPlayerId++;
     }
 

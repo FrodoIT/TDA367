@@ -21,12 +21,15 @@ public class RoomController {
     }
 
     public void render() {
-        if (room.isActive()) {
-            roomView.render();
-        }
+        roomView.render();
+        
     }
 
     public RoomView getRoomView() {
         return roomView;
+    }
+    
+    public int getId() {
+        return room.getId();
     }
 }

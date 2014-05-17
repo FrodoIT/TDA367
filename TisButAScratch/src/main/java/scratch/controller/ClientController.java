@@ -14,7 +14,9 @@ import scratch.network.NetworkClient;
 import scratch.view.RoomView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import scratch.network.PacketNewPlayer;
 import scratch.network.PacketPlayerInput;
 
@@ -28,14 +30,15 @@ import scratch.network.PacketPlayerInput;
 public final class ClientController extends Listener {
 
     private final List<CharacterController> characterControllerList;
-    private final List<RoomController> roomControllerList;
+    private final Map<Integer, RoomController> roomControllerMap;
     private final NetworkClient client;
     private int id;
+    private int roomId;
 
     public ClientController(String ip) {
         super();
         characterControllerList = new ArrayList<>();
-        roomControllerList = new ArrayList<>();
+        roomControllerMap = new HashMap<>();
         client = new NetworkClient(ip);
     }
 
@@ -45,9 +48,9 @@ public final class ClientController extends Listener {
         final RoomFactory roomFactory = new RoomFactory();
 
         for (final Room room : roomFactory.getRooms()) {
-            final TiledMap map = (TiledMapPlus)room.getMap();
+            final TiledMap map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
-            roomControllerList.add(roomController);
+            roomControllerMap.put(roomController.getId(), roomController);
 
             for (final GameCharacter character : room.getCharacters()) {
                 characterControllerList.add(new CharacterController(character));
@@ -73,23 +76,24 @@ public final class ClientController extends Listener {
         client.send(new PacketPlayerInput(id, container.getInput()));
     }
 
-    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        for (final RoomController roomController : roomControllerList) {
-            roomController.render();
-        }
-        
-        for (final CharacterController characterController : characterControllerList){
+    public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+
+        roomControllerMap.get(roomId).render();
+
+        for (final CharacterController characterController : characterControllerList) {
             characterController.render(gameContainer);
         }
 
     }
 
     @Override
-    public void received(Connection connection, Object object) {
+    public synchronized void received(Connection connection, Object object) {
         if (object instanceof GameCharacter) {
             characterRecieved((GameCharacter) object);
-        } else if (object instanceof PacketNewPlayer){
-            this.id = ((PacketNewPlayer)object).getId();
+        } else if (object instanceof PacketNewPlayer) {
+            PacketNewPlayer info = (PacketNewPlayer) object;
+            this.id = info.getId();
+            this.roomId = info.getRoomId();
         }
     }
 }

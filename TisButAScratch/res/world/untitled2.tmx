@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="id" value="101"/>
+ </properties>
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <tileoffset x="19" y="19"/>
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
  </tileset>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA5NjYGCQG8WjeBSP4iGAAbwfCjKwBAAA
+   H4sIAAAAAAAAC5NjYGCQG8WjeBSP4iGAAbwfCjKwBAAA
   </data>
  </layer>
  <objectgroup name="interactive" width="20" height="15">
@@ -39,7 +42,7 @@
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAxNhYGAQohIWBWJuBuxACQlj42MDnHjMQzebGEDIPHRzCJlLqXnofHqYR2xYUds8bOpw+ZdQuiDVPGQzsYUZLruISX9KWDAuQGx6JhYMBfNkgJiJSlgWiAHz4DDYsAQAAA==
+   H4sIAAAAAAAACxNhYGAQohIWBWJuBuxACQlj42MDnHjMQzebGEDIPHRzCJlLqXnofHqYR2xYUds8bOpw+ZdQuiDVPGQzsYUZLruISX9KWDAuQGx6JhYMBfNkgJiJSlgWiAHz4DDYsAQAAA==
   </data>
  </layer>
 </map>
