@@ -30,12 +30,7 @@ public class Game {
     }
 
     public boolean removePlayer(GameCharacter player) {
-        for (Room activeRoom : activeRooms) {
-            if (activeRoom.removeCharacter(player)) {
-                return playerList.remove(player);
-            }
-        }
-        return false;
+        return playerList.remove(player);
     }
 
     public void setMap(List<Room> gameMapRooms) {
