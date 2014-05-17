@@ -4,8 +4,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
+import scratch.model.GameCharacter;
 import scratch.model.MoveDirection;
-import scratch.model.Player;
 import scratch.model.Vector2D;
 
 /**
@@ -16,11 +16,11 @@ import scratch.model.Vector2D;
 public class PlayerView {
 
     private SpriteDirectionRenderer spriteHandler;
-    private final Player player;
+    private final GameCharacter player;
     private final Graphics graphics;
 
 
-    public PlayerView(Player player, GameContainer gameContainer, String imagePath) {
+    public PlayerView(GameCharacter player, GameContainer gameContainer, String imagePath) {
         this.player = player;
         this.graphics = gameContainer.getGraphics();
         animationSetUp(imagePath);

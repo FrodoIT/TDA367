@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
+import scratch.model.weapons.DefaultWeapon;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -21,7 +22,7 @@ public class NpcTypeTest extends TestCase {
         final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         final IWeapon weapon= injector.getInstance(IWeapon.class);
         final IMap map = injector.getInstance(IMap.class);
-        final Player player = new Player(playerInput , new Rectangle2D.Double(50,50,32,32), 1, "/res/playerSprite.tmx");
+        final GameCharacter player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new DefaultWeapon(),10, 2, 0, "/res/monster.tmx");
         final INPCMove npcMove = injector.getInstance(INPCMove.class);
         final Room room = new Room(map, new DoorHandler());
         room.addCharacter(player);

@@ -10,24 +10,27 @@ import java.util.List;
  */
 public class Game {
 
-    private List<Player> playerList;
+    private List<GameCharacter> playerList;
     private List<Room> activeRooms;
 
     public Game() {
         playerList = new ArrayList<>();
     }
 
-    public boolean addPlayer(Player player) {
+    public boolean addPlayer(GameCharacter player) {
+        if (activeRooms == null || activeRooms.isEmpty()) {
+            return false;
+        }
         playerList.add(player);
         activeRooms.get(0).addCharacter(player);
         return true;
     }
 
-    public List<Player> getPlayers() {
+    public List<GameCharacter> getPlayers() {
         return playerList;
     }
 
-    public boolean removePlayer(Player player) {
+    public boolean removePlayer(GameCharacter player) {
         for (Room activeRoom : activeRooms) {
             if (activeRoom.removeCharacter(player)) {
                 return playerList.remove(player);

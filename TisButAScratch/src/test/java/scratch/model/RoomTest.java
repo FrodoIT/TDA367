@@ -8,6 +8,7 @@ import org.junit.Test;
 import scratch.model.mockModules.MockIWeapon;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
+import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
 
@@ -27,16 +28,16 @@ public class RoomTest extends TestCase {
     }
 
     //made to create mock-players used in tests
-    private Player createPlayerForTest(int id) {
+    private GameCharacter createPlayerForTest(int id) {
         final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         playerInput.setAttackStatus(true);
         playerInput.setInteractStatus(true);
-        return new Player(playerInput, new Rectangle2D.Double(50, 50, 100, 100), id, "/res/playerSprite.tmx");
+        return new GameCharacter(new Rectangle2D.Double(50, 50, 100, 100), new DefaultWeapon(), 10, 2, id, "/res/playerSprite.tmx");
     }
 
     @Test
     public void testUpdate() {
-        final Player testPlayer = createPlayerForTest(1);
+        final GameCharacter testPlayer = createPlayerForTest(1);
         room.addCharacter(testPlayer);
         testPlayer.setMovementSpeed(0);
         final INPCMove move = injector.getInstance(INPCMove.class);
@@ -59,7 +60,7 @@ public class RoomTest extends TestCase {
         assertTrue(room.getCharacterMovementMap().isEmpty());
     }
 
-    private void putCharactersInRoom(Player testPlayer, NpcType testNpc) {
+    private void putCharactersInRoom(GameCharacter testPlayer, NpcType testNpc) {
         room.addCharacter(testNpc);
         room.addCharacter(testPlayer);
     }
@@ -67,7 +68,7 @@ public class RoomTest extends TestCase {
 
     @Test
     public void testRemoveNoneExistingCharacter() {
-        final Player player = createPlayerForTest(0);
+        final GameCharacter player = createPlayerForTest(0);
         final boolean removed = room.removeCharacter(player);
         assertFalse(removed);
     }

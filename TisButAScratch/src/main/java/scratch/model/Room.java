@@ -49,7 +49,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     public boolean isActive() {
         for (GameCharacter character:characters){
-            if (character instanceof Player){
+            if (character instanceof GameCharacter){
                 return true;
             }
         }
@@ -243,7 +243,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     public Vector2D getClosestPlayerPosition(Vector2D position){
         //TODO Fix proper checking
         for (GameCharacter character : characters){
-            if (character instanceof Player){
+            if (character instanceof GameCharacter){
                 return character.getPosition();
             }
         }

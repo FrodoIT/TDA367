@@ -6,27 +6,30 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
+import scratch.model.weapons.DefaultWeapon;
 
 import java.awt.geom.Rectangle2D;
 
 public class PlayerTest extends TestCase {
     private IPlayerInput playerInput;
+    private GameCharacter player;
 
     @Before
     @Override
     public void setUp(){
         final Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
+        player = new GameCharacter(new Rectangle2D.Double(0,0,32,32), new DefaultWeapon(), 10, 2, 1, "/res/playerSprite.tmx");
     }
 
     @Test
     public void testIsAttacking() {
         playerInput.setAttackStatus(true);
-        final Player testPlayer = new Player(playerInput, new Rectangle2D.Double(0,0,32,32), 1, "/res/playerSprite.tmx");
-        assertTrue(testPlayer.isPromptingAnAttack());
+
+        assertTrue(player.isPromptingAnAttack());
     }
 
-    private void assertPlayerDirection(Player player, MoveDirection direction){
+    private void assertPlayerDirection(GameCharacter player, MoveDirection direction){
         playerInput.setMoveDirection(direction);
         player.update();
         assertSame(player.getMoveDirection(), direction);
@@ -34,7 +37,6 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testUpdate() throws Exception {
-        final Player player = new Player(playerInput, new Rectangle2D.Double(32,32,32,32), 1, "/res/playerSprite.tmx");
         //Test None:
         assertPlayerDirection(player, MoveDirection.NONE);
 

@@ -125,8 +125,8 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public void update() {
-        final double newX = getPosition().getX() + nextMoveDirection.getX();
-        final double newY = getPosition().getY() + nextMoveDirection.getY();
+        final double newX = getPosition().getX() + nextMoveDirection.getX() * movementSpeed;
+        final double newY = getPosition().getY() + nextMoveDirection.getY() * movementSpeed;
 
         Vector2D newPosition = new Vector2D(newX, newY);
 

@@ -18,7 +18,7 @@ public class GameTest extends TestCase {
 
 	private Game game;
     private final List<Room> rooms = new ArrayList<>();
-    private Player player;
+    private GameCharacter player;
     private NpcType npcType;
 	private final Injector injector = Guice.createInjector(new MockModule());
 
@@ -40,7 +40,7 @@ public class GameTest extends TestCase {
 
         game.setMap(rooms);
         final IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-        player = new Player(playerInput, new Rectangle2D.Double(0, 0, 32, 32), 0, "/res/monster.tmx");
+        player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new DefaultWeapon(),10, 2, 0, "/res/monster.tmx");
     }
 
 	@Test
@@ -64,7 +64,7 @@ public class GameTest extends TestCase {
 
     @Test
     public void testGetActiveRoom() {
-        assertSame(rooms.get(0), game.getActiveRooms());
+        assertSame(rooms, game.getActiveRooms());
     }
 
 	@Test

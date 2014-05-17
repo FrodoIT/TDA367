@@ -25,7 +25,7 @@ public class Utilities {
         kryo.register(Room.class);
         kryo.register(ArrayList.class);
         kryo.register(PlayerInput.class);
-        kryo.register(Player.class);
+        kryo.register(GameCharacter.class);
         kryo.register(NpcType.class);
         kryo.register(GameCharacter.class);
         kryo.register(Rectangle2D.Double.class);

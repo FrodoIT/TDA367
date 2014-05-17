@@ -52,7 +52,7 @@ public final class ServerController extends Listener{
 
 	    //NOTE: The player created here wont have a room as listeners. this is added when the player
         //enters the first room. (game.addPlayer(newPlayer); enters a player to the first room)
-        Player newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), 1, gameContainer);
+        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), 1, gameContainer);
         System.out.println(newPlayer.toString());
         game.addPlayer(newPlayer);
 
@@ -73,16 +73,16 @@ public final class ServerController extends Listener{
 
     }
 
-    private Player loadPlayer(String file, Vector2D position, int id, GameContainer gameContainer) {
+    private GameCharacter loadPlayer(String file, Vector2D position, int id, GameContainer gameContainer) {
         final Serializer serializer = new Persister(new MyMatcher());
         final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");
         fileBuild.append(file);
         fileBuild.append(".xml");
         final File source = new File(fileBuild.toString());
-        Player player;
+        GameCharacter player;
         try {
-            player = serializer.read(Player.class, source);
+            player = serializer.read(GameCharacter.class, source);
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -90,7 +90,6 @@ public final class ServerController extends Listener{
         }
         player.setPosition(position);
         player.setId(id);
-        player.setPlayerInput(new PlayerInput(id, gameContainer.getInput()));
         return player;
     }
 
@@ -114,7 +113,7 @@ public final class ServerController extends Listener{
     @Override
     public void received(Connection connection, Object object) {
         if (object instanceof PacketPlayerInput){
-            Player player = game.getPlayers().get(0);
+            GameCharacter player = game.getPlayers().get(0);
             PacketPlayerInput input = (PacketPlayerInput)object;
             player.setMoveDirection(input.getMovementDirection());
             player.setAttacking(input.getAttacking());
