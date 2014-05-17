@@ -30,6 +30,22 @@ public class PacketPlayerInput {
         setInteract(input);
     }
     
+    public int getId(){
+        return id;
+    }
+    
+    public Vector2D getMovementDirection(){
+        return movementDirection;
+    }
+    
+    public boolean getAttacking(){
+        return attacking;
+    }
+    
+    public boolean getInteracting(){
+        return interacting;
+    }
+    
     private void calculateMovementDirection(Input input){
         final boolean southKey = input.isKeyDown(Input.KEY_DOWN);
         final boolean westKey = input.isKeyDown(Input.KEY_LEFT);
@@ -70,4 +86,6 @@ public class PacketPlayerInput {
     private void setInteract(Input input){
         interacting = input.isKeyDown(Input.KEY_Z);
     }
+    
+    
 }

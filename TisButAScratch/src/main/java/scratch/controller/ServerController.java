@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import scratch.network.PacketNewPlayer;
+import scratch.network.PacketPlayerInput;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -113,8 +114,12 @@ public final class ServerController extends Listener{
     @Override
     public void received(Connection connection, Object object) {
         //TODO We recieved something
-        if (object instanceof PlayerInput){
-            game.getPlayers().get(0).setPlayerInput((PlayerInput)object);
+        if (object instanceof PacketPlayerInput){
+            Player player = game.getPlayers().get(0);
+            PacketPlayerInput input = (PacketPlayerInput)object;
+            player.setMoveDirection(input.getMovementDirection());
+            player.setAttacking(input.getAttacking());
+            player.setInteracting(input.getInteracting());
         }
     }
 }
