@@ -75,9 +75,20 @@ public final class ClientController extends Listener {
     @Override
     public synchronized void received(Connection connection, Object object) {
         if (object instanceof PacketNewPlayer) {
-            PacketNewPlayer info = (PacketNewPlayer) object;
+            final PacketNewPlayer info = (PacketNewPlayer) object;
             this.id = info.getId();
             this.roomId = info.getRoomId();
+        } else if (object instanceof GameCharacter) {
+            GameCharacter recievedCharacter = (GameCharacter)object;
+            boolean found = false;
+            for (final RoomController roomController : roomControllerMap.values()){
+                if (roomController.hasId(recievedCharacter.getId())){
+                    found = true;
+                }
+            }
+            if (!found){
+                roomControllerMap.get(roomId).addCharacter(new CharacterController(recievedCharacter));
+            }
         }
     }
 }

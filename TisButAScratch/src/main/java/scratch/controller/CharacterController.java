@@ -35,7 +35,9 @@ public class CharacterController extends Listener {
     }
 
     public void update() {
+        System.out.println("We are updating a character with reference: " + character);
         character.update();
+        
         listeners.firePropertyChange(null, null, character);
     }
 
@@ -44,6 +46,7 @@ public class CharacterController extends Listener {
     }
 
     public void render(GameContainer gameContainer) {
+        System.out.println("We are rendering a character with reference: " + character);
         view.render(gameContainer);
     }
 

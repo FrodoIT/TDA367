@@ -98,6 +98,7 @@ public final class ServerController extends Listener{
         int roomId = 100;
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
+        System.out.println("We started a Player with reference: " + newPlayer);
         CharacterController playerController = new CharacterController(newPlayer);
         playerController.addListener(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
