@@ -21,7 +21,6 @@ public class RoomController {
     }
 
     public void render() {
-        System.out.println(room);
         if (room.isActive()) {
             roomView.render();
         }

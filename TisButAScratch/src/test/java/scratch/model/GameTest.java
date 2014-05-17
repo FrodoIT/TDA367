@@ -33,8 +33,7 @@ public class GameTest extends TestCase {
                 2,
                 "",
                 42,
-                injector.getInstance(INPCMove.class),
-                rooms.get(0)
+                injector.getInstance(INPCMove.class)
         );
 
         rooms.get(0).addCharacter(npcType);

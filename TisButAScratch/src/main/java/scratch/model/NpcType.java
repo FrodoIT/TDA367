@@ -26,7 +26,7 @@ public final class NpcType extends AbstractCharacter {
 
     public NpcType(Rectangle2D.Double unitTile, IWeapon weapon,
             int health, int moveSpeed, String imagePath,
-            int id, INPCMove movementPattern, CharacterChangeListener listener) {
+            int id, INPCMove movementPattern) {
         super(unitTile, weapon, health, moveSpeed, id, imagePath);
         this.movementPattern = movementPattern;
         hostile = true;
@@ -67,9 +67,9 @@ public final class NpcType extends AbstractCharacter {
 
     @Override
     public void update() {
-        Vector2D newPosition = movementPattern.calculateNewPosition(this);
+        final Vector2D newPosition = movementPattern.calculateNewPosition(this);
         calculateMoveDirection(newPosition);
-        for (CharacterChangeListener characterListener : getListeners()) {
+        for (final CharacterChangeListener characterListener : getListeners()) {
             characterListener.handleCharacterMovement(this, newPosition);
         }
         if (isPromptingAnAttack()) {
@@ -78,36 +78,32 @@ public final class NpcType extends AbstractCharacter {
     }
 
     private void calculateMoveDirection(Vector2D newPosition) {
-        Rectangle2D.Double unitTile = getUnitTile();
-
-        double diffX = newPosition.getX() - unitTile.x;
-        double diffY = newPosition.getY() - unitTile.y;
-        final double toDegrees = 180 / Math.PI;
-        double theta = Math.atan(diffY / diffX) * toDegrees;
-        MoveDirection moveDirection = MoveDirection.NONE;
-
-        final boolean negativeOrNoXMovement = 0 <= diffX;
-        final boolean negativeXMovement = diffX < 0;
-
-        if (-22.5 <= theta && theta <= 22.5 && negativeOrNoXMovement) {
-            moveDirection = MoveDirection.EAST;
-        } else if (-22.5 <= theta && theta <= 22.5 && negativeXMovement) {
-            moveDirection = MoveDirection.WEST;
-        } else if (22.5 <= theta && theta <= 67.5 && negativeOrNoXMovement) {
-            moveDirection = MoveDirection.SOUTHEAST;
-        } else if (-67.5 <= theta && theta <= -22.5 && negativeXMovement) {
-            moveDirection = MoveDirection.SOUTHWEST;
-        } else if (-67.5 <= theta && theta <= -22.5 && negativeOrNoXMovement) {
-            moveDirection = MoveDirection.NORTHEAST;
-        } else if (22.5 <= theta && theta <= 67.5 && negativeXMovement) {
-            moveDirection = MoveDirection.NORTHWEST;
-        } else if (theta < -67.5 && negativeOrNoXMovement || 67.5 < theta && negativeXMovement) {
-            moveDirection = MoveDirection.NORTH;
-        } else if (67.5 < theta || theta < -67.5) {
-            moveDirection = MoveDirection.SOUTH;
+        if (getPosition().equals(newPosition)) {
+            setMoveDirection(MoveDirection.NONE);
+            return;
         }
 
-        setMoveDirection(moveDirection);
+        final Rectangle2D.Double unitTile = getUnitTile();
+        final double diffX = newPosition.getX() - unitTile.x;
+        final double diffY = newPosition.getY() - unitTile.y;
+
+        // 517.5 =
+        // 180 to avid negative angles
+        //+ 337.5 (360 - 22.5)
+        final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
+
+        final MoveDirection[] directions = {
+                MoveDirection.NORTHWEST,
+                MoveDirection.WEST,
+                MoveDirection.SOUTHWEST,
+                MoveDirection.SOUTH,
+                MoveDirection.SOUTHEAST,
+                MoveDirection.EAST,
+                MoveDirection.NORTHEAST,
+                MoveDirection.NORTH
+        };
+
+        setMoveDirection(directions[(int)theta/45]);
     }
 
     public void setMovementPattern(INPCMove movementPattern) {

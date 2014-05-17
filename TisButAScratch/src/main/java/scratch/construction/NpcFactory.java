@@ -2,6 +2,7 @@ package scratch.construction;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
+import scratch.model.IRoomData;
 import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.model.Vector2D;
@@ -56,7 +57,7 @@ public final class NpcFactory {
      * @param position The position the npc should have
      * @return A npc with the attributes as in the xml file.
      */
-	private NpcType loadNpc(String file, Vector2D position, int id, Room room){
+	private NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
 		final Serializer serializer = new Persister(new MyMatcher());
         final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");

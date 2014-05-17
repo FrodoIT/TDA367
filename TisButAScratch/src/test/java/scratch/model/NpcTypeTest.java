@@ -26,7 +26,7 @@ public class NpcTypeTest extends TestCase {
         final Room room = new Room(map, new DoorHandler());
         room.addCharacter(player);
 		npcType = new NpcType(new Rectangle2D.Double(10,0,32,32),
-                weapon, 1, 1, "/res/playerSprite.tmx", 0, npcMove, room);
+                weapon, 1, 1, "/res/playerSprite.tmx", 0, npcMove);
 	}
 
     @Test
