@@ -54,22 +54,22 @@ public class PacketPlayerInput {
 
         if (southKey && westKey) {
             //Southwest
-            movementDirection = new Vector2D(-1, -1);
-
-        } else if (southKey && eastKey) {
-            movementDirection = new Vector2D(1, -1);
-
-        } else if (northKey && westKey) {
             movementDirection = new Vector2D(-1, 1);
 
-        } else if (northKey && eastKey) {
+        } else if (southKey && eastKey) {
             movementDirection = new Vector2D(1, 1);
 
+        } else if (northKey && westKey) {
+            movementDirection = new Vector2D(-1, -1);
+
+        } else if (northKey && eastKey) {
+            movementDirection = new Vector2D(1, -1);
+
         } else if (southKey) {
-            movementDirection = new Vector2D(0, -1);
+            movementDirection = new Vector2D(0, 1);
 
         } else if (northKey) {
-            movementDirection = new Vector2D(0, 1);
+            movementDirection = new Vector2D(0, -1);
         } else if (westKey) {
             movementDirection = new Vector2D(-1, 0);
         } else if (eastKey) {
