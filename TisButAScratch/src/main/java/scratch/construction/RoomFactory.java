@@ -21,11 +21,11 @@ import java.util.List;
 public final class RoomFactory {
 
     private final List<Room> rooms = new ArrayList<>();
-    private final List<SlickMap> slickMaps = new ArrayList<>();
+    private final List<TiledMapPlus> tiledMaps = new ArrayList<>();
 	private final DoorHandler doorHandler = new DoorHandler();
 
     public RoomFactory() {
-		setUpSlickMaps( loadMaps() );
+		loadMaps();
         setUpRooms();
 
         addInteractiveObjectstoRooms();
@@ -33,31 +33,24 @@ public final class RoomFactory {
         addNpcstoRoom();
     }
 
-	private void setUpSlickMaps(List<TiledMapPlus> maps){
-        for(final TiledMapPlus room : maps){
-			slickMaps.add(new SlickMap(room));
-		}
-	}
 
-    private List<TiledMapPlus> loadMaps(){
+    private void loadMaps(){
         final List<File> worldFiles = FileScanner.getFiles(new File("res/world/"));
-        final List<TiledMapPlus> world = new ArrayList<>();
         for(final File room: worldFiles){
             if(room.getName().endsWith(".tmx")){
                 try {
-                    world.add(new TiledMapPlus(room.getCanonicalPath()));
+                    tiledMaps.add(new TiledMapPlus(room.getCanonicalPath()));
                 } catch (IOException | SlickException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return world;
 
     }
 
     private void setUpRooms() {
-        for(final SlickMap s: slickMaps){
-            rooms.add(new Room(s,doorHandler));
+        for(final TiledMapPlus tiledMap: tiledMaps){
+            rooms.add(new Room(tiledMap, doorHandler));
         }
     }
 
@@ -79,7 +72,7 @@ public final class RoomFactory {
 
 	private void addInteractiveObjectstoRooms() {
 		for (final Room room : rooms) {
-            final TiledMapPlus map = ((SlickMap)room.getMap()).getMap();
+            final TiledMapPlus map = (TiledMapPlus)room.getMap();
 			for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
                 room.addInteractivObject(interactiveObject);
 			}

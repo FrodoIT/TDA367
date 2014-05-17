@@ -3,19 +3,23 @@ package scratch.construction;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IInteractiveObject;
+import scratch.model.IMap;
 import scratch.model.InteractiveObject;
+import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tejp on 2014-05-08.
  */
-public class TiledMapPlus  extends TiledMap {
+public class TiledMapPlus extends TiledMap implements IMap {
 
 	private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
     private final List<NpcSpecification> npcSpecifications = new ArrayList<>();
+    private final int collisionIndex;
 
 	/**
 	 * Create a new tile map based on a given TMX file
@@ -26,7 +30,8 @@ public class TiledMapPlus  extends TiledMap {
 	public TiledMapPlus(String ref) throws SlickException {
 		super(ref);
 
-		initializeInteractiveObjects();
+        collisionIndex = getLayerIndex("collision");
+        initializeInteractiveObjects();
 		initializeNpcSpecifications();
     }
 
@@ -81,11 +86,42 @@ public class TiledMapPlus  extends TiledMap {
 		}
 	}
 
+    @Override
 	public List<NpcSpecification> getNpcSpecifications () {
 		return npcSpecifications;
 	}
 
-	public List<IInteractiveObject> getInteractiveObjects() {
+    @Override
+    public boolean hasInteractiveObject() {
+        return interactiveObjects.isEmpty();
+    }
+
+    @Override
+    public boolean hasNpc() {
+        return npcSpecifications.isEmpty();
+    }
+
+    @Override
+    public List<IInteractiveObject> getInteractiveObjects() {
 		return interactiveObjects;
 	}
+
+    @Override
+    public int getWidth() {
+        return super.getWidth() * getTileWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return super.getHeight() * getTileHeight();
+    }
+
+    @Override
+    public boolean isColliding(Vector2D coordinate) {
+        try {
+            return getTileId((int) coordinate.getX() / getTileWidth(), (int) coordinate.getY() / getTileHeight(), collisionIndex) != 0;
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+    }
 }

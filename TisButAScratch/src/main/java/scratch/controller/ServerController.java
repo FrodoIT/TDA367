@@ -9,7 +9,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import scratch.construction.MyMatcher;
 import scratch.construction.RoomFactory;
-import scratch.construction.SlickMap;
+import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.RoomView;
@@ -53,7 +53,7 @@ public final class ServerController extends Listener{
         game.addPlayer(newPlayer);
 
         for (final Room room : rooms) {
-            final TiledMap map = ((SlickMap) room.getMap()).getMap();
+            final TiledMap map = (TiledMapPlus)room.getMap();
             //TODO refactor here. SlickMap and TiledMapPlus will be merged probably. Tejp fix
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);

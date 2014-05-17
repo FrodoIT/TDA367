@@ -48,9 +48,4 @@ public class MockIMap implements IMap {
 	public List<NpcSpecification> getNpcSpecifications() {
 		return null;
 	}
-
-	@Override
-	public Map<String, Rectangle2D.Double> getPlayerRectangleMap() {
-		return null;
-	}
 }
