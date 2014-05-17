@@ -3,7 +3,6 @@ package scratch.controller;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import org.simpleframework.xml.Serializer;
@@ -15,6 +14,7 @@ import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.CharacterView;
 import scratch.view.RoomView;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

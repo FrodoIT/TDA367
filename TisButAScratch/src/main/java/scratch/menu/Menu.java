@@ -7,13 +7,11 @@ package scratch.menu;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-import scratch.controller.ClientController;
-import scratch.controller.ServerController;
+import scratch.controller.GameController;
 import scratch.model.Game;
+import scratch.network.Utilities;
 
 import javax.swing.*;
-import scratch.controller.GameController;
-import scratch.network.Utilities;
 
 /**
  *

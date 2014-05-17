@@ -2,7 +2,6 @@ package scratch.model;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import edu.umd.cs.findbugs.annotations.ExpectWarning;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
 import scratch.model.mockmodules.MockPlayerInput;
 import scratch.model.weapons.DefaultWeapon;
-import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

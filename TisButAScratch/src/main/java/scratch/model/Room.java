@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
-import scratch.construction.SlickMap;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

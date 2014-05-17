@@ -1,7 +1,6 @@
 package scratch.construction;
 
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.DoorHandler;
 import scratch.model.IInteractiveObject;
 import scratch.model.NpcType;
@@ -11,9 +10,7 @@ import scratch.utils.FileScanner;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -23,17 +20,14 @@ import java.util.Map;
  */
 public final class RoomFactory {
 
-    private List<TiledMapPlus> maps= new ArrayList<>();
     private final List<Room> rooms;
-    private List<SlickMap> slickMaps;
+    private final List<SlickMap> slickMaps;
 	private final DoorHandler doorHandler = new DoorHandler();
 
     public RoomFactory() {
-        maps = loadMaps();
+        final List<TiledMapPlus> maps = loadMaps();
 		slickMaps = createSlickMaps(maps);
         rooms = createRooms();
-
-
 
         addInteractiveObjectstoRooms();
 	    setupDoorHandler();
@@ -42,7 +36,7 @@ public final class RoomFactory {
 
 	private List<SlickMap> createSlickMaps(List<TiledMapPlus> maps){
 		final List<SlickMap> tempSlickMap = new ArrayList<>();
-		for(TiledMapPlus room : maps){
+		for(final TiledMapPlus room : maps){
 			tempSlickMap.add(new SlickMap(room));
 		}
 		return tempSlickMap;
@@ -51,7 +45,7 @@ public final class RoomFactory {
     private List<TiledMapPlus> loadMaps(){
         final List<File> worldFiles = FileScanner.getFiles(new File("res/world/"));
         final List<TiledMapPlus> world = new ArrayList<>();
-        for(File room: worldFiles){
+        for(final File room: worldFiles){
             if(room.getName().endsWith(".tmx")){
                 try {
                     world.add(new TiledMapPlus(room.getCanonicalPath()));
@@ -65,8 +59,8 @@ public final class RoomFactory {
     }
 
     private List<Room> createRooms() {
-        List<Room> tempRooms = new ArrayList<>();
-        for(SlickMap s: slickMaps){
+        final List<Room> tempRooms = new ArrayList<>();
+        for(final SlickMap s: slickMaps){
             tempRooms.add(new Room(s,doorHandler));
         }
         return tempRooms;
@@ -78,7 +72,7 @@ public final class RoomFactory {
 	 * from one door to another when a door is interacted with
 	 */
 	private void setupDoorHandler() {
-		for (Room room : rooms) {
+		for (final Room room : rooms) {
 			for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
 				if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
 					doorHandler.addDoor(room, interactiveObject);
@@ -90,7 +84,7 @@ public final class RoomFactory {
 
 	private void addInteractiveObjectstoRooms() {
 		for (final Room room : rooms) {
-            TiledMapPlus map = ((SlickMap)room.getMap()).getMap();
+            final TiledMapPlus map = ((SlickMap)room.getMap()).getMap();
 			for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
                 room.addInteractivObject(interactiveObject);
 			}

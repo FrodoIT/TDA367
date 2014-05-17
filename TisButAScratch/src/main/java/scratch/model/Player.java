@@ -1,6 +1,5 @@
 package scratch.model;
 
-import org.newdawn.slick.GameContainer;
 import org.simpleframework.xml.Element;
 import scratch.controller.PlayerInput;
 import scratch.model.weapons.DefaultWeapon;

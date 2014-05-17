@@ -5,13 +5,11 @@ import com.google.inject.Injector;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.model.mockModules.MockIWeapon;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.mockModules.MockIWeapon;
 
 import java.awt.geom.Rectangle2D;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Created by Anna on 2014-05-02.
