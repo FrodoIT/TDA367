@@ -43,7 +43,8 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
     @Override
     public boolean isPromptingAnAttack(NpcType npc) {
 
-        if (isWithinRange(roomData.getClosestPlayerPosition(npc.getPosition()), npc.getPosition())) {
+        final Vector2D pos = npc.getPosition();
+        if (isWithinRange(roomData.getClosestPlayerPosition(pos), pos)) {
             return true;
         }
         return false;
