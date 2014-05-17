@@ -44,7 +44,8 @@ public final class ServerController extends Listener{
     public void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
         final RoomFactory roomFactory = new RoomFactory();
-        game.setMap(roomFactory.getRooms());
+        final List<Room> rooms = roomFactory.getRooms();
+        game.setMap(rooms);
 
 	    //NOTE: The player created here wont have a room as listeners. this is added when the player
         //enters the first room. (game.addPlayer(newPlayer); enters a player to the first room)
@@ -52,7 +53,7 @@ public final class ServerController extends Listener{
         System.out.println(newPlayer.toString());
         game.addPlayer(newPlayer);
 
-        for (final Room room : roomFactory.getRooms()) {
+        for (final Room room : rooms) {
             final TiledMap map = ((SlickMap) room.getMap()).getMap();
             //TODO refactor here. SlickMap and TiledMapPlus will be merged probably. Tejp fix
             RoomController roomController = new RoomController(room, new RoomView(map));
