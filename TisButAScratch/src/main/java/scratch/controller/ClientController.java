@@ -26,18 +26,16 @@ import java.util.List;
  * @author Anna Nylander
  *
  */
-public final class ClientController extends Listener{
+public final class ClientController extends Listener {
 
-    private final List<PlayerController> playerControllerList;
-    private final List<NpcController> npcControllerList;
+    private final List<CharacterController> characterControllerList;
     private final List<RoomController> roomControllerList;
     private final NetworkClient client;
 
     public ClientController(String ip) {
         super();
-        playerControllerList = new ArrayList<>();
+        characterControllerList = new ArrayList<>();
         roomControllerList = new ArrayList<>();
-        npcControllerList = new ArrayList<>();
         client = new NetworkClient(ip);
     }
 
@@ -52,41 +50,25 @@ public final class ClientController extends Listener{
             roomControllerList.add(roomController);
 
             for (final NpcType npc : room.getNpcs()) {
-                NpcController npcController = new NpcController(npc, new CharacterView(npc));
-                npcControllerList.add(npcController);
+                characterControllerList.add(new CharacterController(npc));
             }
             for (final Player player : room.getPlayers()) {
-                PlayerController playerController = new PlayerController(player, new CharacterView(player));
-                playerControllerList.add(playerController);
+                characterControllerList.add(new CharacterController(player));
             }
         }
         client.start(this);
     }
 
     public void characterRecieved(AbstractCharacter character) {
-        if (character instanceof Player) {
-            boolean found = false;
-            for (final PlayerController playerController : playerControllerList) {
-                if (playerController.getId() == character.getId()) {
-                    playerController.setPlayer((Player) character);
-                    found = true;
-                }
+        boolean found = false;
+        for (final CharacterController characterController : characterControllerList) {
+            if (characterController.getId() == character.getId()) {
+                characterController.setCharacter(character);
+                found = true;
             }
-            if (!found) {
-                playerControllerList.add(new PlayerController((Player) character, new CharacterView(character)));
-            }
-        } else if (character instanceof NpcType) {
-            boolean found = false;
-
-            for (final NpcController npcController : npcControllerList) {
-                if (npcController.getId() == character.getId()) {
-                    npcController.setNpc((NpcType) character);
-                    found = true;
-                }
-            }
-            if (!found) {
-                npcControllerList.add(new NpcController((NpcType) character, new CharacterView(character)));
-            }
+        }
+        if (!found) {
+            characterControllerList.add(new CharacterController(character));
         }
     }
 
@@ -98,14 +80,11 @@ public final class ClientController extends Listener{
         for (final RoomController roomController : roomControllerList) {
             roomController.render();
         }
-
-        for (final NpcController npcController : npcControllerList) {
-            npcController.render(gameContainer);
+        
+        for (final CharacterController characterController : characterControllerList){
+            characterController.render(gameContainer);
         }
 
-        for (final PlayerController playerController : playerControllerList) {
-            playerController.render(gameContainer);
-        }
     }
 
     @Override
