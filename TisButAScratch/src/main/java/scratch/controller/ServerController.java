@@ -50,12 +50,6 @@ public final class ServerController extends Listener{
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);
 
-	    //NOTE: The player created here wont have a room as listeners. this is added when the player
-        //enters the first room. (game.addPlayer(newPlayer); enters a player to the first room)
-        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), 1, gameContainer);
-        System.out.println(newPlayer.toString());
-        game.addPlayer(newPlayer);
-
         for (final Room room : rooms) {
             final TiledMap map = (TiledMapPlus)room.getMap();
             //TODO refactor here. SlickMap and TiledMapPlus will be merged probably. Tejp fix
@@ -73,7 +67,7 @@ public final class ServerController extends Listener{
 
     }
 
-    private GameCharacter loadPlayer(String file, Vector2D position, int id, GameContainer gameContainer) {
+    private GameCharacter loadPlayer(String file, Vector2D position, int id) {
         final Serializer serializer = new Persister(new MyMatcher());
         final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");
@@ -106,7 +100,10 @@ public final class ServerController extends Listener{
 
     @Override
     public void connected(Connection connection) {
-        connection.sendTCP(new PacketNewPlayer(nextPlayerId, 101));
+        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
+        game.addPlayer(newPlayer);
+        characterControllerList.add(new CharacterController(newPlayer));
+        connection.sendTCP(new PacketNewPlayer(nextPlayerId, 100));
         nextPlayerId++;
     }
 

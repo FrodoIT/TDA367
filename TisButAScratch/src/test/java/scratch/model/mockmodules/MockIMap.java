@@ -48,4 +48,9 @@ public class MockIMap implements IMap {
 	public List<NpcSpecification> getNpcSpecifications() {
 		return null;
 	}
+
+    @Override
+    public int getId() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

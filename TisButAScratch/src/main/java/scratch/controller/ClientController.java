@@ -77,13 +77,10 @@ public final class ClientController extends Listener {
     }
 
     public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-
-        roomControllerMap.get(roomId).render();
-
-        for (final CharacterController characterController : characterControllerList) {
-            characterController.render(gameContainer);
+        if (roomId != 0){
+            roomControllerMap.get(roomId).render(gameContainer);
         }
-
+        
     }
 
     @Override
