@@ -40,25 +40,6 @@ public final class NpcType extends GameCharacter {
         super();
     }
 
-    /**
-     * Call to determine if NPC is hostile
-     *
-     * @return
-     */
-    public boolean isHostile() {
-        return hostile;
-    }
-
-    @Override
-    public boolean isInteracting() {
-        return false;
-    }
-
-    @Override
-    public void performInteractCooldown() {
-        //Npc don't do interact atm
-    }
-
     @Override
     public boolean isPromptingAnAttack() {
 
