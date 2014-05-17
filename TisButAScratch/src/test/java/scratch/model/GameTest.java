@@ -63,17 +63,8 @@ public class GameTest extends TestCase {
 	}
 
     @Test
-    public void testGetCharacters() {
-        assertTrue(game.getCharacters().contains(npcType));
-        assertFalse(game.getCharacters().contains(player));
-        game.addPlayer(player);
-        assertTrue(game.getCharacters().contains(player));
-    }
-
-
-    @Test
     public void testGetActiveRoom() {
-        assertSame(rooms.get(0), game.getActiveRoom());
+        assertSame(rooms.get(0), game.getActiveRooms());
     }
 
 	@Test

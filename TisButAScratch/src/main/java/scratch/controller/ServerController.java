@@ -103,7 +103,7 @@ public final class ServerController extends Listener{
 
     @Override
     public void connected(Connection connection) {
-        connection.sendTCP(game.getActiveRoom());
+        connection.sendTCP(game.getActiveRooms());
     }
 
     @Override

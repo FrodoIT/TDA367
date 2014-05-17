@@ -11,21 +11,15 @@ import java.util.List;
 public class Game {
 
     private List<Player> playerList;
-    private List<Room> rooms;
-    private Room activeRoom;
+    private List<Room> activeRooms;
 
     public Game() {
         playerList = new ArrayList<>();
-        activeRoom = null;
-
     }
 
     public boolean addPlayer(Player player) {
-        if (activeRoom == null) {
-            return false;
-        }
         playerList.add(player);
-        activeRoom.addCharacter(player);
+        activeRooms.get(0).addCharacter(player);
         return true;
     }
 
@@ -33,23 +27,20 @@ public class Game {
         return playerList;
     }
 
-    public List<AbstractCharacter> getCharacters() {
-        return activeRoom.getCharacters();
-    }
-
     public boolean removePlayer(Player player) {
-        return playerList.remove(player)
-                && activeRoom.removeCharacter(player);
+        for (Room activeRoom : activeRooms) {
+            if (activeRoom.removeCharacter(player)) {
+                return playerList.remove(player);
+            }
+        }
+        return false;
     }
 
     public void setMap(List<Room> gameMapRooms) {
-        this.rooms = gameMapRooms;
-        activeRoom = gameMapRooms.get(0);
-        //TODO if index 0 isn't the spawn location then this is wrong.
-        //maybe the spawn room should be searched for
+        this.activeRooms = gameMapRooms;
     }
 
-    public Room getActiveRoom() {
-        return activeRoom;
+    public List<Room> getActiveRooms() {
+        return activeRooms;
     }
 }
