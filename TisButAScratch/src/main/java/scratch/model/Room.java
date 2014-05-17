@@ -22,10 +22,10 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Inject
 
-    private List<AbstractCharacter> characters;
-    private final Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private final List<AbstractCharacter> charactersInteracting = new ArrayList<>();
-    private final List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
+    private List<GameCharacter> characters;
+    private final Map<GameCharacter, Vector2D> characterMovementMap = new HashMap<>();
+    private final List<GameCharacter> charactersInteracting = new ArrayList<>();
+    private final List<GameCharacter> areaUnderAttack = new ArrayList<>();
     private IMap map;
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
@@ -48,7 +48,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public boolean isActive() {
-        for (AbstractCharacter character:characters){
+        for (GameCharacter character:characters){
             if (character instanceof Player){
                 return true;
             }
@@ -57,7 +57,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterInteractions() {
-        for (AbstractCharacter character : charactersInteracting) {
+        for (GameCharacter character : charactersInteracting) {
             for (IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getArea())) {
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
@@ -71,8 +71,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterMovements() {
-        for (Map.Entry<AbstractCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
-            AbstractCharacter character = inputEntry.getKey();
+        for (Map.Entry<GameCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
+            GameCharacter character = inputEntry.getKey();
             character.setPosition(allowedPosition(character.getUnitTile(), inputEntry.getValue()));
         }
         characterMovementMap.clear();
@@ -85,8 +85,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     
     private void dealDamage() {
-        for (AbstractCharacter attackingCharacter : areaUnderAttack) {
-            for (AbstractCharacter character: characters){
+        for (GameCharacter attackingCharacter : areaUnderAttack) {
+            for (GameCharacter character: characters){
                 if ((character.getUnitTile().intersects(attackingCharacter.getAttackArea())) && 
                         !attackingCharacter.getClass().equals(character.getClass())){
                     character.takeDamage(attackingCharacter.getDamage());
@@ -146,12 +146,12 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         this.interactiveObjects.add(interactiveObject);
     }
 
-    public void addCharacter(AbstractCharacter character) {
+    public void addCharacter(GameCharacter character) {
         character.registerListener(this);
         characters.add(character);
     }
 
-    public boolean removeCharacter(AbstractCharacter character) {
+    public boolean removeCharacter(GameCharacter character) {
         character.removeListener(this);
         return characters.remove(character);
     }
@@ -173,11 +173,11 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public List<AbstractCharacter> getCharacters(){
+    public List<GameCharacter> getCharacters(){
         return characters;
     }
 
-    public List<AbstractCharacter> getAreaUnderAttack() {
+    public List<GameCharacter> getAreaUnderAttack() {
         return areaUnderAttack;
     }
 
@@ -191,20 +191,20 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public void handleCharacterMovement(AbstractCharacter character, Vector2D movement) {
+    public void handleCharacterMovement(GameCharacter character, Vector2D movement) {
         characterMovementMap.put(character, movement);
     }
 
     @Override
-    public void handleCharacterAttack(AbstractCharacter character) {
+    public void handleCharacterAttack(GameCharacter character) {
         areaUnderAttack.add(character);
     }
 
-    public Map<AbstractCharacter, Vector2D> getCharacterMovementMap() {
+    public Map<GameCharacter, Vector2D> getCharacterMovementMap() {
         return characterMovementMap;
     }
 
-    public List<AbstractCharacter> getCharacterInteractAreaMap() {
+    public List<GameCharacter> getCharacterInteractAreaMap() {
         return charactersInteracting;
     }
 
@@ -213,7 +213,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public void handleCharacterInteraction(AbstractCharacter character) {
+    public void handleCharacterInteraction(GameCharacter character) {
         charactersInteracting.add(character);
     }
 
@@ -238,7 +238,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D position){
         //TODO Fix proper checking
-        for (AbstractCharacter character : characters){
+        for (GameCharacter character : characters){
             if (character instanceof Player){
                 return character.getPosition();
             }

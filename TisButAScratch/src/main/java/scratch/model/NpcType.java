@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
 
 @Root
 
-public final class NpcType extends AbstractCharacter {
+public final class NpcType extends GameCharacter {
 
     @Element
     private boolean hostile;

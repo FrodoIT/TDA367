@@ -7,7 +7,7 @@ package scratch.network;
 
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import scratch.model.AbstractCharacter;
+import scratch.model.GameCharacter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -42,7 +42,7 @@ public class NetworkServer implements PropertyChangeListener{
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Object newValue = evt.getNewValue();
-        if (newValue instanceof AbstractCharacter){
+        if (newValue instanceof GameCharacter){
             server.sendToAllTCP(newValue);
         }
         

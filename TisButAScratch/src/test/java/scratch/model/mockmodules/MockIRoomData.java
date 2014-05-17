@@ -2,19 +2,15 @@ package scratch.model.mockmodules;
 
 import org.newdawn.slick.SlickException;
 import scratch.construction.TiledMapPlus;
-import scratch.model.IMap;
-import scratch.model.IRoomData;
-import scratch.model.NpcType;
-import scratch.model.Player;
+import scratch.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import scratch.model.AbstractCharacter;
-import scratch.model.Vector2D;
+import scratch.model.GameCharacter;
 
 public class MockIRoomData implements IRoomData {
 
-    private final List<AbstractCharacter> characters = new ArrayList<>();
+    private final List<GameCharacter> characters = new ArrayList<>();
     private IMap map;
 
     public void setUp() {
@@ -34,13 +30,13 @@ public class MockIRoomData implements IRoomData {
     }
 
     @Override
-    public List<AbstractCharacter> getCharacters() {
+    public List<GameCharacter> getCharacters() {
         return characters;
     }
 
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D position) {
-        for (AbstractCharacter character : characters) {
+        for (GameCharacter character : characters) {
             if (character instanceof Player) {
                 return character.getPosition();
             }

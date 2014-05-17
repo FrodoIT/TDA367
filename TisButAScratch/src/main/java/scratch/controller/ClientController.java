@@ -8,12 +8,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
-import scratch.model.AbstractCharacter;
-import scratch.model.NpcType;
-import scratch.model.Player;
+import scratch.model.GameCharacter;
 import scratch.model.Room;
 import scratch.network.NetworkClient;
-import scratch.view.CharacterView;
 import scratch.view.RoomView;
 
 import java.util.ArrayList;
@@ -52,14 +49,14 @@ public final class ClientController extends Listener {
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
-            for (final AbstractCharacter character : room.getCharacters()) {
+            for (final GameCharacter character : room.getCharacters()) {
                 characterControllerList.add(new CharacterController(character));
             }
         }
         client.start(this);
     }
 
-    public void characterRecieved(AbstractCharacter character) {
+    public void characterRecieved(GameCharacter character) {
         boolean found = false;
         for (final CharacterController characterController : characterControllerList) {
             if (characterController.getId() == character.getId()) {
@@ -89,8 +86,8 @@ public final class ClientController extends Listener {
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof AbstractCharacter) {
-            characterRecieved((AbstractCharacter) object);
+        if (object instanceof GameCharacter) {
+            characterRecieved((GameCharacter) object);
         } else if (object instanceof PacketNewPlayer){
             this.id = ((PacketNewPlayer)object).getId();
         }

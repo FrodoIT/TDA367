@@ -9,7 +9,7 @@ import java.util.List;
  */
 @ImplementedBy(Room.class)
 public interface IRoomData {
-	List<AbstractCharacter> getCharacters();
+	List<GameCharacter> getCharacters();
         Vector2D getClosestPlayerPosition(Vector2D position);
 	IMap getMap();
 

@@ -21,7 +21,7 @@ import java.util.List;
  * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
  */
 @Immutable
-public abstract class AbstractCharacter implements KryoSerializable {
+public class GameCharacter implements KryoSerializable {
 
     @Element(type = Rectangle2D.Double.class, required = false)
     private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
@@ -54,7 +54,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
-    public AbstractCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id, String imagePath) {
+    public GameCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id, String imagePath) {
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
@@ -69,7 +69,7 @@ public abstract class AbstractCharacter implements KryoSerializable {
         listeners.add(listener);
     }
 
-    AbstractCharacter() {
+    GameCharacter() {
         super();
         nextMoveDirection = new Vector2D();
     }
@@ -247,11 +247,11 @@ public abstract class AbstractCharacter implements KryoSerializable {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof AbstractCharacter)) {
+        if (!(o instanceof GameCharacter)) {
             return false;
         }
 
-        AbstractCharacter character = (AbstractCharacter) o;
+        GameCharacter character = (GameCharacter) o;
 
         return (id == character.id);
     }

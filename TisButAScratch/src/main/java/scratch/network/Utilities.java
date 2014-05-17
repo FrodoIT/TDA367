@@ -27,7 +27,7 @@ public class Utilities {
         kryo.register(PlayerInput.class);
         kryo.register(Player.class);
         kryo.register(NpcType.class);
-        kryo.register(AbstractCharacter.class);
+        kryo.register(GameCharacter.class);
         kryo.register(Rectangle2D.Double.class);
         kryo.register(IWeapon.class);
         kryo.register(DefaultWeapon.class);

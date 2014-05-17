@@ -62,7 +62,7 @@ public final class ServerController extends Listener{
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
-            for (final AbstractCharacter character : room.getCharacters()) {
+            for (final GameCharacter character : room.getCharacters()) {
                 CharacterController characterController = new CharacterController(character);
                 characterController.addListener(networkServer);
                 characterControllerList.add(characterController);

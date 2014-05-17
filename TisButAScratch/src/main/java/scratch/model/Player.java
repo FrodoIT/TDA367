@@ -3,7 +3,6 @@ package scratch.model;
 import org.simpleframework.xml.Element;
 import scratch.controller.PlayerInput;
 import scratch.model.weapons.DefaultWeapon;
-import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
 
@@ -14,7 +13,7 @@ import java.awt.geom.Rectangle2D;
  * IRoomData.
  *
  */
-public final class Player extends AbstractCharacter {
+public final class Player extends GameCharacter {
 
     @Element(type = IPlayerInput.class, required = false)
     private IPlayerInput playerInput;

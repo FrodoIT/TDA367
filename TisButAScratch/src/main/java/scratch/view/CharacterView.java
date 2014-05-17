@@ -10,7 +10,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.AbstractCharacter;
+import scratch.model.GameCharacter;
 import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
 
@@ -22,10 +22,10 @@ import java.util.logging.Logger;
  * @author Cannonbait
  */
 public class CharacterView {
-    private AbstractCharacter character;
+    private GameCharacter character;
     private SpriteDirectionRenderer spriteHandler;
     
-    public CharacterView (AbstractCharacter character){
+    public CharacterView (GameCharacter character){
         this.character = character;
         try {
             spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
@@ -36,7 +36,7 @@ public class CharacterView {
         }
     }
     
-    public void setCharacter (AbstractCharacter character){
+    public void setCharacter (GameCharacter character){
         this.character = character;
     }
     

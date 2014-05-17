@@ -16,7 +16,7 @@ public class AbstractCharacterTest extends TestCase {
 
     private final double epsilon = Math.pow(10, -10);
     private Room room;
-    private AbstractCharacter testCharacter;
+    private GameCharacter testCharacter;
 
     @Before
     @Override
@@ -131,7 +131,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testEquals() throws Exception {
-        EqualsVerifier.forClass(AbstractCharacter.class).verify();
+        EqualsVerifier.forClass(GameCharacter.class).verify();
     }
 
     @Test

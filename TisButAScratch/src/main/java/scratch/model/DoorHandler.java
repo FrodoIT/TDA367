@@ -13,7 +13,7 @@ public class DoorHandler {
 	private final Map<String, Set<IInteractiveObject>> doorMatchingMap = new HashMap<>();
 	private final Random random = new Random();
 
-	public void interactHappened(Room room, AbstractCharacter character, IInteractiveObject originDoor) {
+	public void interactHappened(Room room, GameCharacter character, IInteractiveObject originDoor) {
         final Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
         final IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
@@ -27,7 +27,7 @@ public class DoorHandler {
 		}
 	}
 
-	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, AbstractCharacter character) {
+	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, GameCharacter character) {
 		originRoom.removeCharacter(character);
 		targetRoom.addCharacter(character);
         final Rectangle2D.Double doorArea = exitDoor.getArea();

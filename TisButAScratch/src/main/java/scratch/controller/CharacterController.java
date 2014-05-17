@@ -8,7 +8,7 @@ package scratch.controller;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
-import scratch.model.AbstractCharacter;
+import scratch.model.GameCharacter;
 import scratch.view.CharacterView;
 
 /**
@@ -17,11 +17,11 @@ import scratch.view.CharacterView;
  */
 public class CharacterController {
     
-    private AbstractCharacter character;
+    private GameCharacter character;
     private final PropertyChangeSupport listeners;
     private final CharacterView view;
     
-    public CharacterController(AbstractCharacter character){
+    public CharacterController(GameCharacter character){
         this.character = character;
         listeners = new PropertyChangeSupport(this);
         view = new CharacterView(character);
@@ -36,7 +36,7 @@ public class CharacterController {
         listeners.firePropertyChange(null, null, character);
     }
 
-    public void setCharacter(AbstractCharacter character) {
+    public void setCharacter(GameCharacter character) {
         view.setCharacter(character);
         this.character = character;
     }
@@ -49,7 +49,7 @@ public class CharacterController {
         view.render(gameContainer);
     }
 
-    public AbstractCharacter getCharacter() {
+    public GameCharacter getCharacter() {
         return character;
     }
 
