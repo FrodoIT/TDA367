@@ -35,9 +35,8 @@ public class CharacterController extends Listener {
     }
 
     public void update() {
-        System.out.println("We are updating a character with reference: " + character);
         character.update();
-        
+
         listeners.firePropertyChange(null, null, character);
     }
 
@@ -46,7 +45,6 @@ public class CharacterController extends Listener {
     }
 
     public void render(GameContainer gameContainer) {
-        System.out.println("We are rendering a character with reference: " + character);
         view.render(gameContainer);
     }
 
@@ -57,13 +55,18 @@ public class CharacterController extends Listener {
     public int getId() {
         return character.getId();
     }
+    
+    private void setCharacter(GameCharacter character){
+        this.character = character;
+        view.setCharacter(character);
+    }
 
     @Override
-    public synchronized void received(Connection connection, Object object) {
-        if (object instanceof GameCharacter){
-            GameCharacter recievedCharacter = (GameCharacter)object;
-            if (recievedCharacter.getId()==getId()){
-                character = recievedCharacter;
+    public void received(Connection connection, Object object) {
+        if (object instanceof GameCharacter) {
+            GameCharacter recievedCharacter = (GameCharacter) object;
+            if (recievedCharacter.getId() == getId()) {
+                setCharacter(recievedCharacter);
             }
         }
     }
