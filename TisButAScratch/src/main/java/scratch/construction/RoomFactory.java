@@ -20,26 +20,23 @@ import java.util.List;
  */
 public final class RoomFactory {
 
-    private final List<Room> rooms;
-    private final List<SlickMap> slickMaps;
+    private final List<Room> rooms = new ArrayList<>();
+    private final List<SlickMap> slickMaps = new ArrayList<>();
 	private final DoorHandler doorHandler = new DoorHandler();
 
     public RoomFactory() {
-        final List<TiledMapPlus> maps = loadMaps();
-		slickMaps = createSlickMaps(maps);
-        rooms = createRooms();
+		setUpSlickMaps( loadMaps() );
+        setUpRooms();
 
         addInteractiveObjectstoRooms();
 	    setupDoorHandler();
         addNpcstoRoom();
     }
 
-	private List<SlickMap> createSlickMaps(List<TiledMapPlus> maps){
-		final List<SlickMap> tempSlickMap = new ArrayList<>();
-		for(final TiledMapPlus room : maps){
-			tempSlickMap.add(new SlickMap(room));
+	private void setUpSlickMaps(List<TiledMapPlus> maps){
+        for(final TiledMapPlus room : maps){
+			slickMaps.add(new SlickMap(room));
 		}
-		return tempSlickMap;
 	}
 
     private List<TiledMapPlus> loadMaps(){
@@ -58,12 +55,10 @@ public final class RoomFactory {
 
     }
 
-    private List<Room> createRooms() {
-        final List<Room> tempRooms = new ArrayList<>();
+    private void setUpRooms() {
         for(final SlickMap s: slickMaps){
-            tempRooms.add(new Room(s,doorHandler));
+            rooms.add(new Room(s,doorHandler));
         }
-        return tempRooms;
     }
 
 	/**
