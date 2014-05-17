@@ -68,7 +68,6 @@ public final class NpcType extends AbstractCharacter {
     @Override
     public void update() {
         final Vector2D newPosition = movementPattern.calculateNewPosition(this);
-        calculateMoveDirection(newPosition);
         for (final CharacterChangeListener characterListener : getListeners()) {
             characterListener.handleCharacterMovement(this, newPosition);
         }
@@ -77,34 +76,7 @@ public final class NpcType extends AbstractCharacter {
         }
     }
 
-    private void calculateMoveDirection(Vector2D newPosition) {
-        if (getPosition().equals(newPosition)) {
-            setMoveDirection(MoveDirection.NONE);
-            return;
-        }
 
-        final Rectangle2D.Double unitTile = getUnitTile();
-        final double diffX = newPosition.getX() - unitTile.x;
-        final double diffY = newPosition.getY() - unitTile.y;
-
-        // 517.5 =
-        // 180 to avid negative angles
-        //+ 337.5 (360 - 22.5)
-        final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
-
-        final MoveDirection[] directions = {
-                MoveDirection.NORTHWEST,
-                MoveDirection.WEST,
-                MoveDirection.SOUTHWEST,
-                MoveDirection.SOUTH,
-                MoveDirection.SOUTHEAST,
-                MoveDirection.EAST,
-                MoveDirection.NORTHEAST,
-                MoveDirection.NORTH
-        };
-
-        setMoveDirection(directions[(int)theta/45]);
-    }
 
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;

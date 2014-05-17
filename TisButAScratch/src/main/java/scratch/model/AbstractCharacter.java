@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.io.Output;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import scratch.model.weapons.IWeapon;
+import scratch.utils.Cooldown;
 
 import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
@@ -36,6 +37,20 @@ public abstract class AbstractCharacter implements KryoSerializable {
     private MoveDirection moveDirection = MoveDirection.SOUTH;
     @Element
     private String imagePath;
+    @Element (required = false)
+    private boolean interactIsCooledDown = true;
+
+    private Vector2D nextMoveDirection;
+    private boolean interacting;
+    private boolean attacking;
+
+    @Element (type=Runnable.class, required = false)
+    private Runnable cooldownReset = new Runnable() {
+        @Override
+        public void run() {
+            interactIsCooledDown = true;
+        }
+    };
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
@@ -61,11 +76,10 @@ public abstract class AbstractCharacter implements KryoSerializable {
         this.id = id;
     }
 
-    public abstract boolean isInteracting();
-
-    public abstract void performInteractCooldown();
-
-    public abstract boolean isPromptingAnAttack();
+    public void performInteractCooldown() {
+        interactIsCooledDown = false;
+        Cooldown.cooldown(500, cooldownReset);
+    }
 
     public void removeListener(CharacterChangeListener listener) {
         listeners.remove(listener);
@@ -79,10 +93,78 @@ public abstract class AbstractCharacter implements KryoSerializable {
         }
     }
 
-    public abstract void update();
+    private void calculateMoveDirection(Vector2D newPosition) {
+        if (getPosition().equals(newPosition)) {
+            setMoveDirection(MoveDirection.NONE);
+            return;
+        }
+
+        final Rectangle2D.Double unitTile = getUnitTile();
+        final double diffX = newPosition.getX() - unitTile.x;
+        final double diffY = newPosition.getY() - unitTile.y;
+
+        // 517.5 =
+        // 180 to avid negative angles
+        //+ 337.5 (360 - 22.5)
+        final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
+
+        final MoveDirection[] directions = {
+                MoveDirection.NORTHWEST,
+                MoveDirection.WEST,
+                MoveDirection.SOUTHWEST,
+                MoveDirection.SOUTH,
+                MoveDirection.SOUTHEAST,
+                MoveDirection.EAST,
+                MoveDirection.NORTHEAST,
+                MoveDirection.NORTH
+        };
+
+        setMoveDirection(directions[(int)theta/45]);
+    }
+
+    public void update() {
+        final double newX = getPosition().getX() + moveDirection.getX();
+        final double newY = getPosition().getY() + moveDirection.getY();
+
+        Vector2D newPosition = new Vector2D(newX, newY);
+
+        calculateMoveDirection(newPosition);
+
+        for (CharacterChangeListener listener : getListeners()) {
+            listener.handleCharacterMovement(this, newPosition);
+
+            if (isInteracting()) {
+                interact();
+            }
+
+            if (isPromptingAnAttack()) {
+                performAttack();
+            }
+        }
+    }
 
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
+    }
+
+    public void setInteracting(boolean interacting) {
+        this.interacting = interacting;
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+    }
+
+    public void setMoveDirection(Vector2D moveDirection) {
+        this.nextMoveDirection = moveDirection.getNormalisedVector();
+    }
+
+    public boolean isInteracting() {
+        return interacting && interactIsCooledDown;
+    }
+
+    public boolean isPromptingAnAttack() {
+        return attacking && getWeapon().hasCooledDown();
     }
 
     public void setMoveDirection(MoveDirection direction) {
@@ -206,18 +288,4 @@ public abstract class AbstractCharacter implements KryoSerializable {
         moveDirection = kryo.readObject(input, MoveDirection.class);
         imagePath = kryo.readObject(input, String.class);
     }
-
-	@Override
-	public String toString() {
-		return "AbstractCharacter{" +
-				"unitTile=" + unitTile +
-				", weapon=" + weapon +
-				", health=" + health +
-				", movementSpeed=" + movementSpeed +
-				", id=" + id +
-				", moveDirection=" + moveDirection +
-				", imagePath='" + imagePath + '\'' +
-				", listeners=" + listeners +
-				'}';
-	}
 }
