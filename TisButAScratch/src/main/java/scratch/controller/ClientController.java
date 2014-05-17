@@ -53,23 +53,12 @@ public final class ClientController extends Listener {
             roomControllerMap.put(roomController.getId(), roomController);
 
             for (final GameCharacter character : room.getCharacters()) {
-                characterControllerList.add(new CharacterController(character));
+                CharacterController characterController = new CharacterController(character);
+                client.addListener(characterController);
+                roomController.addCharacterController(characterController);
             }
         }
         client.start(this);
-    }
-
-    public void characterRecieved(GameCharacter character) {
-        boolean found = false;
-        for (final CharacterController characterController : characterControllerList) {
-            if (characterController.getId() == character.getId()) {
-                characterController.setCharacter(character);
-                found = true;
-            }
-        }
-        if (!found) {
-            characterControllerList.add(new CharacterController(character));
-        }
     }
 
     public void update(GameContainer container, int delta) {
@@ -77,17 +66,15 @@ public final class ClientController extends Listener {
     }
 
     public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        if (roomId != 0){
+        if (roomId != 0) {
             roomControllerMap.get(roomId).render(gameContainer);
         }
-        
+
     }
 
     @Override
     public synchronized void received(Connection connection, Object object) {
-        if (object instanceof GameCharacter) {
-            characterRecieved((GameCharacter) object);
-        } else if (object instanceof PacketNewPlayer) {
+        if (object instanceof PacketNewPlayer) {
             PacketNewPlayer info = (PacketNewPlayer) object;
             this.id = info.getId();
             this.roomId = info.getRoomId();

@@ -16,7 +16,9 @@ import scratch.view.RoomView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import scratch.network.PacketNewPlayer;
 import scratch.network.PacketPlayerInput;
 
@@ -31,35 +33,32 @@ public final class ServerController extends Listener{
 
     private final NetworkServer networkServer;
     private final Game game;
-    private final List<CharacterController> characterControllerList;
-    private final List<RoomController> roomControllerList;
+    private final Map<Integer, RoomController> roomControllerMap;
     private int nextPlayerId;
 
     public ServerController(Game game) {
         super();
         this.game = game;
         networkServer = new NetworkServer();
-        characterControllerList = new ArrayList<>();
-        roomControllerList = new ArrayList<>();
+        roomControllerMap = new HashMap<>();
         nextPlayerId = 1;
     }
 
-    public void init(GameContainer gameContainer) throws SlickException {
+    public synchronized void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
         final RoomFactory roomFactory = new RoomFactory();
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);
 
         for (final Room room : rooms) {
-            final TiledMap map = (TiledMapPlus)room.getMap();
-            //TODO refactor here. SlickMap and TiledMapPlus will be merged probably. Tejp fix
+            final TiledMap map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
-            roomControllerList.add(roomController);
+            roomControllerMap.put(roomController.getId(), roomController);
 
             for (final GameCharacter character : room.getCharacters()) {
                 CharacterController characterController = new CharacterController(character);
                 characterController.addListener(networkServer);
-                characterControllerList.add(characterController);
+                roomController.addCharacterController(characterController);
             }
         }
 
@@ -88,27 +87,26 @@ public final class ServerController extends Listener{
     }
 
     
-    public void update(GameContainer container, int delta) throws SlickException {
-        for (final CharacterController characterController : characterControllerList) {
-            characterController.update();
-        }
-
-        for (final RoomController roomController : roomControllerList) {
+    public synchronized void update(GameContainer container, int delta) throws SlickException {
+        for (final RoomController roomController : roomControllerMap.values()) {
             roomController.updateRoom();
         }
     }
 
     @Override
-    public void connected(Connection connection) {
+    public synchronized void connected(Connection connection) {
+        int roomId = 100;
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
-        characterControllerList.add(new CharacterController(newPlayer));
-        connection.sendTCP(new PacketNewPlayer(nextPlayerId, 100));
+        CharacterController playerController = new CharacterController(newPlayer);
+        playerController.addListener(networkServer);
+        roomControllerMap.get(roomId).addCharacter(playerController);
+        connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));
         nextPlayerId++;
     }
 
     @Override
-    public void received(Connection connection, Object object) {
+    public synchronized void received(Connection connection, Object object) {
         if (object instanceof PacketPlayerInput){
             GameCharacter player = game.getPlayers().get(0);
             PacketPlayerInput input = (PacketPlayerInput)object;

@@ -5,23 +5,26 @@
  */
 package scratch.controller;
 
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
+import scratch.network.PacketNewPlayer;
 import scratch.view.CharacterView;
 
 /**
  *
  * @author Ivar
  */
-public class CharacterController {
-    
+public class CharacterController extends Listener {
+
     private GameCharacter character;
     private final PropertyChangeSupport listeners;
     private final CharacterView view;
-    
-    public CharacterController(GameCharacter character){
+
+    public CharacterController(GameCharacter character) {
         this.character = character;
         listeners = new PropertyChangeSupport(this);
         view = new CharacterView(character);
@@ -34,11 +37,6 @@ public class CharacterController {
     public void update() {
         character.update();
         listeners.firePropertyChange(null, null, character);
-    }
-
-    public void setCharacter(GameCharacter character) {
-        view.setCharacter(character);
-        this.character = character;
     }
 
     public CharacterView getView() {
@@ -55,5 +53,15 @@ public class CharacterController {
 
     public int getId() {
         return character.getId();
+    }
+
+    @Override
+    public synchronized void received(Connection connection, Object object) {
+        if (object instanceof GameCharacter){
+            GameCharacter recievedCharacter = (GameCharacter)object;
+            if (recievedCharacter.getId()==getId()){
+                character = recievedCharacter;
+            }
+        }
     }
 }

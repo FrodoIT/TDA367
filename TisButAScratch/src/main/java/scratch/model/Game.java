@@ -22,7 +22,6 @@ public class Game {
             return false;
         }
         playerList.add(player);
-        activeRooms.get(0).addCharacter(player);
         return true;
     }
 

@@ -1,5 +1,7 @@
 package scratch.controller;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.GameContainer;
@@ -25,6 +27,11 @@ public class RoomController {
 
     public void updateRoom(){
         if(room.isActive()){
+            System.out.println("Room is active");
+            
+            for (CharacterController characterController : characters){
+                characterController.update();
+            }
             room.update();
         }
     }
@@ -43,5 +50,14 @@ public class RoomController {
     
     public int getId() {
         return room.getId();
+    }
+    
+    public void addCharacter(CharacterController characterController){
+        room.addCharacter(characterController.getCharacter());
+        characters.add(characterController);
+    }
+    
+    public void addCharacterController(CharacterController characterController){
+        characters.add(characterController);
     }
 }

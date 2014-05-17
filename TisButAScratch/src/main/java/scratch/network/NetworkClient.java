@@ -33,10 +33,14 @@ public class NetworkClient {
         } catch (IOException e) {
             System.out.println("Could not connect to server, expect disaster");
         }
-        client.addListener(listener);
+        addListener(listener);
     }
     
     public void send(Object object){
         client.sendTCP(object);
+    }
+    
+    public void addListener(Listener listener){
+        client.addListener(listener);
     }
 }

@@ -49,7 +49,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     public boolean isActive() {
         for (GameCharacter character:characters){
-            if (character instanceof GameCharacter){
+            if (character instanceof NpcType){
+                
+            } else {
                 return true;
             }
         }
