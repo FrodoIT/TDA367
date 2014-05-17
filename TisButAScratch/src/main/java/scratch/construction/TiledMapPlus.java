@@ -17,79 +17,80 @@ import java.util.Map;
  */
 public class TiledMapPlus extends TiledMap implements IMap {
 
-	private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
+    private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
     private final List<NpcSpecification> npcSpecifications = new ArrayList<>();
     private final int collisionIndex;
+    private final int id;
 
-	/**
-	 * Create a new tile map based on a given TMX file
-	 *
-	 * @param ref The location of the tile map to load
-	 * @throws org.newdawn.slick.SlickException Indicates a failure to load the tilemap
-	 */
-	public TiledMapPlus(String ref) throws SlickException {
-		super(ref);
-
+    /**
+     * Create a new tile map based on a given TMX file
+     *
+     * @param ref The location of the tile map to load
+     * @throws org.newdawn.slick.SlickException Indicates a failure to load the
+     * tilemap
+     */
+    public TiledMapPlus(String ref) throws SlickException {
+        super(ref);
+        id = Integer.parseInt(getMapProperty("id", "0"));
         collisionIndex = getLayerIndex("collision");
         initializeInteractiveObjects();
-		initializeNpcSpecifications();
+        initializeNpcSpecifications();
     }
 
-	private void initializeNpcSpecifications() {
-		for (final Object oGroup : objectGroups) {
-			final ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! "npc".equals( objectGroup.name ) ) {
-                continue;
-            }
-
-			for (final Object gObject : objectGroup.objects) {
-				final GroupObject groupObject = (GroupObject) gObject;
-				npcSpecifications.add( new NpcSpecification(
-                                groupObject.props.getProperty("npcType"),
-                                Integer.parseInt(groupObject.props.getProperty("id")),
-                                new Rectangle2D.Double(
-                                        groupObject.x,
-                                        groupObject.y,
-                                        groupObject.width,
-                                        groupObject.height
-                                )
-
-                        )
-                );
-			}
-		}
-	}
-
-	private void initializeInteractiveObjects() {
-		for (final Object oGroup : objectGroups) {
+    private void initializeNpcSpecifications() {
+        for (final Object oGroup : objectGroups) {
             final ObjectGroup objectGroup = (ObjectGroup) oGroup;
-			if ( ! "interactive".equals(objectGroup.name)) {
+            if (!"npc".equals(objectGroup.name)) {
                 continue;
             }
 
-			for (final Object gObject : objectGroup.objects) {
+            for (final Object gObject : objectGroup.objects) {
+                final GroupObject groupObject = (GroupObject) gObject;
+                npcSpecifications.add(new NpcSpecification(
+                        groupObject.props.getProperty("npcType"),
+                        Integer.parseInt(groupObject.props.getProperty("id")),
+                        new Rectangle2D.Double(
+                                groupObject.x,
+                                groupObject.y,
+                                groupObject.width,
+                                groupObject.height
+                        )
+                )
+                );
+            }
+        }
+    }
+
+    private void initializeInteractiveObjects() {
+        for (final Object oGroup : objectGroups) {
+            final ObjectGroup objectGroup = (ObjectGroup) oGroup;
+            if (!"interactive".equals(objectGroup.name)) {
+                continue;
+            }
+
+            for (final Object gObject : objectGroup.objects) {
                 final GroupObject groupObject = (GroupObject) gObject;
 
-				interactiveObjects.add(
-						new InteractiveObject(
-								groupObject.name,
-								groupObject.type,
-								groupObject.x,
-								groupObject.y,
-								groupObject.width,
-								groupObject.height,
-								groupObject.props
-						)
-				);
-			}
+                interactiveObjects.add(
+                        new InteractiveObject(
+                                groupObject.name,
+                                groupObject.type,
+                                groupObject.x,
+                                groupObject.y,
+                                groupObject.width,
+                                groupObject.height,
+                                groupObject.props
+                        )
+                );
+            }
 
-		}
-	}
+        }
+    }
 
     @Override
-	public List<NpcSpecification> getNpcSpecifications () {
-		return npcSpecifications;
-	}
+    public List<NpcSpecification> getNpcSpecifications() {
+        return npcSpecifications;
+    }
 
     @Override
     public boolean hasInteractiveObject() {
@@ -103,8 +104,8 @@ public class TiledMapPlus extends TiledMap implements IMap {
 
     @Override
     public List<IInteractiveObject> getInteractiveObjects() {
-		return interactiveObjects;
-	}
+        return interactiveObjects;
+    }
 
     @Override
     public int getWidth() {
@@ -114,6 +115,10 @@ public class TiledMapPlus extends TiledMap implements IMap {
     @Override
     public int getHeight() {
         return super.getHeight() * getTileHeight();
+    }
+    
+    public int getId() {
+        return id;
     }
 
     @Override

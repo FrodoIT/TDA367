@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32" backgroundcolor="#ff0004">
+ <properties>
+  <property name="id" value="100"/>
+ </properties>
  <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <tileoffset x="19" y="19"/>
   <image source="tmw_desert_spacing.png" width="265" height="199"/>
  </tileset>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9WQwQqAIAyGtcAoobDuduvY+z9eEyaMH3XlrcN3cGPf/hmNMfEHWGIgxsq7xcnI2kwshAeXV/xnxRd4xsLsUdj3Jh968uzIpH278GvM4MvZfCXTDWA/wE1e5Ek4YgJfK1+Am/AuJ5yTki0qrsTKbIzma+EKPslX36r4ep01V4+v9Zc9vqtQK7keAAOSN7AEAAA=
+   H4sIAAAAAAAAC9WQwQqAIAyGtcAoobDuduvY+z9eEyaMH3XlrcN3cGPf/hmNMfEHWGIgxsq7xcnI2kwshAeXV/xnxRd4xsLsUdj3Jh968uzIpH278GvM4MvZfCXTDWA/wE1e5Ek4YgJfK1+Am/AuJ5yTki0qrsTKbIzma+EKPslX36r4ep01V4+v9Zc9vqtQK7keAAOSN7AEAAA=
   </data>
  </layer>
- <objectgroup name="player" width="20" height="15"/>
+ <objectgroup name="map" width="20" height="15"/>
  <objectgroup name="interactive" width="20" height="15">
   <object name="door2" type="object" x="67" y="320" width="32" height="32">
    <properties>
@@ -32,7 +35,7 @@
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQNQEqakmsfFwLCAWP2EAMgsappHLBgq5pFjJgDiZABHsAQAAA==
+   H4sIAAAAAAAAC2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQNQEqakmsfFwLCAWP2EAMgsappHLBgq5pFjJgDiZABHsAQAAA==
   </data>
  </layer>
  <objectgroup name="npc" width="20" height="15">

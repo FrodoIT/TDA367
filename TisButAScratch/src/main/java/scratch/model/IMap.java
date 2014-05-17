@@ -8,11 +8,12 @@ import java.util.List;
 
 @ImplementedBy(TiledMapPlus.class)
 public interface IMap {
-	boolean isColliding(Vector2D coordinate);
+    boolean isColliding(Vector2D coordinate);
     boolean hasInteractiveObject();
     boolean hasNpc();
     int getHeight();
     int getWidth();
-	List<IInteractiveObject> getInteractiveObjects();
+    int getId();
+    List<IInteractiveObject> getInteractiveObjects();
     List<NpcSpecification> getNpcSpecifications();
 }

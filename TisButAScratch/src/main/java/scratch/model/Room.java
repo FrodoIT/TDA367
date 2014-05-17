@@ -171,6 +171,10 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private int getMapWidth() {
         return map.getWidth();
     }
+    
+    public int getId() {
+        return map.getId();
+    }
 
     @Override
     public List<GameCharacter> getCharacters(){
