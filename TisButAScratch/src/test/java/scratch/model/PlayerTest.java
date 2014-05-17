@@ -24,45 +24,45 @@ public class PlayerTest extends TestCase {
 
     @Test
     public void testIsAttacking() {
-        playerInput.setAttackStatus(true);
-
+        player.setAttacking(true);
         assertTrue(player.isPromptingAnAttack());
     }
 
-    private void assertPlayerDirection(GameCharacter player, MoveDirection direction){
-        playerInput.setMoveDirection(direction);
+    private void assertPlayerDirection(GameCharacter player, Vector2D vectorDirection, MoveDirection moveDirection){
+        System.out.println("whats this: ? " + vectorDirection);
+        player.setMoveDirection(vectorDirection);
         player.update();
-        assertSame(player.getMoveDirection(), direction);
+        assertSame(moveDirection, player.getMoveDirection());
     }
 
     @Test
     public void testUpdate() throws Exception {
         //Test None:
-        assertPlayerDirection(player, MoveDirection.NONE);
+        assertPlayerDirection(player, new Vector2D(0, 0), player.getMoveDirection());
 
         // Test North:
-        assertPlayerDirection(player, MoveDirection.NORTH);
+        assertPlayerDirection(player, new Vector2D(0, -1), MoveDirection.NORTH);
 
         //Test East:
-        assertPlayerDirection(player, MoveDirection.EAST);
+        assertPlayerDirection(player, new Vector2D(1, 0), MoveDirection.EAST);
 
         //Test South:
-        assertPlayerDirection(player, MoveDirection.SOUTH);
+        assertPlayerDirection(player, new Vector2D(0, 1), MoveDirection.SOUTH);
 
         //Test West:
-        assertPlayerDirection(player, MoveDirection.WEST);
+        assertPlayerDirection(player, new Vector2D(-1, 0), MoveDirection.WEST);
 
         //Test Northwest:
-        assertPlayerDirection(player, MoveDirection.NORTHWEST);
+        assertPlayerDirection(player, new Vector2D(-1, -1), MoveDirection.NORTHWEST);
 
         //Test Southwest
-        assertPlayerDirection(player, MoveDirection.SOUTHWEST);
+        assertPlayerDirection(player, new Vector2D(-1, 1), MoveDirection.SOUTHWEST);
 
         //Test Northeast
-        assertPlayerDirection(player, MoveDirection.NORTHEAST);
+        assertPlayerDirection(player, new Vector2D(1, -1), MoveDirection.NORTHEAST);
 
         //Test Southeast
-        assertPlayerDirection(player, MoveDirection.SOUTHEAST);
+        assertPlayerDirection(player, new Vector2D(1, 1), MoveDirection.SOUTHEAST);
 
     }
 

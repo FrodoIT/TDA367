@@ -97,7 +97,7 @@ public class GameCharacter implements KryoSerializable {
 
     private void calculateMoveDirection(Vector2D newPosition) {
         if (getPosition().equals(newPosition)) {
-            setMoveDirection(MoveDirection.NONE);
+            moveDirection = MoveDirection.NONE;
             return;
         }
 
@@ -110,6 +110,10 @@ public class GameCharacter implements KryoSerializable {
         //+ 337.5 (360 - 22.5)
         final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
 
+        if (Double.isNaN(theta)) {
+            return;
+        }
+
         final MoveDirection[] directions = {
                 MoveDirection.NORTHWEST,
                 MoveDirection.WEST,
@@ -120,15 +124,11 @@ public class GameCharacter implements KryoSerializable {
                 MoveDirection.NORTHEAST,
                 MoveDirection.NORTH
         };
-
-        setMoveDirection(directions[(int)theta/45]);
+        moveDirection = directions[(int)theta/45];
     }
 
     public void update() {
-        final double newX = getPosition().getX() + nextMoveDirection.getX() * movementSpeed;
-        final double newY = getPosition().getY() + nextMoveDirection.getY() * movementSpeed;
-
-        Vector2D newPosition = new Vector2D(newX, newY);
+        Vector2D newPosition = calculateNewPosition();
 
         calculateMoveDirection(newPosition);
 
@@ -143,6 +143,13 @@ public class GameCharacter implements KryoSerializable {
                 performAttack();
             }
         }
+    }
+
+    protected Vector2D calculateNewPosition() {
+        return new Vector2D(
+                getPosition().getX() + nextMoveDirection.getX() * movementSpeed,
+                getPosition().getY() + nextMoveDirection.getY() * movementSpeed
+        );
     }
 
     public void setPosition(Vector2D position) {
@@ -167,10 +174,6 @@ public class GameCharacter implements KryoSerializable {
 
     public boolean isPromptingAnAttack() {
         return attacking && getWeapon().hasCooledDown();
-    }
-
-    public void setMoveDirection(MoveDirection direction) {
-        moveDirection = direction;
     }
 
     public void setHealth(int health) {

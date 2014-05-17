@@ -125,8 +125,9 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetMoveDirection() throws Exception {
-        testCharacter.setMoveDirection(MoveDirection.NONE);
-        assertSame(testCharacter.getMoveDirection(), MoveDirection.NONE);
+        final MoveDirection preSetMoveDirection = testCharacter.getMoveDirection();
+        testCharacter.setMoveDirection(new Vector2D());
+        assertSame(testCharacter.getMoveDirection(), preSetMoveDirection);
     }
 
     @Test

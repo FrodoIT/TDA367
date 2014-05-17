@@ -66,17 +66,9 @@ public final class NpcType extends GameCharacter {
     }
 
     @Override
-    public void update() {
-        final Vector2D newPosition = movementPattern.calculateNewPosition(this);
-        for (final CharacterChangeListener characterListener : getListeners()) {
-            characterListener.handleCharacterMovement(this, newPosition);
-        }
-        if (isPromptingAnAttack()) {
-            performAttack();
-        }
+    protected Vector2D calculateNewPosition() {
+        return movementPattern.calculateNewPosition(this);
     }
-
-
 
     public void setMovementPattern(INPCMove movementPattern) {
         this.movementPattern = movementPattern;
