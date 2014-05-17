@@ -10,37 +10,42 @@ import scratch.model.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import scratch.model.AbstractCharacter;
+import scratch.model.Vector2D;
 
-public class MockIRoomData implements IRoomData{
-    private final List<Player> players = new ArrayList<>();
-    private final List<NpcType> npcs = new ArrayList<>();
+public class MockIRoomData implements IRoomData {
+
+    private final List<AbstractCharacter> characters = new ArrayList<>();
     private IMap map;
 
-
-    public void setUp(){
-        try{
-          map = new SlickMap(new TiledMapPlus("res/untitled.tmx"));
-        } catch (SlickException e){
+    public void setUp() {
+        try {
+            map = new SlickMap(new TiledMapPlus("res/untitled.tmx"));
+        } catch (SlickException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    @Override
-    public List<NpcType> getNpcs() {
-
-        return npcs;
-    }
-
-	@Override
     public IMap getMap() {
-        if(map == null){
+        if (map == null) {
             setUp();
         }
         return map;
+    }
+
+    @Override
+    public List<AbstractCharacter> getCharacters() {
+        return characters;
+    }
+
+    @Override
+    public Vector2D getClosestPlayerPosition(Vector2D position) {
+        for (AbstractCharacter character : characters) {
+            if (character instanceof Player) {
+                return character.getPosition();
+            }
+        }
+        return position;
     }
 }

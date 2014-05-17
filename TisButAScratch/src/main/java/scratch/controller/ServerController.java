@@ -12,7 +12,6 @@ import scratch.construction.RoomFactory;
 import scratch.construction.SlickMap;
 import scratch.model.*;
 import scratch.network.NetworkServer;
-import scratch.view.CharacterView;
 import scratch.view.RoomView;
 
 import java.io.File;
@@ -59,13 +58,8 @@ public final class ServerController extends Listener{
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
-            for (final NpcType npc : room.getNpcs()) {
-                CharacterController characterController = new CharacterController(npc);
-                characterController.addListener(networkServer);
-                characterControllerList.add(characterController);
-            }
-            for (final Player player : room.getPlayers()) {
-                CharacterController characterController = new CharacterController(player);
+            for (final AbstractCharacter character : room.getCharacters()) {
+                CharacterController characterController = new CharacterController(character);
                 characterController.addListener(networkServer);
                 characterControllerList.add(characterController);
             }

@@ -95,7 +95,7 @@ public final class RoomFactory {
         final NpcFactory npcFactory = new NpcFactory(rooms);
         for (final Room room : rooms) {
             for (final NpcType npcType : npcFactory.getNpcsForRoom(room)) {
-                room.addNpc(npcType);
+                room.addCharacter(npcType);
             }
         }
     }

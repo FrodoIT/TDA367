@@ -22,11 +22,10 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Inject
 
-    private List<Player> players;
-    private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-    private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
-    private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
-    private List<NpcType> npcs;
+    private List<AbstractCharacter> characters;
+    private final Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
+    private final List<AbstractCharacter> charactersInteracting = new ArrayList<>();
+    private final List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
     private IMap map;
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
@@ -38,9 +37,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     public Room(IMap collisionMap, DoorHandler doorHandler) {
         this.map = collisionMap;
         this.doorHandler = doorHandler;
-        players = new ArrayList();
+        characters = new ArrayList();
         interactiveObjects = new ArrayList<>();
-        npcs = new ArrayList<>();
     }
 
     public void update() {
@@ -49,8 +47,13 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         updateCharacterInteractions();
     }
 
-    public boolean hasPlayers() {
-        return !players.isEmpty();
+    public boolean isActive() {
+        for (AbstractCharacter character:characters){
+            if (character instanceof Player){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void updateCharacterInteractions() {
@@ -80,28 +83,16 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         areaUnderAttack.clear();
     }
 
-    //TODO rewrite this method. Players cant attack if there are no enemies in the room? and why does it return a boolean?//Tejp
-    private boolean dealDamage() {
+    
+    private void dealDamage() {
         for (AbstractCharacter attackingCharacter : areaUnderAttack) {
-            if (!npcs.isEmpty()) {
-                for (NpcType npc : npcs) {
-                    if ((npc.getUnitTile().intersects(attackingCharacter.getAttackArea()))
-                            && !attackingCharacter.getClass().equals(npc.getClass())) {
-                        npc.takeDamage(attackingCharacter.getDamage());
-
-                        break; //an attack should only damage one character at the time. Should it? Should it really?
-                    }
-                }
-
-                for (Player player : players) {
-                    if (player.getUnitTile().intersects(attackingCharacter.getAttackArea())
-                            && !(attackingCharacter instanceof Player)) {
-                        player.takeDamage(attackingCharacter.getDamage());
-                    }
+            for (AbstractCharacter character: characters){
+                if ((character.getUnitTile().intersects(attackingCharacter.getAttackArea())) && 
+                        !attackingCharacter.getClass().equals(character.getClass())){
+                    character.takeDamage(attackingCharacter.getDamage());
                 }
             }
         }
-        return false;
     }
 
     /**
@@ -155,34 +146,14 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         this.interactiveObjects.add(interactiveObject);
     }
 
-    public void addNpc(NpcType npc) {
-        npcs.add(npc);
-    }
-
-    /**
-     * Adds the specified character from the Room
-     *
-     * @param character
-     */
-    public void enterRoom(AbstractCharacter character) {
-        System.out.println("Enter room " + this);
-        players.add((Player) character); //TODO this will be rafactored when Player and Npc use the same move pattern. or erlier
+    public void addCharacter(AbstractCharacter character) {
         character.registerListener(this);
+        characters.add(character);
     }
 
-    /**
-     * Removes the specified character from the Room
-     *
-     * @param character
-     */
-    public boolean exitRoom(AbstractCharacter character) {
-        System.out.println("Leaving room" + this);
+    public boolean removeCharacter(AbstractCharacter character) {
         character.removeListener(this);
-        return players.remove(character);
-    }
-
-    public boolean isActive() {
-        return ! players.isEmpty();
+        return characters.remove(character);
     }
 
     /**
@@ -202,13 +173,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    @Override
-    public List<NpcType> getNpcs() {
-        return npcs;
+    public List<AbstractCharacter> getCharacters(){
+        return characters;
     }
 
     public List<AbstractCharacter> getAreaUnderAttack() {
@@ -232,7 +198,6 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     @Override
     public void handleCharacterAttack(AbstractCharacter character) {
         areaUnderAttack.add(character);
-        System.out.println("Attack added from " + character);
     }
 
     public Map<AbstractCharacter, Vector2D> getCharacterMovementMap() {
@@ -254,8 +219,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Override
     public void write(Kryo kryo, Output output) {
-        kryo.writeObject(output, players);
-        kryo.writeObject(output, npcs);
+        kryo.writeObject(output, characters);
         /*
          private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
          private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
@@ -268,7 +232,17 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Override
     public void read(Kryo kryo, Input input) {
-        players = kryo.readObject(input, ArrayList.class);
-        npcs = kryo.readObject(input, ArrayList.class);
+        characters = kryo.readObject(input, ArrayList.class);
+    }
+    
+    @Override
+    public Vector2D getClosestPlayerPosition(Vector2D position){
+        //TODO Fix proper checking
+        for (AbstractCharacter character : characters){
+            if (character instanceof Player){
+                return character.getPosition();
+            }
+        }
+        return position;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public class Game {
 
     private List<Player> playerList;
-	private List<Room> rooms;
+    private List<Room> rooms;
     private Room activeRoom;
 
     public Game() {
@@ -25,41 +25,28 @@ public class Game {
             return false;
         }
         playerList.add(player);
-        activeRoom.enterRoom(player);
+        activeRoom.addCharacter(player);
         return true;
-    }
-
-    //TODO bad method. either delete it or loop through all rooms and return all npcs in the game //Tejp
-    public List<NpcType> getNpcs() {
-        return activeRoom.getNpcs();
     }
 
     public List<Player> getPlayers() {
         return playerList;
     }
-    
-    public List<AbstractCharacter> getCharacters(){
-        List <AbstractCharacter> characters = new ArrayList<>();
-        //TODO: This needs to change with several rooms
-        for (Player player:activeRoom.getPlayers()){
-            characters.add((AbstractCharacter)player);
-        }
-        for (NpcType npc:activeRoom.getNpcs()){
-            characters.add((AbstractCharacter)npc);
-        }
-        return characters;
+
+    public List<AbstractCharacter> getCharacters() {
+        return activeRoom.getCharacters();
     }
 
     public boolean removePlayer(Player player) {
         return playerList.remove(player)
-                && activeRoom.exitRoom(player);
+                && activeRoom.removeCharacter(player);
     }
 
     public void setMap(List<Room> gameMapRooms) {
-	    this.rooms= gameMapRooms;
+        this.rooms = gameMapRooms;
         activeRoom = gameMapRooms.get(0);
         //TODO if index 0 isn't the spawn location then this is wrong.
-	    //maybe the spawn room should be searched for
+        //maybe the spawn room should be searched for
     }
 
     public Room getActiveRoom() {

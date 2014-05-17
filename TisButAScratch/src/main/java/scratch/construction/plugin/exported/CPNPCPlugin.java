@@ -13,14 +13,15 @@ import java.util.Random;
  */
 @AIPlugin(id = 2)
 public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
-	@Inject
-	private final Random ran = new Random(System.nanoTime());
-	private IRoomData roomData;
 
-	@Override
-	public CPNPCPlugin get() {
-		return this;
-	}
+    @Inject
+    private final Random ran = new Random(System.nanoTime());
+    private IRoomData roomData;
+
+    @Override
+    public CPNPCPlugin get() {
+        return this;
+    }
 
     @Override
     public CPNPCPlugin clone() {
@@ -30,35 +31,35 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
     }
 
     @Override
-	public Vector2D calculateNewPosition(NpcType npc) {
+    public Vector2D calculateNewPosition(NpcType npc) {
+        final Vector2D currentPos = npc.getPosition();
+        final Vector2D closestPlayerPos = roomData.getClosestPlayerPosition(currentPos);
 
-        if (roomData.getPlayers().isEmpty()) {
-            return npc.getPosition();
+        if (currentPos == closestPlayerPos) {
+            return currentPos;
         }
 
-        final Vector2D currentPos = npc.getPosition();
-		return new Vector2D(currentPos.getX() + ran.nextInt(3)-1, currentPos.getY() + ran.nextInt(3)-1);
-	}
+        return new Vector2D(currentPos.getX() + ran.nextInt(3) - 1, currentPos.getY() + ran.nextInt(3) - 1);
+    }
 
-	public boolean isPromptingAnAttack(NpcType npc){
+    @Override
+    public boolean isPromptingAnAttack(NpcType npc) {
         if (roomData != null) {
-            for (final Player player : roomData.getPlayers()) {
-                if (isWithinRange(player.getPosition(), npc.getPosition())) {
-                    return true;
-                }
+            if (isWithinRange(roomData.getClosestPlayerPosition(npc.getPosition()), npc.getPosition())) {
+                return true;
             }
         }
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public void setRoomData(IRoomData roomData) {
-		this.roomData = roomData;
-	}
+    @Override
+    public void setRoomData(IRoomData roomData) {
+        this.roomData = roomData;
+    }
 
-	private boolean isWithinRange(Vector2D playerPos, Vector2D npcPos){
-		//+16 to get the center of the character, playerpos returns the point of the right high corner
-        final Vector2D vector2D = new  Vector2D(new Point2D.Double(playerPos.getX()+16, playerPos.getY()+16), new Point2D.Double(npcPos.getX()+16, npcPos.getY()+16));
-		return vector2D.getMagnitude()<= 48;
-	}
+    private boolean isWithinRange(Vector2D playerPos, Vector2D npcPos) {
+        //+16 to get the center of the character, playerpos returns the point of the right high corner
+        final Vector2D vector2D = new Vector2D(new Point2D.Double(playerPos.getX() + 16, playerPos.getY() + 16), new Point2D.Double(npcPos.getX() + 16, npcPos.getY() + 16));
+        return vector2D.getMagnitude() <= 48;
+    }
 }

@@ -33,7 +33,7 @@ public class PlayerInput implements IPlayerInput, KryoSerializable {
         registerInteractInput(input);
     }
 
-    private void registerMoveInput(Input input) {
+    private final void registerMoveInput(Input input) {
         //TODO: I'm not sure this is the best way to do it...
         final boolean southKey = input.isKeyDown(Input.KEY_DOWN);
         final boolean westKey = input.isKeyDown(Input.KEY_LEFT);

@@ -28,8 +28,8 @@ public class DoorHandler {
 	}
 
 	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, AbstractCharacter character) {
-		originRoom.exitRoom(character);
-		targetRoom.enterRoom(character);
+		originRoom.removeCharacter(character);
+		targetRoom.addCharacter(character);
         final Rectangle2D.Double doorArea = exitDoor.getArea();
         final int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
         final int y = (int) (doorArea.getY() - doorArea.getHeight()/2);

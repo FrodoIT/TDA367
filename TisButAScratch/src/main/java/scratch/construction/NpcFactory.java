@@ -75,7 +75,6 @@ public final class NpcFactory {
         npc.setPosition(position);
         npc.setId(id);
         npc.getMovementPattern().setRoomData(room);
-        npc.registerListener(room);
 
         return npc;
     }

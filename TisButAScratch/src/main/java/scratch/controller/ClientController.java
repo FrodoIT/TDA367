@@ -49,11 +49,8 @@ public final class ClientController extends Listener {
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerList.add(roomController);
 
-            for (final NpcType npc : room.getNpcs()) {
-                characterControllerList.add(new CharacterController(npc));
-            }
-            for (final Player player : room.getPlayers()) {
-                characterControllerList.add(new CharacterController(player));
+            for (final AbstractCharacter character : room.getCharacters()) {
+                characterControllerList.add(new CharacterController(character));
             }
         }
         client.start(this);

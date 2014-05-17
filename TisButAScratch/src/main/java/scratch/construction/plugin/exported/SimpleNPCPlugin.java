@@ -6,7 +6,6 @@ import scratch.construction.plugin.Pluggable;
 import scratch.model.*;
 
 import java.awt.geom.Point2D;
-import java.util.List;
 
 /**
  * Moves NPC toward the Player.
@@ -32,12 +31,8 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     @Override
     public Vector2D calculateNewPosition(NpcType npc) {
-        final Vector2D playerPos = getClosestPlayer(npc);
+        final Vector2D playerPos = roomData.getClosestPlayerPosition(npc.getPosition());
         final Vector2D npcPos = npc.getPosition();
-        List<Player> players =roomData.getPlayers();
-        if (players.isEmpty()) {
-            return new Vector2D(npcPos.getX(), npcPos.getY());
-        }
         final Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()),
                 new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
         final int moveSpeed = npc.getMovementSpeed();
@@ -47,16 +42,16 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     @Override
     public boolean isPromptingAnAttack(NpcType npc) {
-        for (final Player player : roomData.getPlayers()) {
-            if (isWithinRange(player.getPosition(), npc.getPosition())) {
-                return true;
-            }
+
+        if (isWithinRange(roomData.getClosestPlayerPosition(npc.getPosition()), npc.getPosition())) {
+            return true;
         }
         return false;
     }
 
     @Override
-    public void setRoomData(IRoomData roomData) {
+    public void setRoomData(IRoomData roomData
+    ) {
         this.roomData = roomData;
     }
 
@@ -66,12 +61,4 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
         return vector2D.getMagnitude() <= 48;
     }
 
-    private Vector2D getClosestPlayer(NpcType npc) {
-        if (roomData.getPlayers().isEmpty()){
-            return npc.getPosition();
-        } else {
-            return roomData.getPlayers().get(0).getPosition();
-        }
-        
-    }
 }

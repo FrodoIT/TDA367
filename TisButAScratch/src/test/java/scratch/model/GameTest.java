@@ -37,7 +37,7 @@ public class GameTest extends TestCase {
                 rooms.get(0)
         );
 
-        rooms.get(0).addNpc(npcType);
+        rooms.get(0).addCharacter(npcType);
 
         game.setMap(rooms);
         final IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
@@ -71,10 +71,6 @@ public class GameTest extends TestCase {
         assertTrue(game.getCharacters().contains(player));
     }
 
-    @Test
-    public void testGetNpcs() {
-        assertTrue(game.getNpcs().contains(npcType));
-    }
 
     @Test
     public void testGetActiveRoom() {
