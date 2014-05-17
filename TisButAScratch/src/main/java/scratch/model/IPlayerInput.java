@@ -1,9 +1,6 @@
 package scratch.model;
 
-import com.google.inject.ImplementedBy;
-import scratch.controller.PlayerController;
 
-@ImplementedBy(PlayerController.class)
 public interface IPlayerInput {
 
     boolean isAttacking();

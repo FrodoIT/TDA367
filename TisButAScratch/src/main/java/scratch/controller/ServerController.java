@@ -30,17 +30,15 @@ public final class ServerController extends Listener{
 
     private final NetworkServer networkServer;
     private final Game game;
-    private final List<PlayerController> playerControllerList;
-    private final List<NpcController> npcControllerList;
+    private final List<CharacterController> characterControllerList;
     private final List<RoomController> roomControllerList;
 
     public ServerController(Game game) {
         super();
         this.game = game;
         networkServer = new NetworkServer();
-        playerControllerList = new ArrayList<>();
+        characterControllerList = new ArrayList<>();
         roomControllerList = new ArrayList<>();
-        npcControllerList = new ArrayList<>();
     }
 
     public void init(GameContainer gameContainer) throws SlickException {
@@ -61,14 +59,14 @@ public final class ServerController extends Listener{
             roomControllerList.add(roomController);
 
             for (final NpcType npc : room.getNpcs()) {
-                NpcController npcController = new NpcController(npc, new CharacterView(npc));
-                npcController.addListener(networkServer);
-                npcControllerList.add(npcController);
+                CharacterController characterController = new CharacterController(npc);
+                characterController.addListener(networkServer);
+                characterControllerList.add(characterController);
             }
             for (final Player player : room.getPlayers()) {
-                PlayerController playerController = new PlayerController(player, new CharacterView(player));
-                playerController.addListener(networkServer);
-                playerControllerList.add(playerController);
+                CharacterController characterController = new CharacterController(player);
+                characterController.addListener(networkServer);
+                characterControllerList.add(characterController);
             }
         }
 
@@ -99,12 +97,8 @@ public final class ServerController extends Listener{
 
     
     public void update(GameContainer container, int delta) throws SlickException {
-        for (final PlayerController playerController : playerControllerList) {
-            playerController.updatePlayer();
-        }
-
-        for (final NpcController npcController : npcControllerList) {
-            npcController.updateNpc();
+        for (final CharacterController characterController : characterControllerList) {
+            characterController.update();
         }
 
         for (final RoomController roomController : roomControllerList) {
