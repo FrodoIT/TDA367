@@ -18,6 +18,8 @@ import scratch.view.RoomView;
 
 import java.util.ArrayList;
 import java.util.List;
+import scratch.network.PacketNewPlayer;
+import scratch.network.PacketPlayerInput;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -31,6 +33,7 @@ public final class ClientController extends Listener {
     private final List<CharacterController> characterControllerList;
     private final List<RoomController> roomControllerList;
     private final NetworkClient client;
+    private int id;
 
     public ClientController(String ip) {
         super();
@@ -70,7 +73,7 @@ public final class ClientController extends Listener {
     }
 
     public void update(GameContainer container, int delta) {
-        client.send(new PlayerInput(1, container.getInput()));
+        client.send(new PacketPlayerInput(id, container.getInput()));
     }
 
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
@@ -88,6 +91,8 @@ public final class ClientController extends Listener {
     public void received(Connection connection, Object object) {
         if (object instanceof AbstractCharacter) {
             characterRecieved((AbstractCharacter) object);
+        } else if (object instanceof PacketNewPlayer){
+            this.id = ((PacketNewPlayer)object).getId();
         }
     }
 }
