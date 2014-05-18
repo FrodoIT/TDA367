@@ -9,7 +9,7 @@
  </tileset>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA9WQwQqAIAyGtcAoobDuduvY+z9eEyaMH3XlrcN3cGPf/hmNMfEHWGIgxsq7xcnI2kwshAeXV/xnxRd4xsLsUdj3Jh968uzIpH278GvM4MvZfCXTDWA/wE1e5Ek4YgJfK1+Am/AuJ5yTki0qrsTKbIzma+EKPslX36r4ep01V4+v9Zc9vqtQK7keAAOSN7AEAAA=
+   H4sIAAAAAAAAC9WQwQqAIAyGtcAoobDuduvY+z9eEyaMH3XlrcN3cGPf/hmNMfEHWGIgxsq7xcnI2kwshAeXV/xnxRd4xsLsUdj3Jh968uzIpH278GvM4MvZfCXTDWA/wE1e5Ek4YgJfK1+Am/AuJ5yTki0qrsTKbIzma+EKPslX36r4ep01V4+v9Zc9vqtQK7keAAOSN7AEAAA=
   </data>
  </layer>
  <objectgroup name="map" width="20" height="15"/>
@@ -28,7 +28,7 @@
     <property name="objectType" value="door"/>
    </properties>
   </object>
-  <object name="door5" type="object" x="453" y="436" width="32" height="32">
+  <object name="door5" type="object" x="434" y="385" width="32" height="32">
    <properties>
     <property name="connection" value="2"/>
     <property name="id" value="405"/>
@@ -44,49 +44,31 @@
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQNQEqakmsfFwLCAWP2EAMgsappHLBgq5pFjJgDiZABHsAQAAA==
+   H4sIAAAAAAAAC2NgoAwo4WAPBfNINZ+QfiU0TCrApUcJizwx4YRPHJscuvvR7cDnJ1zmUQNQEqakmsfFwLCAWP2EAMgsappHLBgq5pFjJgDiZABHsAQAAA==
   </data>
  </layer>
  <objectgroup name="npc" width="20" height="15">
-  <object name="npc1" type="hostile" x="84" y="423" width="39" height="38">
+  <object name="npc3" type="hostile" x="104" y="377" width="39" height="38">
+   <properties>
+    <property name="id" value="103"/>
+    <property name="npcType" value="CPEnemy"/>
+   </properties>
+  </object>
+  <object name="npc1" type="hostile" x="438" y="72" width="39" height="38">
    <properties>
     <property name="id" value="101"/>
     <property name="npcType" value="CPEnemy"/>
    </properties>
   </object>
-  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38">
-   <properties>
-    <property name="id" value="100"/>
-    <property name="npcType" value="StandardEnemy"/>
-   </properties>
-  </object>
-  <object name="npc1" type="hostile" x="435" y="31" width="39" height="38">
+  <object name="npc2" type="hostile" x="577" y="345" width="41" height="38">
    <properties>
     <property name="id" value="102"/>
-    <property name="npcType" value="CPEnemy"/>
-   </properties>
-  </object>
-  <object name="npc2" type="hostile" x="586" y="397" width="41" height="38">
-   <properties>
-    <property name="id" value="103"/>
     <property name="npcType" value="StandardEnemy"/>
    </properties>
   </object>
-  <object name="npc2" type="hostile" x="584" y="282" width="41" height="38">
+  <object name="npc4" type="hostile" x="496" y="376" width="41" height="38">
    <properties>
-    <property name="id" value="100"/>
-    <property name="npcType" value="StandardEnemy"/>
-   </properties>
-  </object>
-  <object name="npc2" type="hostile" x="586" y="397" width="41" height="38">
-   <properties>
-    <property name="id" value="103"/>
-    <property name="npcType" value="StandardEnemy"/>
-   </properties>
-  </object>
-  <object name="npc2" type="hostile" x="586" y="397" width="41" height="38">
-   <properties>
-    <property name="id" value="103"/>
+    <property name="id" value="104"/>
     <property name="npcType" value="StandardEnemy"/>
    </properties>
   </object>
