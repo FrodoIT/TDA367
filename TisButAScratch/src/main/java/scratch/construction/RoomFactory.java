@@ -22,14 +22,13 @@ public final class RoomFactory {
 
     private final List<Room> rooms = new ArrayList<>();
     private final List<TiledMapPlus> tiledMaps = new ArrayList<>();
-	private final DoorHandler doorHandler = new DoorHandler();
+    private final DoorHandler doorHandler = new DoorHandler();
 
     public RoomFactory() {
-		loadMaps();
+        loadMaps();
         setUpRooms();
-
         addInteractiveObjectstoRooms();
-	    setupDoorHandler();
+        setupDoorHandler();
         addNpcstoRoom();
     }
 
@@ -54,29 +53,28 @@ public final class RoomFactory {
         }
     }
 
-	/**
-	 * gets all doors from all rooms.
-	 * it is the doorHandlers job to make sure a player is moved
-	 * from one door to another when a door is interacted with
-	 */
-	private void setupDoorHandler() {
-		for (final Room room : rooms) {
-			for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
-				if ("door".equals(interactiveObject.getProperties().get("objectType"))) {
-					doorHandler.addDoor(room, interactiveObject);
-				}
-			}
-		}
+    /**
+     * gets all doors from all rooms.
+     * it is the doorHandlers job to make sure a player is moved
+     * from one door to another when a door is interacted with
+     */
+    private void setupDoorHandler() {
+        for (final Room room : rooms) {
+            for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
+                if ("door".compareTo(interactiveObject.getType()) == 0 ) {
+                    doorHandler.addDoor(room, interactiveObject);
+                }
+            }
+        }
+    }
 
-	}
-
-	private void addInteractiveObjectstoRooms() {
-		for (final Room room : rooms) {
+    private void addInteractiveObjectstoRooms() {
+        for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus)room.getMap();
-			for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+            for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
                 room.addInteractivObject(interactiveObject);
-			}
-		}
+            }
+        }
     }
 
     private void addNpcstoRoom(){
