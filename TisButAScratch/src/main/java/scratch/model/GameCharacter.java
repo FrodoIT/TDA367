@@ -164,8 +164,12 @@ public class GameCharacter implements KryoSerializable {
         this.attacking = attacking;
     }
 
-    public void setMoveDirection(Vector2D moveDirection) {
+    public void setNextMoveDirection(Vector2D moveDirection) {
         this.nextMoveDirection = moveDirection.getNormalisedVector();
+    }
+
+    public Vector2D getNextMoveDirection() {
+        return nextMoveDirection;
     }
 
     public boolean isInteracting() {
