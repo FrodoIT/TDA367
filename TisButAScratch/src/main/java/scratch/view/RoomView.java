@@ -1,11 +1,14 @@
 package scratch.view;
 
-import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.*;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import scratch.construction.TiledMapPlus;
 import scratch.model.IInteractiveObject;
+import scratch.model.Room;
 
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,8 +21,11 @@ import java.util.TreeMap;
 
 public final class RoomView {
     private final TiledMapPlus map;
-    public RoomView(TiledMapPlus map) {
+    private final Room room;
+
+    public RoomView(TiledMapPlus map, Room room) {
         this.map = map;
+        this.room = room;
         setupObjectImageMap();
 
     }
@@ -32,22 +38,28 @@ public final class RoomView {
 
     public void render(GameContainer gameContainer) {
         map.render(0, 0);
-        /*Graphics graphics = gameContainer.getGraphics();
-        for(final IInteractiveObject object :  map.getInteractiveObjects()){
+        Graphics graphics = gameContainer.getGraphics();
+        for( IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
+            if("box".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0) {
+                System.out.println((float)interactiveObject.getUnitTile().getX() + " x " + (float)interactiveObject.getUnitTile().getY() + " y");
+                graphics.drawRect((float) interactiveObject.getUnitTile().getX(), (float) interactiveObject.getUnitTile().getY(), (float)interactiveObject.getUnitTile().getWidth(), (float)interactiveObject.getUnitTile().getHeight());
+            }
+        }
+      /*for(final IInteractiveObject object :  map.getInteractiveObjects()){
             if ( "box".compareTo(object.getProperties().getProperty("objectType")) == 0) {
                 final String imagePath = object.getProperties().getProperty("imagePath");
                 try {
-                  TiledMapPlus map = new TiledMapPlus(imagePath);
+                    TiledMapPlus map = new TiledMapPlus(imagePath);
                 } catch (SlickException e) {
-                  e.printStackTrace();
+                    e.printStackTrace();
                 }
-                //final Rectangle2D.Double unitTile = object.getUnitTile();
-                //final double y = unitTile.getY();
-                //final double x = unitTile.getX();
+                final Rectangle2D.Double unitTile = object.getUnitTile();
+                final double y = unitTile.getY();
+                final double x = unitTile.getX();
 
-                //graphics.drawImage(map.getTileImage((int) x, (int) y, map.getLayerIndex("background")), (float) x, (float) y) ;
+                graphics.drawImage(map.getTileImage((int) x, (int) y, map.getLayerIndex("background")), (float) x, (float) y) ;
             }
-
+        }
     */}
 
     /*
@@ -59,5 +71,4 @@ public final class RoomView {
             npcViews.get(0).render(npcEntry.getValue(), g);
         }
         */
-    }
-
+}
