@@ -1,6 +1,7 @@
 package scratch.model.mockModules;
 
 import scratch.model.IInteractiveObject;
+import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 import java.util.Properties;
@@ -9,6 +10,11 @@ import java.util.Properties;
  * Created by pippin on 5/16/14.
  */
 public class MockIInteractiveObject implements IInteractiveObject {
+    @Override
+    public void setPosition(Vector2D newPos) {
+
+    }
+
     @Override
     public String getName() {
         return "mockDoor";

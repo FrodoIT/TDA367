@@ -29,7 +29,7 @@ public class PlayerTest extends TestCase {
     }
 
     private void assertPlayerDirection(GameCharacter player, Vector2D vectorDirection, MoveDirection moveDirection){
-        player.setMoveDirection(vectorDirection);
+        player.setNextMoveDirection(vectorDirection);
         player.update();
         assertSame(moveDirection, player.getMoveDirection());
     }

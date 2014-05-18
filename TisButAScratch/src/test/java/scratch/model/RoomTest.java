@@ -43,7 +43,7 @@ public class RoomTest extends TestCase {
         final INPCMove move = injector.getInstance(INPCMove.class);
         NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
                 new MockIWeapon(), 100, 0, "test", 10, move);
-        testNpc.setMoveDirection(new Vector2D());
+        testNpc.setNextMoveDirection(new Vector2D());
         putCharactersInRoom(testPlayer, testNpc);
         assertTrue(room.isActive());
         testNpc.registerListener(room);
