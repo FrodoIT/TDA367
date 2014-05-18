@@ -19,10 +19,6 @@ public class RoomController {
         this.roomView = roomView;
         this.room = room;
         characters = new ArrayList<>();
-        for (GameCharacter character : room.getCharacters()) {
-            characters.add(new CharacterController(character));
-        }
-
     }
 
     public void updateRoom() {

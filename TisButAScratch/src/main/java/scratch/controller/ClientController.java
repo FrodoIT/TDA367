@@ -1,4 +1,4 @@
-package scratch.controller;
+    package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
