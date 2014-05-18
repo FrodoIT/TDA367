@@ -87,7 +87,9 @@ public final class ClientController extends Listener {
                 }
             }
             if (!found){
-                roomControllerMap.get(roomId).addCharacter(new CharacterController(recievedCharacter));
+                CharacterController characterController = new CharacterController(recievedCharacter);
+                client.addListener(characterController);
+                roomControllerMap.get(roomId).addCharacter(characterController);
             }
         }
     }
