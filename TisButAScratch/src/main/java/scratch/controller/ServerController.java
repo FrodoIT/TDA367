@@ -43,7 +43,7 @@ public final class ServerController extends Listener{
         nextPlayerId = 1;
     }
 
-    public synchronized void init(GameContainer gameContainer) throws SlickException {
+    public void init(GameContainer gameContainer) throws SlickException {
         //TODO: This will need to change when we read from XML.
         final RoomFactory roomFactory = new RoomFactory();
         final List<Room> rooms = roomFactory.getRooms();
@@ -65,7 +65,7 @@ public final class ServerController extends Listener{
 
     }
 
-    private GameCharacter loadPlayer(String file, Vector2D position, int id) {
+    private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
         final Serializer serializer = new Persister(new MyMatcher());
         final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");
