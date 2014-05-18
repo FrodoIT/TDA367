@@ -5,6 +5,7 @@ import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
+import com.sun.swing.internal.plaf.basic.resources.basic_es;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -42,15 +43,15 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public void update() {
+        updateCharacterInteractions();
         updateCharacterMovements();
         updateCharacterAttacks();
-        updateCharacterInteractions();
     }
 
     public boolean isActive() {
         for (GameCharacter character:characters){
             if (character instanceof NpcType){
-                
+
             } else {
                 return true;
             }
@@ -64,12 +65,26 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                 if (character.getUnitTile().intersects(interactiveObject.getArea())) {
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
-                    doorHandler.interactHappened(this, character, interactiveObject);
-                    break;
+                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
+                    if ( "box".compareTo(objectType) == 0 ) {
+                        performBoxInteraction(character, interactiveObject);
+
+                    }
+                    if ( "door".compareTo(objectType) == 0 ) {
+                        doorHandler.interactHappened(this, character, interactiveObject);
+                        break;
+                    }
                 }
             }
         }
         charactersInteracting.clear();
+    }
+
+    private void performBoxInteraction(GameCharacter character, IInteractiveObject interactiveObject) {
+        final Vector2D nextMoveDirection = character.getNextMoveDirection();
+        final Rectangle2D.Double boxArea = interactiveObject.getArea();
+        Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
+        interactiveObject.setPosition(allowedPosition(boxArea, newPos));
     }
 
     private void updateCharacterMovements() {
@@ -85,11 +100,11 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         areaUnderAttack.clear();
     }
 
-    
+
     private void dealDamage() {
         for (GameCharacter attackingCharacter : areaUnderAttack) {
             for (GameCharacter character: characters){
-                if ((character.getUnitTile().intersects(attackingCharacter.getAttackArea())) && 
+                if ((character.getUnitTile().intersects(attackingCharacter.getAttackArea())) &&
                         !attackingCharacter.getClass().equals(character.getClass())){
                     character.takeDamage(attackingCharacter.getDamage());
                 }
@@ -173,10 +188,11 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private int getMapWidth() {
         return map.getWidth();
     }
-    
+
     public int getId() {
         return map.getId();
     }
+
 
     @Override
     public List<GameCharacter> getCharacters(){
@@ -240,7 +256,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     public void read(Kryo kryo, Input input) {
         characters = kryo.readObject(input, ArrayList.class);
     }
-    
+
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D position){
         //TODO Fix proper checking
