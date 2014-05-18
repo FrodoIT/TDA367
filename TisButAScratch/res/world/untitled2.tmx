@@ -9,13 +9,14 @@
  </tileset>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC5NjYGCQG8WjeBSP4iGAAbwfCjKwBAAA
+   H4sIAAAAAAAAA5NjYGCQG8WjeBSP4iGAAbwfCjKwBAAA
   </data>
  </layer>
  <objectgroup name="interactive" width="20" height="15">
   <object name="door1" type="object" x="80" y="178" width="32" height="32">
    <properties>
     <property name="connection" value="1"/>
+    <property name="id" value="401"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
@@ -42,7 +43,7 @@
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNhYGAQohIWBWJuBuxACQlj42MDnHjMQzebGEDIPHRzCJlLqXnofHqYR2xYUds8bOpw+ZdQuiDVPGQzsYUZLruISX9KWDAuQGx6JhYMBfNkgJiJSlgWiAHz4DDYsAQAAA==
+   H4sIAAAAAAAAAxNhYGAQohIWBWJuBuxACQlj42MDnHjMQzebGEDIPHRzCJlLqXnofHqYR2xYUds8bOpw+ZdQuiDVPGQzsYUZLruISX9KWDAuQGx6JhYMBfNkgJiJSlgWiAHz4DDYsAQAAA==
   </data>
  </layer>
 </map>
