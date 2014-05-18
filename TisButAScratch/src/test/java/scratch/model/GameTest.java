@@ -8,7 +8,7 @@ import org.junit.Test;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
 import scratch.model.mockmodules.MockPlayerInput;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class GameTest extends TestCase {
         rooms.add(new Room(new MockIMap(), new DoorHandler()));
 
         npcType = new NpcType(new Rectangle2D.Double(0, 0, 32, 32),
-                new DefaultWeapon(),
+                new Weapon(),
                 10,
                 2,
                 "",
@@ -40,7 +40,7 @@ public class GameTest extends TestCase {
 
         game.setMap(rooms);
         final IPlayerInput playerInput = injector.getInstance(MockPlayerInput.class);
-        player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new DefaultWeapon(),10, 2, 0, "/res/monster.tmx");
+        player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new Weapon(),10, 2, 0, "/res/monster.tmx");
     }
 
 	@Test

@@ -3,19 +3,19 @@ package scratch.model;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 
 /**
  * Created by Anna on 2014-05-02.
  */
-public class DefaultWeaponTest extends TestCase {
-	private DefaultWeapon weapon;
+public class WeaponTest extends TestCase {
+	private Weapon weapon;
 
     @Before
     @Override
     public void setUp() throws Exception {
 		super.setUp();
-		weapon=new DefaultWeapon();
+		weapon=new Weapon();
 
 	}
 
@@ -48,12 +48,12 @@ public class DefaultWeaponTest extends TestCase {
 	public void testEquals() {
                 assertTrue(true);
                 //This test sucks, many complaints
-		//EqualsVerifier.forClass(DefaultWeapon.class).verify();
+		//EqualsVerifier.forClass(Weapon.class).verify();
 	}
 
     @Test
 	public void testHashCode() {
-		final DefaultWeapon weapon1 = new DefaultWeapon();
+		final Weapon weapon1 = new Weapon();
 		if(weapon1.equals(weapon)){
 			assertEquals(weapon1.hashCode(), weapon.hashCode());
 		}

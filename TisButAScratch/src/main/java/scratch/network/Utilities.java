@@ -9,7 +9,7 @@ import com.esotericsoftware.kryo.Kryo;
 import java.awt.geom.Point2D;
 import scratch.controller.PlayerInput;
 import scratch.model.*;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -30,7 +30,7 @@ public class Utilities {
         kryo.register(GameCharacter.class);
         kryo.register(Rectangle2D.Double.class);
         kryo.register(IWeapon.class);
-        kryo.register(DefaultWeapon.class);
+        kryo.register(Weapon.class);
         kryo.register(MoveDirection.class);
         kryo.register(PacketNewPlayer.class);
         

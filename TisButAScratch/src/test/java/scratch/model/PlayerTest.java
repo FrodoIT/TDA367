@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
 
@@ -19,7 +19,7 @@ public class PlayerTest extends TestCase {
     public void setUp(){
         final Injector injector = Guice.createInjector(new MockModule());
         playerInput = injector.getInstance(IPlayerInput.class);
-        player = new GameCharacter(new Rectangle2D.Double(0,0,32,32), new DefaultWeapon(), 10, 2, 1, "/res/playerSprite.tmx");
+        player = new GameCharacter(new Rectangle2D.Double(0,0,32,32), new Weapon(), 10, 2, 1, "/res/playerSprite.tmx");
     }
 
     @Test

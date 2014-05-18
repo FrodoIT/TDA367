@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * @author Alma Ottedag
  */
-@ImplementedBy(DefaultWeapon.class)
+@ImplementedBy(Weapon.class)
 public interface IWeapon extends KryoSerializable {
     int getDamage();
     int getRange();

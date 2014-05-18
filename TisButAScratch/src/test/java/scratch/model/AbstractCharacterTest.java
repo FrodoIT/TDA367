@@ -7,7 +7,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 import scratch.model.weapons.IWeapon;
 
 import java.awt.geom.Rectangle2D;
@@ -26,7 +26,7 @@ public class AbstractCharacterTest extends TestCase {
         final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         final IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
-        testCharacter = new GameCharacter(new Rectangle2D.Double(32, 32, 32, 32), new DefaultWeapon(), 10, 2, 1, "/res/playerSprite.tmx");
+        testCharacter = new GameCharacter(new Rectangle2D.Double(32, 32, 32, 32), new Weapon(), 10, 2, 1, "/res/playerSprite.tmx");
     }
 
     @Test
@@ -91,7 +91,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testGetWeapon() throws Exception {
-        assertTrue(testCharacter.getWeapon().equals(new DefaultWeapon()));
+        assertTrue(testCharacter.getWeapon().equals(new Weapon()));
     }
 
     @Test

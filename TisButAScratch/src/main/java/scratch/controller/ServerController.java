@@ -43,7 +43,6 @@ public final class ServerController extends Listener{
     }
 
     public void init(GameContainer gameContainer) throws SlickException {
-        //TODO: This will need to change when we read from XML.
         final RoomFactory roomFactory = new RoomFactory();
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);

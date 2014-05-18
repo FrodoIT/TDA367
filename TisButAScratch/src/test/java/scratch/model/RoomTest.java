@@ -8,7 +8,7 @@ import org.junit.Test;
 import scratch.model.mockModules.MockIWeapon;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.weapons.DefaultWeapon;
+import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
 
@@ -32,7 +32,7 @@ public class RoomTest extends TestCase {
         final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         playerInput.setAttackStatus(true);
         playerInput.setInteractStatus(true);
-        return new GameCharacter(new Rectangle2D.Double(50, 50, 100, 100), new DefaultWeapon(), 10, 2, id, "/res/playerSprite.tmx");
+        return new GameCharacter(new Rectangle2D.Double(50, 50, 100, 100), new Weapon(), 10, 2, id, "/res/playerSprite.tmx");
     }
 
     @Test

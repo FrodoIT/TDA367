@@ -4,38 +4,41 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
+import org.simpleframework.xml.Element;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
 
 /**
- * The weapon DefaultWeapon: The default starting-weapon for all characters with
+ * The weapon Weapon: The default starting-weapon for all characters with
  * the following stats: Damage = 2 Range = 1
  *
  * @author Alma Ottedag
  */
-public final class DefaultWeapon implements IWeapon {
+public final class Weapon implements IWeapon {
 
     @Inject
+    @Element
     private int damage;
+	@Element
     private int range;
-    private Rectangle2D.Double attackArea;
+	@Element (type = Rectangle2D.class, required = false)
+    private Rectangle2D.Double attackArea = new Rectangle2D.Double(0, 0, 32, 32);
     //Minimum time between attacks in milliseconds
+	@Element
     private int attackInterval;
+	@Element (required = false)
     private boolean cooledDown = true;
-    private final Runnable runnable;
+    private final Runnable runnable = new Runnable() {
+		public void run() {
+			cooledDown = true;
+		}
+	};
 
-    public DefaultWeapon() {
+    public Weapon() {
         damage = 2;
         range = 1;
-        attackArea = new Rectangle2D.Double(0, 0, 32, 32);
         attackInterval = 400;
-
-        runnable = new Runnable() {
-            public void run() {
-                cooledDown = true;
-            }
-        };
     }
 
     @Override
@@ -79,7 +82,7 @@ public final class DefaultWeapon implements IWeapon {
 		if (this == o) {return true;}
 		if (o == null || getClass() != o.getClass()) {return false;}
 
-		final DefaultWeapon that = (DefaultWeapon) o;
+		final Weapon that = (Weapon) o;
 
 
         final boolean attackAreaEquals = attackArea == null ? attackArea == that.attackArea : attackArea.equals(that.attackArea);

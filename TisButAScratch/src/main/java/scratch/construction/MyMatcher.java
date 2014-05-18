@@ -22,7 +22,6 @@ public class MyMatcher implements Matcher{
 		if(type.equals(IWeapon.class)) {
 			return new WeaponTranformer();
 		}
-
 		return null;
 	}
 }
