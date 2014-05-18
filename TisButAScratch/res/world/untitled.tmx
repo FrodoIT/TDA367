@@ -17,22 +17,30 @@
   <object name="door2" type="object" x="67" y="320" width="32" height="32">
    <properties>
     <property name="connection" value="1"/>
+    <property name="id" value="402"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
   <object name="door4" type="object" x="245" y="41" width="32" height="32">
    <properties>
     <property name="connection" value="2"/>
+    <property name="id" value="404"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
   <object name="door5" type="object" x="453" y="436" width="32" height="32">
    <properties>
     <property name="connection" value="2"/>
+    <property name="id" value="405"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
-  <object name="box1" type="object" x="357" y="120" width="34" height="34"/>
+  <object name="box1" type="object" x="357" y="120" width="34" height="34">
+   <properties>
+    <property name="id" value="501"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
