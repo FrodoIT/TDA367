@@ -38,6 +38,7 @@
   <object name="box1" type="object" x="357" y="120" width="34" height="34">
    <properties>
     <property name="id" value="501"/>
+    <property name="imagePath" value="/res/playerSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
