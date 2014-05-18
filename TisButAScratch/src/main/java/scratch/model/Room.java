@@ -64,7 +64,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getProperties().getProperty("objectType");
                     if ( "box".compareTo(objectType) == 0 ) {
-                        performBoxInteraction(character, interactiveObject);
+                        updateBoxPosition(character, interactiveObject);
                     }
                 }
             }
@@ -87,7 +87,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         charactersInteracting.clear();
     }
 
-    private void performBoxInteraction(GameCharacter character, IInteractiveObject interactiveObject) {
+    private void updateBoxPosition(GameCharacter character, IInteractiveObject interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
         Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
