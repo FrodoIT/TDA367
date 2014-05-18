@@ -57,7 +57,7 @@ public final class NpcFactory {
      * @param position The position the npc should have
      * @return A npc with the attributes as in the xml file.
      */
-	private NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
+	private synchronized NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
 		final Serializer serializer = new Persister(new MyMatcher());
         final StringBuilder fileBuild = new StringBuilder();
         fileBuild.append("res/");

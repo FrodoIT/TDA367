@@ -50,7 +50,7 @@ public final class ServerController extends Listener{
         game.setMap(rooms);
 
         for (final Room room : rooms) {
-            final TiledMap map = (TiledMapPlus) room.getMap();
+            final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerMap.put(roomController.getId(), roomController);
 

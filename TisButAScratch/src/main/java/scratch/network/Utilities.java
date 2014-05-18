@@ -40,7 +40,7 @@ public class Utilities {
         kryo.register(java.awt.geom.Point2D.Double.class);
 
     }
-
+    //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till
     public static boolean validIP(String ip) {
         try {
             if (ip == null || ip.isEmpty()) {

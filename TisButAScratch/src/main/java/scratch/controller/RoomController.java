@@ -1,13 +1,11 @@
 package scratch.controller;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
-import java.util.List;
 import org.newdawn.slick.GameContainer;
-import scratch.model.GameCharacter;
 import scratch.model.Room;
 import scratch.view.RoomView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomController {
 
@@ -31,7 +29,7 @@ public class RoomController {
     }
 
     public void render(GameContainer gameContainer) {
-        roomView.render();
+        roomView.render(gameContainer);
         for (CharacterController characterController : characters) {
             characterController.render(gameContainer);
         }

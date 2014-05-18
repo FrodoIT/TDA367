@@ -9,16 +9,16 @@ public class InteractiveObject implements IInteractiveObject {
     private final Rectangle2D.Double rect;
     private final Properties properties;
 
-    @Override
-    public void setPosition(Vector2D newPos) {
-        rect.setRect(newPos.getX(), newPos.getY(), rect.getWidth(), rect.getHeight());
-    }
-
     public InteractiveObject(String name, String type, int x, int y, int width, int height, Properties properties) {
         this.name = name;
         this.type = type;
         this.rect = new Rectangle2D.Double(x, y, width, height);
         this.properties = properties;
+    }
+
+    @Override
+    public void setPosition(Vector2D newPos) {
+        rect.setRect(newPos.getX(), newPos.getY(), rect.getWidth(), rect.getHeight());
     }
 
     @Override

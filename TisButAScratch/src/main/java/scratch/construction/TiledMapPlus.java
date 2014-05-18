@@ -40,7 +40,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
     private void initializeNpcSpecifications() {
         for (final Object oGroup : objectGroups) {
             final ObjectGroup objectGroup = (ObjectGroup) oGroup;
-            if (!"npc".equals(objectGroup.name)) {
+            if ("npc".compareTo(objectGroup.name) != 0) {
                 continue;
             }
 
@@ -53,10 +53,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
                                 groupObject.x,
                                 groupObject.y,
                                 groupObject.width,
-                                groupObject.height
-                        )
-                )
-                );
+                                groupObject.height)));
             }
         }
     }
@@ -64,7 +61,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
     private void initializeInteractiveObjects() {
         for (final Object oGroup : objectGroups) {
             final ObjectGroup objectGroup = (ObjectGroup) oGroup;
-            if (!"interactive".equals(objectGroup.name)) {
+            if ("interactive".compareTo(objectGroup.name) != 0) {
                 continue;
             }
 
@@ -116,7 +113,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
     public int getHeight() {
         return super.getHeight() * getTileHeight();
     }
-    
+
     public int getId() {
         return id;
     }

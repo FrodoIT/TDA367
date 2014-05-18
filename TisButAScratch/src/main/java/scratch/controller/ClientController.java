@@ -48,7 +48,7 @@ public final class ClientController extends Listener {
         final RoomFactory roomFactory = new RoomFactory();
 
         for (final Room room : roomFactory.getRooms()) {
-            final TiledMap map = (TiledMapPlus) room.getMap();
+            final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map));
             roomControllerMap.put(roomController.getId(), roomController);
 
@@ -69,7 +69,6 @@ public final class ClientController extends Listener {
         if (roomId != 0) {
             roomControllerMap.get(roomId).render(gameContainer);
         }
-
     }
 
     @Override

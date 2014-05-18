@@ -9,8 +9,7 @@ import scratch.utils.FileScanner;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -23,8 +22,10 @@ public final class RoomFactory {
     private final List<Room> rooms = new ArrayList<>();
     private final List<TiledMapPlus> tiledMaps = new ArrayList<>();
     private final DoorHandler doorHandler = new DoorHandler();
+    private final Map<Integer, String> interactiveObjectImageMap;
 
     public RoomFactory() {
+        interactiveObjectImageMap = new TreeMap<Integer, String>();
         loadMaps();
         setUpRooms();
         addInteractiveObjectstoRooms();
@@ -60,11 +61,16 @@ public final class RoomFactory {
     private void setupDoorHandler() {
         for (final Room room : rooms) {
             for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
+
                 if ("door".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0 ) {
                     doorHandler.addDoor(room, interactiveObject);
                 }
             }
         }
+    }
+
+    public Map<Integer, String> getInteractiveObjectImageMap() {
+        return interactiveObjectImageMap;
     }
 
     private void addInteractiveObjectstoRooms() {

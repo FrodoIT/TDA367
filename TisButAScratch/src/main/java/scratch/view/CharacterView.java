@@ -60,6 +60,6 @@ public class CharacterView {
         final MoveDirection input= character.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(),position.getY());
     }
-    
-    
+
+
 }

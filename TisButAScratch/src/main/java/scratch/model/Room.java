@@ -30,15 +30,15 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private List<IInteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
 
-    public Room() {
-
-    }
-
     public Room(IMap collisionMap, DoorHandler doorHandler) {
         this.map = collisionMap;
         this.doorHandler = doorHandler;
         characters = new ArrayList();
         interactiveObjects = new ArrayList<>();
+    }
+
+    public Room() {
+
     }
 
     public void update() {
