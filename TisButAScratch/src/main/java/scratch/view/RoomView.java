@@ -18,10 +18,7 @@ import java.util.TreeMap;
 
 public final class RoomView {
     private final TiledMapPlus map;
-    private final Map<Integer, String> imageMap;
-
     public RoomView(TiledMapPlus map) {
-        imageMap = new TreeMap<Integer, String>();
         this.map = map;
         setupObjectImageMap();
 
@@ -50,7 +47,7 @@ public final class RoomView {
 
                 //graphics.drawImage(map.getTileImage((int) x, (int) y, map.getLayerIndex("background")), (float) x, (float) y) ;
             }
-        
+
     */}
 
     /*
