@@ -32,7 +32,7 @@ public class InteractiveObject implements IInteractiveObject {
     }
 
     @Override
-    public Rectangle2D.Double getArea() {
+    public Rectangle2D.Double getUnitTile() {
         return rect;
     }
 

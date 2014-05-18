@@ -30,7 +30,7 @@ public class DoorHandler {
 	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, GameCharacter character) {
 		originRoom.removeCharacter(character);
 		targetRoom.addCharacter(character);
-        final Rectangle2D.Double doorArea = exitDoor.getArea();
+        final Rectangle2D.Double doorArea = exitDoor.getUnitTile();
         final int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
         final int y = (int) (doorArea.getY() - doorArea.getHeight()/2);
 		character.setPosition(new Vector2D(x, y));

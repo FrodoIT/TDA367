@@ -25,7 +25,7 @@ public class InteractiveObjectTest extends TestCase {
     }
 
     public void testGetArea() throws Exception {
-        assertEquals(new Rectangle2D.Double(32, 32, 32, 32), interactiveObject.getArea());
+        assertEquals(new Rectangle2D.Double(32, 32, 32, 32), interactiveObject.getUnitTile());
     }
 
     public void testGetProperties() throws Exception {

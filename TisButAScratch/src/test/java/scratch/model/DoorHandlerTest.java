@@ -45,7 +45,7 @@ public class DoorHandlerTest extends TestCase {
             }
 
             @Override
-            public Rectangle2D.Double getArea() {
+            public Rectangle2D.Double getUnitTile() {
                 return new Rectangle2D.Double(32, 32, 64, 64);
             }
 

@@ -26,7 +26,7 @@ public class MockIInteractiveObject implements IInteractiveObject {
     }
 
     @Override
-    public Rectangle2D.Double getArea() {
+    public Rectangle2D.Double getUnitTile() {
         return new Rectangle2D.Double(45,50,200,200);
     }
 

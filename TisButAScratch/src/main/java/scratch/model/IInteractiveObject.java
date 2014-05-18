@@ -10,6 +10,6 @@ public interface IInteractiveObject {
     void setPosition(Vector2D newPos);
 	String getName();
 	String getType();
-	Rectangle2D.Double getArea();
+	Rectangle2D.Double getUnitTile();
 	Properties getProperties();
 }

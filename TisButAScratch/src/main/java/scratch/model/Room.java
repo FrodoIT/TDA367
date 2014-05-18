@@ -5,7 +5,6 @@ import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
-import com.sun.swing.internal.plaf.basic.resources.basic_es;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -60,16 +59,24 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterInteractions() {
-        for (GameCharacter character : charactersInteracting) {
+        for(GameCharacter character : characters) {
             for (IInteractiveObject interactiveObject : interactiveObjects) {
-                if (character.getUnitTile().intersects(interactiveObject.getArea())) {
-                    //TODO do the interact stuff. either implement a interact method or find respective interactable object
-                    // here and run different methods depending on what kind of object is interacted with
+                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getProperties().getProperty("objectType");
                     if ( "box".compareTo(objectType) == 0 ) {
                         performBoxInteraction(character, interactiveObject);
-
                     }
+                }
+            }
+        }
+
+        for (GameCharacter character : charactersInteracting) {
+            for (IInteractiveObject interactiveObject : interactiveObjects) {
+                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
+                    //TODO do the interact stuff. either implement a interact method or find respective interactable object
+                    // here and run different methods depending on what kind of object is interacted with
+
+                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
                     if ( "door".compareTo(objectType) == 0 ) {
                         doorHandler.interactHappened(this, character, interactiveObject);
                         break;
@@ -82,7 +89,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     private void performBoxInteraction(GameCharacter character, IInteractiveObject interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
-        final Rectangle2D.Double boxArea = interactiveObject.getArea();
+        final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
         Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
         interactiveObject.setPosition(allowedPosition(boxArea, newPos));
     }
