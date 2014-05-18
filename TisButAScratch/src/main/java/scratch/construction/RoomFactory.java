@@ -44,7 +44,6 @@ public final class RoomFactory {
                 }
             }
         }
-
     }
 
     private void setUpRooms() {
@@ -61,7 +60,7 @@ public final class RoomFactory {
     private void setupDoorHandler() {
         for (final Room room : rooms) {
             for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
-                if ("door".compareTo(interactiveObject.getType()) == 0 ) {
+                if ("door".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0 ) {
                     doorHandler.addDoor(room, interactiveObject);
                 }
             }
