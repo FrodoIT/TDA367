@@ -15,7 +15,6 @@ import scratch.network.NetworkServer;
 import scratch.view.RoomView;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,7 +110,7 @@ public final class ServerController extends Listener{
         if (object instanceof PacketPlayerInput){
             GameCharacter player = game.getPlayers().get(0);
             PacketPlayerInput input = (PacketPlayerInput)object;
-            player.setMoveDirection(input.getMovementDirection());
+            player.setNextMoveDirection(input.getMovementDirection());
             player.setAttacking(input.getAttacking());
             player.setInteracting(input.getInteracting());
         }
