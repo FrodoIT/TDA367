@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.GameCharacter;
 import scratch.model.MoveDirection;
-import scratch.model.NpcType;
 import scratch.model.Vector2D;
 
 import java.util.logging.Level;

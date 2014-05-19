@@ -5,9 +5,7 @@ import scratch.model.IInteractiveObject;
 import scratch.model.IMap;
 import scratch.model.Vector2D;
 
-import java.awt.geom.Rectangle2D;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Anna on 2014-05-05.

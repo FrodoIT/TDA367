@@ -6,8 +6,8 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.weapons.Weapon;
 import scratch.model.weapons.IWeapon;
+import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
 

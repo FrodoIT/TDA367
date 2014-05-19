@@ -3,7 +3,10 @@ package scratch.construction.plugin.exported;
 import com.google.inject.Inject;
 import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
-import scratch.model.*;
+import scratch.model.INPCMove;
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Vector2D;
 
 import java.awt.geom.Point2D;
 

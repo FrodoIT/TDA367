@@ -1,19 +1,8 @@
 package scratch.view;
 
-import org.newdawn.slick.*;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.GameContainer;
 import scratch.construction.TiledMapPlus;
-import scratch.model.IInteractiveObject;
-import scratch.model.MoveDirection;
 import scratch.model.Room;
-
-import java.awt.*;
-import java.awt.geom.Rectangle2D;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  *

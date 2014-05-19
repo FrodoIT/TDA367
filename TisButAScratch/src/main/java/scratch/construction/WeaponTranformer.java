@@ -1,8 +1,8 @@
 package scratch.construction;
 
 import org.simpleframework.xml.transform.Transform;
-import scratch.model.weapons.Weapon;
 import scratch.model.weapons.IWeapon;
+import scratch.model.weapons.Weapon;
 
 /**
  * Created by Anna on 2014-05-08.

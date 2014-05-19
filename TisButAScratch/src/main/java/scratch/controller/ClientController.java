@@ -9,7 +9,6 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
-import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.network.NetworkClient;
 import scratch.network.PacketNewPlayer;

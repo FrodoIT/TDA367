@@ -10,7 +10,6 @@ import scratch.model.Vector2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by tejp on 2014-05-08.

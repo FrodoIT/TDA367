@@ -9,13 +9,13 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 import scratch.network.NetworkServer;
+import scratch.network.PacketNewPlayer;
+import scratch.network.PacketPlayerInput;
 import scratch.view.RoomView;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import scratch.network.PacketNewPlayer;
-import scratch.network.PacketPlayerInput;
 
 /**
  * The main controller class to control updates, rendering, initiating and

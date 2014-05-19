@@ -7,7 +7,6 @@
 package scratch.network;
 
 import org.newdawn.slick.Input;
-import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
 
 /**

@@ -2,11 +2,13 @@ package scratch.model.mockmodules;
 
 import org.newdawn.slick.SlickException;
 import scratch.construction.TiledMapPlus;
-import scratch.model.*;
+import scratch.model.GameCharacter;
+import scratch.model.IMap;
+import scratch.model.IRoomData;
+import scratch.model.Vector2D;
 
 import java.util.ArrayList;
 import java.util.List;
-import scratch.model.GameCharacter;
 
 public class MockIRoomData implements IRoomData {
 

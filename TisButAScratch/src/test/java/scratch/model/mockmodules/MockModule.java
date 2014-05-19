@@ -2,8 +2,6 @@ package scratch.model.mockmodules;
 
 import com.google.inject.AbstractModule;
 import scratch.model.*;
-import scratch.model.mockModules.MockIInteractiveObject;
-import scratch.model.mockModules.MockIWeapon;
 import scratch.model.weapons.IWeapon;
 
 

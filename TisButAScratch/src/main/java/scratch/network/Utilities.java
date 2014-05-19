@@ -6,12 +6,12 @@
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
-import java.awt.geom.Point2D;
 import scratch.controller.PlayerInput;
 import scratch.model.*;
-import scratch.model.weapons.Weapon;
 import scratch.model.weapons.IWeapon;
+import scratch.model.weapons.Weapon;
 
+import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
