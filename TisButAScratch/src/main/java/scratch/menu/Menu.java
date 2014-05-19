@@ -17,6 +17,9 @@ import scratch.model.Game;
 import scratch.network.Utilities;
 
 import javax.swing.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -29,18 +32,21 @@ public class Menu {
 
         String ip;
         ip = JOptionPane.showInputDialog(new JFrame(), "Enter IP to join or leave blank to host", "Ti's but a scratch", JOptionPane.QUESTION_MESSAGE);
-        
+
         Game game = new Game();
         final org.newdawn.slick.Game controller;
-        
-        if (Utilities.validIP(ip)) {
-            controller = new GameController(ip);
-        } else {
-            controller = new GameController(game);
-            
+        try {
+            InetAddress address = InetAddress.getByName(ip);
+            if (address.isAnyLocalAddress()) {
+                controller = new GameController(ip);
+            } else {
+                controller = new GameController(game);
+            }
+            AppGameContainer app = new AppGameContainer(controller);
+            app.start();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
-        AppGameContainer app = new AppGameContainer(controller);
-        app.start();
     }
 
 }
