@@ -77,7 +77,7 @@ public final class RoomFactory {
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus)room.getMap();
             for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
-                room.addInteractivObject(interactiveObject);
+                room.addInteractiveObject(interactiveObject);
             }
         }
     }
