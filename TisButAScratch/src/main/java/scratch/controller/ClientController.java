@@ -9,6 +9,7 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
+import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.network.NetworkClient;
 import scratch.network.PacketNewPlayer;
@@ -71,7 +72,12 @@ public final class ClientController extends Listener {
 
     private void initGameCharacters(Room room, RoomController roomController) {
         for (final GameCharacter character : room.getCharacters()) {
-            CharacterController characterController = new CharacterController(character);
+	        CharacterController characterController;
+	        if(character.getClass().equals(NpcType.class)){
+		        characterController = new NpcController((NpcType)character);
+	        }else{
+				characterController = new PlayerController(character);
+	        }
             roomController.addCharacterController(characterController);
             client.addListener(characterController);
         }
@@ -101,15 +107,21 @@ public final class ClientController extends Listener {
 
             for (final RoomController roomController : roomControllerMap.values()){
                 if (roomController.hasId(recievedCharacter.getId())){
-                    found = true;
+	                found = true;
                 }
             }
 
-            if (!found){
-                CharacterController characterController = new CharacterController(recievedCharacter);
-                client.addListener(characterController);
-                roomControllerMap.get(roomId).addCharacter(characterController);
-            }
+	        CharacterController characterController;
+	        if(!found) {
+		        if (recievedCharacter.getClass().equals(NpcType.class)) {
+			        characterController = new NpcController((NpcType) recievedCharacter);
+		        } else {
+			        characterController = new PlayerController(recievedCharacter);
+		        }
+		        client.addListener(characterController);
+		        roomControllerMap.get(roomId).addCharacter(characterController);
+	        }
         }
+
     }
 }

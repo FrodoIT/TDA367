@@ -8,6 +8,9 @@ import scratch.model.GameCharacter;
 import scratch.model.MoveDirection;
 import scratch.model.Vector2D;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author André Samuelsson
@@ -16,37 +19,43 @@ import scratch.model.Vector2D;
 public class PlayerView {
 
     private SpriteDirectionRenderer spriteHandler;
-    private final GameCharacter player;
-    private final Graphics graphics;
+    private GameCharacter character;
 
 
-    public PlayerView(GameCharacter player, GameContainer gameContainer, String imagePath) {
-        this.player = player;
-        this.graphics = gameContainer.getGraphics();
-        animationSetUp(imagePath);
+
+    public PlayerView(GameCharacter character) {
+	    this.character = character;
+	    try {
+		    spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
+	    } catch (SlickException e){
+		    spriteHandler = null;
+		    e.printStackTrace();
+
+	    }
     }
 
-    private final void animationSetUp(String imagePath) {
-        //TODO should probably be moved to another class later
-        //we fetch the sprite through a tiledmap (like we do with the room map)
+	public void setCharacter (GameCharacter character){
+		this.character = character;
+	}
 
-        try {
-            spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void render() {
-        final Vector2D position = player.getPosition();
-
-/*        if (player.isPromptingAnAttack()) {
-            attackArea = player.getAttackArea();
+	public void render(GameContainer gameContainer){
+		if (spriteHandler == null){
+			try {
+				spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
+			} catch (SlickException ex) {
+				Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+		Vector2D position = character.getPosition();
+		Graphics graphics = gameContainer.getGraphics();
+        /*
+        if (character.isPromptingAnAttack()) {
+            Rectangle2D.Double attackArea = character.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }*/
 
-        final MoveDirection input = player.getMoveDirection();
-        spriteHandler.render(graphics, input, position.getX(), position.getY());
-    }
+		final MoveDirection input= character.getMoveDirection();
+		spriteHandler.render(graphics, input, position.getX(),position.getY());
+	}
 }
