@@ -152,6 +152,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public void setPosition(Vector2D position) {
+	    System.out.println(this + " set " +position);
 	    unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
@@ -246,7 +247,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public boolean isAlive() {
-        return getHealth() != 0;
+        return getHealth()>0;
     }
 
     @Override
