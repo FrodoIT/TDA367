@@ -13,6 +13,7 @@ import scratch.network.PacketNewPlayer;
 import scratch.network.PacketPlayerInput;
 import scratch.view.RoomView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ public final class ServerController extends Listener{
     private final NetworkServer networkServer;
     private final Game game;
     private final Map<Integer, RoomController> roomControllerMap;
+	private final List<UIController> uiControllerList= new ArrayList<>();
     private int nextPlayerId;
 
     public ServerController(Game game) {
@@ -65,6 +67,11 @@ public final class ServerController extends Listener{
 
     private synchronized void initRoomCharacters(Room room, RoomController roomController) {
 	    for (final GameCharacter character : room.getCharacters()) {
+		    if(character.getClass().equals(GameCharacter.class)){
+			    UIController uiController = new UIController(character);
+			    uiController.addListener(networkServer);
+			    uiControllerList.add(uiController);
+		    }
 		    CharacterController characterController = new CharacterController(character);
 		    characterController.addListener(networkServer);
 		    roomController.addCharacterController(characterController);
@@ -83,6 +90,9 @@ public final class ServerController extends Listener{
         for (final RoomController roomController : roomControllerMap.values()) {
             roomController.updateRoom();
         }
+	    for (UIController uiController : uiControllerList) {
+		    uiController.update();
+	    }
     }
 
     @Override
@@ -91,10 +101,15 @@ public final class ServerController extends Listener{
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
         System.out.println("We started a Player with reference: " + newPlayer);
-        CharacterController playerController = new CharacterController(newPlayer);
-        playerController.addListener(networkServer);
-        roomControllerMap.get(roomId).addCharacter(playerController);
-        connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));
+	    CharacterController playerController = new CharacterController(newPlayer);
+
+	    UIController uiController = new UIController(newPlayer);
+	    uiController.addListener(networkServer);
+	    uiControllerList.add(uiController);
+
+	    playerController.addListener(networkServer);
+	    roomControllerMap.get(roomId).addCharacter(playerController);
+	    connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));
         nextPlayerId++;
     }
 

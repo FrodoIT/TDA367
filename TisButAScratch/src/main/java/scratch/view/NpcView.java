@@ -31,8 +31,7 @@ public class NpcView extends CharacterView{
 	}
     public void render(GameContainer gameContainer){
         super.render(gameContainer);
-		//TODO gör så healhbaren är över huvudet på varje npc.
-	 //   System.out.println(npc.getPosition());
+		//healthbar over npc
 	    Rectangle lifeGreen = new Rectangle((float)npc.getPosition().getX()-10, (float) npc.getPosition().getY()-10, npc.getHealth()*5, 5);
 	    Rectangle lifeRed = new Rectangle((float)npc.getPosition().getX()-10, (float) npc.getPosition().getY()-10, 10*5, 5);
 	    Graphics g = gameContainer.getGraphics();

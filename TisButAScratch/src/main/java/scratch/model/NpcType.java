@@ -48,7 +48,6 @@ public final class NpcType extends GameCharacter {
 
     @Override
     protected Vector2D calculateNewPosition() {
-	    System.out.println(this + " calc " + movementPattern.calculateNewPosition(this));
 	    return movementPattern.calculateNewPosition(this);
     }
 
