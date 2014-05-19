@@ -5,7 +5,7 @@ import com.google.inject.Injector;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import scratch.model.mockModules.MockIWeapon;
+import scratch.model.mockmodules.MockWeapon;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.Weapon;
@@ -42,7 +42,7 @@ public class RoomTest extends TestCase {
         testPlayer.setMovementSpeed(0);
         final INPCMove move = injector.getInstance(INPCMove.class);
         NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
-                new MockIWeapon(), 100, 0, "test", 10, move);
+                new MockWeapon(), 100, 0, "test", 10, move);
         testNpc.setNextMoveDirection(new Vector2D());
         putCharactersInRoom(testPlayer, testNpc);
         assertTrue(room.isActive());

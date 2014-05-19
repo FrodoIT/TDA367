@@ -1,13 +1,10 @@
 package scratch.construction;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
 import scratch.model.IRoomData;
 import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.model.Vector2D;
 
-import java.io.File;
 import java.util.*;
 
 public final class NpcFactory {
@@ -32,11 +29,17 @@ public final class NpcFactory {
             final List<NpcType> npcs = new ArrayList<>();
 
             for (final NpcSpecification npc : npcSpecs) {
-                final NpcType loadedNpc = loadNpc(
-                        npc.getPluginName(),
-                        new Vector2D(npc.getArea().getX(),npc.getArea().getY()),
-                        npc.getId(),
-                        room);
+	            NpcType loadedNpc;
+	            try {
+		            loadedNpc = loadNpc(
+				            npc.getPluginName(),
+				            new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
+				            npc.getId(),
+				            room);
+	            }catch(NullPointerException e){
+		            e.printStackTrace();
+		            return;
+	            }
                 if (loadedNpc != null) {
                     npcs.add(loadedNpc);
                 }
@@ -58,7 +61,8 @@ public final class NpcFactory {
      * @return A npc with the attributes as in the xml file.
      */
 	private synchronized NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
-		NpcType npc = (NpcType) new loadXMLObject().loadObject("NpcType", file);
+		NpcType npc = (NpcType) new LoadXMLObject().loadObject("NpcType", file);
+
         npc.setPosition(position);
         npc.setId(id);
         npc.getMovementPattern().setRoomData(room);

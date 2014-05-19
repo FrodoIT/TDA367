@@ -4,17 +4,13 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-import scratch.construction.MyMatcher;
+import scratch.construction.LoadXMLObject;
 import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
-import scratch.construction.loadXMLObject;
 import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.RoomView;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,7 +72,7 @@ public final class ServerController extends Listener{
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
-	    GameCharacter player =(GameCharacter) new loadXMLObject().loadObject("GameCharacter", file);
+	    GameCharacter player =(GameCharacter) new LoadXMLObject().loadObject("GameCharacter", file);
         player.setPosition(position);
         player.setId(id);
         return player;
