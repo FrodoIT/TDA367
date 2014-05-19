@@ -59,17 +59,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterInteractions() {
-        for(GameCharacter character : characters) {
-            for (IInteractiveObject interactiveObject : interactiveObjects) {
-                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
-                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
-                    if ( "box".compareTo(objectType) == 0 ) {
-                        updateBoxPosition(character, interactiveObject);
-                    }
-                }
-            }
-        }
-
+        updateBoxes();
         for (GameCharacter character : charactersInteracting) {
             for (IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
@@ -85,6 +75,19 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
             }
         }
         charactersInteracting.clear();
+    }
+
+    private void updateBoxes() {
+        for(GameCharacter character : characters) {
+            for (IInteractiveObject interactiveObject : interactiveObjects) {
+                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
+                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
+                    if ( "box".compareTo(objectType) == 0 ) {
+                        updateBoxPosition(character, interactiveObject);
+                    }
+                }
+            }
+        }
     }
 
     private void updateBoxPosition(GameCharacter character, IInteractiveObject interactiveObject) {
@@ -166,7 +169,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-    public void addInteractivObject(IInteractiveObject interactiveObject) {
+    public void addInteractiveObject(IInteractiveObject interactiveObject) {
         this.interactiveObjects.add(interactiveObject);
     }
 
