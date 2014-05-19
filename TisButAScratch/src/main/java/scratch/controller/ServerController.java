@@ -4,7 +4,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 import scratch.construction.MyMatcher;
@@ -54,15 +53,26 @@ public final class ServerController extends Listener{
             RoomController roomController = new RoomController(room, new RoomView(map, room));
             roomControllerMap.put(roomController.getId(), roomController);
 
-            for (final GameCharacter character : room.getCharacters()) {
-                CharacterController characterController = new CharacterController(character);
-                characterController.addListener(networkServer);
-                roomController.addCharacterController(characterController);
-            }
+            initRoomCharacters(room, roomController);
+            initInteractiveObjects(room, roomController);
         }
-
         networkServer.start(this);
+    }
 
+    private void initInteractiveObjects(Room room, RoomController roomController) {
+        for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
+            InteractiveObjectController interactiveObjectController =  new InteractiveObjectController(interactiveObject);
+            interactiveObjectController.addListener(networkServer);
+            roomController.addInteractiveObjectController(interactiveObjectController);
+        }
+    }
+
+    private synchronized void initRoomCharacters(Room room, RoomController roomController) {
+        for (final GameCharacter character : room.getCharacters()) {
+            CharacterController characterController = new CharacterController(character);
+            characterController.addListener(networkServer);
+            roomController.addCharacterController(characterController);
+        }
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
@@ -85,7 +95,7 @@ public final class ServerController extends Listener{
         return player;
     }
 
-    
+
     public synchronized void update(GameContainer container, int delta) throws SlickException {
         for (final RoomController roomController : roomControllerMap.values()) {
             roomController.updateRoom();
