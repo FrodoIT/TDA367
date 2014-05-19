@@ -7,12 +7,12 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
-import scratch.network.PacketNewPlayer;
 import scratch.view.CharacterView;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  *
@@ -24,19 +24,18 @@ public class CharacterController extends Listener {
     private final PropertyChangeSupport listeners;
     private final CharacterView view;
 
-    public CharacterController(GameCharacter character) {
+    public CharacterController(final GameCharacter character) {
         this.character = character;
         listeners = new PropertyChangeSupport(this);
         view = new CharacterView(character);
     }
 
-    public void addListener(PropertyChangeListener listener) {
+    public void addListener(final PropertyChangeListener listener) {
         listeners.addPropertyChangeListener(listener);
     }
 
     public void update() {
         character.update();
-
         listeners.firePropertyChange(null, null, character);
     }
 
