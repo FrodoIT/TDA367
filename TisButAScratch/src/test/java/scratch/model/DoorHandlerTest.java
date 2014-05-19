@@ -55,6 +55,11 @@ public class DoorHandlerTest extends TestCase {
                 props.put("connection", "1");
                 return props;
             }
+
+            @Override
+            public void update() {
+
+            }
         });
 
 

@@ -12,4 +12,5 @@ public interface IInteractiveObject {
 	String getType();
 	Rectangle2D.Double getUnitTile();
 	Properties getProperties();
+    void update();
 }

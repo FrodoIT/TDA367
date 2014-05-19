@@ -40,4 +40,9 @@ public class InteractiveObject implements IInteractiveObject {
     public Properties getProperties() {
         return properties;
     }
+
+    @Override
+    public void update() {
+
+    }
 }

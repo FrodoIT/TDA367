@@ -34,4 +34,9 @@ public class MockIInteractiveObject implements IInteractiveObject {
     public Properties getProperties() {
         return new Properties();
     }
+
+    @Override
+    public void update() {
+
+    }
 }
