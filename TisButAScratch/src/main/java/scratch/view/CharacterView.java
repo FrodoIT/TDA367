@@ -6,33 +6,29 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.GameCharacter;
 import scratch.model.MoveDirection;
+import scratch.model.NpcType;
 import scratch.model.Vector2D;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author André Samuelsson
- * @RevisedBy Anna Nylander
+ * Created by Anna on 2014-05-19.
  */
-public class PlayerView {
+public class CharacterView {
+	private GameCharacter character;
+	private SpriteDirectionRenderer spriteHandler;
 
-    private SpriteDirectionRenderer spriteHandler;
-    private GameCharacter character;
+	public CharacterView(GameCharacter character){
+		this.character = character;
+		try {
+			spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
+		} catch (SlickException e){
+			spriteHandler = null;
+			e.printStackTrace();
 
-
-
-    public PlayerView(GameCharacter character) {
-	    this.character = character;
-	    try {
-		    spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
-	    } catch (SlickException e){
-		    spriteHandler = null;
-		    e.printStackTrace();
-
-	    }
-    }
+		}
+	}
 
 	public void setCharacter (GameCharacter character){
 		this.character = character;
@@ -56,6 +52,11 @@ public class PlayerView {
         }*/
 
 		final MoveDirection input= character.getMoveDirection();
+		//   System.out.println("npc nya position" + position);
 		spriteHandler.render(graphics, input, position.getX(),position.getY());
 	}
+
+
+
+
 }

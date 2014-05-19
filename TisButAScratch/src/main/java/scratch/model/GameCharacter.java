@@ -129,8 +129,7 @@ public class GameCharacter implements KryoSerializable {
 
     public void update() {
         Vector2D newPosition = calculateNewPosition();
-
-        calculateMoveDirection(newPosition);
+	    calculateMoveDirection(newPosition);
 
         for (CharacterChangeListener listener : getListeners()) {
             listener.handleCharacterMovement(this, newPosition);
@@ -153,7 +152,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public void setPosition(Vector2D position) {
-        unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
+	    unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
     public void setInteracting(boolean interacting) {
@@ -213,7 +212,8 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public Vector2D getPosition() {
-        return new Vector2D(unitTile.getX(), unitTile.getY());
+	  // System.out.println("I get position" + new Vector2D(unitTile.getX(), unitTile.getY()));
+	    return new Vector2D(unitTile.getX(), unitTile.getY());
     }
 
     public Rectangle2D.Double getAttackArea() {

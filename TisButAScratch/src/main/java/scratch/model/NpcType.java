@@ -48,7 +48,7 @@ public final class NpcType extends GameCharacter {
 
     @Override
     protected Vector2D calculateNewPosition() {
-        return movementPattern.calculateNewPosition(this);
+	    return movementPattern.calculateNewPosition(this);
     }
 
     public void setMovementPattern(INPCMove movementPattern) {

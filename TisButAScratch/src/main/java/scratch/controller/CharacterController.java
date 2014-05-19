@@ -9,9 +9,10 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
+import scratch.model.NpcType;
+import scratch.view.CharacterView;
 import scratch.view.NpcView;
 
-import javax.swing.text.View;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -19,16 +20,20 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Ivar
  */
-public abstract class CharacterController extends Listener {
+public class CharacterController extends Listener {
 
     private GameCharacter character;
     private final PropertyChangeSupport listeners;
-   // private final NpcView view;
+    private final CharacterView view;
 
     public CharacterController(final GameCharacter character) {
         this.character = character;
         listeners = new PropertyChangeSupport(this);
-       // view = new NpcView(character);
+	    if(character.getClass().equals(NpcType.class)) {
+		    view = new NpcView((NpcType) character);
+	    }else{
+		    view= new CharacterView(character);
+	    }
     }
 
     public void addListener(final PropertyChangeListener listener) {
@@ -40,8 +45,10 @@ public abstract class CharacterController extends Listener {
         listeners.firePropertyChange(null, null, character);
     }
 
-    public abstract void render(GameContainer gameContainer);
-        //view.render(gameContainer);
+    public void render(GameContainer gameContainer){
+	    view.render(gameContainer);
+    }
+
 
 
     public GameCharacter getCharacter() {
@@ -54,8 +61,12 @@ public abstract class CharacterController extends Listener {
     
     protected void setCharacter(GameCharacter character) {
 	    this.character = character;
+	    view.setCharacter(character);
     }
 
+	public CharacterView getView() {
+		return view;
+	}
 
     @Override
     public void received(Connection connection, Object object) {

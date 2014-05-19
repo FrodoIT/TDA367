@@ -72,12 +72,7 @@ public final class ClientController extends Listener {
 
     private void initGameCharacters(Room room, RoomController roomController) {
         for (final GameCharacter character : room.getCharacters()) {
-	        CharacterController characterController;
-	        if(character.getClass().equals(NpcType.class)){
-		        characterController = new NpcController((NpcType)character);
-	        }else{
-				characterController = new PlayerController(character);
-	        }
+	        CharacterController characterController = new CharacterController(character);
             roomController.addCharacterController(characterController);
             client.addListener(characterController);
         }
@@ -111,13 +106,8 @@ public final class ClientController extends Listener {
                 }
             }
 
-	        CharacterController characterController;
 	        if(!found) {
-		        if (recievedCharacter.getClass().equals(NpcType.class)) {
-			        characterController = new NpcController((NpcType) recievedCharacter);
-		        } else {
-			        characterController = new PlayerController(recievedCharacter);
-		        }
+		        CharacterController characterController = new CharacterController(recievedCharacter);
 		        client.addListener(characterController);
 		        roomControllerMap.get(roomId).addCharacter(characterController);
 	        }

@@ -65,12 +65,7 @@ public final class ServerController extends Listener{
 
     private synchronized void initRoomCharacters(Room room, RoomController roomController) {
 	    for (final GameCharacter character : room.getCharacters()) {
-		    CharacterController characterController;
-		    if(character.getClass().equals(NpcType.class)){
-			    characterController = new NpcController((NpcType)character);
-		    }else{
-			    characterController = new PlayerController(character);
-		    }
+		    CharacterController characterController = new CharacterController(character);
 		    characterController.addListener(networkServer);
 		    roomController.addCharacterController(characterController);
 	    }
@@ -96,7 +91,7 @@ public final class ServerController extends Listener{
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
         System.out.println("We started a Player with reference: " + newPlayer);
-        CharacterController playerController = new PlayerController(newPlayer);
+        CharacterController playerController = new CharacterController(newPlayer);
         playerController.addListener(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
         connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));

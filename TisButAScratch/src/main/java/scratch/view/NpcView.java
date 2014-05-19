@@ -21,44 +21,15 @@ import java.util.logging.Logger;
  *
  * @author Cannonbait
  */
-public class NpcView {
-    private NpcType character;
-    private SpriteDirectionRenderer spriteHandler;
-    
+public class NpcView extends CharacterView{
+
     public NpcView(NpcType character){
-        this.character = character;
-        try {
-            spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
-        } catch (SlickException e){
-            spriteHandler = null;
-            e.printStackTrace();
-
-        }
-    }
-
-    public void setCharacter (NpcType character){
-        this.character = character;
+        super(character);
     }
 
     public void render(GameContainer gameContainer){
-        if (spriteHandler == null){
-            try {
-                spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
-            } catch (SlickException ex) {
-                Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        Vector2D position = character.getPosition();
-        Graphics graphics = gameContainer.getGraphics();
-        /*
-        if (character.isPromptingAnAttack()) {
-            Rectangle2D.Double attackArea = character.getAttackArea();
-            graphics.setColor(Color.red);
-            graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
-        }*/
-
-        final MoveDirection input= character.getMoveDirection();
-        spriteHandler.render(graphics, input, position.getX(),position.getY());
+        super.render(gameContainer);
+		//TODO gör så healhbaren är över huvudet på varje npc.
     }
 
 
