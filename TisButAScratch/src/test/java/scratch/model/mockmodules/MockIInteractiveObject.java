@@ -1,4 +1,4 @@
-package scratch.model.mockModules;
+package scratch.model.mockmodules;
 
 import scratch.model.IInteractiveObject;
 import scratch.model.Vector2D;
