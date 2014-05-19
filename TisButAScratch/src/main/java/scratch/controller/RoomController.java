@@ -12,10 +12,13 @@ public class RoomController {
     private final Room room;
     private final RoomView roomView;
     private final List<CharacterController> characters;
+    private final List<InteractiveObjectController> interactiveObjects;
+
 
     public RoomController(Room room, RoomView roomView) {
         this.roomView = roomView;
         this.room = room;
+        interactiveObjects = new ArrayList<>();
         characters = new ArrayList<>();
     }
 
@@ -24,14 +27,24 @@ public class RoomController {
             for (CharacterController characterController : characters) {
                 characterController.update();
             }
+
+            for(InteractiveObjectController interactiveObjectController : interactiveObjects) {
+                interactiveObjectController.update();
+            }
+
             room.update();
         }
     }
 
     public void render(GameContainer gameContainer) {
         roomView.render(gameContainer);
+
         for (CharacterController characterController : characters) {
             characterController.render(gameContainer);
+        }
+
+        for (InteractiveObjectController interactiveObjectController : interactiveObjects) {
+            interactiveObjectController.render(gameContainer);
         }
     }
 
@@ -53,11 +66,19 @@ public class RoomController {
     }
     
     public boolean hasId(int id){
-        for (CharacterController characterController : characters){
+        for (CharacterController characterController : characters) {
             if (characterController.getId() == id){
                 return true;
             }
         }
         return false;
+    }
+
+    public void addInteractiveObjectController(InteractiveObjectController interactiveObjectController) {
+        interactiveObjects.add(interactiveObjectController);
+    }
+    public void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
+        room.addInteractiveObject(interactiveObjectController.getInteractiveObject());
+        interactiveObjects.add(interactiveObjectController);
     }
 }
