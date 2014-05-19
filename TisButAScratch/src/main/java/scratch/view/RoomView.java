@@ -40,8 +40,7 @@ public final class RoomView {
 
     public void render(GameContainer gameContainer) {
         map.render(0, 0);
-        Graphics graphics = gameContainer.getGraphics();
-        for(final IInteractiveObject interactiveObject :  room.getInteractiveObjects()) {
+        /*for(final IInteractiveObject interactiveObject :  room.getInteractiveObjects()) {
             if ( "box".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0) {
                 final String imagePath = interactiveObject.getProperties().getProperty("imagePath");
                 final Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
@@ -50,7 +49,7 @@ public final class RoomView {
                 System.out.println(x + " x " + y + " y");
                 try {
                     SpriteDirectionRenderer spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
-                    spriteHandler.render(graphics, MoveDirection.SOUTH, x, y);
+                    spriteHandler.render(gameContainer.getGraphics(), MoveDirection.SOUTH, x, y);
                 } catch (SlickException e){
                     e.printStackTrace();
 
@@ -58,7 +57,7 @@ public final class RoomView {
                 // graphics.drawImage(map.getTileImage((int) x, (int) y, map.getLayerIndex("background")), (float) x, (float) y) ;
             }
         }
-    }
+    */}
 
     /*
     for(Map.Entry<Integer, NpcType> npcEntry : room.getNpcs().entrySet()){
