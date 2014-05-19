@@ -58,21 +58,7 @@ public final class NpcFactory {
      * @return A npc with the attributes as in the xml file.
      */
 	private synchronized NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
-		final Serializer serializer = new Persister(new MyMatcher());
-        final StringBuilder fileBuild = new StringBuilder();
-        fileBuild.append("res/");
-        fileBuild.append(file);
-        fileBuild.append(".xml");
-        final File source = new File(fileBuild.toString());
-        NpcType npc;
-        try {
-            npc = serializer.read(NpcType.class, source);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+		NpcType npc = (NpcType) new loadXMLObject().loadObject("NpcType", file);
         npc.setPosition(position);
         npc.setId(id);
         npc.getMovementPattern().setRoomData(room);

@@ -25,20 +25,7 @@ public class WeaponTranformer implements Transform<IWeapon> {
 	}
 
 	private Weapon loadWeapon(String file) {
-		final Serializer serializer = new Persister(new MyMatcher());
-		final StringBuilder fileBuild = new StringBuilder();
-		fileBuild.append("res/");
-		fileBuild.append(file);
-		fileBuild.append(".xml");
-		final File source = new File(fileBuild.toString());
-		Weapon weapon;
-		try {
-			weapon = serializer.read(Weapon.class, source);
-
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			return null;
-		}
+		Weapon weapon = (Weapon) new loadXMLObject().loadObject("Weapon", file);
 		return weapon;
 	}
 }

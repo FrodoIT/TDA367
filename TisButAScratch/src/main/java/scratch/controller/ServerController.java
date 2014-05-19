@@ -9,6 +9,7 @@ import org.simpleframework.xml.core.Persister;
 import scratch.construction.MyMatcher;
 import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
+import scratch.construction.loadXMLObject;
 import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.view.RoomView;
@@ -75,20 +76,7 @@ public final class ServerController extends Listener{
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
-        final Serializer serializer = new Persister(new MyMatcher());
-        final StringBuilder fileBuild = new StringBuilder();
-        fileBuild.append("res/");
-        fileBuild.append(file);
-        fileBuild.append(".xml");
-        final File source = new File(fileBuild.toString());
-        GameCharacter player;
-        try {
-            player = serializer.read(GameCharacter.class, source);
-
-        } catch (Exception e) {
-            System.out.println(e.toString());
-            return null;
-        }
+	    GameCharacter player =(GameCharacter) new loadXMLObject().loadObject("GameCharacter", file);
         player.setPosition(position);
         player.setId(id);
         return player;
