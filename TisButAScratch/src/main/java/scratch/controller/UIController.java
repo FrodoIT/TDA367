@@ -23,14 +23,6 @@ public class UIController extends Listener {
 		this.character= character;
 		view = new UIView(character);
 	}
-	public void addListener(final PropertyChangeListener listener) {
-		listeners.addPropertyChangeListener(listener);
-	}
-
-	public void update() {
-		//doesn't need to do anything here yet. made to simplify for future implementation
-		listeners.firePropertyChange(null, null, character);
-	}
 
 	public void render(GameContainer gameContainer){
 		view.render(gameContainer);
@@ -44,22 +36,7 @@ public class UIController extends Listener {
 		return character.getId();
 	}
 
-	protected void setCharacter(GameCharacter character) {
-		this.character = character;
-		view.setCharacter(character);
-	}
-
 	public UIView getView() {
 		return view;
-	}
-
-	@Override
-	public void received(Connection connection, Object object) {
-		if (object instanceof GameCharacter) {
-			GameCharacter recievedCharacter = (GameCharacter) object;
-			if (recievedCharacter.getId() == getId()) {
-				setCharacter(recievedCharacter);
-			}
-		}
 	}
 }

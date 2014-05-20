@@ -67,11 +67,6 @@ public final class ServerController extends Listener {
 
     private synchronized void initRoomCharacters(Room room, RoomController roomController) {
         for (final GameCharacter character : room.getCharacters()) {
-            if (character.getClass().equals(GameCharacter.class)) {
-                UIController uiController = new UIController(character);
-                uiController.addListener(networkServer);
-                uiControllerList.add(uiController);
-            }
             CharacterController characterController = new CharacterController(character);
             characterController.addListener(networkServer);
             roomController.addCharacterController(characterController);
@@ -88,9 +83,6 @@ public final class ServerController extends Listener {
     public synchronized void update(GameContainer container, int delta) throws SlickException {
         for (final RoomController roomController : roomControllerMap.values()) {
             roomController.updateRoom();
-        }
-        for (UIController uiController : uiControllerList) {
-            uiController.update();
         }
     }
 
