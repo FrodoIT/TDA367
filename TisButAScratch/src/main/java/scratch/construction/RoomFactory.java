@@ -94,6 +94,10 @@ public final class RoomFactory {
         }
     }
 
+    public DoorHandler getDoorHandler (){
+        return doorHandler;
+    }
+
     public List<Room> getRooms() {
         return rooms;
     }

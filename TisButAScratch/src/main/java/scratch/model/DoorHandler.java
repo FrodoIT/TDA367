@@ -1,6 +1,9 @@
 package scratch.model;
 
 import java.awt.geom.Rectangle2D;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.*;
 
 /**
@@ -12,6 +15,11 @@ public class DoorHandler {
 	private final Map<Room, Set<IInteractiveObject>> roomDoorsMap = new HashMap<>();
 	private final Map<String, Set<IInteractiveObject>> doorMatchingMap = new HashMap<>();
 	private final Random random = new Random();
+    private final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
+
+    public void addListener(PropertyChangeListener listener){
+        listeners.addPropertyChangeListener(listener);
+    }
 
 	public void interactHappened(Room room, GameCharacter character, IInteractiveObject originDoor) {
         final Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
@@ -21,7 +29,7 @@ public class DoorHandler {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
 				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
-
+                listeners.firePropertyChange("HERP", null, null);
 				return;
 			}
 		}
