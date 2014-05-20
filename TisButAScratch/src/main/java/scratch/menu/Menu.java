@@ -22,24 +22,26 @@ public class Menu {
 
     public static void mainMenu() throws SlickException {
 
+		JFrame menu = new MainMenu();
+	    menu.setVisible(true);
 
-        String ip;
-        ip = JOptionPane.showInputDialog(new JFrame(), "Enter IP to join or leave blank to host", "Ti's but a scratch", JOptionPane.QUESTION_MESSAGE);
-
-        Game game = new Game();
-        final org.newdawn.slick.Game controller;
-        try {
-            InetAddress address = InetAddress.getByName(ip);
-            if (address.isAnyLocalAddress()) {
-                controller = new GameController(ip);
-            } else {
-                controller = new GameController(game);
-            }
-            AppGameContainer app = new AppGameContainer(controller);
-            app.start();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
     }
+
+	public static void startGame(String ip) throws SlickException {
+		Game game = new Game();
+		final org.newdawn.slick.Game controller;
+		try {
+		    InetAddress address = InetAddress.getByName(ip);
+		    if (address.isAnyLocalAddress()) {
+		        controller = new GameController(ip);
+		    } else {
+		        controller = new GameController(game);
+		    }
+		    AppGameContainer app = new AppGameContainer(controller);
+		    app.start();
+		} catch (UnknownHostException e) {
+		    e.printStackTrace();
+		}
+	}
 
 }
