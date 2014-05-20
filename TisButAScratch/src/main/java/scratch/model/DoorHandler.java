@@ -29,7 +29,7 @@ public class DoorHandler {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
 				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
-                listeners.firePropertyChange("HERP", null, null);
+                listeners.firePropertyChange(new PropertyChangeEvent(character, "DoorUse", room.getId(), roomSetEntry.getKey().getId()));
 				return;
 			}
 		}

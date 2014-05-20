@@ -10,7 +10,6 @@ import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.network.PacketNewPlayer;
-import scratch.network.PacketPlayerInput;
 import scratch.view.RoomView;
 
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ public final class ServerController extends Listener {
         final RoomFactory roomFactory = new RoomFactory();
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);
-
         roomFactory.getDoorHandler().addListener(new DoorController(networkServer));
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
