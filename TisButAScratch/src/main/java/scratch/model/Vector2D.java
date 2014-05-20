@@ -67,4 +67,11 @@ public final class Vector2D {
         temp = Double.doubleToLongBits(magnitude);
         return 31 * result + (int) (temp ^ (temp >>> 32));
     }
+    
+    public int distance (Vector2D toPosition){
+        Double xDiff = getX() - toPosition.getX();
+        Double yDiff = getY() - toPosition.getY();
+        Double distance = Math.sqrt(xDiff*xDiff+yDiff*yDiff);
+        return distance.intValue();
+    }
 }

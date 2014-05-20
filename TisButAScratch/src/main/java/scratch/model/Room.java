@@ -48,12 +48,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public boolean isActive() {
-        for (final GameCharacter character:characters){
-            if ( ! (character instanceof NpcType)){
-                return true;
-            }
-        }
-        return false;
+        return !(getPlayers().isEmpty());
     }
 
     private void updateCharacterInteractions() {
@@ -266,12 +261,27 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public Vector2D getClosestPlayerPosition(Vector2D position){
-        for (final GameCharacter character : characters){
-            if (!(character instanceof NpcType)){
-                return character.getPosition();
+    public Vector2D getClosestPlayerPosition(Vector2D npcPosition){
+        if (getPlayers().isEmpty()){
+            return npcPosition;
+            
+        }
+        Vector2D closestPlayer = getPlayers().get(0).getPosition();
+        for (final GameCharacter player : getPlayers()){
+            if (npcPosition.distance(closestPlayer) > npcPosition.distance(player.getPosition())){
+                closestPlayer = player.getPosition();
             }
         }
-        return position;
+        return closestPlayer;
+    }
+    
+    private List<GameCharacter> getPlayers(){
+        List<GameCharacter> players = new ArrayList<>();
+        for (final GameCharacter character : characters){
+            if (!(character instanceof NpcType)){
+                players.add(character);
+            }
+        }
+        return players;
     }
 }

@@ -39,7 +39,6 @@ public class GameCharacter implements KryoSerializable {
     private String imagePath;
     @Element (required = false)
     private boolean interactIsCooledDown = true;
-
     private Vector2D nextMoveDirection;
     private boolean interacting;
     private boolean attacking;
