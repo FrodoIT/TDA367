@@ -45,6 +45,10 @@ public class NetworkServer implements PropertyChangeListener{
         if (newValue instanceof GameCharacter){
             server.sendToAllTCP(newValue);
         }
-        
+    }
+
+
+    public void addListener(Listener listener){
+        server.addListener(listener);
     }
 }

@@ -10,6 +10,7 @@ import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
 import scratch.model.NpcType;
+import scratch.network.PacketPlayerInput;
 import scratch.view.CharacterView;
 import scratch.view.NpcView;
 
@@ -73,6 +74,13 @@ public class CharacterController extends Listener {
             if (recievedCharacter.getId() == getId()) {
                 character.setCharacter(recievedCharacter);
 
+            }
+        } else if (object instanceof PacketPlayerInput){
+            PacketPlayerInput input = (PacketPlayerInput) object;
+            if (input.getId() == character.getId()){
+                character.setNextMoveDirection(input.getMovementDirection());
+                character.setAttacking(input.getAttacking());
+                character.setInteracting(input.getInteracting());
             }
         }
     }

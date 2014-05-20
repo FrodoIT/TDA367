@@ -92,7 +92,8 @@ public final class ServerController extends Listener {
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
         CharacterController playerController = new CharacterController(newPlayer);
-                
+
+        networkServer.addListener(playerController);
         playerController.addListener(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
         connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));
@@ -102,12 +103,6 @@ public final class ServerController extends Listener {
 
     @Override
     public synchronized void received(Connection connection, Object object) {
-        if (object instanceof PacketPlayerInput) {
-            GameCharacter player = game.getPlayers().get(0);
-            PacketPlayerInput input = (PacketPlayerInput) object;
-            player.setNextMoveDirection(input.getMovementDirection());
-            player.setAttacking(input.getAttacking());
-            player.setInteracting(input.getInteracting());
-        }
+
     }
 }
