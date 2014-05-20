@@ -60,7 +60,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                     // here and run different methods depending on what kind of object is interacted with
 
                     final String objectType = interactiveObject.getProperties().getProperty("objectType");
-                    if ( "door".compareTo(objectType) == 0 ) {
+                    if ("door".compareTo(objectType) == 0) {
                         doorHandler.interactHappened(this, character, interactiveObject);
                         break;
                     }
@@ -71,11 +71,11 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateBoxes() {
-        for(final GameCharacter character : characters) {
+        for (final GameCharacter character : characters) {
             for (final IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getProperties().getProperty("objectType");
-                    if ( "box".compareTo(objectType) == 0 ) {
+                    if ("box".compareTo(objectType) == 0) {
                         updateBoxPosition(character, interactiveObject);
                     }
                 }
@@ -103,12 +103,11 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         areaUnderAttack.clear();
     }
 
-
     private void dealDamage() {
         for (final GameCharacter attackingCharacter : areaUnderAttack) {
-            for (final GameCharacter character: characters){
-                if (character.getUnitTile().intersects(attackingCharacter.getAttackArea()) &&
-                        !attackingCharacter.getClass().equals(character.getClass())){
+            for (final GameCharacter character : characters) {
+                if (character.getUnitTile().intersects(attackingCharacter.getAttackArea())
+                        && !attackingCharacter.getClass().equals(character.getClass())) {
                     character.takeDamage(attackingCharacter.getDamage());
                 }
             }
@@ -196,9 +195,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return map.getId();
     }
 
-
     @Override
-    public List<GameCharacter> getCharacters(){
+    public List<GameCharacter> getCharacters() {
         return characters;
     }
 
@@ -261,24 +259,27 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     @Override
-    public Vector2D getClosestPlayerPosition(Vector2D npcPosition){
-        if (getPlayers().isEmpty()){
+    public Vector2D getClosestPlayerPosition(Vector2D npcPosition) {
+        if (getPlayers().isEmpty()) {
             return npcPosition;
-            
         }
-        Vector2D closestPlayer = getPlayers().get(0).getPosition();
-        for (final GameCharacter player : getPlayers()){
-            if (npcPosition.distance(closestPlayer) > npcPosition.distance(player.getPosition())){
-                closestPlayer = player.getPosition();
+        
+        GameCharacter closestPlayer = getPlayers().get(0);
+        for (final GameCharacter player : getPlayers()) {
+            if (player.isAlive() && npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())){
+                closestPlayer = player;
             }
         }
-        return closestPlayer;
+        if (closestPlayer.isAlive()){
+            return closestPlayer.getPosition();
+        }
+        return npcPosition;
     }
-    
-    private List<GameCharacter> getPlayers(){
+
+    private List<GameCharacter> getPlayers() {
         List<GameCharacter> players = new ArrayList<>();
-        for (final GameCharacter character : characters){
-            if (!(character instanceof NpcType)){
+        for (final GameCharacter character : characters) {
+            if (!(character instanceof NpcType)) {
                 players.add(character);
             }
         }
