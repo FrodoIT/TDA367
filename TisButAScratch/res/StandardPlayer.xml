@@ -1,5 +1,5 @@
 <Player id="0">
-    <health>20</health>
+    <health>30</health>
     <imagePath>/res/playerSprite.tmx</imagePath>
     <weapon>StandardWeapon</weapon>
     <unitTile>32,32</unitTile> <!-- dont change, should be 32 -->
