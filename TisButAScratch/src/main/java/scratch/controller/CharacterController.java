@@ -29,11 +29,11 @@ public class CharacterController extends Listener {
     public CharacterController(final GameCharacter character) {
         this.character = character;
         listeners = new PropertyChangeSupport(this);
-	    if(character.getClass().equals(NpcType.class)) {
-		    view = new NpcView((NpcType) character);
-	    }else{
-		    view= new CharacterView(character);
-	    }
+        if (character.getClass().equals(NpcType.class)) {
+            view = new NpcView((NpcType) character);
+        } else {
+            view = new CharacterView(character);
+        }
     }
 
     public void addListener(final PropertyChangeListener listener) {
@@ -41,15 +41,18 @@ public class CharacterController extends Listener {
     }
 
     public void update() {
-        character.update();
+        if (character.isAlive()) {
+            character.update();
+        }
         listeners.firePropertyChange(null, null, character);
     }
 
-    public void render(GameContainer gameContainer){
-	    view.render(gameContainer);
+    public void render(GameContainer gameContainer) {
+        if (character.isAlive()) {
+            view.render(gameContainer);
+        }
+
     }
-
-
 
     public GameCharacter getCharacter() {
         return character;
@@ -58,15 +61,15 @@ public class CharacterController extends Listener {
     public int getId() {
         return character.getId();
     }
-    
+
     protected void setCharacter(GameCharacter character) {
-	    this.character = character;
-	    view.setCharacter(character);
+        this.character = character;
+        view.setCharacter(character);
     }
 
-	public CharacterView getView() {
-		return view;
-	}
+    public CharacterView getView() {
+        return view;
+    }
 
     @Override
     public void received(Connection connection, Object object) {
@@ -74,6 +77,7 @@ public class CharacterController extends Listener {
             GameCharacter recievedCharacter = (GameCharacter) object;
             if (recievedCharacter.getId() == getId()) {
                 setCharacter(recievedCharacter);
+
             }
         }
     }
