@@ -62,11 +62,6 @@ public class CharacterController extends Listener {
         return character.getId();
     }
 
-    protected void setCharacter(GameCharacter character) {
-        this.character = character;
-        view.setCharacter(character);
-    }
-
     public CharacterView getView() {
         return view;
     }
@@ -76,7 +71,7 @@ public class CharacterController extends Listener {
         if (object instanceof GameCharacter) {
             GameCharacter recievedCharacter = (GameCharacter) object;
             if (recievedCharacter.getId() == getId()) {
-                setCharacter(recievedCharacter);
+                character.setCharacter(recievedCharacter);
 
             }
         }

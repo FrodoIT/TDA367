@@ -28,10 +28,6 @@ public class CharacterView {
         }
     }
 
-    public void setCharacter(GameCharacter character) {
-        this.character = character;
-    }
-
     public void render(GameContainer gameContainer) {
         if (spriteHandler == null) {
             try {

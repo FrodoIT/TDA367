@@ -72,6 +72,12 @@ public class GameCharacter implements KryoSerializable {
         super();
         nextMoveDirection = new Vector2D();
     }
+    
+    public void setCharacter(GameCharacter character){
+        unitTile = character.getUnitTile();
+        health = character.getHealth();
+        moveDirection = character.getMoveDirection();
+    }
 
     public void setId(int id) {
         this.id = id;
