@@ -12,17 +12,23 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import scratch.model.GameCharacter;
 import scratch.model.NpcType;
+import scratch.model.Vector2D;
 
 /**
  *
  * @author Cannonbait
  */
 public class NpcView extends CharacterView{
-	NpcType npc;
+	private NpcType npc;
+	private Vector2D pos;
+	private int fulllenght, maxHealth, height;
+	private double currentHealth;
     public NpcView(NpcType character){
         super(character);
 	    npc= character;
-
+	    maxHealth=npc.getHealth();
+	    fulllenght = 50;
+		height=5;
     }
 	@Override
 	public void setCharacter (GameCharacter character){
@@ -32,8 +38,14 @@ public class NpcView extends CharacterView{
     public void render(GameContainer gameContainer){
         super.render(gameContainer);
 		//healthbar over npc
-	    Rectangle lifeGreen = new Rectangle((float)npc.getPosition().getX()-10, (float) npc.getPosition().getY()-10, npc.getHealth()*5, 5);
-	    Rectangle lifeRed = new Rectangle((float)npc.getPosition().getX()-10, (float) npc.getPosition().getY()-10, 10*5, 5);
+	    pos = npc.getPosition();
+
+	    //get percentage of life left;
+	    currentHealth = (double)(npc.getHealth())/maxHealth;
+
+	    Rectangle lifeGreen = new Rectangle((float)pos.getX()-10, (float) pos.getY()-10, (float) currentHealth*fulllenght, height);
+	    Rectangle lifeRed = new Rectangle((float)pos.getX()-10, (float) pos.getY()-10, fulllenght, height);
+
 	    Graphics g = gameContainer.getGraphics();
 	    g.setColor(Color.red);
 		g.fill(lifeRed);

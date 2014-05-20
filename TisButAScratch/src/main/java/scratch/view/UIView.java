@@ -33,7 +33,7 @@ public class UIView {
 
 		Rectangle lifebarGreen = new Rectangle(10, gameContainer.getHeight()-30, (int) (currentHealth*fullLenght), height);
 		Rectangle lifebarRed = new Rectangle(10, gameContainer.getHeight()-30, (int) fullLenght, height);
-		
+
 		g.setColor(Color.white);
 		g.drawString("Life", 10, gameContainer.getHeight() - 50);
 		g.setColor(Color.red);
