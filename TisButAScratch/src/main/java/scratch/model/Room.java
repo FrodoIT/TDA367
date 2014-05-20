@@ -48,10 +48,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public boolean isActive() {
-        for (GameCharacter character:characters){
-            if (character instanceof NpcType){
-
-            } else {
+        for (final GameCharacter character:characters){
+            if ( ! (character instanceof NpcType)){
                 return true;
             }
         }
@@ -60,8 +58,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     private void updateCharacterInteractions() {
         updateBoxes();
-        for (GameCharacter character : charactersInteracting) {
-            for (IInteractiveObject interactiveObject : interactiveObjects) {
+        for (final GameCharacter character : charactersInteracting) {
+            for (final IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
@@ -78,8 +76,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateBoxes() {
-        for(GameCharacter character : characters) {
-            for (IInteractiveObject interactiveObject : interactiveObjects) {
+        for(final GameCharacter character : characters) {
+            for (final IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getProperties().getProperty("objectType");
                     if ( "box".compareTo(objectType) == 0 ) {
@@ -93,13 +91,13 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private void updateBoxPosition(GameCharacter character, IInteractiveObject interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
-        Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
+        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
         interactiveObject.setPosition(allowedPosition(boxArea, newPos));
     }
 
     private void updateCharacterMovements() {
-        for (Map.Entry<GameCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
-            GameCharacter character = inputEntry.getKey();
+        for (final Map.Entry<GameCharacter, Vector2D> inputEntry : characterMovementMap.entrySet()) {
+            final GameCharacter character = inputEntry.getKey();
             character.setPosition(allowedPosition(character.getUnitTile(), inputEntry.getValue()));
         }
         characterMovementMap.clear();
@@ -112,9 +110,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
 
     private void dealDamage() {
-        for (GameCharacter attackingCharacter : areaUnderAttack) {
-            for (GameCharacter character: characters){
-                if ((character.getUnitTile().intersects(attackingCharacter.getAttackArea())) &&
+        for (final GameCharacter attackingCharacter : areaUnderAttack) {
+            for (final GameCharacter character: characters){
+                if (character.getUnitTile().intersects(attackingCharacter.getAttackArea()) &&
                         !attackingCharacter.getClass().equals(character.getClass())){
                     character.takeDamage(attackingCharacter.getDamage());
                 }
@@ -131,12 +129,12 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      */
     private Vector2D allowedPosition(Rectangle2D.Double unitTile, Vector2D toPosition) {
 
-        double newX = toPosition.getX();
-        double newXRight = newX + unitTile.getWidth();
-        double newY = toPosition.getY();
-        double newYDown = newY + unitTile.getHeight();
-        double oldX = unitTile.getX();
-        double oldY = unitTile.getY();
+        final double newX = toPosition.getX();
+        final double newXRight = newX + unitTile.getWidth();
+        final double newY = toPosition.getY();
+        final double newYDown = newY + unitTile.getHeight();
+        final double oldX = unitTile.getX();
+        final double oldY = unitTile.getY();
         double returnX = oldX;
         double returnY = oldY;
 
@@ -161,10 +159,10 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      */
     private boolean mapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
 
-        Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
-        Vector2D northEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
-        Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
-        Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+        final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
+        final Vector2D northEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
+        final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+        final Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
 
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
@@ -269,7 +267,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D position){
-        for (GameCharacter character : characters){
+        for (final GameCharacter character : characters){
             if (!(character instanceof NpcType)){
                 return character.getPosition();
             }
