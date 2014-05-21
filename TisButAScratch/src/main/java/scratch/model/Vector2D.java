@@ -68,10 +68,10 @@ public final class Vector2D {
         return 31 * result + (int) (temp ^ (temp >>> 32));
     }
     
-    public int distance (Vector2D toPosition){
-        Double xDiff = getX() - toPosition.getX();
-        Double yDiff = getY() - toPosition.getY();
-        Double distance = Math.sqrt(xDiff*xDiff+yDiff*yDiff);
-        return distance.intValue();
+    public double distance (Vector2D toPosition){
+        double xDiff = getX() - toPosition.getX();
+        double yDiff = getY() - toPosition.getY();
+        double distance = Math.sqrt(xDiff*xDiff+yDiff*yDiff);
+        return distance;
     }
 }
