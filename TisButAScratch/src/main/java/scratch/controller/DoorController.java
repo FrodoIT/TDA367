@@ -3,6 +3,7 @@ package scratch.controller;
 import scratch.model.GameCharacter;
 import scratch.network.NetworkServer;
 import scratch.network.PacketAddCharacter;
+import scratch.network.PacketMoveCharacter;
 import scratch.network.PacketRemoveCharacter;
 
 import java.beans.PropertyChangeEvent;
@@ -20,7 +21,6 @@ public class DoorController implements PropertyChangeListener{
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        listeners.firePropertyChange(null, null, new PacketRemoveCharacter((int)evt.getSource(), (int)evt.getOldValue()));
-        listeners.firePropertyChange(null, null, new PacketAddCharacter((int)evt.getSource(), (int)evt.getNewValue()));
+        listeners.firePropertyChange(null, null, new PacketMoveCharacter((int)evt.getSource(), (int)evt.getOldValue(), (int)evt.getNewValue()));
     }
 }

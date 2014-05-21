@@ -98,12 +98,14 @@ public final class ClientController extends Listener {
 
     @Override
     public synchronized void received(Connection connection, Object object) {
-        if (object instanceof PacketAddCharacter) {
-            PacketAddCharacter info = (PacketAddCharacter)object;
-            System.out.println(String.format("PING Add Character CharacterID: %d, Room %d", info.getCharacterId(), info.getRoomId()));
-        } else if (object instanceof PacketRemoveCharacter) {
-            PacketRemoveCharacter info = (PacketRemoveCharacter)object;
-            System.out.println(String.format("PONG Remove Character CharacterID: %d, Room %d", info.getCharacterId(), info.getRoomId()));
+        if (object instanceof PacketMoveCharacter) {
+            PacketMoveCharacter info = (PacketMoveCharacter) object;
+            System.out.println(
+                    String.format("PING Move Character CharacterID: %d, FromRoom %d, ToRoom %d",
+                            info.getCharacterId(),
+                            info.getFromRoomId(),
+                            info.getToRoomId())
+            );
         }
 
         if (object instanceof PacketNewPlayer) {

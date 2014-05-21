@@ -44,7 +44,8 @@ public class NetworkServer implements PropertyChangeListener{
         Object newValue = evt.getNewValue();
         if (newValue instanceof GameCharacter
                 || newValue instanceof PacketAddCharacter
-                || newValue instanceof PacketRemoveCharacter){
+                || newValue instanceof PacketRemoveCharacter
+                || newValue instanceof PacketMoveCharacter){
             server.sendToAllTCP(newValue);
         }
     }

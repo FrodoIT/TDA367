@@ -35,6 +35,7 @@ public class Utilities {
         kryo.register(PacketNewPlayer.class);
         kryo.register(PacketAddCharacter.class);
         kryo.register(PacketRemoveCharacter.class);
+        kryo.register(PacketMoveCharacter.class);
         kryo.register(PacketPlayerInput.class);
         kryo.register(Vector2D.class);
         kryo.register(Point2D.class);
