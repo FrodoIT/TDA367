@@ -43,7 +43,7 @@ public final class ServerController extends Listener {
         final RoomFactory roomFactory = new RoomFactory();
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);
-        roomFactory.getDoorHandler().addListener(new DoorController(networkServer));
+        roomFactory.getDoorHandler().addListener(new DoorController(networkServer, roomControllerMap));
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map, room));

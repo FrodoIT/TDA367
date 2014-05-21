@@ -30,7 +30,7 @@ public final class ClientController extends Listener {
 
     private final List<CharacterController> characterControllerList;
     private final Map<Integer, RoomController> roomControllerMap;
-	private final List<UIController> uiControllerList = new ArrayList<>();
+    private final List<UIController> uiControllerList = new ArrayList<>();
     private final NetworkClient client;
     private int id;
     private int roomId;
@@ -42,7 +42,6 @@ public final class ClientController extends Listener {
         client = new NetworkClient(ip);
 
     }
-
 
     public void init(GameContainer gameContainer) throws SlickException {
         //Send this class to be set as listener for the connection
@@ -63,7 +62,7 @@ public final class ClientController extends Listener {
 
     private void initInteractiveObjects(Room room, RoomController roomController) {
         for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
-            InteractiveObjectController interactiveObjectController =  new InteractiveObjectController(interactiveObject);
+            InteractiveObjectController interactiveObjectController = new InteractiveObjectController(interactiveObject);
             roomController.addInteractiveObjectController(interactiveObjectController);
             client.addListener(interactiveObjectController);
         }
@@ -71,12 +70,12 @@ public final class ClientController extends Listener {
 
     private void initGameCharacters(Room room, RoomController roomController) {
         for (final GameCharacter character : room.getCharacters()) {
-	        if(character.getClass().equals(GameCharacter.class)){
-		        UIController uiController = new UIController(character);
-		        client.addListener(uiController);
-		        uiControllerList.add(uiController);
-	        }
-	        CharacterController characterController = new CharacterController(character);
+            if (character.getClass().equals(GameCharacter.class)) {
+                UIController uiController = new UIController(character);
+                client.addListener(uiController);
+                uiControllerList.add(uiController);
+            }
+            CharacterController characterController = new CharacterController(character);
             roomController.addCharacterController(characterController);
             client.addListener(characterController);
         }
@@ -89,11 +88,10 @@ public final class ClientController extends Listener {
     public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         if (roomId != 0) {
             roomControllerMap.get(roomId).render(gameContainer);
-	        if(uiControllerList.size()>0) { //if uicontroller has been added yet, show playerstats.
-		        uiControllerList.get(0).render(gameContainer);
-	        }
+            if (uiControllerList.size() > 0) { //if uicontroller has been added yet, show playerstats.
+                uiControllerList.get(0).render(gameContainer);
+            }
         }
-
 
     }
 
@@ -117,26 +115,26 @@ public final class ClientController extends Listener {
             this.roomId = info.getRoomId();
 
         } else if (object instanceof GameCharacter) {
-            GameCharacter recievedCharacter = (GameCharacter)object;
+            GameCharacter recievedCharacter = (GameCharacter) object;
             boolean found = false;
 
-            for (final RoomController roomController : roomControllerMap.values()){
-                if (roomController.hasId(recievedCharacter.getId())){
-	                found = true;
+            for (final RoomController roomController : roomControllerMap.values()) {
+                if (roomController.hasId(recievedCharacter.getId())) {
+                    found = true;
                 }
             }
 
-	        if(!found) {
-		        if(recievedCharacter.getClass().equals(GameCharacter.class)){
-			        UIController uiController = new UIController(recievedCharacter);
-			        client.addListener(uiController);
-			        uiControllerList.add(uiController);
+            if (!found) {
+                if (recievedCharacter.getClass().equals(GameCharacter.class)) {
+                    UIController uiController = new UIController(recievedCharacter);
+                    client.addListener(uiController);
+                    uiControllerList.add(uiController);
 
-		        }
-		        CharacterController characterController = new CharacterController(recievedCharacter);
-		        client.addListener(characterController);
-		        roomControllerMap.get(roomId).addCharacter(characterController);
-	        }
+                }
+                CharacterController characterController = new CharacterController(recievedCharacter);
+                client.addListener(characterController);
+                roomControllerMap.get(roomId).addCharacter(characterController);
+            }
         }
 
     }
