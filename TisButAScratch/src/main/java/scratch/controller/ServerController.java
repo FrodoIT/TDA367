@@ -13,6 +13,7 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 import scratch.network.NetworkServer;
+import scratch.network.PacketNewCharacter;
 import scratch.network.PacketNewConnection;
 import scratch.view.RoomView;
 
@@ -67,8 +68,7 @@ public final class ServerController extends Listener {
         }
     }
 
-    @Override
-    public synchronized void connected(Connection connection) {
+    private void addPlayer(Connection connection) {
         int roomId = 100;
         connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
@@ -77,13 +77,18 @@ public final class ServerController extends Listener {
         networkServer.addListener(playerController);
         playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
+        
+        networkServer.sendTCP(new PacketNewCharacter(roomId, newPlayer));
         nextPlayerId++;
+    }
 
+    @Override
+    public synchronized void connected(Connection connection) {
+        addPlayer(connection);
     }
 
     @Override
     public synchronized void received(Connection connection, Object object) {
-
 
     }
 }

@@ -30,8 +30,8 @@ public final class ClientController extends Listener {
 
     private final List<CharacterController> characterControllerList;
     private final Map<Integer, RoomController> roomControllerMap;
-    private final List<UIController> uiControllerList = new ArrayList<>();
     private final NetworkClient client;
+    private UIController uiController;
     private int id;
     private int roomId;
 
@@ -70,11 +70,6 @@ public final class ClientController extends Listener {
 
     private void initGameCharacters(Room room, RoomController roomController) {
         for (final GameCharacter character : room.getCharacters()) {
-            if (character.getClass().equals(GameCharacter.class)) {
-                UIController uiController = new UIController(character);
-                client.addListener(uiController);
-                uiControllerList.add(uiController);
-            }
             CharacterController characterController = new CharacterController(character);
             roomController.addCharacterController(characterController);
             client.addListener(characterController);
@@ -88,8 +83,8 @@ public final class ClientController extends Listener {
     public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         if (roomId != 0) {
             roomControllerMap.get(roomId).render(gameContainer);
-            if (uiControllerList.size() > 0) { //if uicontroller has been added yet, show playerstats.
-                uiControllerList.get(0).render(gameContainer);
+            if (uiController != null) { //if uicontroller has been added yet, show playerstats.
+                uiController.render(gameContainer);
             }
         }
 
@@ -114,28 +109,14 @@ public final class ClientController extends Listener {
             this.id = info.getId();
             this.roomId = info.getRoomId();
 
-        } else if (object instanceof GameCharacter) {
-            GameCharacter recievedCharacter = (GameCharacter) object;
-            boolean found = false;
-
-            for (final RoomController roomController : roomControllerMap.values()) {
-                if (roomController.hasId(recievedCharacter.getId())) {
-                    found = true;
-                }
-            }
-
-            if (!found) {
-                if (recievedCharacter.getClass().equals(GameCharacter.class)) {
-                    UIController uiController = new UIController(recievedCharacter);
-                    client.addListener(uiController);
-                    uiControllerList.add(uiController);
-
-                }
-                CharacterController characterController = new CharacterController(recievedCharacter);
-                client.addListener(characterController);
-                roomControllerMap.get(roomId).addCharacter(characterController);
+        } else if (object instanceof PacketNewCharacter) {
+            PacketNewCharacter packet = (PacketNewCharacter) object;
+            CharacterController characterController = new CharacterController(packet.getCharacter());
+            client.addListener(characterController);
+            roomControllerMap.get(roomId).addCharacter(characterController);
+            if (characterController.getId() == id){
+                uiController = new UIController(characterController.getCharacter());
             }
         }
-
     }
 }

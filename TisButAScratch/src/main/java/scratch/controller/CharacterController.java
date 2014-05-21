@@ -32,7 +32,7 @@ public class CharacterController extends Listener {
         this.character = character;
         listeners = new PropertyChangeSupport(this);
         if (character.getClass().equals(NpcType.class)) {
-            view = new NpcView((NpcType) character);
+            view = new NpcView(character);
         } else {
             view = new CharacterView(character);
         }

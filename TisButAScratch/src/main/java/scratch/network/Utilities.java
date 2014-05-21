@@ -6,16 +6,15 @@
 package scratch.network;
 
 import com.esotericsoftware.kryo.Kryo;
-import scratch.controller.PlayerInput;
-import scratch.model.*;
-import scratch.model.weapons.IWeapon;
-import scratch.model.weapons.Weapon;
-
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
+import scratch.controller.PlayerInput;
+import scratch.model.*;
+import scratch.model.weapons.IWeapon;
+import scratch.model.weapons.Weapon;
 
 /**
  *
@@ -42,11 +41,14 @@ public class Utilities {
         kryo.register(Vector2D.class);
         kryo.register(Point2D.class);
         kryo.register(java.awt.geom.Point2D.Double.class);
-	    kryo.register(InteractiveObject.class);
-	    kryo.register(HashMap.class);
+        kryo.register(InteractiveObject.class);
+        kryo.register(HashMap.class);
+        kryo.register(PacketNewCharacter.class);
 
     }
+
     //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till
+
     public static boolean validIP(String ip) {
         try {
             if (ip == null || ip.isEmpty()) {
