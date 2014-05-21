@@ -22,11 +22,11 @@ public class LoadXMLObject {
 		final File source = new File(fileBuild.toString());
 		Object object = new Object();
 		try {
-			if(loadObject.equals("NpcType")) {
+			if("NpcType".equals(loadObject)) {
 				object = serializer.read(NpcType.class, source);
-			}else if(loadObject.equals("GameCharacter")) {
+			}else if("GameCharacter".equals(loadObject)) {
 				object = serializer.read(GameCharacter.class, source);
-			}else if(loadObject.equals("Weapon")){
+			}else if("Weapon".equals(loadObject)){
 				object = serializer.read(Weapon.class, source);
 			}
 		} catch (Exception e) {

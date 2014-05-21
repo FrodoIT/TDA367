@@ -30,7 +30,7 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
     public CPNPCPlugin clone() {
         CPNPCPlugin plugin = new CPNPCPlugin();
         plugin.roomData = this.roomData;
-        return new CPNPCPlugin();
+        return plugin;
     }
 
     @Override
@@ -48,7 +48,8 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
     @Override
     public boolean isPromptingAnAttack(NpcType npc) {
         if (roomData != null) {
-            if (isWithinRange(roomData.getClosestPlayerPosition(npc.getPosition()), npc.getPosition())) {
+            Vector2D pos = npc.getPosition();
+            if (isWithinRange(roomData.getClosestPlayerPosition(pos), pos)) {
                 return true;
             }
         }

@@ -29,20 +29,18 @@ public final class NpcFactory {
             final List<NpcType> npcs = new ArrayList<>();
 
             for (final NpcSpecification npc : npcSpecs) {
-	            NpcType loadedNpc;
 	            try {
-		            loadedNpc = loadNpc(
-				            npc.getPluginName(),
-				            new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
-				            npc.getId(),
-				            room);
+                    npcs.add(
+                            loadNpc(
+                                    npc.getPluginName(),
+                                    new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
+                                    npc.getId(),
+                                    room)
+                    );
 	            }catch(NullPointerException e){
 		            e.printStackTrace();
 		            return;
 	            }
-                if (loadedNpc != null) {
-                    npcs.add(loadedNpc);
-                }
             }
 
             roomNpcsMap.put(room, npcs);
