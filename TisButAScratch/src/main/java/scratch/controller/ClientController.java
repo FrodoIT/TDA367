@@ -103,6 +103,10 @@ public final class ClientController extends Listener {
             roomControllerMap.get(info.getFromRoomId()).moveCharacter(
                     info.getCharacterId(),
                     roomControllerMap.get(info.getToRoomId()));
+
+            if (info.getCharacterId() == id) {
+                roomId = info.getToRoomId();
+            }
         }
 
         if (object instanceof PacketNewPlayer) {
