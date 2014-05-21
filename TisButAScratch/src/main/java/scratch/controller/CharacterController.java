@@ -39,7 +39,9 @@ public class CharacterController extends Listener {
     }
     
     public void setServer(NetworkServer server){
+        server.addListener(this);
         this.server = server;
+        
     }
 
     public void addListener(final PropertyChangeListener listener) {

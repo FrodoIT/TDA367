@@ -2,6 +2,10 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.construction.LoadXMLObject;
@@ -11,8 +15,6 @@ import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.network.PacketNewConnection;
 import scratch.view.RoomView;
-
-import java.util.*;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -47,7 +49,6 @@ public final class ServerController extends Listener {
             RoomController roomController = new RoomController(room, new RoomView(map, room));
             roomController.setServer(networkServer);
             roomControllerMap.put(roomController.getId(), roomController);
-            roomController.setServer(networkServer);
         }
 
         networkServer.start(this);
@@ -70,22 +71,12 @@ public final class ServerController extends Listener {
     public synchronized void connected(Connection connection) {
         int roomId = 100;
         connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
-        nextPlayerId++;
-
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
         CharacterController playerController = new CharacterController(newPlayer);
         networkServer.addListener(playerController);
         playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
-        
-        
-        
-
-    }
-
-    @Override
-    public synchronized void received(Connection connection, Object object) {
-
+        nextPlayerId++;
     }
 }
