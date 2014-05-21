@@ -54,7 +54,7 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     @Override
     public void update() {
-
+		
     }
 
 	@Override

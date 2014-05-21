@@ -24,7 +24,8 @@ public class InteractiveObjectController extends Listener {
     }
 
     public void update() {
-        server.sendTCP(interactiveObject);
+        interactiveObject.update();
+	    server.sendTCP(interactiveObject);
     }
 
     public void render(GameContainer gameContainer) {

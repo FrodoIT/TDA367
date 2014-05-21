@@ -110,10 +110,6 @@ public final class ClientController extends Listener {
             }
         }
 
-	    if(object instanceof InteractiveObject){
-		    System.out.println("test av interactie Object " + object.toString());
-	    }
-
         if (object instanceof PacketNewConnection) {
 
             final PacketNewConnection info = (PacketNewConnection) object;

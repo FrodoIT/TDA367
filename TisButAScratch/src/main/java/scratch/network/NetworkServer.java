@@ -41,9 +41,7 @@ public class NetworkServer /*implements PropertyChangeListener*/{
     }
 
     public void sendTCP (Object object){
-        if (!(object instanceof InteractiveObject)){
             server.sendToAllTCP(object);
-        }
     }
 
     public void addListener(Listener listener){
