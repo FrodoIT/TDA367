@@ -7,15 +7,15 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
 import scratch.model.NpcType;
+import scratch.network.NetworkServer;
 import scratch.network.PacketPlayerInput;
 import scratch.view.CharacterView;
 import scratch.view.NpcView;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 
 /**
  *
@@ -24,6 +24,7 @@ import java.beans.PropertyChangeSupport;
 public class CharacterController extends Listener {
 
     private GameCharacter character;
+    private NetworkServer server;
     private final PropertyChangeSupport listeners;
     private final CharacterView view;
 
@@ -36,6 +37,10 @@ public class CharacterController extends Listener {
             view = new CharacterView(character);
         }
     }
+    
+    public void setServer(NetworkServer server){
+        this.server = server;
+    }
 
     public void addListener(final PropertyChangeListener listener) {
         listeners.addPropertyChangeListener(listener);
@@ -45,7 +50,7 @@ public class CharacterController extends Listener {
         if (character.isAlive()) {
             character.update();
         }
-        listeners.firePropertyChange(null, null, character);
+        server.sendTCP(character);
     }
 
     public void render(GameContainer gameContainer) {

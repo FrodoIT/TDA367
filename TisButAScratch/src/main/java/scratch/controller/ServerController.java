@@ -48,30 +48,12 @@ public final class ServerController extends Listener {
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room, new RoomView(map, room));
+            roomController.setServer(networkServer);
             roomControllerMap.put(roomController.getId(), roomController);
-
-            initRoomCharacters(room, roomController);
-            initInteractiveObjects(room, roomController);
+            roomController.setServer(networkServer);
         }
-
 
         networkServer.start(this);
-    }
-
-    private void initInteractiveObjects(Room room, RoomController roomController) {
-        for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
-            InteractiveObjectController interactiveObjectController = new InteractiveObjectController(interactiveObject);
-            interactiveObjectController.addListener(networkServer);
-            roomController.addInteractiveObjectController(interactiveObjectController);
-        }
-    }
-
-    private synchronized void initRoomCharacters(Room room, RoomController roomController) {
-        for (final GameCharacter character : room.getCharacters()) {
-            CharacterController characterController = new CharacterController(character);
-            characterController.addListener(networkServer);
-            roomController.addCharacterController(characterController);
-        }
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
@@ -90,16 +72,19 @@ public final class ServerController extends Listener {
     @Override
     public synchronized void connected(Connection connection) {
         int roomId = 100;
+        connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
+        nextPlayerId++;
+
         GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
         game.addPlayer(newPlayer);
         CharacterController playerController = new CharacterController(newPlayer);
-
         networkServer.addListener(playerController);
-        playerController.addListener(networkServer);
+        playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
-        connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
-        nextPlayerId++;
         
+        
+        
+
     }
 
     @Override

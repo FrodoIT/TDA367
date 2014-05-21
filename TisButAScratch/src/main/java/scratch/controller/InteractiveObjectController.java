@@ -2,30 +2,29 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import scratch.network.NetworkServer;
 
 public class InteractiveObjectController extends Listener {
     private IInteractiveObject interactiveObject;
-    private final PropertyChangeSupport listeners;
     private final InteractiveObjectView view;
+    private NetworkServer server;
 
     public InteractiveObjectController(final IInteractiveObject interactiveObject) {
         this.interactiveObject =  interactiveObject;
-        listeners = new PropertyChangeSupport(this);
         view = new InteractiveObjectView(interactiveObject);
     }
-
-    public void addListener(final PropertyChangeListener listener) {
-        listeners.addPropertyChangeListener(listener);
+    
+    public void setServer (NetworkServer server){
+        this.server = server;
     }
 
     public void update() {
-        listeners.firePropertyChange(null, null, interactiveObject);
+        server.sendTCP(interactiveObject);
     }
 
     public void render(GameContainer gameContainer) {

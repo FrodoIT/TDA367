@@ -7,11 +7,12 @@ package scratch.network;
 
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import scratch.model.GameCharacter;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import scratch.model.GameCharacter;
+import scratch.model.InteractiveObject;
 
 
 
@@ -19,7 +20,7 @@ import java.io.IOException;
  *
  * @author Cannonbait
  */
-public class NetworkServer implements PropertyChangeListener{
+public class NetworkServer /*implements PropertyChangeListener*/{
 
     private Server server;
 
@@ -39,17 +40,11 @@ public class NetworkServer implements PropertyChangeListener{
         server.addListener(listener);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        Object newValue = evt.getNewValue();
-        if (newValue instanceof GameCharacter
-                || newValue instanceof PacketAddCharacter
-                || newValue instanceof PacketRemoveCharacter
-                || newValue instanceof PacketMoveCharacter){
-            server.sendToAllTCP(newValue);
+    public void sendTCP (Object object){
+        if (!(object instanceof InteractiveObject)){
+            server.sendToAllTCP(object);
         }
     }
-
 
     public void addListener(Listener listener){
         server.addListener(listener);

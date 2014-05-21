@@ -14,13 +14,14 @@ import java.beans.PropertyChangeSupport;
  * Created by cannonbait on 2014-05-20.
  */
 public class DoorController implements PropertyChangeListener{
-
+    
+    private final NetworkServer server;
     private final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
-    public DoorController (PropertyChangeListener listener) {
-        listeners.addPropertyChangeListener(listener);
+    public DoorController (NetworkServer server) {
+        this.server = server;
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        listeners.firePropertyChange(null, null, new PacketMoveCharacter((int)evt.getSource(), (int)evt.getOldValue(), (int)evt.getNewValue()));
+        server.sendTCP(new PacketMoveCharacter((int)evt.getSource(), (int)evt.getOldValue(), (int)evt.getNewValue()));
     }
 }

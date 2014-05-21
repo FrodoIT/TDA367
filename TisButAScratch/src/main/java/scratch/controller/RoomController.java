@@ -1,11 +1,13 @@
 package scratch.controller;
 
-import org.newdawn.slick.GameContainer;
-import scratch.model.Room;
-import scratch.view.RoomView;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.newdawn.slick.GameContainer;
+import scratch.model.GameCharacter;
+import scratch.model.IInteractiveObject;
+import scratch.model.Room;
+import scratch.network.NetworkServer;
+import scratch.view.RoomView;
 
 public class RoomController {
 
@@ -13,13 +15,31 @@ public class RoomController {
     private final RoomView roomView;
     private final List<CharacterController> characters;
     private final List<InteractiveObjectController> interactiveObjects;
+    private NetworkServer server;
 
 
     public RoomController(Room room, RoomView roomView) {
         this.roomView = roomView;
         this.room = room;
-        interactiveObjects = new ArrayList<>();
         characters = new ArrayList<>();
+        for (final GameCharacter character : room.getCharacters()){
+            characters.add(new CharacterController(character));
+        }
+        
+        interactiveObjects = new ArrayList<>();
+        for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()){
+            interactiveObjects.add(new InteractiveObjectController(interactiveObject));
+        }
+    }
+    
+    public void setServer (NetworkServer server) {
+        this.server = server;
+        for (CharacterController characterController : characters){
+            characterController.setServer(server);
+        }
+        for (InteractiveObjectController interactiveController : interactiveObjects){
+            interactiveController.setServer(server);
+        }
     }
 
     public void updateRoom() {
