@@ -53,7 +53,7 @@ public final class ClientController extends Listener {
     private void initRooms(RoomFactory roomFactory) {
         for (final Room room : roomFactory.getRooms()) {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
-            RoomController roomController = new RoomController(room, new RoomView(map, room));
+            RoomController roomController = new RoomController(room);
             roomControllerMap.put(roomController.getId(), roomController);
             initGameCharacters(room, roomController);
             initInteractiveObjects(room, roomController);

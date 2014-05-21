@@ -3,6 +3,7 @@ package scratch.controller;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.GameContainer;
+import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
 import scratch.model.Room;
@@ -18,8 +19,8 @@ public class RoomController {
     private NetworkServer server;
 
 
-    public RoomController(Room room, RoomView roomView) {
-        this.roomView = roomView;
+    public RoomController(Room room) {
+        this.roomView = new RoomView((TiledMapPlus)room.getMap(), room);
         this.room = room;
         characters = new ArrayList<>();
         for (final GameCharacter character : room.getCharacters()){
