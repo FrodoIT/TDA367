@@ -11,14 +11,12 @@ import scratch.model.weapons.Weapon;
 import java.awt.geom.Rectangle2D;
 
 public class PlayerTest extends TestCase {
-    private IPlayerInput playerInput;
     private GameCharacter player;
 
     @Before
     @Override
     public void setUp(){
         final Injector injector = Guice.createInjector(new MockModule());
-        playerInput = injector.getInstance(IPlayerInput.class);
         player = new GameCharacter(new Rectangle2D.Double(0,0,32,32), new Weapon(), 10, 2, 1, "/res/playerSprite.tmx");
     }
 

@@ -23,7 +23,6 @@ public class AbstractCharacterTest extends TestCase {
     public void setUp() throws Exception {
         super.setUp();
         final Injector injector = Guice.createInjector(new MockModule());
-        final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         final IMap map = injector.getInstance(IMap.class);
         room = new Room(map, new DoorHandler());
         testCharacter = new GameCharacter(new Rectangle2D.Double(32, 32, 32, 32), new Weapon(), 10, 2, 1, "/res/playerSprite.tmx");

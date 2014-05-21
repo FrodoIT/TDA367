@@ -19,7 +19,6 @@ public class NpcTypeTest extends TestCase {
     @Before
 	public void setUp() {
         final Injector injector = Guice.createInjector(new MockModule());
-        final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
         final IWeapon weapon= injector.getInstance(IWeapon.class);
         final IMap map = injector.getInstance(IMap.class);
         final GameCharacter player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new Weapon(),10, 2, 0, "/res/monster.tmx");

@@ -29,9 +29,6 @@ public class RoomTest extends TestCase {
 
     //made to create mock-players used in tests
     private GameCharacter createPlayerForTest(int id) {
-        final IPlayerInput playerInput = injector.getInstance(IPlayerInput.class);
-        playerInput.setAttackStatus(true);
-        playerInput.setInteractStatus(true);
         return new GameCharacter(new Rectangle2D.Double(50, 50, 100, 100), new Weapon(), 10, 2, id, "/res/playerSprite.tmx");
     }
 

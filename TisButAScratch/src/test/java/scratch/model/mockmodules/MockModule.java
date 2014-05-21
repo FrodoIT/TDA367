@@ -12,7 +12,6 @@ public class MockModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(IPlayerInput.class).to(MockPlayerInput.class);
 	    bind(IMap.class).to(MockIMap.class);
 	    bind(IWeapon.class).to(MockIWeapon.class);
 	    bind(INPCMove.class).to(MockINPCMove.class);

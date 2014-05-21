@@ -10,8 +10,6 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Properties;
-import scratch.controller.PlayerInput;
 import scratch.model.*;
 import scratch.model.weapons.IWeapon;
 import scratch.model.weapons.Weapon;
@@ -25,7 +23,6 @@ public class Utilities {
     public static void kryoRegister(Kryo kryo) {
         kryo.register(Room.class);
         kryo.register(ArrayList.class);
-        kryo.register(PlayerInput.class);
         kryo.register(GameCharacter.class);
         kryo.register(NpcType.class);
         kryo.register(GameCharacter.class);
