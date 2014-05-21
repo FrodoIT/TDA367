@@ -24,7 +24,6 @@ public class InteractiveObjectController extends Listener {
     }
 
     public void update() {
-        interactiveObject.update();
 	    server.sendTCP(interactiveObject);
     }
 
@@ -37,7 +36,7 @@ public class InteractiveObjectController extends Listener {
 	    if (object instanceof InteractiveObject) {
             InteractiveObject recievedObject = (InteractiveObject) object;
             if (recievedObject.getProperties().get("id").equals(interactiveObject.getProperties().get("id"))) {
-                setInteractiveObject(recievedObject);
+                interactiveObject.setObject(recievedObject);
             }
         }
     }
@@ -50,7 +49,5 @@ public class InteractiveObjectController extends Listener {
         return view;
     }
 
-    public void setInteractiveObject(InteractiveObject interactiveObject) {
-        this.interactiveObject = interactiveObject;
-    }
+
 }

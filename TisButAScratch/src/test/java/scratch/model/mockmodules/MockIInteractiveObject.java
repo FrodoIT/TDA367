@@ -1,6 +1,7 @@
 package scratch.model.mockmodules;
 
 import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
@@ -40,4 +41,9 @@ public class MockIInteractiveObject implements IInteractiveObject {
     public void update() {
 
     }
+
+	@Override
+	public void setObject(InteractiveObject recievedObject) {
+
+	}
 }

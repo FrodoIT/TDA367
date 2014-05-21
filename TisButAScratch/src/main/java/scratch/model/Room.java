@@ -45,6 +45,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         updateCharacterInteractions();
         updateCharacterMovements();
         updateCharacterAttacks();
+	    updateBoxes();
     }
 
     public boolean isActive() {
@@ -52,7 +53,6 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterInteractions() {
-        updateBoxes();
         for (final GameCharacter character : charactersInteracting) {
             for (final IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
@@ -84,9 +84,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateBoxPosition(GameCharacter character, IInteractiveObject interactiveObject) {
-        final Vector2D nextMoveDirection = character.getNextMoveDirection();
+	    final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
-        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX(), boxArea.getY() + nextMoveDirection.getY());
+        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX()*character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY()*character.getMovementSpeed());
         interactiveObject.setPosition(allowedPosition(boxArea, newPos));
     }
 

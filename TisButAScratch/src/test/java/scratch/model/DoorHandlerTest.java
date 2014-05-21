@@ -61,6 +61,11 @@ public class DoorHandlerTest extends TestCase {
             public void update() {
 
             }
+
+	        @Override
+	        public void setObject(InteractiveObject recievedObject) {
+
+	        }
         });
 
 

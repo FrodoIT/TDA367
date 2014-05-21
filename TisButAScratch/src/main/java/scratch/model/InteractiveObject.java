@@ -30,6 +30,7 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
     @Override
     public void setPosition(Vector2D newPos) {
         rect.setRect(newPos.getX(), newPos.getY(), rect.getWidth(), rect.getHeight());
+	    System.out.println("id: " + properties.get("id") + "new Pos: " + rect);
     }
 
     @Override
@@ -44,8 +45,15 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     @Override
     public Rectangle2D.Double getUnitTile() {
-        return rect;
+	    return rect;
     }
+
+	public void setObject(InteractiveObject interactiveObject){
+		this.properties=interactiveObject.getProperties();
+		this.name=interactiveObject.getName();
+		this.type= interactiveObject.getType();
+		this.rect= interactiveObject.getUnitTile();
+	}
 
     @Override
     public HashMap<String,String> getProperties() {
@@ -54,7 +62,7 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     @Override
     public void update() {
-		
+
     }
 
 	@Override

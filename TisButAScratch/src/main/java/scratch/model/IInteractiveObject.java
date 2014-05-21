@@ -14,4 +14,5 @@ public interface IInteractiveObject {
 	Rectangle2D.Double getUnitTile();
 	HashMap<String,String> getProperties();
     void update();
+	void setObject(InteractiveObject recievedObject);
 }
