@@ -8,6 +8,7 @@ import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
 
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class DoorHandlerTest extends TestCase {
@@ -50,8 +51,8 @@ public class DoorHandlerTest extends TestCase {
             }
 
             @Override
-            public Properties getProperties() {
-                Properties props = new Properties();
+            public HashMap<String,String> getProperties() {
+                HashMap<String,String> props = new HashMap<>();
                 props.put("connection", "1");
                 return props;
             }

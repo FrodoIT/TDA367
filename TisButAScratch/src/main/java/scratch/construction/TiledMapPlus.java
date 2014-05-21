@@ -9,7 +9,9 @@ import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by tejp on 2014-05-08.
@@ -67,6 +69,12 @@ public class TiledMapPlus extends TiledMap implements IMap {
             for (final Object gObject : objectGroup.objects) {
                 final GroupObject groupObject = (GroupObject) gObject;
 
+	            Set<String> set = groupObject.props.stringPropertyNames();
+	            HashMap<String,String> map = new HashMap<>();
+	            for (String s : set) {
+		            map.put(s,groupObject.props.getProperty(s));
+	            }
+
                 interactiveObjects.add(
                         new InteractiveObject(
                                 groupObject.name,
@@ -75,7 +83,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
                                 groupObject.y,
                                 groupObject.width,
                                 groupObject.height,
-                                groupObject.props
+                                map
                         )
                 );
             }

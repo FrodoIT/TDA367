@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class InteractiveObjectTest extends TestCase {
@@ -12,7 +13,7 @@ public class InteractiveObjectTest extends TestCase {
 
     @Before
     public void setUp() {
-        Properties props = new Properties();
+        HashMap<String,String> props = new HashMap<>();
         interactiveObject = new InteractiveObject("testObject", "box", 32, 32, 32, 32, props);
     }
 

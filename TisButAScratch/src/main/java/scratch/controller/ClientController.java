@@ -9,6 +9,7 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 import scratch.model.Room;
 import scratch.network.*;
 import scratch.view.RoomView;
@@ -108,6 +109,10 @@ public final class ClientController extends Listener {
                 roomId = info.getToRoomId();
             }
         }
+
+	    if(object instanceof InteractiveObject){
+		    System.out.println("test av interactie Object " + object.toString());
+	    }
 
         if (object instanceof PacketNewConnection) {
 

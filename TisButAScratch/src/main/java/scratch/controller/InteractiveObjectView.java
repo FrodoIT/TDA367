@@ -27,8 +27,8 @@ public class InteractiveObjectView {
     }
 
     public void render(GameContainer gameContainer) {
-            final String imagePath = interactiveObject.getProperties().getProperty("imagePath");
-        if ( "box".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0) {
+            final String imagePath = interactiveObject.getProperties().get("imagePath");
+        if ( "box".compareTo(interactiveObject.getProperties().get("objectType")) == 0) {
             final Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
             final double y = unitTile.getY();
             final double x = unitTile.getX();

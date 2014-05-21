@@ -14,6 +14,8 @@ import scratch.model.weapons.Weapon;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  *
@@ -40,6 +42,8 @@ public class Utilities {
         kryo.register(Vector2D.class);
         kryo.register(Point2D.class);
         kryo.register(java.awt.geom.Point2D.Double.class);
+	    kryo.register(InteractiveObject.class);
+	    kryo.register(HashMap.class);
 
     }
     //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till

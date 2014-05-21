@@ -59,7 +59,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
 
-                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
+                    final String objectType = interactiveObject.getProperties().get("objectType");
                     if ("door".compareTo(objectType) == 0) {
                         doorHandler.interactHappened(this, character, interactiveObject);
                         break;
@@ -74,7 +74,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         for (final GameCharacter character : characters) {
             for (final IInteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
-                    final String objectType = interactiveObject.getProperties().getProperty("objectType");
+                    final String objectType = interactiveObject.getProperties().get("objectType");
                     if ("box".compareTo(objectType) == 0) {
                         updateBoxPosition(character, interactiveObject);
                     }

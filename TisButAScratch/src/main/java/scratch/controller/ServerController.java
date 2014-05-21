@@ -12,10 +12,7 @@ import scratch.network.NetworkServer;
 import scratch.network.PacketNewConnection;
 import scratch.view.RoomView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The main controller class to control updates, rendering, initiating and

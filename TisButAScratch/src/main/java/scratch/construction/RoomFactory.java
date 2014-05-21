@@ -65,7 +65,7 @@ public final class RoomFactory {
         for (final Room room : rooms) {
             for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
 
-                if ("door".compareTo(interactiveObject.getProperties().getProperty("objectType")) == 0 ) {
+                if ("door".compareTo(interactiveObject.getProperties().get("objectType")) == 0 ) {
                     doorHandler.addDoor(room, interactiveObject);
                 }
             }

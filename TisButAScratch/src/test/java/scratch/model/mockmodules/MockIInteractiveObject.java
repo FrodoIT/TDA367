@@ -4,6 +4,7 @@ import scratch.model.IInteractiveObject;
 import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -31,8 +32,8 @@ public class MockIInteractiveObject implements IInteractiveObject {
     }
 
     @Override
-    public Properties getProperties() {
-        return new Properties();
+    public HashMap<String, String> getProperties() {
+        return new HashMap();
     }
 
     @Override
