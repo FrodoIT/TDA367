@@ -42,9 +42,10 @@ public class NetworkServer implements PropertyChangeListener{
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         Object newValue = evt.getNewValue();
-        if (newValue instanceof GameCharacter){
+        if (newValue instanceof GameCharacter
+                || newValue instanceof PacketAddCharacter
+                || newValue instanceof PacketRemoveCharacter){
             server.sendToAllTCP(newValue);
-        } else if ("RemoveCharacter".equals(evt.getPropertyName())){
         }
     }
 

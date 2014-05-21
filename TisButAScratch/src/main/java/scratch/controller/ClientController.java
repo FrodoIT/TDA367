@@ -10,9 +10,7 @@ import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
 import scratch.model.Room;
-import scratch.network.NetworkClient;
-import scratch.network.PacketNewPlayer;
-import scratch.network.PacketPlayerInput;
+import scratch.network.*;
 import scratch.view.RoomView;
 
 import java.util.ArrayList;
@@ -100,6 +98,14 @@ public final class ClientController extends Listener {
 
     @Override
     public synchronized void received(Connection connection, Object object) {
+        if (object instanceof PacketAddCharacter) {
+            PacketAddCharacter info = (PacketAddCharacter)object;
+            System.out.println(String.format("PING Add Character CharacterID: %d, Room %d", info.getCharacterId(), info.getRoomId()));
+        } else if (object instanceof PacketRemoveCharacter) {
+            PacketRemoveCharacter info = (PacketRemoveCharacter)object;
+            System.out.println(String.format("PONG Remove Character CharacterID: %d, Room %d", info.getCharacterId(), info.getRoomId()));
+        }
+
         if (object instanceof PacketNewPlayer) {
 
             final PacketNewPlayer info = (PacketNewPlayer) object;
