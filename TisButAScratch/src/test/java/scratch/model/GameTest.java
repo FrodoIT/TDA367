@@ -62,7 +62,7 @@ public class GameTest extends TestCase {
 
     @Test
     public void testGetActiveRoom() {
-        assertSame(rooms, game.getActiveRooms());
+        assertSame(rooms, game.getRooms());
     }
 
 	@Test

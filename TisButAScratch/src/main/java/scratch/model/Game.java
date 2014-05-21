@@ -11,14 +11,14 @@ import java.util.List;
 public class Game {
 
     private List<GameCharacter> playerList;
-    private List<Room> activeRooms;
+    private List<Room> rooms;
 
     public Game() {
         playerList = new ArrayList<>();
     }
 
     public boolean addPlayer(GameCharacter player) {
-        if (activeRooms == null || activeRooms.isEmpty()) {
+        if (rooms == null || rooms.isEmpty()) {
             return false;
         }
         playerList.add(player);
@@ -34,10 +34,10 @@ public class Game {
     }
 
     public void setMap(List<Room> gameMapRooms) {
-        this.activeRooms = gameMapRooms;
+        this.rooms = gameMapRooms;
     }
 
-    public List<Room> getActiveRooms() {
-        return activeRooms;
+    public List<Room> getRooms() {
+        return rooms;
     }
 }
