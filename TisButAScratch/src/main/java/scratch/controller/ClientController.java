@@ -109,9 +109,9 @@ public final class ClientController extends Listener {
             }
         }
 
-        if (object instanceof PacketNewPlayer) {
+        if (object instanceof PacketNewConnection) {
 
-            final PacketNewPlayer info = (PacketNewPlayer) object;
+            final PacketNewConnection info = (PacketNewConnection) object;
             this.id = info.getId();
             this.roomId = info.getRoomId();
 

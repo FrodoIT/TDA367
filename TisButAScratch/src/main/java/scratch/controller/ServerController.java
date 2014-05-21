@@ -9,7 +9,7 @@ import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
 import scratch.model.*;
 import scratch.network.NetworkServer;
-import scratch.network.PacketNewPlayer;
+import scratch.network.PacketNewConnection;
 import scratch.view.RoomView;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public final class ServerController extends Listener {
         networkServer.addListener(playerController);
         playerController.addListener(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
-        connection.sendTCP(new PacketNewPlayer(nextPlayerId, roomId));
+        connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
         nextPlayerId++;
         
     }

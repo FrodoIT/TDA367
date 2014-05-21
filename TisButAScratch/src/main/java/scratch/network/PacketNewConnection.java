@@ -10,15 +10,15 @@ package scratch.network;
  *
  * @author Ivar
  */
-public class PacketNewPlayer {
+public class PacketNewConnection {
     private int id;
     private int roomId;
     
-    public PacketNewPlayer(){
+    public PacketNewConnection(){
         
     }
     
-    public PacketNewPlayer(int id, int roomId){
+    public PacketNewConnection(int id, int roomId){
         this.id = id;
         this.roomId = roomId;
     }

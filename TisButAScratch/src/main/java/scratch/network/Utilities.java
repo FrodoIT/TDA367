@@ -32,7 +32,7 @@ public class Utilities {
         kryo.register(IWeapon.class);
         kryo.register(Weapon.class);
         kryo.register(MoveDirection.class);
-        kryo.register(PacketNewPlayer.class);
+        kryo.register(PacketNewConnection.class);
         kryo.register(PacketAddCharacter.class);
         kryo.register(PacketRemoveCharacter.class);
         kryo.register(PacketMoveCharacter.class);
