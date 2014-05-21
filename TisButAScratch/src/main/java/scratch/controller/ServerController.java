@@ -78,5 +78,12 @@ public final class ServerController extends Listener {
         playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
         nextPlayerId++;
+
+    }
+
+    @Override
+    public synchronized void received(Connection connection, Object object) {
+
+
     }
 }

@@ -33,12 +33,12 @@ public class InteractiveObjectController extends Listener {
 
     @Override
     public void received(Connection connection, Object object) {
-      /*  if (object instanceof InteractiveObject) {
+	    if (object instanceof InteractiveObject) {
             InteractiveObject recievedObject = (InteractiveObject) object;
-            if (recievedObject.getProperties().get("id").compareTo(interactiveObject.getProperties().get("id")) == 0) {
+            if (recievedObject.getProperties().get("id").equals(interactiveObject.getProperties().get("id"))) {
                 setInteractiveObject(recievedObject);
             }
-        }*/
+        }
     }
 
     public IInteractiveObject getInteractiveObject() {
