@@ -61,6 +61,29 @@ public class RoomController {
         characters.add(characterController);
     }
 
+    public void removeCharacter(CharacterController characterController) {
+        room.removeCharacter(characterController.getCharacter());
+        characters.remove(characterController);
+    }
+
+    public void moveCharacter(int characterId, RoomController roomController) {
+        CharacterController characterToMove = getCharacterController(characterId);
+
+        if (characterToMove != null) {
+            removeCharacter(characterToMove);
+            roomController.addCharacter(characterToMove);
+        }
+    }
+
+    private CharacterController getCharacterController(int characterId) {
+        for (CharacterController character : characters) {
+            if (character.getId() == characterId) {
+                return character;
+            }
+        }
+        return null;
+    }
+
     public void addCharacterController(CharacterController characterController) {
         characters.add(characterController);
     }

@@ -100,12 +100,9 @@ public final class ClientController extends Listener {
     public synchronized void received(Connection connection, Object object) {
         if (object instanceof PacketMoveCharacter) {
             PacketMoveCharacter info = (PacketMoveCharacter) object;
-            System.out.println(
-                    String.format("PING Move Character CharacterID: %d, FromRoom %d, ToRoom %d",
-                            info.getCharacterId(),
-                            info.getFromRoomId(),
-                            info.getToRoomId())
-            );
+            roomControllerMap.get(info.getFromRoomId()).moveCharacter(
+                    info.getCharacterId(),
+                    roomControllerMap.get(info.getToRoomId()));
         }
 
         if (object instanceof PacketNewPlayer) {
