@@ -5,33 +5,29 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.IInteractiveObject;
 import scratch.model.MoveDirection;
-import scratch.view.SpriteDirectionRenderer;
 
 import java.awt.geom.Rectangle2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InteractiveObjectView {
 
     private SpriteDirectionRenderer spriteHandler;
-    private IInteractiveObject interactiveObject;
+    private final IInteractiveObject interactiveObject;
     private Rectangle2D.Double unitTile;
-    private double y, x;
 
     public InteractiveObjectView(IInteractiveObject interactiveObject) {
         this.interactiveObject = interactiveObject;
     }
 
     public void render(GameContainer gameContainer) {
-        final String imagePath = interactiveObject.getProperties().get("imagePath");
-        if ("box".compareTo(interactiveObject.getProperties().get("objectType")) == 0) {
-            unitTile = interactiveObject.getUnitTile();
-            y = unitTile.getY();
-            x = unitTile.getX();
+        if (spriteHandler == null) {
             try {
-                spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
-                spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
-            } catch (SlickException e) {
-                e.printStackTrace();
+                spriteHandler = new SpriteDirectionRenderer(new TiledMap(interactiveObject.getProperties().get("imagePath")));
+            } catch (SlickException ex) {
+                Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
     }
 }
