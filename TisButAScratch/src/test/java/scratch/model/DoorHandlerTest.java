@@ -31,6 +31,11 @@ public class DoorHandlerTest extends TestCase {
 
         doorHandler.addDoor(room, new IInteractiveObject() {
             @Override
+            public Vector2D getPosition() {
+                return null;
+            }
+
+            @Override
             public void setPosition(Vector2D newPos) {
 
             }
