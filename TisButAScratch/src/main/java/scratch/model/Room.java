@@ -45,7 +45,6 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         updateCharacterInteractions();
         updateCharacterMovements();
         updateCharacterAttacks();
-	    updateBoxes();
     }
 
     public boolean isActive() {
@@ -70,21 +69,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         charactersInteracting.clear();
     }
 
-    private void updateBoxes() {
-        for (final GameCharacter character : characters) {
-            for (final IInteractiveObject interactiveObject : interactiveObjects) {
-                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
-                    final String objectType = interactiveObject.getProperties().get("objectType");
-                    if ("box".compareTo(objectType) == 0) {
-                        updateBoxPosition(character, interactiveObject);
-                    }
-                }
-            }
-        }
-    }
 
     private void updateBoxPosition(GameCharacter character, IInteractiveObject interactiveObject) {
-	    final Vector2D nextMoveDirection = character.getNextMoveDirection();
+        final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
         final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX()*character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY()*character.getMovementSpeed());
         interactiveObject.setPosition(allowedPosition(boxArea, newPos));
@@ -133,12 +120,12 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         double returnY = oldY;
 
         //Check if new X position is allowed
-        if (0 < newX && newXRight < getMapWidth() && !mapCollision(unitTile, new Vector2D(newX, oldY))) {
+        if (0 < newX && newXRight < getMapWidth() && ! isColliding(unitTile, new Vector2D(newX, oldY))) {
             returnX = newX;
         }
 
         //Check if new Y position is allowed
-        if (0 < newY && newYDown < getMapHeight() && !mapCollision(unitTile, new Vector2D(oldX, newY))) {
+        if (0 < newY && newYDown < getMapHeight() && ! isColliding(unitTile, new Vector2D(oldX, newY))) {
             returnY = newY;
         }
         return new Vector2D(returnX, returnY);
@@ -151,13 +138,33 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      * @param placeToPut the place to put objectToPlace at
      * @return true if there is a collision
      */
-    private boolean mapCollision(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
+    private boolean isColliding(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
 
         final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
         final Vector2D northEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
         final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
         final Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
+        final int tileSize = 32;
+        final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
 
+        for(GameCharacter character :characters){
+            if(character.getUnitTile().intersects(placeToPutArea) && !(character.getUnitTile().equals(objectToPlace))){
+                return true;
+            }
+        }
+
+        for(IInteractiveObject interactiveObject : interactiveObjects) {
+            if (interactiveObject.getUnitTile().intersects(placeToPutArea) && ! interactiveObject.getUnitTile().equals(objectToPlace)) {
+                if ("box".equals(interactiveObject.getProperties().get("objectType"))){
+                    for (final GameCharacter character : characters) {
+                        if (character.getUnitTile().equals(objectToPlace)) {
+                            updateBoxPosition(character, interactiveObject);
+                        }
+                    }
+                }
+               return true;
+            }
+        }
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
@@ -263,7 +270,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         if (getPlayers().isEmpty()) {
             return npcPosition;
         }
-        
+
         GameCharacter closestPlayer = getPlayers().get(0);
         for (final GameCharacter player : getPlayers()) {
             if (player.isAlive() && npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())){
