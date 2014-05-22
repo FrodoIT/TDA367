@@ -1,7 +1,10 @@
 <NPCType id="0">
 <health>10</health>
 <imagePath>/res/sprites/playerSprite_3.tmx</imagePath>
-<weapon>StandardWeapon</weapon>
+<weapon damage="2">
+    <range>1</range>
+    <attackInterval>400</attackInterval>
+</weapon>
 <unitTile>32,32</unitTile> <!-- dont change, should be 32 -->
 <movementPattern>1</movementPattern> <!-- ID of the plugin -->
 <movementSpeed>1</movementSpeed>

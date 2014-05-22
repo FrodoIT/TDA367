@@ -1,5 +1,0 @@
-<Weapon>
-    <damage>10</damage>
-    <range>5</range>
-    <attackInterval>100</attackInterval> <!-- Attackinterval in millis-->
-</Weapon>

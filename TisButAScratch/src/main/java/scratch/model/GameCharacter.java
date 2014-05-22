@@ -10,8 +10,8 @@ import java.util.List;
 import javax.annotation.concurrent.Immutable;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 import scratch.model.weapons.Weapon;
-import scratch.model.weapons.WeaponPath;
 import scratch.utils.Cooldown;
 
 /**
@@ -21,35 +21,36 @@ import scratch.utils.Cooldown;
  * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
  */
 @Immutable
+@Root
 public class GameCharacter implements KryoSerializable {
 
-    @Element(type = Rectangle2D.Double.class, required = false)
-    private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
-    @Element(type = WeaponPath.class)
-    private Weapon weapon;
-    @Element
-    private int health;
-    @Element
-    private int movementSpeed;
-    @Attribute
-    private int id;
-    @Element(type = MoveDirection.class, required = false)
-    private MoveDirection moveDirection = MoveDirection.SOUTH;
-    @Element
-    private String imagePath;
-    @Element(required = false)
-    private boolean interactIsCooledDown = true;
-    private Vector2D nextMoveDirection;
-    private boolean interacting;
-    private boolean attacking;
+	@Element (type = Rectangle2D.Double.class, required = false)
+	private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
+	@Element (name="weapon")//(type = WeaponPath.class)
+	private Weapon weapon;
+	@Element
+	private int health;
+	@Element
+	private int movementSpeed;
+	@Attribute
+	private int id;
+	@Element (type = MoveDirection.class, required = false)
+	private MoveDirection moveDirection = MoveDirection.SOUTH;
+	@Element
+	private String imagePath;
+	@Element (required = false)
+	private boolean interactIsCooledDown = true;
+	private Vector2D nextMoveDirection;
+	private boolean interacting;
+	private boolean attacking;
 
-    @Element(type = Runnable.class, required = false)
-    private Runnable cooldownReset = new Runnable() {
-        @Override
-        public void run() {
-            interactIsCooledDown = true;
-        }
-    };
+	@Element (type = Runnable.class, required = false)
+	private Runnable cooldownReset = new Runnable() {
+		@Override
+		public void run() {
+			interactIsCooledDown = true;
+		}
+	};
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 

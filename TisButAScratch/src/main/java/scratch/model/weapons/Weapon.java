@@ -5,7 +5,9 @@ import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;
@@ -19,16 +21,16 @@ import java.awt.geom.Rectangle2D;
 public final class Weapon implements KryoSerializable{
 
     @Inject
-    @Element
+    @Attribute
     private int damage;
     @Element
     private int range;
-    @Element(type = Rectangle2D.class, required = false)
+    @Element (type = Rectangle2D.class, required = false)
     private Rectangle2D.Double attackArea = new Rectangle2D.Double(0, 0, 32, 32);
     //Minimum time between attacks in milliseconds
     @Element
     private int attackInterval;
-    @Element(required = false)
+    @Element (required = false)
     private boolean cooledDown = true;
     private final Runnable runnable = new Runnable() {
         public void run() {

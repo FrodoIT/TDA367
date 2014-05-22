@@ -4,7 +4,6 @@ import java.awt.geom.Rectangle2D;
 import org.simpleframework.xml.transform.Matcher;
 import org.simpleframework.xml.transform.Transform;
 import scratch.model.INPCMove;
-import scratch.model.weapons.WeaponPath;
 
 /**
  * Created by Anna on 2014-05-08.
@@ -18,9 +17,6 @@ public class MyMatcher implements Matcher {
         }
         if (type.equals(Rectangle2D.Double.class)) {
             return new RectangleTransformer();
-        }
-        if (type.equals(WeaponPath.class)) {
-            return new WeaponTranformer();
         }
         return null;
     }

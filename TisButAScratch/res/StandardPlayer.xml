@@ -1,7 +1,10 @@
 <Player id="0">
     <health>30</health>
     <imagePath>/res/sprites/playerSprite.tmx</imagePath>
-    <weapon>StandardWeapon</weapon>
+    <weapon damage="2">
+        <range>1</range>
+        <attackInterval>400</attackInterval>
+    </weapon>
     <unitTile>32,32</unitTile> <!-- dont change, should be 32 -->
     <movementSpeed>2</movementSpeed>
     <interactIsCooledDown>true</interactIsCooledDown>
