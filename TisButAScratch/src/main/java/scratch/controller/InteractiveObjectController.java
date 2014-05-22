@@ -7,6 +7,7 @@ import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
+import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 
 public class InteractiveObjectController extends Listener {
@@ -21,6 +22,10 @@ public class InteractiveObjectController extends Listener {
     
     public void setServer (NetworkServer server){
         this.server = server;
+    }
+    
+    public void setClient (NetworkClient client){
+        client.addListener(this);
     }
 
     public void update() {

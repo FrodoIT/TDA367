@@ -7,6 +7,7 @@ import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
 import scratch.model.IInteractiveObject;
 import scratch.model.Room;
+import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 import scratch.view.RoomView;
 
@@ -40,6 +41,15 @@ public class RoomController {
         }
         for (InteractiveObjectController interactiveController : interactiveObjects){
             interactiveController.setServer(server);
+        }
+    }
+    
+    public void setClient (NetworkClient client){
+        for (CharacterController characterController : characters){
+            characterController.setClient(client);
+        }
+        for (InteractiveObjectController interactiveController : interactiveObjects) {
+            interactiveController.setClient(client);
         }
     }
 

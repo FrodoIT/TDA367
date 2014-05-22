@@ -12,6 +12,7 @@ import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
 import scratch.model.NpcType;
+import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 import scratch.network.PacketPlayerInput;
 import scratch.view.CharacterView;
@@ -40,8 +41,11 @@ public class CharacterController extends Listener {
     
     public void setServer(NetworkServer server){
         server.addListener(this);
-        this.server = server;
-        
+        this.server = server;   
+    }
+    
+    public void setClient(NetworkClient client) {
+        client.addListener(this);
     }
 
     public void addListener(final PropertyChangeListener listener) {

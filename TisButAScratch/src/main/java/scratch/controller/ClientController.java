@@ -30,7 +30,7 @@ public final class ClientController extends Listener {
 
     private final List<CharacterController> characterControllerList;
     private final Map<Integer, RoomController> roomControllerMap;
-    private final NetworkClient client;
+    private final NetworkClient networkClient;
     private UIController uiController;
     private int id;
     private int roomId;
@@ -39,7 +39,7 @@ public final class ClientController extends Listener {
         super();
         characterControllerList = new ArrayList<>();
         roomControllerMap = new HashMap<>();
-        client = new NetworkClient(ip);
+        networkClient = new NetworkClient(ip);
 
     }
 
@@ -47,7 +47,7 @@ public final class ClientController extends Listener {
         //Send this class to be set as listener for the connection
         final RoomFactory roomFactory = new RoomFactory();
         initRooms(roomFactory);
-        client.start(this);
+        networkClient.start(this);
     }
 
     private void initRooms(RoomFactory roomFactory) {
@@ -55,29 +55,12 @@ public final class ClientController extends Listener {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room);
             roomControllerMap.put(roomController.getId(), roomController);
-            initGameCharacters(room, roomController);
-            initInteractiveObjects(room, roomController);
+            roomController.setClient(networkClient);
         }
     }
-
-    private void initInteractiveObjects(Room room, RoomController roomController) {
-        for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
-            InteractiveObjectController interactiveObjectController = new InteractiveObjectController(interactiveObject);
-            roomController.addInteractiveObjectController(interactiveObjectController);
-            client.addListener(interactiveObjectController);
-        }
-    }
-
-    private void initGameCharacters(Room room, RoomController roomController) {
-        for (final GameCharacter character : room.getCharacters()) {
-            CharacterController characterController = new CharacterController(character);
-            roomController.addCharacterController(characterController);
-            client.addListener(characterController);
-        }
-    }
-
+    
     public void update(GameContainer container, int delta) {
-        client.send(new PacketPlayerInput(id, container.getInput()));
+        networkClient.send(new PacketPlayerInput(id, container.getInput()));
     }
 
     public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
@@ -112,7 +95,7 @@ public final class ClientController extends Listener {
         } else if (object instanceof PacketNewCharacter) {
             PacketNewCharacter packet = (PacketNewCharacter) object;
             CharacterController characterController = new CharacterController(packet.getCharacter());
-            client.addListener(characterController);
+            networkClient.addListener(characterController);
             roomControllerMap.get(roomId).addCharacter(characterController);
             if (characterController.getId() == id){
                 uiController = new UIController(characterController.getCharacter());
