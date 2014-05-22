@@ -138,38 +138,50 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
      * @return true if there is a collision
      */
     private boolean isColliding(Rectangle2D.Double objectToPlace, Vector2D placeToPut) {
+        final int tileSize = 32;
+        final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
+
+        if (isCollidingWithCharacter(objectToPlace, placeToPutArea)) return true;
+        if (isCollidingWithInteractiveObject(objectToPlace, placeToPutArea)) return true;
 
         final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
         final Vector2D northEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + 1);
         final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
         final Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
-        final int tileSize = 32;
-        final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
+        return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
+    }
+
+    private boolean isCollidingWithInteractiveObject(Rectangle2D.Double objectToPlace, Rectangle2D.Double placeToPutArea) {
         boolean isMovableObject = false;
-
-        for(GameCharacter character :characters){
-            if(character.getUnitTile().intersects(placeToPutArea) && !(character.getUnitTile().equals(objectToPlace)) && character.isAlive()){
-                return true;
-            }
-        }
-
         for(IInteractiveObject interactiveObject : interactiveObjects) {
             if (interactiveObject.getUnitTile().intersects(placeToPutArea) && ! interactiveObject.getUnitTile().equals(objectToPlace)) {
-                System.out.println("collision with interactive object");
                 if ("box".equals(interactiveObject.getProperties().get("objectType"))){
                     isMovableObject = true;
-                    for (final GameCharacter character : characters) {
-                        if (character.getUnitTile().equals(objectToPlace)) {
-                            updateBoxPosition(character, interactiveObject);
-                        }
-                    }
+                    updateBoxForCollision(objectToPlace, interactiveObject);
                 }
                 if(isMovableObject){
                     return true;
                 }
             }
         }
-        return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
+        return false;
+    }
+
+    private void updateBoxForCollision(Rectangle2D.Double objectToPlace, IInteractiveObject interactiveObject) {
+        for (final GameCharacter character : characters) {
+            if (character.getUnitTile().equals(objectToPlace)) {
+                updateBoxPosition(character, interactiveObject);
+            }
+        }
+    }
+
+    private boolean isCollidingWithCharacter(Rectangle2D.Double objectToPlace, Rectangle2D.Double placeToPutArea) {
+        for(GameCharacter character :characters){
+            if(character.getUnitTile().intersects(placeToPutArea) && !(character.getUnitTile().equals(objectToPlace)) && character.isAlive()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addInteractiveObject(IInteractiveObject interactiveObject) {
