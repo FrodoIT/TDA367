@@ -57,7 +57,6 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     //TODO do the interact stuff. either implement a interact method or find respective interactable object
                     // here and run different methods depending on what kind of object is interacted with
-
                     final String objectType = interactiveObject.getProperties().get("objectType");
                     if ("door".compareTo(objectType) == 0) {
                         doorHandler.interactHappened(this, character, interactiveObject);
@@ -146,23 +145,28 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         final Vector2D southEast = new Vector2D(placeToPut.getX() + objectToPlace.getWidth() - 1, placeToPut.getY() + objectToPlace.getHeight() - 1);
         final int tileSize = 32;
         final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
+        boolean isMovableObject = false;
 
         for(GameCharacter character :characters){
-            if(character.getUnitTile().intersects(placeToPutArea) && !(character.getUnitTile().equals(objectToPlace))){
+            if(character.getUnitTile().intersects(placeToPutArea) && !(character.getUnitTile().equals(objectToPlace)) && character.isAlive()){
                 return true;
             }
         }
 
         for(IInteractiveObject interactiveObject : interactiveObjects) {
             if (interactiveObject.getUnitTile().intersects(placeToPutArea) && ! interactiveObject.getUnitTile().equals(objectToPlace)) {
+                System.out.println("collision with interactive object");
                 if ("box".equals(interactiveObject.getProperties().get("objectType"))){
+                    isMovableObject = true;
                     for (final GameCharacter character : characters) {
                         if (character.getUnitTile().equals(objectToPlace)) {
                             updateBoxPosition(character, interactiveObject);
                         }
                     }
                 }
-               return true;
+                if(isMovableObject){
+                    return true;
+                }
             }
         }
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
