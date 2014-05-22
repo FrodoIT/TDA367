@@ -1,5 +1,6 @@
 package scratch.controller;
 
+import scratch.view.InteractiveObjectView;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import java.beans.PropertyChangeListener;
