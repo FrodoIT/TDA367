@@ -8,24 +8,24 @@ import java.util.*;
 
 /**
  * handels all interactive objects with property:
- * objectType = door
+ * objectType = "door"
  */
 public class DoorHandler {
 
-	private final Map<Room, Set<IInteractiveObject>> roomDoorsMap = new HashMap<>();
+	private final Map<DoorHelper, Set<IInteractiveObject>> roomDoorsMap = new HashMap<>();
 	private final Map<String, Set<IInteractiveObject>> doorMatchingMap = new HashMap<>();
-	private final Random random = new Random();
+	private final Random random = new Random(System.nanoTime());
     private final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
     public void addListener(PropertyChangeListener listener){
         listeners.addPropertyChangeListener(listener);
     }
 
-	public void interactHappened(Room room, GameCharacter character, IInteractiveObject originDoor) {
+	public void interactHappened(DoorHelper room, GameCharacter character, IInteractiveObject originDoor) {
         final Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
         final IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
-		for (final Map.Entry<Room, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
+		for (final Map.Entry<DoorHelper, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
 				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
@@ -35,7 +35,7 @@ public class DoorHandler {
 		}
 	}
 
-	private void performTeleport(Room originRoom, Room targetRoom, IInteractiveObject exitDoor, GameCharacter character) {
+	private void performTeleport(DoorHelper originRoom, DoorHelper targetRoom, IInteractiveObject exitDoor, GameCharacter character) {
 		originRoom.removeCharacter(character);
 		targetRoom.addCharacter(character);
         final Rectangle2D.Double doorArea = exitDoor.getUnitTile();
@@ -55,7 +55,7 @@ public class DoorHandler {
 		return connDoorsExcludingOrigin.get(randomIndex);
 	}
 
-	public void addDoor(Room room, IInteractiveObject interactiveObject) {
+	public void addDoor(DoorHelper room, IInteractiveObject interactiveObject) {
 		Set<IInteractiveObject> objectList = roomDoorsMap.get(room);
 
 		if (objectList == null) {
@@ -79,7 +79,7 @@ public class DoorHandler {
 		}
 	}
 
-	public void addDoors(Room room, List<IInteractiveObject> interactiveObjects) {
+	public void addDoors(DoorHelper room, List<IInteractiveObject> interactiveObjects) {
 		for (final IInteractiveObject interactiveObject : interactiveObjects) {
 			addDoor(room, interactiveObject);
 		}

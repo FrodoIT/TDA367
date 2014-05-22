@@ -18,7 +18,7 @@ import java.util.Map;
  * @author Ivar Josefsson
  *
  */
-public final class Room implements IRoomData, CharacterChangeListener, KryoSerializable {
+public final class Room implements IRoomData, CharacterChangeListener, KryoSerializable, DoorHelper {
 
     @Inject
 
@@ -165,9 +165,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         this.interactiveObjects.add(interactiveObject);
     }
 
-    public void addCharacter(GameCharacter character) {
+    public boolean addCharacter(GameCharacter character) {
         character.registerListener(this);
-        characters.add(character);
+        return characters.add(character);
     }
 
     public boolean removeCharacter(GameCharacter character) {
