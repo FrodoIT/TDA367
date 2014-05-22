@@ -45,14 +45,17 @@ public final class ServerController extends Listener {
         final List<Room> rooms = roomFactory.getRooms();
         game.setMap(rooms);
         roomFactory.getDoorHandler().addListener(new DoorController(networkServer, roomControllerMap));
+        initRooms(rooms);
+        networkServer.start(this);
+    }
+
+    private void initRooms(List<Room> rooms) {
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room);
             roomController.setServer(networkServer);
             roomControllerMap.put(roomController.getId(), roomController);
         }
-
-        networkServer.start(this);
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
@@ -77,7 +80,7 @@ public final class ServerController extends Listener {
         networkServer.addListener(playerController);
         playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
-        
+
         networkServer.sendTCP(new PacketNewCharacter(roomId, newPlayer));
         nextPlayerId++;
     }
