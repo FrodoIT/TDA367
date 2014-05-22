@@ -34,7 +34,6 @@ public class InteractiveObjectView {
             unitTile = interactiveObject.getUnitTile();
             y = unitTile.getY();
             x = unitTile.getX();
-	        System.out.println("ID = "+ interactiveObject.getProperties().get("id") +" x= " + x + " y= " + y);
 	        try {
                 spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
                 spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
