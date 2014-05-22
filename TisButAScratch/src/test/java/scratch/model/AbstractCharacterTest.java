@@ -7,7 +7,6 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.weapons.IWeapon;
 import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
@@ -95,7 +94,7 @@ public class AbstractCharacterTest extends TestCase {
 
     @Test
     public void testAttack() throws Exception {
-        final IWeapon weapon = testCharacter.getWeapon();
+        final Weapon weapon = testCharacter.getWeapon();
         testCharacter.performAttack();
         assertFalse(weapon.hasCooledDown());
     }

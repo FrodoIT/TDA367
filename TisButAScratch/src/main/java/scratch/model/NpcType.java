@@ -1,10 +1,9 @@
 package scratch.model;
 
+import java.awt.geom.Rectangle2D;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import scratch.model.weapons.IWeapon;
-
-import java.awt.geom.Rectangle2D;
+import scratch.model.weapons.Weapon;
 
 /**
  * A class that represents a character not controlled by the player
@@ -24,7 +23,7 @@ public final class NpcType extends GameCharacter {
     @Element(type = INPCMove.class)
     private INPCMove movementPattern;
 
-    public NpcType(Rectangle2D.Double unitTile, IWeapon weapon,
+    public NpcType(Rectangle2D.Double unitTile, Weapon weapon,
             int health, int moveSpeed, String imagePath,
             int id, INPCMove movementPattern) {
         super(unitTile, weapon, health, moveSpeed, id, imagePath);

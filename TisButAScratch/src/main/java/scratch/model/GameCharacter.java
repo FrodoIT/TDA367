@@ -4,15 +4,15 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import scratch.model.weapons.IWeapon;
-import scratch.utils.Cooldown;
-
-import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.concurrent.Immutable;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import scratch.model.weapons.Weapon;
+import scratch.model.weapons.WeaponPath;
+import scratch.utils.Cooldown;
 
 /**
  * The interface for all Characters. Every character has a given health,
@@ -25,8 +25,8 @@ public class GameCharacter implements KryoSerializable {
 
     @Element(type = Rectangle2D.Double.class, required = false)
     private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
-    @Element(type = IWeapon.class)
-    private IWeapon weapon;
+    @Element(type = WeaponPath.class)
+    private Weapon weapon;
     @Element
     private int health;
     @Element
@@ -53,7 +53,7 @@ public class GameCharacter implements KryoSerializable {
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
-    public GameCharacter(Rectangle2D.Double unitTile, IWeapon weapon, int health, int movementSpeed, int id, String imagePath) {
+    public GameCharacter(Rectangle2D.Double unitTile, Weapon weapon, int health, int movementSpeed, int id, String imagePath) {
         this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());
         this.weapon = weapon;
         this.health = health;
@@ -192,7 +192,7 @@ public class GameCharacter implements KryoSerializable {
         return unitTile;
     }
 
-    public IWeapon getWeapon() {
+    public Weapon getWeapon() {
         return weapon;
     }
 

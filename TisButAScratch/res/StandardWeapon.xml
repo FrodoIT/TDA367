@@ -1,5 +1,5 @@
-<Weapon>
+<StandardWeapon>
     <damage>2</damage>
     <range>1</range>
     <attackInterval>400</attackInterval> <!-- Attackinterval in millis-->
-</Weapon>
+</StandardWeapon>

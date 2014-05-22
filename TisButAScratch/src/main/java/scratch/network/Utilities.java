@@ -11,7 +11,6 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import scratch.model.*;
-import scratch.model.weapons.IWeapon;
 import scratch.model.weapons.Weapon;
 
 /**
@@ -27,7 +26,6 @@ public class Utilities {
         kryo.register(NpcType.class);
         kryo.register(GameCharacter.class);
         kryo.register(Rectangle2D.Double.class);
-        kryo.register(IWeapon.class);
         kryo.register(Weapon.class);
         kryo.register(MoveDirection.class);
         kryo.register(PacketNewConnection.class);

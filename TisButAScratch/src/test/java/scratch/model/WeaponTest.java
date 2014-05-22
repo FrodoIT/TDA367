@@ -24,7 +24,7 @@ public class WeaponTest extends TestCase {
 		assertTrue(weapon.hasCooledDown());
 		weapon.startCooldown();
 		assertFalse(weapon.hasCooledDown());
-		final int okMarginOfError = 15;
+		final int okMarginOfError = 30;
 		final long start = System.currentTimeMillis();
 		do {
 

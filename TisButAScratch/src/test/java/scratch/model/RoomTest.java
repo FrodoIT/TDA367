@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import scratch.model.mockmodules.MockIMap;
 import scratch.model.mockmodules.MockModule;
-import scratch.model.mockmodules.MockWeapon;
 import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
@@ -39,7 +38,7 @@ public class RoomTest extends TestCase {
         testPlayer.setMovementSpeed(0);
         final INPCMove move = injector.getInstance(INPCMove.class);
         NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
-                new MockWeapon(), 100, 0, "test", 10, move);
+                new Weapon(), 100, 0, "test", 10, move);
         testNpc.setNextMoveDirection(new Vector2D());
         putCharactersInRoom(testPlayer, testNpc);
         assertTrue(room.isActive());

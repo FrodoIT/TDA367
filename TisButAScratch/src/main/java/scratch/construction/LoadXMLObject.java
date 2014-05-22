@@ -16,9 +16,13 @@ public class LoadXMLObject {
 
 	public Object loadObject (String loadObject, String file){
 		final StringBuilder fileBuild = new StringBuilder();
-		fileBuild.append("res/");
-		fileBuild.append(file);
+		if (file.trim().isEmpty()){
+                    throw new RuntimeException("Tried to load file: " + file + ". It is not a proper filename");
+                }
+                fileBuild.append("res/");
+		fileBuild.append(file.trim());
 		fileBuild.append(".xml");
+                System.out.println("Trying to load: " + fileBuild.toString() + "the obj: "+loadObject);
 		final File source = new File(fileBuild.toString());
 		Object object = new Object();
 		try {
