@@ -8,6 +8,7 @@ import java.util.Properties;
  * Created by pippin on 4/13/14.
  */
 public interface IInteractiveObject {
+    Vector2D getPosition();
     void setPosition(Vector2D newPos);
 	String getName();
 	String getType();
