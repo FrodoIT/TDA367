@@ -10,7 +10,6 @@ public class WeaponTranformer implements Transform<Weapon> {
 
     @Override
     public Weapon read(String value) {
-        System.out.println("this is the value: " + value + (value.isEmpty()));
         return value.isEmpty() ? null : loadWeapon(value);
     }
 
@@ -20,8 +19,6 @@ public class WeaponTranformer implements Transform<Weapon> {
     }
 
     private Weapon loadWeapon(String file) {
-        System.out.println("the new instance of weapon" + (Weapon) new LoadXMLObject().loadObject("Weapon", file));
-
         return (Weapon) new LoadXMLObject().loadObject("Weapon", file);
 
     }

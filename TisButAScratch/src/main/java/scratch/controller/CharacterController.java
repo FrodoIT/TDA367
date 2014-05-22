@@ -24,7 +24,7 @@ import scratch.view.NpcView;
  */
 public class CharacterController extends Listener {
 
-    private GameCharacter character;
+    private final GameCharacter character;
     private NetworkServer server;
     private final PropertyChangeSupport listeners;
     private final CharacterView view;

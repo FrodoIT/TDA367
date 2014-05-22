@@ -22,7 +22,6 @@ public class LoadXMLObject {
                 fileBuild.append("res/");
 		fileBuild.append(file.trim());
 		fileBuild.append(".xml");
-                System.out.println("Trying to load: " + fileBuild.toString() + "the obj: "+loadObject);
 		final File source = new File(fileBuild.toString());
 		Object object = new Object();
 		try {

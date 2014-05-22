@@ -37,13 +37,13 @@ public class GameCharacter implements KryoSerializable {
     private MoveDirection moveDirection = MoveDirection.SOUTH;
     @Element
     private String imagePath;
-    @Element (required = false)
+    @Element(required = false)
     private boolean interactIsCooledDown = true;
     private Vector2D nextMoveDirection;
     private boolean interacting;
     private boolean attacking;
 
-    @Element (type=Runnable.class, required = false)
+    @Element(type = Runnable.class, required = false)
     private Runnable cooldownReset = new Runnable() {
         @Override
         public void run() {
@@ -71,12 +71,6 @@ public class GameCharacter implements KryoSerializable {
     GameCharacter() {
         super();
         nextMoveDirection = new Vector2D();
-    }
-    
-    public void setCharacter(GameCharacter character){
-        unitTile = character.getUnitTile();
-        health = character.getHealth();
-        moveDirection = character.getMoveDirection();
     }
 
     public void setId(int id) {
@@ -120,21 +114,21 @@ public class GameCharacter implements KryoSerializable {
         }
 
         final MoveDirection[] directions = {
-                MoveDirection.NORTHWEST,
-                MoveDirection.WEST,
-                MoveDirection.SOUTHWEST,
-                MoveDirection.SOUTH,
-                MoveDirection.SOUTHEAST,
-                MoveDirection.EAST,
-                MoveDirection.NORTHEAST,
-                MoveDirection.NORTH
+            MoveDirection.NORTHWEST,
+            MoveDirection.WEST,
+            MoveDirection.SOUTHWEST,
+            MoveDirection.SOUTH,
+            MoveDirection.SOUTHEAST,
+            MoveDirection.EAST,
+            MoveDirection.NORTHEAST,
+            MoveDirection.NORTH
         };
-        moveDirection = directions[(int)theta/45];
+        moveDirection = directions[(int) theta / 45];
     }
 
     public void update() {
         Vector2D newPosition = calculateNewPosition();
-	    calculateMoveDirection(newPosition);
+        calculateMoveDirection(newPosition);
 
         for (CharacterChangeListener listener : getListeners()) {
             listener.handleCharacterMovement(this, newPosition);
@@ -157,7 +151,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public void setPosition(Vector2D position) {
-	    unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
+        unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
 
     public void setInteracting(boolean interacting) {
@@ -217,7 +211,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public Vector2D getPosition() {
-	    return new Vector2D(unitTile.getX(), unitTile.getY());
+        return new Vector2D(unitTile.getX(), unitTile.getY());
     }
 
     public Rectangle2D.Double getAttackArea() {
@@ -250,7 +244,7 @@ public class GameCharacter implements KryoSerializable {
     }
 
     public boolean isAlive() {
-        return getHealth()>0;
+        return getHealth() > 0;
     }
 
     @Override
@@ -276,10 +270,23 @@ public class GameCharacter implements KryoSerializable {
         return listeners;
     }
 
+    public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void setCharacter(GameCharacter character) {
+        unitTile = character.getUnitTile();
+        weapon = character.getWeapon();
+        health = character.getHealth();
+        movementSpeed = character.getMovementSpeed();
+        moveDirection = character.getMoveDirection();
+        imagePath = character.getImagePath();
+    }
+
     @Override
     public void write(Kryo kryo, Output output) {
         kryo.writeObject(output, unitTile);
-        //kryo.writeObject(output, weapon);
+        kryo.writeObject(output, weapon);
         kryo.writeObject(output, health);
         kryo.writeObject(output, movementSpeed);
         kryo.writeObject(output, id);
@@ -287,18 +294,15 @@ public class GameCharacter implements KryoSerializable {
         kryo.writeObject(output, imagePath);
     }
 
-    public void setMovementSpeed(int movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
     @Override
     public void read(Kryo kryo, Input input) {
         unitTile = kryo.readObject(input, Rectangle2D.Double.class);
-        //weapon = kryo.readObject(input, IWeapon.class);
+        weapon = kryo.readObject(input, Weapon.class);
         health = kryo.readObject(input, Integer.class);
         movementSpeed = kryo.readObject(input, Integer.class);
         id = kryo.readObject(input, Integer.class);
         moveDirection = kryo.readObject(input, MoveDirection.class);
         imagePath = kryo.readObject(input, String.class);
     }
+
 }
