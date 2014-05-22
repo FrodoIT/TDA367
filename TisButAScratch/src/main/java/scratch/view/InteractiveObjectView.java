@@ -21,13 +21,16 @@ public class InteractiveObjectView {
     }
 
     public void render(GameContainer gameContainer) {
-        if (spriteHandler == null) {
-            try {
-                spriteHandler = new SpriteDirectionRenderer(new TiledMap(interactiveObject.getProperties().get("imagePath")));
-            } catch (SlickException ex) {
-                Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
+        //This should not be needed
+        if (interactiveObject.getProperties().get("imagePath") != null) {
+            if (spriteHandler == null) {
+                try {
+                    spriteHandler = new SpriteDirectionRenderer(new TiledMap(interactiveObject.getProperties().get("imagePath")));
+                } catch (SlickException ex) {
+                    Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
+            spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
         }
-        spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
     }
 }
