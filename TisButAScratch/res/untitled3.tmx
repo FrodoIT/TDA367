@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32" backgroundcolor="#bfbfbf">
+ <properties>
+  <property name="id" value="100"/>
+ </properties>
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="19" y="19"/>
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <tileset firstgid="49" name="realmap1" tilewidth="32" tileheight="32">
+  <tileoffset x="-3" y="-3"/>
+  <image source="realmap1.jpg" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="349" name="Hanzo-RuinsTown01VScopy" tilewidth="32" tileheight="32">
+  <tileoffset x="-3" y="-3"/>
+  <image source="../../../../../../Pictures/Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
+ </tileset>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgYGDQYWQgCIhRg00tiA3D5JiHSz82eWL9Qax51ACkmoPuH5h+bOLEuJUY87CpJ8df+Mwj5G5S0gMx4gNlHjH2UTN9UQsQiqfBgEEAAIsqVcawBAAA
+  </data>
+ </layer>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
+  </data>
+ </layer>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc3" type="hostile" x="118" y="339" width="39" height="38">
+   <properties>
+    <property name="id" value="103"/>
+    <property name="npcType" value="CPEnemy"/>
+   </properties>
+  </object>
+  <object name="npc1" type="hostile" x="424" y="310" width="39" height="38">
+   <properties>
+    <property name="id" value="101"/>
+    <property name="npcType" value="CPEnemy"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="532" y="311" width="41" height="38">
+   <properties>
+    <property name="id" value="102"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="Tile Layer 3" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWDGTQxMjA0A3EL40C7ZBSMgoEHAJ0Wd+OwBAAA
+  </data>
+ </layer>
+ <objectgroup name="map" width="20" height="15"/>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door4" type="object" x="479" y="253" width="32" height="32">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="id" value="404"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="288" y="359" width="34" height="34">
+   <properties>
+    <property name="id" value="501"/>
+    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
