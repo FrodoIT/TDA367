@@ -2,10 +2,7 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.IInteractiveObject;
-import scratch.model.IMap;
-import scratch.model.InteractiveObject;
-import scratch.model.Vector2D;
+import scratch.model.*;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -69,25 +66,36 @@ public class TiledMapPlus extends TiledMap implements IMap {
             for (final Object gObject : objectGroup.objects) {
                 final GroupObject groupObject = (GroupObject) gObject;
 
-	            Set<String> set = groupObject.props.stringPropertyNames();
-	            HashMap<String,String> map = new HashMap<>();
-	            for (String s : set) {
-		            map.put(s,groupObject.props.getProperty(s));
-	            }
+                Set<String> set = groupObject.props.stringPropertyNames();
+                HashMap<String,String> map = new HashMap<>();
+                for (String s : set) {
+                    map.put(s,groupObject.props.getProperty(s));
+                }
+                if("box".compareTo(groupObject.props.getProperty("objectType")) == 0) {
+                    interactiveObjects.add(
+                            new MovableObject(
+                                    groupObject.name,
+                                    groupObject.type,
+                                    groupObject.x,
+                                    groupObject.y,
+                                    groupObject.width,
+                                    groupObject.height,
+                                    map
+                            ));
+                } else {
 
-                interactiveObjects.add(
-                        new InteractiveObject(
-                                groupObject.name,
-                                groupObject.type,
-                                groupObject.x,
-                                groupObject.y,
-                                groupObject.width,
-                                groupObject.height,
-                                map
-                        )
-                );
+                    interactiveObjects.add(
+                            new InteractiveObject(
+                                    groupObject.name,
+                                    groupObject.type,
+                                    groupObject.x,
+                                    groupObject.y,
+                                    groupObject.width,
+                                    groupObject.height,
+                                    map
+                            ));
+                }
             }
-
         }
     }
 
