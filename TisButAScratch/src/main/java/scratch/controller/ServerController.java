@@ -15,7 +15,6 @@ import scratch.model.*;
 import scratch.network.NetworkServer;
 import scratch.network.PacketNewCharacter;
 import scratch.network.PacketNewConnection;
-import scratch.view.RoomView;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -88,10 +87,5 @@ public final class ServerController extends Listener {
     @Override
     public synchronized void connected(Connection connection) {
         addPlayer(connection);
-    }
-
-    @Override
-    public synchronized void received(Connection connection, Object object) {
-
     }
 }
