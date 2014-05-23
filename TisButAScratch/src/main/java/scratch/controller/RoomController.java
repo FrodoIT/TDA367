@@ -17,7 +17,6 @@ public class RoomController {
     private final RoomView roomView;
     private final List<CharacterController> characters;
     private final List<InteractiveObjectController> interactiveObjects;
-    private NetworkServer server;
 
 
     public RoomController(Room room) {
@@ -35,7 +34,6 @@ public class RoomController {
     }
     
     public void setServer (NetworkServer server) {
-        this.server = server;
         for (CharacterController characterController : characters){
             characterController.setServer(server);
         }
