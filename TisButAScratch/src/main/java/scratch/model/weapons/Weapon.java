@@ -43,6 +43,12 @@ public final class Weapon implements KryoSerializable{
         range = 1;
         attackInterval = 400;
     }
+    
+    public Weapon (int damage, int range, int attackInterval){
+        this.damage = damage;
+        this.range = range;
+        this.attackInterval = attackInterval;
+    }
 
     public void startCooldown() {
         if (cooledDown) {
