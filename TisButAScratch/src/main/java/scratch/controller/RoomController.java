@@ -65,7 +65,7 @@ public class RoomController {
         }
     }
 
-    public void render(GameContainer gameContainer) {
+    public synchronized void render(GameContainer gameContainer) {
         roomView.render(gameContainer);
 
         for (CharacterController characterController : characters) {
@@ -85,17 +85,17 @@ public class RoomController {
         return room.getId();
     }
 
-    public void addCharacter(CharacterController characterController) {
+    public synchronized void addCharacter(CharacterController characterController) {
         room.addCharacter(characterController.getCharacter());
         characters.add(characterController);
     }
 
-    public void removeCharacter(CharacterController characterController) {
+    public synchronized void removeCharacter(CharacterController characterController) {
         room.removeCharacter(characterController.getCharacter());
         characters.remove(characterController);
     }
 
-    public void moveCharacter(int characterId, RoomController roomController) {
+    public synchronized void moveCharacter(int characterId, RoomController roomController) {
         CharacterController characterToMove = getCharacterController(characterId);
 
         if (characterToMove != null) {
@@ -112,11 +112,6 @@ public class RoomController {
         }
         return null;
     }
-
-    public void addCharacterController(CharacterController characterController) {
-        characters.add(characterController);
-    }
-    
     public boolean hasId(int id){
         for (CharacterController characterController : characters) {
             if (characterController.getId() == id){
@@ -126,10 +121,10 @@ public class RoomController {
         return false;
     }
 
-    public void addInteractiveObjectController(InteractiveObjectController interactiveObjectController) {
+    public synchronized void addInteractiveObjectController(InteractiveObjectController interactiveObjectController) {
         interactiveObjects.add(interactiveObjectController);
     }
-    public void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
+    public synchronized void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
         room.addInteractiveObject(interactiveObjectController.getInteractiveObject());
         interactiveObjects.add(interactiveObjectController);
     }

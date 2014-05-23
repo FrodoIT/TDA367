@@ -52,34 +52,34 @@ public class CharacterController extends Listener {
         listeners.addPropertyChangeListener(listener);
     }
 
-    public void update() {
+    public synchronized void update() {
         if (character.isAlive()) {
             character.update();
         }
         server.sendTCP(character);
     }
 
-    public void render(GameContainer gameContainer) {
+    public synchronized void render(GameContainer gameContainer) {
         if (character.isAlive()) {
             view.render(gameContainer);
         }
 
     }
 
-    public GameCharacter getCharacter() {
+    public synchronized GameCharacter getCharacter() {
         return character;
     }
 
-    public int getId() {
+    public synchronized int getId() {
         return character.getId();
     }
 
-    public CharacterView getView() {
+    public synchronized CharacterView getView() {
         return view;
     }
 
     @Override
-    public void received(Connection connection, Object object) {
+    public synchronized void received(Connection connection, Object object) {
         Class<?> objClass = object.getClass();
         if (objClass == GameCharacter.class || objClass == NpcType.class) {
             GameCharacter recievedCharacter = (GameCharacter) object;
