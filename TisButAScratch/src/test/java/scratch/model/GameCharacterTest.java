@@ -100,14 +100,12 @@ public class GameCharacterTest extends TestCase {
 
     @Test
     public void testIsAlive() throws Exception {
-        assertTrue(testCharacter.isAlive());
         testCharacter.takeDamage(100);
         assertFalse(testCharacter.isAlive());
     }
 
     @Test
     public void testGetHealth() throws Exception {
-        assertEquals(10, testCharacter.getHealth());
         testCharacter.takeDamage(100);
         assertEquals(0, testCharacter.getHealth());
     }
