@@ -46,20 +46,6 @@ public class RoomTest extends TestCase {
         final INPCMove move = injector.getInstance(INPCMove.class);
         NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
                 new Weapon(), 100, 0, "test", 10, move);
-		/*
-	    HashMap<String,String> props1 = new HashMap<>();
-	    props1.put("objectType", "door");
-	    props1.put("connection", "2");
-	    HashMap<String,String> props2 = new HashMap<>();
-	    props2.put("objectType", "door");
-	    props2.put("connection", "2");
-	    final InteractiveObject testObject1 = new InteractiveObject("newTestObject", "door",10,10,32,32, props1);
-	    final InteractiveObject testObject2 = new InteractiveObject("newTestObject", "door",20,20,32,32, props2);
-
-	    room.addInteractiveObject(testObject1);
-	    room.addInteractiveObject(testObject2);
-	    System.out.println(room.getInteractiveObjects().size());*/
-
         testNpc.setNextMoveDirection(new Vector2D());
         putCharactersInRoom(testPlayer, testNpc);
         assertTrue(room.isActive());
@@ -78,11 +64,6 @@ public class RoomTest extends TestCase {
         assertTrue(room.getAreaUnderAttack().isEmpty());
         assertTrue(room.getCharacterInteractAreaMap().isEmpty());
         assertTrue(room.getCharacterMovementMap().isEmpty());
-		/*
-	    Vector2D oldPos = new Vector2D(10,10);
-	    testPlayer.setPosition(oldPos);
-	    room.update();
-	    assertFalse(testPlayer.getPosition().equals(oldPos));*/
 
     }
 
@@ -156,17 +137,9 @@ public class RoomTest extends TestCase {
 				new Weapon(), 100, 0, "test", 10, move);
 		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
 		GameCharacter gc1 = new GameCharacter();
-		GameCharacter gc2 = new GameCharacter();
 		room.addCharacter(gc1);
-		room.addCharacter(gc2);
 		gc1.setPosition(new Vector2D(0,0));
-		gc2.setPosition(new Vector2D(50,50));
 		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
-	}
-
-	@Test
-	public void testUpdateBoxPosition() throws Exception {
-
 	}
 
 	@Test
