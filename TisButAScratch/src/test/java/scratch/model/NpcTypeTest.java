@@ -5,6 +5,7 @@ import com.google.inject.Injector;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.construction.plugin.exported.CPNPCPlugin;
 import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.Weapon;
 
@@ -13,13 +14,14 @@ import java.awt.geom.Rectangle2D;
 
 public class NpcTypeTest extends TestCase {
 	private NpcType npcType;
+	private GameCharacter player;
 
 
-    @Before
+	@Before
 	public void setUp() {
         final Injector injector = Guice.createInjector(new MockModule());
         final IMap map = injector.getInstance(IMap.class);
-        final GameCharacter player = new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new Weapon(),10, 2, 0, "/res/monster.tmx");
+        player= new GameCharacter(new Rectangle2D.Double(0, 0, 32, 32), new Weapon(),10, 2, 0, "/res/monster.tmx");
         final INPCMove npcMove = injector.getInstance(INPCMove.class);
         final Room room = new Room(map, new DoorHandler());
         final Weapon weapon = new Weapon();
@@ -59,6 +61,20 @@ public class NpcTypeTest extends TestCase {
         npcType.update();
         assertSame(npcType.getMoveDirection(), direction);
     }
+
+	public void testAttacking(){
+		player.setPosition(new Vector2D(20,20));
+		npcType.setPosition(new Vector2D(30,30));
+		npcType.update();
+		assertTrue(npcType.isPromptingAnAttack());
+	}
+
+	public void testSetMovementPattern(){
+		INPCMove newMovementPattern = new CPNPCPlugin();
+		npcType.setMovementPattern(newMovementPattern);
+		assertTrue(npcType.getMovementPattern().equals(newMovementPattern));
+
+	}
 }
 
 
