@@ -20,7 +20,7 @@ public class RoomController {
 
 
     public RoomController(Room room) {
-        this.roomView = new RoomView((TiledMapPlus)room.getMap(), room);
+        this.roomView = new RoomView((TiledMapPlus)room.getMap());
         this.room = room;
         characters = new ArrayList<>();
         for (final GameCharacter character : room.getCharacters()){

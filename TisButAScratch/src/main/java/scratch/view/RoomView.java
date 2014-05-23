@@ -2,7 +2,6 @@ package scratch.view;
 
 import org.newdawn.slick.GameContainer;
 import scratch.construction.TiledMapPlus;
-import scratch.model.Room;
 
 /**
  *
@@ -12,11 +11,9 @@ import scratch.model.Room;
 
 public final class RoomView {
     private final TiledMapPlus map;
-    private final Room room;
 
-    public RoomView(TiledMapPlus map, Room room) {
+    public RoomView(TiledMapPlus map) {
         this.map = map;
-        this.room = room;
 
     }
 
