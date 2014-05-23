@@ -28,7 +28,6 @@ public final class ServerController extends Listener {
     private final NetworkServer networkServer;
     private final Game game;
     private final Map<Integer, RoomController> roomControllerMap;
-    private final List<UIController> uiControllerList = new ArrayList<>();
     private int nextPlayerId;
 
     public ServerController(Game game) {
