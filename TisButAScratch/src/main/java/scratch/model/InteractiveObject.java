@@ -15,7 +15,7 @@ public class InteractiveObject implements KryoSerializable {
     private Rectangle2D.Double unitTile;
     private Map<String, String> properties;
 
-    public InteractiveObject(String name, String type, int x, int y, int width, int height, HashMap<String, String> properties) {
+    public InteractiveObject(String name, String type, int x, int y, int width, int height, Map<String, String> properties) {
         this.name = name;
         this.type = type;
         this.unitTile = new Rectangle2D.Double(x, y, width, height);
