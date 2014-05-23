@@ -42,4 +42,23 @@ public class MovableObject extends InteractiveObject implements IMovableEntity{
         super.read(kryo, input);
         moveDirection = kryo.readObject(input, MoveDirection.class);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        MovableObject that = (MovableObject) o;
+
+        return (moveDirection != that.moveDirection);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (moveDirection != null ? moveDirection.hashCode() : 0);
+        return result;
+    }
 }
