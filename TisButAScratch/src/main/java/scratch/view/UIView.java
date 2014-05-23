@@ -12,13 +12,11 @@ import scratch.model.GameCharacter;
 public class UIView {
 
 	private GameCharacter character;
-	private final double maxHealth, fullLenght;
-	private final int height=10;
+	private final double maxHealth;
 
 	public UIView(GameCharacter character) {
 		this.character = character;
 		maxHealth=character.getHealth();
-		fullLenght=620;
 	}
 
 	public void setCharacter(GameCharacter character) {
@@ -31,9 +29,12 @@ public class UIView {
 		//get percentage of life left;
 		double currentHealth = (double)(character.getHealth())/maxHealth;
                 int yPos = gameContainer.getHeight()-30;
-
-		Rectangle lifebarGreen = new Rectangle(10, yPos, (int) (currentHealth*fullLenght), height);
-		Rectangle lifebarRed = new Rectangle(10, yPos, (int) fullLenght, height);
+                
+                final int height=10;
+                final double fullLength = 620;
+                
+		Rectangle lifebarGreen = new Rectangle(10, yPos, (int) (currentHealth*fullLength), height);
+		Rectangle lifebarRed = new Rectangle(10, yPos, (int) fullLength, height);
 
 		g.setColor(Color.white);
 		g.drawString("Life", 10, gameContainer.getHeight() - 50);
