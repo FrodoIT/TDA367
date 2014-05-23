@@ -25,23 +25,22 @@ public class DoorHandler {
         final Set<InteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
         final InteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
-		for (final Map.Entry<DoorHelper, Set<InteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
-			if ( roomSetEntry.getValue().contains(exitDoor) ) {
-
-				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
-                listeners.firePropertyChange(new PropertyChangeEvent(character.getId(), "DoorUse", room.getId(), roomSetEntry.getKey().getId()));
-				return;
-			}
-		}
+        if ( ! exitDoor.equals(originDoor)) {
+            for (final Map.Entry<DoorHelper, Set<InteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
+                if (roomSetEntry.getValue().contains(exitDoor)) {
+                    performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
+                    listeners.firePropertyChange(new PropertyChangeEvent(character.getId(), "DoorUse", room.getId(), roomSetEntry.getKey().getId()));
+                    break;
+                }
+            }
+        }
 	}
 
 	private void performTeleport(DoorHelper originRoom, DoorHelper targetRoom, InteractiveObject exitDoor, GameCharacter character) {
 		originRoom.removeCharacter(character);
 		targetRoom.addCharacter(character);
         final Rectangle2D.Double doorArea = exitDoor.getUnitTile();
-        final int x = (int) (doorArea.getX() - doorArea.getWidth()/2);
-        final int y = (int) (doorArea.getY() - doorArea.getHeight()/2);
-		character.setPosition(new Vector2D(x, y));
+		character.setPosition(new Vector2D(doorArea.getX(), doorArea.getY()));
 	}
 
 	private InteractiveObject getOutDoor(Set<InteractiveObject> connectedDoors, InteractiveObject originDoor) {
@@ -67,7 +66,7 @@ public class DoorHandler {
 		}
 
 
-        final String connection = (String)interactiveObject.getProperties().get("connection");
+        final String connection = interactiveObject.getProperties().get("connection");
 		Set<InteractiveObject> connectedDoors = doorMatchingMap.get(connection);
 
 		if (connectedDoors == null) {

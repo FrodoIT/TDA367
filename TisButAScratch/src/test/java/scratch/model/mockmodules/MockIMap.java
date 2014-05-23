@@ -49,6 +49,6 @@ public class MockIMap implements IMap {
 
     @Override
     public int getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 1;
     }
 }

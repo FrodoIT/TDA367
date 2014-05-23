@@ -57,7 +57,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         for (final GameCharacter character : charactersInteracting) {
             for (final InteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
-                    final String objectType = interactiveObject.getProperties().get("objectType");
+                    final String objectType = interactiveObject.getType();
                     if ("door".equals(objectType)) {
                         doorHandler.interactHappened(this, character, interactiveObject);
                         break;
