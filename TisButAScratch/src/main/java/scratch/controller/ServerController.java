@@ -82,12 +82,6 @@ public final class ServerController extends Listener {
 
         networkServer.sendTCP(new PacketNewCharacter(roomId, newPlayer));
         nextPlayerId++;
-
-        System.out.println();
-        System.out.println("**************************************");
-        System.out.println("HEAHUSAS ");
-        System.out.println("**************************************");
-        System.out.println();
     }
 
     @Override
