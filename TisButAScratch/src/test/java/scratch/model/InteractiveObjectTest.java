@@ -17,18 +17,18 @@ public class InteractiveObjectTest extends TestCase {
     private InteractiveObject interactiveObject;
 
     @Before
-    public void setUp() {
+    public void setUp(){
         HashMap<String,String> props = new HashMap<>();
         interactiveObject = new InteractiveObject("testObject", "box", 32, 32, 32, 32, props);
     }
     
     @Test
 
-	public void testPosition(){
-		interactiveObject.setPosition(new Vector2D(20,20));
-		assertTrue(interactiveObject.getPosition().equals(new Vector2D(20,20)));
-	}
-
+    public void testPosition(){
+	    interactiveObject.setPosition(new Vector2D(20,20));
+	    assertTrue(interactiveObject.getPosition().equals(new Vector2D(20,20)));
+    }
+	@Test
 	public void testSetObject(){
 		InteractiveObject newInteractiveObject = new InteractiveObject("newTestObject", "door",0,0,0,0, new HashMap());
 		interactiveObject.setObject(newInteractiveObject);
@@ -38,17 +38,17 @@ public class InteractiveObjectTest extends TestCase {
 				interactiveObject.getName().equals(newInteractiveObject.getName()) &&
 				interactiveObject.getType().equals(newInteractiveObject.getType()));
 	}
+	@Test
+	public void testGetName() throws Exception {
+		assertEquals("testObject", interactiveObject.getName());
+	}
 
-    public void testGetName() throws Exception {
-        assertEquals("testObject", interactiveObject.getName());
-    }
+	@Test
+	public void testGetType() throws Exception {
+		assertEquals("box", interactiveObject.getType());
+	}
 
-    @Test
-    public void testGetType() throws Exception {
-        assertEquals("box", interactiveObject.getType());
-    }
-
-    @Test
+	@Test
     public void testGetArea() throws Exception {
         assertEquals(new Rectangle2D.Double(32, 32, 32, 32), interactiveObject.getUnitTile());
     }
