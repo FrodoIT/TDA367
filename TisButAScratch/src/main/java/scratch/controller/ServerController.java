@@ -73,7 +73,7 @@ public final class ServerController extends Listener {
     private void addPlayer(Connection connection) {
         int roomId = 100;
         connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
-        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(20, 20), nextPlayerId);
+        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(200, 300), nextPlayerId);
         game.addPlayer(newPlayer);
         CharacterController playerController = new CharacterController(newPlayer);
         networkServer.addListener(playerController);
@@ -82,6 +82,12 @@ public final class ServerController extends Listener {
 
         networkServer.sendTCP(new PacketNewCharacter(roomId, newPlayer));
         nextPlayerId++;
+
+        System.out.println();
+        System.out.println("**************************************");
+        System.out.println("HEAHUSAS ");
+        System.out.println("**************************************");
+        System.out.println();
     }
 
     @Override
