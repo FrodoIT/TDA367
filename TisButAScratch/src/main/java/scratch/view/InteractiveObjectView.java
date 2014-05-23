@@ -14,7 +14,6 @@ public class InteractiveObjectView {
 
     private SpriteDirectionRenderer spriteHandler;
     private final InteractiveObject interactiveObject;
-    private Rectangle2D.Double unitTile;
 
     public InteractiveObjectView(InteractiveObject interactiveObject) {
         this.interactiveObject = interactiveObject;
@@ -22,15 +21,17 @@ public class InteractiveObjectView {
 
     public void render(GameContainer gameContainer) {
         //This should not be needed
-        if (interactiveObject.getProperties().get("imagePath") != null) {
+        String imagePath = interactiveObject.getProperties().get("imagePath");
+        if (imagePath != null) {
             if (spriteHandler == null) {
                 try {
-                    spriteHandler = new SpriteDirectionRenderer(new TiledMap(interactiveObject.getProperties().get("imagePath")));
+                    spriteHandler = new SpriteDirectionRenderer(new TiledMap(imagePath));
                 } catch (SlickException ex) {
                     Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, interactiveObject.getUnitTile().getX(), interactiveObject.getUnitTile().getY());
+            Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
+            spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, unitTile.getX(), unitTile.getY());
         }
     }
 }
