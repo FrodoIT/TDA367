@@ -59,6 +59,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getType();
                     if ("door".equals(objectType)) {
+
                         doorHandler.interactHappened(this, character, interactiveObject);
                         break;
                     }
@@ -112,12 +113,13 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
         //Check if new X position is allowed
         if (0 < newX && newXRight < getMapWidth() && ! isColliding(entityToPlace, new Vector2D(newX, oldY))) {
-            returnX = newX;
-        }
+	        returnX = newX;
 
-        //Check if new Y position is allowed
-        if (0 < newY && newYDown < getMapHeight() && ! isColliding(entityToPlace, new Vector2D(oldX, newY))) {
-            returnY = newY;
+
+	        //Check if new Y position is allowed
+	        if (0 < newY && newYDown < getMapHeight() && !isColliding(entityToPlace, new Vector2D(oldX, newY))) {
+		        returnY = newY;
+	        }
         }
         return new Vector2D(returnX, returnY);
     }
@@ -149,15 +151,15 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-    private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
-        if (entity.getUnitTile().intersects(placeToPutArea) &&
-                ! entity.getUnitTile().equals(entityToPlace.getUnitTile()) &&
-                entity instanceof MovableObject) {
-            updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
-            return true;
-        }
-        return false;
-    }
+	private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
+		if (entity.getUnitTile().intersects(placeToPutArea) &&
+				! entity.getUnitTile().equals(entityToPlace.getUnitTile()) &&
+				entity instanceof MovableObject) {
+			updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
+			return true;
+		}
+		return false;
+	}
 
     private boolean isCollidingWithCharacter(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
         if (entity instanceof GameCharacter){
