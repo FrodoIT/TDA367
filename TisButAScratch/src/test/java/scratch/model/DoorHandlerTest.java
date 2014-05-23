@@ -61,18 +61,6 @@ public class DoorHandlerTest extends TestCase {
     }
 
     @Test
-    public void testAddListener() {
-        final PropertyChangeListener listener = new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent event) {
-
-            }
-        };
-
-        doorHandler.addListener(listener);
-    }
-
-    @Test
     public void testInteractHappened() throws Exception {
         final Vector2D pos = new Vector2D(0, 0);
         character.setPosition(pos);
