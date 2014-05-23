@@ -23,16 +23,22 @@ public class InteractiveObjectTest extends TestCase {
     }
     
     @Test
-    public void testSetObject() {
-        InteractiveObject cleanInteractiveObject = new InteractiveObject();
-        cleanInteractiveObject.setObject(interactiveObject);
-        assertTrue(cleanInteractiveObject.getProperties().equals(interactiveObject.getProperties()));
-        assertTrue(cleanInteractiveObject.getName().equals(interactiveObject.getName()));
-        assertTrue(cleanInteractiveObject.getType().equals(interactiveObject.getType()));
-        assertTrue(cleanInteractiveObject.getUnitTile().equals(interactiveObject.getUnitTile()));
-    }
-    
-    @Test
+
+	public void testPosition(){
+		interactiveObject.setPosition(new Vector2D(20,20));
+		assertTrue(interactiveObject.getPosition().equals(new Vector2D(20,20)));
+	}
+
+	public void testSetObject(){
+		InteractiveObject newInteractiveObject = new InteractiveObject("newTestObject", "door",0,0,0,0, new HashMap());
+		interactiveObject.setObject(newInteractiveObject);
+		System.out.println(interactiveObject + " " + newInteractiveObject);
+		assertTrue(interactiveObject.getProperties().equals(newInteractiveObject.getProperties()) &&
+				interactiveObject.getUnitTile().equals(newInteractiveObject.getUnitTile()) &&
+				interactiveObject.getName().equals(newInteractiveObject.getName()) &&
+				interactiveObject.getType().equals(newInteractiveObject.getType()));
+	}
+
     public void testGetName() throws Exception {
         assertEquals("testObject", interactiveObject.getName());
     }
