@@ -2,6 +2,7 @@ package scratch.model;
 
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -13,7 +14,7 @@ public interface IInteractiveObject {
 	String getName();
 	String getType();
 	Rectangle2D.Double getUnitTile();
-	HashMap<String,String> getProperties();
+	Map<String, String> getProperties();
     void update();
 	void setObject(InteractiveObject recievedObject);
 }

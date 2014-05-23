@@ -7,12 +7,13 @@ import com.esotericsoftware.kryo.io.Output;
 
 import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
+import java.util.Map;
 
 public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     private String name, type;
     private Rectangle2D.Double unitTile;
-    private HashMap<String, String> properties;
+    private Map<String, String> properties;
 
     public InteractiveObject(String name, String type, int x, int y, int width, int height, HashMap<String, String> properties) {
         this.name = name;
@@ -59,7 +60,7 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
     }
 
     @Override
-    public HashMap<String, String> getProperties() {
+    public Map<String, String> getProperties() {
         return properties;
     }
 
