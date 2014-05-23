@@ -32,13 +32,11 @@ public final class ClientController extends Listener {
         super();
         roomControllerMap = new HashMap<>();
         networkClient = new NetworkClient(ip);
-
     }
 
     public void init(GameContainer gameContainer) throws SlickException {
         //Send this class to be set as listener for the connection
-        final RoomFactory roomFactory = new RoomFactory();
-        initRooms(roomFactory);
+        initRooms(new RoomFactory());
         networkClient.start(this);
     }
 
@@ -51,46 +49,49 @@ public final class ClientController extends Listener {
     }
     
     public void update(GameContainer container, int delta) {
-        networkClient.send(new PacketPlayerInput(id, container.getInput()));
+        networkClient.send(new PacketPlayerInput(getId(), container.getInput()));
     }
 
-    public synchronized void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
+    public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         if (roomId != 0) {
             roomControllerMap.get(roomId).render(gameContainer);
             if (uiController != null) { //if uicontroller has been added yet, show playerstats.
                 uiController.render(gameContainer);
             }
         }
-
     }
 
     @Override
-    public synchronized void received(Connection connection, Object object) {
-        if (object instanceof PacketMoveCharacter) {
+    public void received(Connection connection, Object object) {
+        if (object.getClass() == PacketMoveCharacter.class) {
             PacketMoveCharacter info = (PacketMoveCharacter) object;
             roomControllerMap.get(info.getFromRoomId()).moveCharacter(
                     info.getCharacterId(),
                     roomControllerMap.get(info.getToRoomId()));
 
-            if (info.getCharacterId() == id) {
+            if (info.getCharacterId() == getId()) {
                 roomId = info.getToRoomId();
             }
-        }
-
-        if (object instanceof PacketNewConnection) {
-
+        } else if (object.getClass() == PacketNewConnection.class) {
             final PacketNewConnection info = (PacketNewConnection) object;
-            this.id = info.getId();
+            setId(info.getId());
             this.roomId = info.getRoomId();
-
-        } else if (object instanceof PacketNewCharacter) {
+        } else if (object.getClass() == PacketNewCharacter.class) {
             PacketNewCharacter packet = (PacketNewCharacter) object;
             CharacterController characterController = new CharacterController(packet.getCharacter());
             networkClient.addListener(characterController);
             roomControllerMap.get(roomId).addCharacter(characterController);
-            if (characterController.getId() == id){
+            if (characterController.getId() == getId()){
                 uiController = new UIController(characterController.getCharacter());
             }
         }
+    }
+    
+    private synchronized void setId(int id){
+        this.id = id;
+    }
+    
+    private synchronized int getId() {
+        return id;
     }
 }
