@@ -41,10 +41,6 @@ public final class Vector2D {
 		return vectorInfo.y;
 	}
 
-	@Override
-	public String toString() {
-		return String.format("(%f, %f) %f", vectorInfo.x, vectorInfo.y, magnitude);
-	}
 
     @Override
     public boolean equals(Object o) {
