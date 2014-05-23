@@ -22,7 +22,7 @@ import scratch.utils.Cooldown;
  */
 @Immutable
 @Root
-public class GameCharacter implements KryoSerializable {
+public class GameCharacter implements KryoSerializable, IMovableEntity {
 
 	@Element (type = Rectangle2D.Double.class, required = false)
 	private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
