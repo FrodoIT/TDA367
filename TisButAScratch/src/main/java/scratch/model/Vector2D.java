@@ -67,7 +67,7 @@ public final class Vector2D {
     public double distance (Vector2D toPosition){
         double xDiff = getX() - toPosition.getX();
         double yDiff = getY() - toPosition.getY();
-        double distance = Math.sqrt(xDiff*xDiff+yDiff*yDiff);
-        return distance;
+        return Math.sqrt(xDiff*xDiff+yDiff*yDiff);
+        
     }
 }
