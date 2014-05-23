@@ -1,8 +1,8 @@
 package scratch.model.mockmodules;
 
 import scratch.construction.NpcSpecification;
-import scratch.model.IInteractiveObject;
 import scratch.model.IMap;
+import scratch.model.InteractiveObject;
 import scratch.model.Vector2D;
 
 import java.util.List;
@@ -38,7 +38,7 @@ public class MockIMap implements IMap {
 	}
 
 	@Override
-	public List<IInteractiveObject> getInteractiveObjects() {
+	public List<InteractiveObject> getInteractiveObjects() {
 		return null;
 	}
 

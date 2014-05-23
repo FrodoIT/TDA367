@@ -5,7 +5,7 @@ import java.util.List;
 import org.newdawn.slick.GameContainer;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
-import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 import scratch.model.Room;
 import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
@@ -29,7 +29,7 @@ public class RoomController {
         }
         
         interactiveObjects = new ArrayList<>();
-        for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()){
+        for (final InteractiveObject interactiveObject : room.getInteractiveObjects()){
             interactiveObjects.add(new InteractiveObjectController(interactiveObject));
         }
     }

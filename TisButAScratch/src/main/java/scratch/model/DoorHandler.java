@@ -12,8 +12,8 @@ import java.util.*;
  */
 public class DoorHandler {
 
-	private final Map<DoorHelper, Set<IInteractiveObject>> roomDoorsMap = new HashMap<>();
-	private final Map<String, Set<IInteractiveObject>> doorMatchingMap = new HashMap<>();
+	private final Map<DoorHelper, Set<InteractiveObject>> roomDoorsMap = new HashMap<>();
+	private final Map<String, Set<InteractiveObject>> doorMatchingMap = new HashMap<>();
 	private final Random random = new Random(System.nanoTime());
     private final PropertyChangeSupport listeners = new PropertyChangeSupport(this);
 
@@ -21,11 +21,11 @@ public class DoorHandler {
         listeners.addPropertyChangeListener(listener);
     }
 
-	public void interactHappened(DoorHelper room, GameCharacter character, IInteractiveObject originDoor) {
-        final Set<IInteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
-        final IInteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
+	public void interactHappened(DoorHelper room, GameCharacter character, InteractiveObject originDoor) {
+        final Set<InteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
+        final InteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
-		for (final Map.Entry<DoorHelper, Set<IInteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
+		for (final Map.Entry<DoorHelper, Set<InteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
 			if ( roomSetEntry.getValue().contains(exitDoor) ) {
 
 				performTeleport(room, roomSetEntry.getKey(), exitDoor, character);
@@ -35,7 +35,7 @@ public class DoorHandler {
 		}
 	}
 
-	private void performTeleport(DoorHelper originRoom, DoorHelper targetRoom, IInteractiveObject exitDoor, GameCharacter character) {
+	private void performTeleport(DoorHelper originRoom, DoorHelper targetRoom, InteractiveObject exitDoor, GameCharacter character) {
 		originRoom.removeCharacter(character);
 		targetRoom.addCharacter(character);
         final Rectangle2D.Double doorArea = exitDoor.getUnitTile();
@@ -44,8 +44,8 @@ public class DoorHandler {
 		character.setPosition(new Vector2D(x, y));
 	}
 
-	private IInteractiveObject getOutDoor(Set<IInteractiveObject> connectedDoors, IInteractiveObject originDoor) {
-        final List<IInteractiveObject> connDoorsExcludingOrigin = new ArrayList<>(connectedDoors);
+	private InteractiveObject getOutDoor(Set<InteractiveObject> connectedDoors, InteractiveObject originDoor) {
+        final List<InteractiveObject> connDoorsExcludingOrigin = new ArrayList<>(connectedDoors);
 		connDoorsExcludingOrigin.remove(originDoor);
         if (connDoorsExcludingOrigin.isEmpty()) {
             return originDoor; //if door has no connection. then go out the same door you tried to go in
@@ -55,8 +55,8 @@ public class DoorHandler {
 		return connDoorsExcludingOrigin.get(randomIndex);
 	}
 
-	public void addDoor(DoorHelper room, IInteractiveObject interactiveObject) {
-		Set<IInteractiveObject> objectList = roomDoorsMap.get(room);
+	public void addDoor(DoorHelper room, InteractiveObject interactiveObject) {
+		Set<InteractiveObject> objectList = roomDoorsMap.get(room);
 
 		if (objectList == null) {
 			objectList = new HashSet<>();
@@ -68,7 +68,7 @@ public class DoorHandler {
 
 
         final String connection = (String)interactiveObject.getProperties().get("connection");
-		Set<IInteractiveObject> connectedDoors = doorMatchingMap.get(connection);
+		Set<InteractiveObject> connectedDoors = doorMatchingMap.get(connection);
 
 		if (connectedDoors == null) {
 			connectedDoors = new HashSet<>();
@@ -79,8 +79,8 @@ public class DoorHandler {
 		}
 	}
 
-	public void addDoors(DoorHelper room, List<IInteractiveObject> interactiveObjects) {
-		for (final IInteractiveObject interactiveObject : interactiveObjects) {
+	public void addDoors(DoorHelper room, List<InteractiveObject> interactiveObjects) {
+		for (final InteractiveObject interactiveObject : interactiveObjects) {
 			addDoor(room, interactiveObject);
 		}
 	}

@@ -1,6 +1,5 @@
 package scratch.model.mockmodules;
 
-import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
 import scratch.model.Vector2D;
 
@@ -11,7 +10,7 @@ import java.util.Map;
 /**
  * Created by pippin on 5/16/14.
  */
-public class MockIInteractiveObject implements IInteractiveObject {
+public class MockInteractiveObject extends InteractiveObject {
     @Override
     public Vector2D getPosition() {
         return null;

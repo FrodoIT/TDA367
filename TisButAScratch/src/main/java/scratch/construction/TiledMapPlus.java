@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public class TiledMapPlus extends TiledMap implements IMap {
 
-    private final List<IInteractiveObject> interactiveObjects = new ArrayList<>();
+    private final List<InteractiveObject> interactiveObjects = new ArrayList<>();
     private final List<NpcSpecification> npcSpecifications = new ArrayList<>();
     private final int collisionIndex;
     private final int id;
@@ -115,7 +115,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
     }
 
     @Override
-    public List<IInteractiveObject> getInteractiveObjects() {
+    public List<InteractiveObject> getInteractiveObjects() {
         return interactiveObjects;
     }
 

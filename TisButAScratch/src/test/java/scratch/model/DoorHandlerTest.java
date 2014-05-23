@@ -29,7 +29,7 @@ public class DoorHandlerTest extends TestCase {
                 doorHandler
         );
 
-        doorHandler.addDoor(room, new IInteractiveObject() {
+        doorHandler.addDoor(room, new InteractiveObject() {
             @Override
             public Vector2D getPosition() {
                 return null;

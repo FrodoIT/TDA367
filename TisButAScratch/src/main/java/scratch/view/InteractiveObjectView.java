@@ -3,7 +3,7 @@ package scratch.view;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 import scratch.model.MoveDirection;
 
 import java.awt.geom.Rectangle2D;
@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 public class InteractiveObjectView {
 
     private SpriteDirectionRenderer spriteHandler;
-    private final IInteractiveObject interactiveObject;
+    private final InteractiveObject interactiveObject;
     private Rectangle2D.Double unitTile;
 
-    public InteractiveObjectView(IInteractiveObject interactiveObject) {
+    public InteractiveObjectView(InteractiveObject interactiveObject) {
         this.interactiveObject = interactiveObject;
     }
 

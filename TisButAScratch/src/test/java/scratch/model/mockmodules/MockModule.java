@@ -14,7 +14,7 @@ public class MockModule extends AbstractModule {
 	    bind(IMap.class).to(MockIMap.class);
 	    bind(INPCMove.class).to(MockINPCMove.class);
         bind(IRoomData.class).to(MockIRoomData.class);
-        bind(IInteractiveObject.class).to(MockIInteractiveObject.class);
+        bind(InteractiveObject.class).to(MockInteractiveObject.class);
 
     }
 }

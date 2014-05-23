@@ -7,16 +7,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import scratch.construction.RoomFactory;
 import scratch.construction.TiledMapPlus;
-import scratch.model.GameCharacter;
-import scratch.model.IInteractiveObject;
-import scratch.model.InteractiveObject;
 import scratch.model.Room;
 import scratch.network.*;
-import scratch.view.RoomView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

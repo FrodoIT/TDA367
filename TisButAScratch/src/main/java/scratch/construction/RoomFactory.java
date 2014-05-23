@@ -2,7 +2,7 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import scratch.model.DoorHandler;
-import scratch.model.IInteractiveObject;
+import scratch.model.InteractiveObject;
 import scratch.model.NpcType;
 import scratch.model.Room;
 import scratch.utils.FileScanner;
@@ -63,7 +63,7 @@ public final class RoomFactory {
      */
     private void setupDoorHandler() {
         for (final Room room : rooms) {
-            for (final IInteractiveObject interactiveObject : room.getInteractiveObjects()) {
+            for (final InteractiveObject interactiveObject : room.getInteractiveObjects()) {
 
                 if ("door".compareTo(interactiveObject.getProperties().get("objectType")) == 0 ) {
                     doorHandler.addDoor(room, interactiveObject);
@@ -79,7 +79,7 @@ public final class RoomFactory {
     private void addInteractiveObjectstoRooms() {
         for (final Room room : rooms) {
             final TiledMapPlus map = (TiledMapPlus)room.getMap();
-            for (final IInteractiveObject interactiveObject : map.getInteractiveObjects()) {
+            for (final InteractiveObject interactiveObject : map.getInteractiveObjects()) {
                 room.addInteractiveObject(interactiveObject);
             }
         }

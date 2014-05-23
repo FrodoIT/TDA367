@@ -27,7 +27,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private final List<GameCharacter> charactersInteracting = new ArrayList<>();
     private final List<GameCharacter> areaUnderAttack = new ArrayList<>();
     private IMap map;
-    private List<IInteractiveObject> interactiveObjects;
+    private List<InteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
 
     public Room(IMap collisionMap, DoorHandler doorHandler) {
@@ -55,7 +55,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     private void updateCharacterInteractions() {
         for (final GameCharacter character : charactersInteracting) {
-            for (final IInteractiveObject interactiveObject : interactiveObjects) {
+            for (final InteractiveObject interactiveObject : interactiveObjects) {
                 if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getProperties().get("objectType");
                     if ("door".compareTo(objectType) == 0) {
@@ -196,7 +196,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return npcPosition;
     }
 
-    public void addInteractiveObject(IInteractiveObject interactiveObject) {
+    public void addInteractiveObject(InteractiveObject interactiveObject) {
         if(interactiveObject instanceof MovableObject) {
             movableEntities.add((MovableObject)interactiveObject);
         }
@@ -254,7 +254,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return areaUnderAttack;
     }
 
-    public List<IInteractiveObject> getInteractiveObjects() {
+    public List<InteractiveObject> getInteractiveObjects() {
         return interactiveObjects;
     }
 

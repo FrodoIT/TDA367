@@ -3,20 +3,17 @@ package scratch.controller;
 import scratch.view.InteractiveObjectView;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
-import scratch.model.IInteractiveObject;
 import scratch.model.InteractiveObject;
 import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 
 public class InteractiveObjectController extends Listener {
-    private IInteractiveObject interactiveObject;
+    private InteractiveObject interactiveObject;
     private final InteractiveObjectView view;
     private NetworkServer server;
 
-    public InteractiveObjectController(final IInteractiveObject interactiveObject) {
+    public InteractiveObjectController(final InteractiveObject interactiveObject) {
         this.interactiveObject =  interactiveObject;
         view = new InteractiveObjectView(interactiveObject);
     }
@@ -47,7 +44,7 @@ public class InteractiveObjectController extends Listener {
         }
     }
 
-    public IInteractiveObject getInteractiveObject() {
+    public InteractiveObject getInteractiveObject() {
         return interactiveObject;
     }
 

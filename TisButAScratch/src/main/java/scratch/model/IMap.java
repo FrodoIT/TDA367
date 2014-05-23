@@ -14,6 +14,6 @@ public interface IMap {
     int getHeight();
     int getWidth();
     int getId();
-    List<IInteractiveObject> getInteractiveObjects();
+    List<InteractiveObject> getInteractiveObjects();
     List<NpcSpecification> getNpcSpecifications();
 }

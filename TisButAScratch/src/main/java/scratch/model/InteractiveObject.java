@@ -9,7 +9,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InteractiveObject implements IInteractiveObject, KryoSerializable {
+public class InteractiveObject implements KryoSerializable {
 
     private String name, type;
     private Rectangle2D.Double unitTile;
@@ -27,31 +27,6 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     }
 
-    @Override
-    public void setPosition(Vector2D newPos) {
-        unitTile.setRect(newPos.getX(), newPos.getY(), unitTile.getWidth(), unitTile.getHeight());
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getType() {
-        return type;
-    }
-
-    @Override
-    public Vector2D getPosition() {
-        return new Vector2D(unitTile.getX(), unitTile.getY());
-    }
-
-    @Override
-    public Rectangle2D.Double getUnitTile() {
-        return unitTile;
-    }
-
     public void setObject(InteractiveObject interactiveObject) {
         this.properties = interactiveObject.getProperties();
         this.name = interactiveObject.getName();
@@ -59,12 +34,10 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
         this.unitTile = interactiveObject.getUnitTile();
     }
 
-    @Override
     public Map<String, String> getProperties() {
         return properties;
     }
 
-    @Override
     public void update() {
 
     }
@@ -85,6 +58,26 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
             return true;
         }
         return false;
+    }
+
+    public void setPosition(Vector2D newPos) {
+        unitTile.setRect(newPos.getX(), newPos.getY(), unitTile.getWidth(), unitTile.getHeight());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Vector2D getPosition() {
+        return new Vector2D(unitTile.getX(), unitTile.getY());
+    }
+
+    public Rectangle2D.Double getUnitTile() {
+        return unitTile;
     }
 
     @Override
