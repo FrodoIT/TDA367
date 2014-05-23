@@ -12,7 +12,7 @@ import java.util.HashMap;
  * Created by Anna on 2014-05-23.
  */
 public class MovableObject extends InteractiveObject implements IMovableEntity{
-	MoveDirection moveDirection;
+	private MoveDirection moveDirection;
 
 	public MovableObject(String name, String type, int x, int y, int width, int height, HashMap<String, String> properties){
 		super(name, type, x,y,width,height,properties);
@@ -48,17 +48,13 @@ public class MovableObject extends InteractiveObject implements IMovableEntity{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
-        MovableObject that = (MovableObject) o;
-
-        return (moveDirection != that.moveDirection);
+        return (moveDirection != ((MovableObject)o).getMoveDirection());
 
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (moveDirection != null ? moveDirection.hashCode() : 0);
-        return result;
+         return (31 * super.hashCode() + (moveDirection != null ? moveDirection.hashCode() : 0));
+
     }
 }
