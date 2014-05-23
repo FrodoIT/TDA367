@@ -207,6 +207,11 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         return moveDirection;
     }
 
+    @Override
+    public void setMoveDirection(MoveDirection direction) {
+        this.moveDirection = direction;
+    }
+
     public int getDamage() {
         return weapon.getDamage();
     }
