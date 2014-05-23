@@ -22,14 +22,13 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     }
 
-	public InteractiveObject(){
+    public InteractiveObject() {
 
-	}
+    }
 
     @Override
     public void setPosition(Vector2D newPos) {
         unitTile.setRect(newPos.getX(), newPos.getY(), unitTile.getWidth(), unitTile.getHeight());
-	    System.out.println("id: " + properties.get("id") + "new Pos: " + unitTile);
     }
 
     @Override
@@ -49,18 +48,18 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     @Override
     public Rectangle2D.Double getUnitTile() {
-	    return unitTile;
+        return unitTile;
     }
 
-	public void setObject(InteractiveObject interactiveObject){
-		this.properties=interactiveObject.getProperties();
-		this.name=interactiveObject.getName();
-		this.type= interactiveObject.getType();
-		this.unitTile = interactiveObject.getUnitTile();
-	}
+    public void setObject(InteractiveObject interactiveObject) {
+        this.properties = interactiveObject.getProperties();
+        this.name = interactiveObject.getName();
+        this.type = interactiveObject.getType();
+        this.unitTile = interactiveObject.getUnitTile();
+    }
 
     @Override
-    public HashMap<String,String> getProperties() {
+    public HashMap<String, String> getProperties() {
         return properties;
     }
 
@@ -69,19 +68,37 @@ public class InteractiveObject implements IInteractiveObject, KryoSerializable {
 
     }
 
-	@Override
-	public void write(Kryo kryo, Output output) {
-		kryo.writeObject(output, name);
-		kryo.writeObject(output, type);
-		kryo.writeObject(output, unitTile);
-		kryo.writeObject(output, properties);
-	}
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        } else if (object == null || object.getClass() != InteractiveObject.class) {
+            return false;
+        }
+        final InteractiveObject recievedObject = (InteractiveObject) object;
+        if (this.getName().equals(recievedObject.getName())
+                && this.getPosition().equals(recievedObject.getPosition())
+                && this.getProperties().equals(recievedObject.getProperties())
+                && this.getType().equals(recievedObject.type)
+                && this.getUnitTile().equals(recievedObject.getUnitTile())) {
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public void read(Kryo kryo, Input input) {
-		name = kryo.readObject(input, String.class);
-		type = kryo.readObject(input, String.class);
-		unitTile = kryo.readObject(input, Rectangle2D.Double.class);
-		properties = kryo.readObject(input, HashMap.class);
-	}
+    @Override
+    public void write(Kryo kryo, Output output) {
+        kryo.writeObject(output, name);
+        kryo.writeObject(output, type);
+        kryo.writeObject(output, unitTile);
+        kryo.writeObject(output, properties);
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        name = kryo.readObject(input, String.class);
+        type = kryo.readObject(input, String.class);
+        unitTile = kryo.readObject(input, Rectangle2D.Double.class);
+        properties = kryo.readObject(input, HashMap.class);
+    }
 }
