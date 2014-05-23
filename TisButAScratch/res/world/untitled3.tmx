@@ -13,7 +13,7 @@
  </tileset>
  <tileset firstgid="349" name="Hanzo-RuinsTown01VScopy" tilewidth="32" tileheight="32">
   <tileoffset x="-3" y="-3"/>
-  <image source="../../../../../../Pictures/Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
+  <image source="Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">

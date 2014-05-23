@@ -8,22 +8,22 @@
   <image source="tmw_desert_spacing.png" trans="ffffff" width="265" height="199"/>
  </tileset>
  <tileset firstgid="49" name="lol" tilewidth="32" tileheight="32">
-  <image source="../../../../../../Pictures/mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
+  <image source="mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
  </tileset>
  <tileset firstgid="241" name="lolmiddle" tilewidth="32" tileheight="32" margin="16">
-  <image source="../../../../../../Pictures/mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
+  <image source="mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
  </tileset>
  <tileset firstgid="406" name="Hanzo-RuinsTown01VScopy" tilewidth="32" tileheight="32">
-  <image source="../../../../../../Pictures/Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
+  <image source="Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
  </tileset>
  <tileset firstgid="662" name="4tilesets" tilewidth="32" tileheight="32">
-  <image source="../../../../../../Pictures/4tilesets.png" trans="ffffff" width="1024" height="1024"/>
+  <image source="4tilesets.png" trans="ffffff" width="1024" height="1024"/>
  </tileset>
  <tileset firstgid="1686" name="möbler" tilewidth="32" tileheight="32">
-  <image source="../../../../../../Pictures/mack__s_tile_set__d_by_draymondc-d2z3zfp.png" trans="ffffff" width="512" height="512"/>
+  <image source="mack__s_tile_set__d_by_draymondc-d2z3zfp.png" trans="ffffff" width="512" height="512"/>
  </tileset>
  <tileset firstgid="1942" name="tilee" tilewidth="32" tileheight="32">
-  <image source="../../../../../../Pictures/tilee.png" trans="ffffff" width="512" height="512"/>
+  <image source="tilee.png" trans="ffffff" width="512" height="512"/>
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
