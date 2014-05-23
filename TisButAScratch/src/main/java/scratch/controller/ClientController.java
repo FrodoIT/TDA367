@@ -28,7 +28,6 @@ import java.util.Map;
  */
 public final class ClientController extends Listener {
 
-    private final List<CharacterController> characterControllerList;
     private final Map<Integer, RoomController> roomControllerMap;
     private final NetworkClient networkClient;
     private UIController uiController;
@@ -37,7 +36,6 @@ public final class ClientController extends Listener {
 
     public ClientController(String ip) {
         super();
-        characterControllerList = new ArrayList<>();
         roomControllerMap = new HashMap<>();
         networkClient = new NetworkClient(ip);
 
