@@ -24,7 +24,10 @@ public class DoorController implements PropertyChangeListener{
     
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        rooms.get((int)evt.getOldValue()).moveCharacter((int)evt.getSource(), rooms.get((int)evt.getNewValue()));
-        server.sendTCP(new PacketMoveCharacter((int)evt.getSource(), (int)evt.getOldValue(), (int)evt.getNewValue()));
+        final int oldValue = (int)evt.getOldValue();
+        final int newValue = (int)evt.getNewValue();
+        final int source = (int)evt.getSource();
+        rooms.get(oldValue).moveCharacter(source, rooms.get(newValue));
+        server.sendTCP(new PacketMoveCharacter(source, oldValue, newValue));
     }
 }
