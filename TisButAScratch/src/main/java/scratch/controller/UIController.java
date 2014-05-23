@@ -11,11 +11,9 @@ import java.beans.PropertyChangeSupport;
  * Created by Anna on 2014-05-19.
  */
 public class UIController extends Listener {
-	private PropertyChangeSupport listeners;
 	private final UIView view;
 
 	public UIController(GameCharacter character) {
-		listeners = new PropertyChangeSupport(this);
 		view = new UIView(character);
 	}
 
