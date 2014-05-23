@@ -19,30 +19,28 @@ import scratch.model.Vector2D;
  */
 public class NpcView extends CharacterView {
 
-    private GameCharacter character;
-    private Vector2D pos;
-    private int fulllenght, maxHealth, height;
-    private double currentHealth;
+    private final GameCharacter character;
+    private final int maxHealth;
 
     public NpcView(GameCharacter character) {
         super(character);
         this.character = character;
         maxHealth = character.getHealth();
-        fulllenght = 50;
-        height = 5;
     }
 
     @Override
     public void render(GameContainer gameContainer) {
         super.render(gameContainer);
         //healthbar over npc
-        pos = character.getPosition();
+        Vector2D pos = character.getPosition();
 
         //get percentage of life left;
-        currentHealth = (double) (character.getHealth()) / maxHealth;
+        double currentHealth = (double) (character.getHealth()) / maxHealth;
+        int fullLength = 50;
+        int height = 5;
 
-        Rectangle lifeGreen = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, (float) currentHealth * fulllenght, height);
-        Rectangle lifeRed = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, fulllenght, height);
+        Rectangle lifeGreen = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, (float) currentHealth * fullLength, height);
+        Rectangle lifeRed = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, fullLength, height);
 
         Graphics g = gameContainer.getGraphics();
         g.setColor(Color.red);
