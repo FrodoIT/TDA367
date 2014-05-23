@@ -81,6 +81,15 @@ public class InteractiveObject implements KryoSerializable {
     }
 
     @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + (unitTile != null ? unitTile.hashCode() : 0);
+        result = 31 * result + (properties != null ? properties.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public void write(Kryo kryo, Output output) {
         kryo.writeObject(output, name);
         kryo.writeObject(output, type);
