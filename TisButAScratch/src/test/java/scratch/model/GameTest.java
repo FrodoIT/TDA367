@@ -51,6 +51,8 @@ public class GameTest extends TestCase {
     public void testAddPlayerWithoutRooms() {
         Game game = new Game();
         assertFalse(game.addPlayer(player));
+        game.setMap(new ArrayList<Room>());
+        assertFalse(game.addPlayer(player));
     }
 
 	@Test
