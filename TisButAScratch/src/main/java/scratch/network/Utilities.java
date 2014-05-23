@@ -39,7 +39,7 @@ public class Utilities {
         kryo.register(InteractiveObject.class);
         kryo.register(HashMap.class);
         kryo.register(PacketNewCharacter.class);
-
+        kryo.register(scratch.model.MovableObject.class);
     }
 
     //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till
