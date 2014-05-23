@@ -80,13 +80,14 @@ public class CharacterController extends Listener {
 
     @Override
     public void received(Connection connection, Object object) {
-        if (object instanceof GameCharacter) {
+        Class<?> objClass = object.getClass();
+        if (objClass == GameCharacter.class || objClass == NpcType.class) {
             GameCharacter recievedCharacter = (GameCharacter) object;
             if (recievedCharacter.getId() == getId()) {
                 character.setCharacter(recievedCharacter);
 
             }
-        } else if (object instanceof PacketPlayerInput){
+        } else if (objClass == PacketPlayerInput.class){
             PacketPlayerInput input = (PacketPlayerInput) object;
             if (input.getId() == character.getId()){
                 character.setNextMoveDirection(input.getMovementDirection());
