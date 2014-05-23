@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
  */
 public interface IMovableEntity {
     MoveDirection getMoveDirection();
-    void setMoveDirection();
+    void setMoveDirection(MoveDirection direction);
     void setPosition(Vector2D newPosition);
     Vector2D getPosition();
     Rectangle2D.Double getUnitTile();
