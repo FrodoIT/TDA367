@@ -34,12 +34,13 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     @Override
     public Vector2D calculateNewPosition(NpcType npc) {
-        final Vector2D playerPos = roomData.getClosestPlayerPosition(npc.getPosition());
-        final Vector2D npcPos = npc.getPosition();
-        final Vector2D directionVector = new Vector2D(new Point2D.Double(npcPos.getX(), npcPos.getY()),
+        final Vector2D npcPosition = npc.getPosition();
+        final Vector2D playerPos = roomData.getClosestPlayerPosition(npcPosition);
+        final Vector2D directionVector = new Vector2D(new Point2D.Double(npcPosition.getX(), npcPosition.getY()),
                 new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
         final int moveSpeed = npc.getMovementSpeed();
-        return new Vector2D(npcPos.getX() + directionVector.getX() * moveSpeed, npcPos.getY() + directionVector.getY() * moveSpeed);
+        return new Vector2D(npcPosition.getX() + directionVector.getX() * moveSpeed,
+                npcPosition.getY() + directionVector.getY() * moveSpeed);
 
     }
 
@@ -61,7 +62,8 @@ public final class SimpleNPCPlugin implements Pluggable<SimpleNPCPlugin>, INPCMo
 
     private boolean isWithinRange(Vector2D playerPos, Vector2D npcPos) {
         //+16 to get the center of the character, playerpos returns the point of the right high corner
-        final Vector2D vector2D = new Vector2D(new Point2D.Double(playerPos.getX() + 16, playerPos.getY() + 16), new Point2D.Double(npcPos.getX() + 16, npcPos.getY() + 16));
+        final Vector2D vector2D = new Vector2D(new Point2D.Double(playerPos.getX() + 16, playerPos.getY() + 16),
+                new Point2D.Double(npcPos.getX() + 16, npcPos.getY() + 16));
         return vector2D.getMagnitude() <= 48;
     }
 
