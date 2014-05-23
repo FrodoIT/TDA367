@@ -49,7 +49,6 @@ public final class ServerController extends Listener {
 
     private void initRooms(List<Room> rooms) {
         for (final Room room : rooms) {
-            final TiledMapPlus map = (TiledMapPlus) room.getMap();
             RoomController roomController = new RoomController(room);
             roomController.setServer(networkServer);
             roomControllerMap.put(roomController.getId(), roomController);
