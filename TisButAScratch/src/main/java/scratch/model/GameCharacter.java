@@ -45,7 +45,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 	private boolean attacking;
 
 	@Element (type = Runnable.class, required = false)
-	private Runnable cooldownReset = new Runnable() {
+	private final Runnable cooldownReset = new Runnable() {
 		@Override
 		public void run() {
 			interactIsCooledDown = true;
@@ -128,10 +128,10 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     }
 
     public void update() {
-        Vector2D newPosition = calculateNewPosition();
+        final Vector2D newPosition = calculateNewPosition();
         calculateMoveDirection(newPosition);
 
-        for (CharacterChangeListener listener : getListeners()) {
+        for (final CharacterChangeListener listener : getListeners()) {
             listener.handleCharacterMovement(this, newPosition);
 
             if (isInteracting()) {
@@ -221,7 +221,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     }
 
     public Rectangle2D.Double getAttackArea() {
-        int range = weapon.getRange();
+        final int range = weapon.getRange();
         return new Rectangle2D.Double(
                 unitTile.x + (32 * range * moveDirection.getX()),
                 unitTile.y + (32 * range * moveDirection.getY()),
@@ -234,7 +234,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     public void performAttack() {
         if (weapon.hasCooledDown()) {
-            for (CharacterChangeListener listener : listeners) {
+            for (final CharacterChangeListener listener : listeners) {
                 listener.handleCharacterAttack(this);
 
             }
@@ -243,7 +243,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     }
 
     public void interact() {
-        for (CharacterChangeListener listener : listeners) {
+        for (final CharacterChangeListener listener : listeners) {
             listener.handleCharacterInteraction(this);
         }
         performInteractCooldown();
@@ -262,9 +262,9 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
             return false;
         }
 
-        GameCharacter character = (GameCharacter) o;
+        final GameCharacter character = (GameCharacter) o;
 
-        return (id == character.id);
+        return id == character.id;
     }
 
     @Override
