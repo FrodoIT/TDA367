@@ -22,7 +22,7 @@ public class MovableObjectTest extends TestCase {
     @Test
     public void testGetMoveDirection() throws Exception {
         movableObject.setMoveDirection(MoveDirection.EAST);
-        assertTrue(movableObject.getMoveDirection().equals(MoveDirection.EAST));
+        assertTrue(movableObject.getMoveDirection() == MoveDirection.EAST);
     }
 
     @Test
@@ -44,5 +44,6 @@ public class MovableObjectTest extends TestCase {
         HashMap<String,String> props = new HashMap<>();
         MovableObject newObject = new MovableObject("testObject", "box", 32, 32, 32, 32, props);
         assertTrue(movableObject.equals(newObject));
+        assertTrue(movableObject.hashCode() == newObject.hashCode());
     }
 }
