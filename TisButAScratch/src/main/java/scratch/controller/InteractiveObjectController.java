@@ -9,11 +9,12 @@ import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 
 public class InteractiveObjectController extends Listener {
-    private InteractiveObject interactiveObject;
+    final private InteractiveObject interactiveObject;
     private final InteractiveObjectView view;
     private NetworkServer server;
 
     public InteractiveObjectController(final InteractiveObject interactiveObject) {
+        super();
         this.interactiveObject =  interactiveObject;
         view = new InteractiveObjectView(interactiveObject);
     }
@@ -37,7 +38,7 @@ public class InteractiveObjectController extends Listener {
     @Override
     public void received(Connection connection, Object object) {
 	    if (object instanceof InteractiveObject) {
-            InteractiveObject recievedObject = (InteractiveObject) object;
+            final InteractiveObject recievedObject = (InteractiveObject) object;
             if (recievedObject.getProperties().get("id").equals(interactiveObject.getProperties().get("id"))) {
                 interactiveObject.setObject(recievedObject);
             }
