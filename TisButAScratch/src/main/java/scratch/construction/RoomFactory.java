@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
@@ -44,7 +46,7 @@ public final class RoomFactory {
                 try {
                     tiledMaps.add(new TiledMapPlus(room.getCanonicalPath()));
                 } catch (IOException | SlickException e) {
-                    e.printStackTrace();
+                    Logger.getLogger(RoomFactory.class.getName()).log(Level.SEVERE, null, e);
                 }
             }
         }
