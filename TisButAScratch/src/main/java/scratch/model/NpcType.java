@@ -17,9 +17,6 @@ import scratch.model.weapons.Weapon;
 
 public final class NpcType extends GameCharacter {
 
-    @Element
-    private boolean hostile;
-
     @Element(type = INPCMove.class)
     private INPCMove movementPattern;
 
@@ -28,8 +25,6 @@ public final class NpcType extends GameCharacter {
             int id, INPCMove movementPattern) {
         super(unitTile, weapon, health, moveSpeed, id, imagePath);
         this.movementPattern = movementPattern;
-        hostile = true;
-
     }
 
     /**

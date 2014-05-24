@@ -8,5 +8,4 @@
     <unitTile>32,32</unitTile> <!-- dont change, first two numbers wont matter and last two should be 32 -->
     <movementPattern>2</movementPattern> <!-- ID of the plugin -->
     <movementSpeed>1</movementSpeed>
-    <hostile>true</hostile>
 </NPCType>
