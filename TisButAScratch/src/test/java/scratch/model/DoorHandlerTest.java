@@ -19,8 +19,6 @@ import java.util.Map;
 public class DoorHandlerTest extends TestCase {
 
     private Room room1;
-    private Room room2;
-    private DoorHandler doorHandler;
     private GameCharacter character;
 
     @Before
@@ -30,7 +28,8 @@ public class DoorHandlerTest extends TestCase {
 
         Injector injector = Guice.createInjector(new MockModule());
 
-        doorHandler = new DoorHandler();
+        final DoorHandler doorHandler = new DoorHandler();
+        final Room room2;
 
         room1 = new Room(
                 injector.getInstance(IMap.class),
