@@ -29,18 +29,13 @@ public final class NpcFactory {
             final List<NpcType> npcs = new ArrayList<>();
 
             for (final NpcSpecification npc : npcSpecs) {
-	            try {
-                    npcs.add(
-                            loadNpc(
-                                    npc.getPluginName(),
-                                    new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
-                                    npc.getId(),
-                                    room)
-                    );
-	            }catch(NullPointerException e){
-		            e.printStackTrace();
-		            return;
-	            }
+                npcs.add(
+                        loadNpc(
+                                npc.getPluginName(),
+                                new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
+                                npc.getId(),
+                                room)
+                );
             }
 
             roomNpcsMap.put(room, npcs);
@@ -59,7 +54,7 @@ public final class NpcFactory {
      * @return A npc with the attributes as in the xml file.
      */
 	private synchronized NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
-		NpcType npc = (NpcType) new LoadXMLObject().loadObject("NpcType", file);
+		final NpcType npc = (NpcType) new LoadXMLObject().loadObject("NpcType", file);
 
         npc.setPosition(position);
         npc.setId(id);
