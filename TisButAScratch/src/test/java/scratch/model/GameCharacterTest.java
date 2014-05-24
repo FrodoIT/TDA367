@@ -140,7 +140,7 @@ public class GameCharacterTest extends TestCase {
     }
 
     @Test
-    public void testGetID() throws Exception {
+    public void testCharacterGetID() throws Exception {
         assertEquals(1, testCharacter.getId());
     }
 
@@ -159,13 +159,6 @@ public class GameCharacterTest extends TestCase {
     @Test
     public void testGetId() throws Exception {
         assertEquals(1, testCharacter.getId());
-    }
-
-    @Test
-    public void testGetMoveDirection() throws Exception {
-        final MoveDirection preSetMoveDirection = testCharacter.getMoveDirection();
-        testCharacter.setNextMoveDirection(new Vector2D());
-        assertSame(testCharacter.getMoveDirection(), preSetMoveDirection);
     }
 
     @Test

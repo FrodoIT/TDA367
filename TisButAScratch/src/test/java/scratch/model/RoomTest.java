@@ -176,7 +176,7 @@ public class RoomTest extends TestCase {
 
 	}
 	@Test
-	public void testGetId() throws Exception {
+	public void testGetRoomId() throws Exception {
 		assertEquals(room.getId(),1);
 
 	}
