@@ -2,19 +2,21 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import scratch.construction.LoadXMLObject;
 import scratch.construction.RoomFactory;
-import scratch.construction.TiledMapPlus;
-import scratch.model.*;
+import scratch.model.Game;
+import scratch.model.GameCharacter;
+import scratch.model.Room;
+import scratch.model.Vector2D;
 import scratch.network.NetworkServer;
 import scratch.network.PacketNewCharacter;
 import scratch.network.PacketNewConnection;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -49,14 +51,14 @@ public final class ServerController extends Listener {
 
     private void initRooms(List<Room> rooms) {
         for (final Room room : rooms) {
-            RoomController roomController = new RoomController(room);
+            final RoomController roomController = new RoomController(room);
             roomController.setServer(networkServer);
             roomControllerMap.put(roomController.getId(), roomController);
         }
     }
 
     private synchronized GameCharacter loadPlayer(String file, Vector2D position, int id) {
-        GameCharacter player = (GameCharacter) new LoadXMLObject().loadObject("GameCharacter", file);
+        final GameCharacter player = (GameCharacter) new LoadXMLObject().loadObject("GameCharacter", file);
         player.setPosition(position);
         player.setId(id);
         return player;
@@ -69,11 +71,11 @@ public final class ServerController extends Listener {
     }
 
     private void addPlayer(Connection connection) {
-        int roomId = 100;
+        final int roomId = 100;
         connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
-        GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(200, 300), nextPlayerId);
+        final GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(200, 300), nextPlayerId);
         game.addPlayer(newPlayer);
-        CharacterController playerController = new CharacterController(newPlayer);
+        final CharacterController playerController = new CharacterController(newPlayer);
         networkServer.addListener(playerController);
         playerController.setServer(networkServer);
         roomControllerMap.get(roomId).addCharacter(playerController);
