@@ -75,7 +75,7 @@ public class MainMenu extends javax.swing.JFrame {
 		jButton1.setToolTipText("Host a game");
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				hostGameHandler(evt);
+				hostGameHandler();
 			}
 		});
 
@@ -90,7 +90,7 @@ public class MainMenu extends javax.swing.JFrame {
 		jButton2.setToolTipText("Look for a game to join at given ip");
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				findGameHandler(evt);
+				findGameHandler();
 			}
 		});
 
@@ -125,7 +125,7 @@ public class MainMenu extends javax.swing.JFrame {
 		jButton4.setToolTipText("Quit");
 		jButton4.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				quitGameHandler(evt);
+				quitGameHandler();
 			}
 		});
 
@@ -269,7 +269,7 @@ public class MainMenu extends javax.swing.JFrame {
 		pack();
 	}// </editor-fold>
 
-	private void findGameHandler(java.awt.event.ActionEvent evt) {
+	private void findGameHandler() {
 		String s = ipTextField.getText();
 		System.out.println(s);
 		try{
@@ -279,7 +279,7 @@ public class MainMenu extends javax.swing.JFrame {
 		}
 	}
 
-	private void hostGameHandler(java.awt.event.ActionEvent evt) {
+	private void hostGameHandler() {
 		try{
 			Menu.startGame(null);
 		}catch(SlickException se){
@@ -287,7 +287,7 @@ public class MainMenu extends javax.swing.JFrame {
 		}
 	}
 
-	private void quitGameHandler(java.awt.event.ActionEvent evt) {
+	private void quitGameHandler() {
 		System.exit(0);
 	}
 
