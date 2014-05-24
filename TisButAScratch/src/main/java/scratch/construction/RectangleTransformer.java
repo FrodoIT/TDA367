@@ -20,7 +20,7 @@ public class RectangleTransformer implements Transform<Rectangle2D.Double> {
 	}
 
 	@Override
-	public String write(Rectangle2D.Double value) throws Exception {
+	public String write(Rectangle2D.Double value) {
 		return null;
 	}
 }
