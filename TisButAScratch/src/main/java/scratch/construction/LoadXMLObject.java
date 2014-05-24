@@ -35,7 +35,7 @@ public class LoadXMLObject {
 			}
 		} catch (Exception e) {
             Logger.getLogger(LoadXMLObject.class.getName()).log(Level.SEVERE, null, e);
-		}N
+		}
         return null;
     }
 
