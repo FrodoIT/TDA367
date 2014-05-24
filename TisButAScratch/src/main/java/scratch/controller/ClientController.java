@@ -6,7 +6,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import scratch.construction.RoomFactory;
-import scratch.construction.TiledMapPlus;
 import scratch.model.Room;
 import scratch.network.*;
 
@@ -42,7 +41,7 @@ public final class ClientController extends Listener {
 
     private void initRooms(RoomFactory roomFactory) {
         for (final Room room : roomFactory.getRooms()) {
-            RoomController roomController = new RoomController(room);
+            final RoomController roomController = new RoomController(room);
             roomControllerMap.put(roomController.getId(), roomController);
             roomController.setClient(networkClient);
         }
@@ -64,7 +63,7 @@ public final class ClientController extends Listener {
     @Override
     public void received(Connection connection, Object object) {
         if (object.getClass() == PacketMoveCharacter.class) {
-            PacketMoveCharacter info = (PacketMoveCharacter) object;
+            final PacketMoveCharacter info = (PacketMoveCharacter) object;
             roomControllerMap.get(info.getFromRoomId()).moveCharacter(
                     info.getCharacterId(),
                     roomControllerMap.get(info.getToRoomId()));
@@ -77,8 +76,8 @@ public final class ClientController extends Listener {
             setId(info.getId());
             this.roomId = info.getRoomId();
         } else if (object.getClass() == PacketNewCharacter.class) {
-            PacketNewCharacter packet = (PacketNewCharacter) object;
-            CharacterController characterController = new CharacterController(packet.getCharacter());
+            final PacketNewCharacter packet = (PacketNewCharacter) object;
+            final CharacterController characterController = new CharacterController(packet.getCharacter());
             networkClient.addListener(characterController);
             roomControllerMap.get(roomId).addCharacter(characterController);
             if (characterController.getId() == getId()){
