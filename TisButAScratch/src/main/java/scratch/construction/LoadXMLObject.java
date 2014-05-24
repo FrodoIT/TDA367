@@ -7,36 +7,36 @@ import scratch.model.NpcType;
 import scratch.model.weapons.Weapon;
 
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Anna on 2014-05-18.
  */
 public class LoadXMLObject {
-	final static Serializer serializer = new Persister(new MyMatcher());
+	private final static Serializer SERIALIZER = new Persister(new MyMatcher());
 
 	public Object loadObject (String loadObject, String file){
-		final StringBuilder fileBuild = new StringBuilder();
 		if (file.trim().isEmpty()){
-                    throw new RuntimeException("Tried to load file: " + file + ". It is not a proper filename");
-                }
-                fileBuild.append("res/");
+            throw new IllegalArgumentException("Tried to load file: " + file + ". It is not a proper filename");
+        }
+        final StringBuilder fileBuild = new StringBuilder();
+        fileBuild.append("res/");
 		fileBuild.append(file.trim());
 		fileBuild.append(".xml");
-		final File source = new File(fileBuild.toString());
-		Object object = new Object();
-		try {
-			if("NpcType".equals(loadObject)) {
-				object = serializer.read(NpcType.class, source);
+        final File source = new File(fileBuild.toString());
+        try {
+            if("NpcType".equals(loadObject)) {
+				return SERIALIZER.read(NpcType.class, source);
 			}else if("GameCharacter".equals(loadObject)) {
-				object = serializer.read(GameCharacter.class, source);
+				return SERIALIZER.read(GameCharacter.class, source);
 			}else if("Weapon".equals(loadObject)){
-				object = serializer.read(Weapon.class, source);
+				return SERIALIZER.read(Weapon.class, source);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return object;
-	}
+            Logger.getLogger(LoadXMLObject.class.getName()).log(Level.SEVERE, null, e);
+		}N
+        return null;
+    }
 
 }
