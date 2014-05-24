@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="id" value="200"/>
+ </properties>
+ <tileset firstgid="1" name="fancyRoom" tilewidth="32" tileheight="32">
+  <image source="fancyRoom.png" width="640" height="480"/>
+ </tileset>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgQIB/DNQFg9G8fxRiapqFzTxi3Y6untphjcv+kWQesrnUSnvI5mEzkxR78MU/tjRCinmUqCFWLTlhCgAZzdlssAQAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACw3DBXAQBAAAwI0ajB7baNgYDMZGiYSUSEindEsIiKB0h6g00t2ponSnAtKhNEgqjXQ3/N1/YEBAQDzjm8CEJjLIxCYx2KQmM7kpTGkqUxtiGkMNM9y0pjO9GcxoJjObxaxGGGk2o8xuDqPNaS5jzG2sceYxr/nMbwE/sKAfWsjCFrGoH1nM4pawpKX82NJ+YhnLWs7yfmoFK1rJylaxqtWsbg1rWsvafmYd61rP+jawoY1sbBOb2szmtvBzW9rK1rbxC9vazvZ+aQe/sqOd/Npv7GwXu9rN7vawp73sbR/72s/+DnCgg/zWwX7n9/7gEIc6zOGOcKSjHO2PjnGs4xzvBCc6yclOcarTnO4MZzrL2c5xrvOc7wIXusjF/uTP/uISf/U3l7rM5a5wpatc7RrXus71bnCjm9zsFre6zd/9w+3ucKd/usvd7nGv+9zvAQ96yMP+5d8e8ajHPO4JT3rK057xH896zvNe8KKX/Nf/vOwVr3rN697wprf839ve8a73vO8DH/rIxz7xqc987gtf+srXvvGt7wwIxHjGN4EJTWSQiU1isElNZnJTmNJUpjbENIYaZrhpTWd6M5jRTGY2i1mNMNJsRpndHEab01zGmNtY43wP3S6dcrAEAAA=
+  </data>
+ </layer>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door2" type="object" x="128" y="34" width="26" height="25">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="id" value="211"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="164" y="35" width="29" height="29"/>
+  <object name="box2" type="object" x="164" y="3" width="29" height="28"/>
+  <object name="box3" type="object" x="165" y="68" width="28" height="26"/>
+  <object name="door1" type="object" x="1" y="256" width="26" height="36">
+   <properties>
+    <property name="connection" value="1"/>
+    <property name="id" value="210"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="map" width="20" height="15"/>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc2" type="hostile" x="515" y="270">
+   <properties>
+    <property name="id" value="202"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc1" type="hostile" x="517" y="401">
+   <properties>
+    <property name="id" value="201"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
