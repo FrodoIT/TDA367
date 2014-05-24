@@ -35,7 +35,9 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 	@Attribute
 	private int id;
 	@Element (type = Direction.class, required = false)
-	private Direction moveDirection = Direction.SOUTH;
+	private Direction moveDirection = Direction.NONE;
+        @Element (type = Direction.class, required = false)
+        private Direction lookingDirection = Direction.SOUTH;
 	@Element
 	private String imagePath;
 	@Element (required = false)
@@ -43,14 +45,14 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 	private Vector2D nextMoveDirection;
 	private boolean interacting;
 	private boolean attacking;
-
+/*
 	@Element (type = Runnable.class, required = false)
 	private final Runnable cooldownReset = new Runnable() {
 		@Override
 		public void run() {
 			interactIsCooledDown = true;
 		}
-	};
+	};*/
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
@@ -61,7 +63,6 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         this.movementSpeed = movementSpeed;
         this.id = id;
         this.imagePath = imagePath;
-        moveDirection = Direction.SOUTH;
         nextMoveDirection = new Vector2D();
     }
 
@@ -80,7 +81,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     public void performInteractCooldown() {
         interactIsCooledDown = false;
-        Cooldown.cooldown(500, cooldownReset);
+        //Cooldown.cooldown(500, cooldownReset);
     }
 
     public void removeListener(CharacterChangeListener listener) {
@@ -123,6 +124,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
             Direction.NORTHEAST,
             Direction.NORTH
         };
+        lookingDirection = directions[(int) theta / 45];
         moveDirection = directions[(int) theta / 45];
     }
 
@@ -223,8 +225,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     public Rectangle2D.Double getAttackArea() {
         final int range = weapon.getRange();
         return new Rectangle2D.Double(
-                unitTile.x + (32 * range * moveDirection.getX()),
-                unitTile.y + (32 * range * moveDirection.getY()),
+                unitTile.x + (32 * range * lookingDirection.getX()),
+                unitTile.y + (32 * range * lookingDirection.getY()),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 
