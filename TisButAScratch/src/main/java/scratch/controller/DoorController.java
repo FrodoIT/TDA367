@@ -1,11 +1,11 @@
 package scratch.controller;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.util.Map;
 import scratch.network.NetworkServer;
 import scratch.network.PacketMoveCharacter;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Map;
 
 
 /**
