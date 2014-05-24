@@ -293,6 +293,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         moveDirection = character.getMoveDirection();
         lookingDirection = character.getLookingDirection();
         imagePath = character.getImagePath();
+        attacking = character.isAttacking();
+        interacting = character.isInteracting();
     }
 
     @Override
@@ -305,6 +307,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         kryo.writeObject(output, moveDirection);
         kryo.writeObject(output, lookingDirection);
         kryo.writeObject(output, imagePath);
+        kryo.writeObject(output, attacking);
+        kryo.writeObject(output, interacting);
     }
 
     @Override
@@ -317,6 +321,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         moveDirection = kryo.readObject(input, Direction.class);
         lookingDirection = kryo.readObject(input, Direction.class);
         imagePath = kryo.readObject(input, String.class);
+        attacking = kryo.readObject(input, Boolean.class);
+        interacting = kryo.readObject(input, Boolean.class);
     }
 
 }

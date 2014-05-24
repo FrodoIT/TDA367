@@ -38,10 +38,11 @@ public final class NpcType extends GameCharacter {
     private NpcType() {
         super();
     }
-
+    
     @Override
-    public boolean isAttacking() {
-        return movementPattern.isPromptingAnAttack(this);
+    public void update(){
+        setAttacking(movementPattern.isPromptingAnAttack(this));
+        super.update();
     }
 
     @Override
