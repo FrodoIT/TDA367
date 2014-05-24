@@ -8,6 +8,7 @@ import org.newdawn.slick.SlickException;
  * Created in netbeans designtool.
  */
 
+@SuppressWarnings("PMD")
 public class MainMenu extends javax.swing.JFrame {
 
 	/**
