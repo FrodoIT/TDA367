@@ -77,6 +77,7 @@ public class MainMenu extends javax.swing.JFrame {
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				hostGameHandler();
+                                dispose();
 			}
 		});
 
@@ -92,6 +93,7 @@ public class MainMenu extends javax.swing.JFrame {
 		jButton2.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				findGameHandler();
+                                dispose();
 			}
 		});
 
@@ -289,7 +291,7 @@ public class MainMenu extends javax.swing.JFrame {
 	}
 
 	private void quitGameHandler() {
-		System.exit(0);
+		dispose();
 	}
 
 	/**
