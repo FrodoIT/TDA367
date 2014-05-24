@@ -173,7 +173,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return false;
     }
 
-    private void updateBoxPosition(GameCharacter character, MovableObject interactiveObject) {
+    private void updateBoxPosition(GameCharacter character, IMovableEntity interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
         final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX()*character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY()*character.getMovementSpeed());
