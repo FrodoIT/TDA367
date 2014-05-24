@@ -24,7 +24,7 @@ public class InteractiveObject implements KryoSerializable {
     }
 
     public InteractiveObject() {
-
+        //used for serializing
     }
 
     public void setObject(InteractiveObject interactiveObject) {
@@ -36,10 +36,6 @@ public class InteractiveObject implements KryoSerializable {
 
     public Map<String, String> getProperties() {
         return properties;
-    }
-
-    public void update() {
-
     }
 
     @Override

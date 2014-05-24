@@ -68,13 +68,6 @@ public class InteractiveObjectTest extends TestCase {
     }
     
     @Test
-    public void testUpdate() {
-        //Not certain why this class has update method, method should probably be removed from class. 
-        interactiveObject.update();
-        assertTrue(true);
-    }
-    
-    @Test
     public void testEquals() {
         assertTrue(interactiveObject.equals(interactiveObject));
         assertFalse(interactiveObject.equals(null));
