@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class Game {
 
-    private List<GameCharacter> playerList;
+    private final List<GameCharacter> playerList;
     private List<Room> rooms;
 
     public Game() {
