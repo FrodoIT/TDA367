@@ -50,7 +50,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public boolean isActive() {
-        return !(getPlayers().isEmpty());
+        return !(getLivingPlayers().isEmpty());
     }
 
     private void updateCharacterInteractions() {
@@ -112,14 +112,13 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         double returnY = oldY;
 
         //Check if new X position is allowed
-        if (0 < newX && newXRight < getMapWidth() && ! isColliding(entityToPlace, new Vector2D(newX, oldY))) {
-	        returnX = newX;
+        if (0 < newX && newXRight < getMapWidth() && !isColliding(entityToPlace, new Vector2D(newX, oldY))) {
+            returnX = newX;
 
-
-	        //Check if new Y position is allowed
-	        if (0 < newY && newYDown < getMapHeight() && !isColliding(entityToPlace, new Vector2D(oldX, newY))) {
-		        returnY = newY;
-	        }
+            //Check if new Y position is allowed
+            if (0 < newY && newYDown < getMapHeight() && !isColliding(entityToPlace, new Vector2D(oldX, newY))) {
+                returnY = newY;
+            }
         }
         return new Vector2D(returnX, returnY);
     }
@@ -137,11 +136,15 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
         final Rectangle2D.Double unitTile = entityToPlace.getUnitTile();
 
-        for(IMovableEntity entity : movableEntities ) {
+        for (IMovableEntity entity : movableEntities) {
 
-            if (isCollidingWithBox(entityToPlace, placeToPutArea, entity)) return true;
+            if (isCollidingWithBox(entityToPlace, placeToPutArea, entity)) {
+                return true;
+            }
 
-            if (isCollidingWithCharacter(entityToPlace, placeToPutArea, entity)) return true;
+            if (isCollidingWithCharacter(entityToPlace, placeToPutArea, entity)) {
+                return true;
+            }
         }
 
         final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
@@ -151,22 +154,22 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
-	private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
-		if (entity.getUnitTile().intersects(placeToPutArea) &&
-				! entity.getUnitTile().equals(entityToPlace.getUnitTile()) &&
-				entity instanceof MovableObject) {
-			updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
-			return true;
-		}
-		return false;
-	}
+    private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
+        if (entity.getUnitTile().intersects(placeToPutArea)
+                && !entity.getUnitTile().equals(entityToPlace.getUnitTile())
+                && entity instanceof MovableObject) {
+            updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
+            return true;
+        }
+        return false;
+    }
 
     private boolean isCollidingWithCharacter(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
-        if (entity instanceof GameCharacter){
+        if (entity instanceof GameCharacter) {
             GameCharacter gameCharacter = (GameCharacter) entity;
-            if(gameCharacter.getUnitTile().intersects(placeToPutArea) &&
-                    !(entityToPlace.getUnitTile().equals(gameCharacter.getUnitTile())) &&
-                    gameCharacter.isAlive()) {
+            if (gameCharacter.getUnitTile().intersects(placeToPutArea)
+                    && !(entityToPlace.getUnitTile().equals(gameCharacter.getUnitTile()))
+                    && gameCharacter.isAlive()) {
                 return true;
             }
         }
@@ -176,31 +179,28 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private void updateBoxPosition(GameCharacter character, IMovableEntity interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
-        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX()*character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY()*character.getMovementSpeed());
+        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX() * character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY() * character.getMovementSpeed());
         interactiveObject.setPosition(allowedPosition(interactiveObject, newPos));
     }
 
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D npcPosition) {
-        if (getPlayers().isEmpty()) {
+        if (getLivingPlayers().isEmpty()) {
             return npcPosition;
         }
 
         GameCharacter closestPlayer = getPlayers().get(0);
-        for (final GameCharacter player : getPlayers()) {
-            if (player.isAlive() && npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())){
+        for (final GameCharacter player : getLivingPlayers()) {
+            if (npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())) {
                 closestPlayer = player;
             }
         }
-        if (closestPlayer.isAlive()){
-            return closestPlayer.getPosition();
-        }
-        return npcPosition;
+        return closestPlayer.getPosition();
     }
 
     public void addInteractiveObject(InteractiveObject interactiveObject) {
-        if(interactiveObject instanceof MovableObject) {
-            movableEntities.add((MovableObject)interactiveObject);
+        if (interactiveObject instanceof MovableObject) {
+            movableEntities.add((MovableObject) interactiveObject);
         }
         this.interactiveObjects.add(interactiveObject);
     }
@@ -285,8 +285,18 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private List<GameCharacter> getPlayers() {
         List<GameCharacter> players = new ArrayList<>();
         for (final GameCharacter character : characters) {
-            if (!(character instanceof NpcType)) {
+            if (!(character.getClass() == NpcType.class)) {
                 players.add(character);
+            }
+        }
+        return players;
+    }
+
+    private List<GameCharacter> getLivingPlayers() {
+        List<GameCharacter> players = new ArrayList<>();
+        for (final GameCharacter player : getPlayers()) {
+            if (player.isAlive()) {
+                players.add(player);
             }
         }
         return players;

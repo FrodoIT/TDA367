@@ -60,7 +60,6 @@ public class RoomController {
             for(final InteractiveObjectController interactiveObjectController : interactiveObjects) {
                 interactiveObjectController.update();
             }
-
             room.update();
         }
     }
