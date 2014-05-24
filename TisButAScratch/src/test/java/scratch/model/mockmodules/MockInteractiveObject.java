@@ -11,6 +11,7 @@ import java.util.Map;
  * Created by pippin on 5/16/14.
  */
 public class MockInteractiveObject extends InteractiveObject {
+
     @Override
     public Vector2D getPosition() {
         return null;
@@ -33,21 +34,11 @@ public class MockInteractiveObject extends InteractiveObject {
 
     @Override
     public Rectangle2D.Double getUnitTile() {
-        return new Rectangle2D.Double(45,50,200,200);
+        return new Rectangle2D.Double(45, 50, 200, 200);
     }
 
     @Override
     public Map<String, String> getProperties() {
         return new HashMap();
     }
-
-    @Override
-    public void update() {
-
-    }
-
-	@Override
-	public void setObject(InteractiveObject recievedObject) {
-
-	}
 }

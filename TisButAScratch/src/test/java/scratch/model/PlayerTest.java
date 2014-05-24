@@ -35,7 +35,7 @@ public class PlayerTest extends TestCase {
     @Test
     public void testUpdate() throws Exception {
         //Test None:
-        assertPlayerDirection(player, new Vector2D(0, 0), player.getMoveDirection());
+        assertPlayerDirection(player, new Vector2D(0, 0), MoveDirection.NONE);
 
         // Test North:
         assertPlayerDirection(player, new Vector2D(0, -1), MoveDirection.NORTH);
