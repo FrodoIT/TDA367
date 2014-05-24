@@ -12,7 +12,6 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.Weapon;
-import scratch.utils.Cooldown;
 
 /**
  * The interface for all Characters. Every character has a given health,
@@ -110,9 +109,6 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         //+ 337.5 (360 - 22.5)
         final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
 
-        if (Double.isNaN(theta)) {
-            return;
-        }
 
         final Direction[] directions = {
             Direction.NORTHWEST,

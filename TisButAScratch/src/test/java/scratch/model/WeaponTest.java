@@ -63,18 +63,19 @@ public class WeaponTest extends TestCase {
 
     @Test
     public void testSerialization() {
+        weapon = new Weapon(5, 10, 10);
         //TODO Error in Jacoco "Error while instrumenting class",
         /*Kryo kryo = new Kryo();
-        Output output = new Output(200);
-        kryo.register(java.awt.geom.Point2D.Double.class);
+         Output output = new Output(200);
+         kryo.register(java.awt.geom.Point2D.Double.class);
         
-        weapon = new Weapon(5, 10, 10);
 
-        weapon.write(kryo, output);
-        Weapon newInstance = new Weapon();
-        Input input = new Input(output.getBuffer());
-        newInstance.read(kryo, input);
-        assertTrue(weapon.equals(newInstance));*/
-        
+
+         weapon.write(kryo, output);
+         Weapon newInstance = new Weapon();
+         Input input = new Input(output.getBuffer());
+         newInstance.read(kryo, input);
+         assertTrue(weapon.equals(newInstance));*/
+
     }
 }
