@@ -30,6 +30,7 @@ public class CharacterController extends Listener {
     private final CharacterView view;
 
     public CharacterController(final GameCharacter character) {
+        super();
         this.character = character;
         listeners = new PropertyChangeSupport(this);
         if (character.getClass().equals(NpcType.class)) {
@@ -80,15 +81,14 @@ public class CharacterController extends Listener {
 
     @Override
     public synchronized void received(Connection connection, Object object) {
-        Class<?> objClass = object.getClass();
+        final Class<?> objClass = object.getClass();
         if (objClass == GameCharacter.class || objClass == NpcType.class) {
-            GameCharacter recievedCharacter = (GameCharacter) object;
+            final GameCharacter recievedCharacter = (GameCharacter) object;
             if (recievedCharacter.getId() == getId()) {
                 character.setCharacter(recievedCharacter);
-
             }
         } else if (objClass == PacketPlayerInput.class){
-            PacketPlayerInput input = (PacketPlayerInput) object;
+            final PacketPlayerInput input = (PacketPlayerInput) object;
             if (input.getId() == character.getId()){
                 character.setNextMoveDirection(input.getMovementDirection());
                 character.setAttacking(input.getAttacking());
