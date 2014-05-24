@@ -66,9 +66,9 @@ public class TiledMapPlus extends TiledMap implements IMap {
             for (final Object gObject : objectGroup.objects) {
                 final GroupObject groupObject = (GroupObject) gObject;
 
-                Set<String> set = groupObject.props.stringPropertyNames();
-                HashMap<String,String> map = new HashMap<>();
-                for (String s : set) {
+                final Set<String> set = groupObject.props.stringPropertyNames();
+                final HashMap<String,String> map = new HashMap<>();
+                for (final String s : set) {
                     map.put(s,groupObject.props.getProperty(s));
                 }
                 if("box".compareTo(groupObject.props.getProperty("objectType")) == 0) {
