@@ -43,7 +43,8 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
     public boolean isPromptingAnAttack(NpcType npc) {
         if (roomData != null) {
             final Vector2D pos = npc.getPosition();
-            if (isWithinRange(roomData.getClosestPlayerPosition(pos), pos)) {
+            final Vector2D playerPos = roomData.getClosestPlayerPosition(pos);
+            if (playerPos != null && isWithinRange(playerPos, pos)) {
                 return true;
             }
         }

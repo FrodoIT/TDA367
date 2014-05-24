@@ -18,32 +18,31 @@ public class RoomController {
     private final List<CharacterController> characters;
     private final List<InteractiveObjectController> interactiveObjects;
 
-
     public RoomController(Room room) {
-        this.roomView = new RoomView((TiledMapPlus)room.getMap());
+        this.roomView = new RoomView((TiledMapPlus) room.getMap());
         this.room = room;
         characters = new ArrayList<>();
-        for (final GameCharacter character : room.getCharacters()){
+        for (final GameCharacter character : room.getCharacters()) {
             characters.add(new CharacterController(character));
         }
-        
+
         interactiveObjects = new ArrayList<>();
-        for (final InteractiveObject interactiveObject : room.getInteractiveObjects()){
+        for (final InteractiveObject interactiveObject : room.getInteractiveObjects()) {
             interactiveObjects.add(new InteractiveObjectController(interactiveObject));
         }
     }
-    
-    public void setServer (NetworkServer server) {
-        for (final CharacterController characterController : characters){
+
+    public void setServer(NetworkServer server) {
+        for (final CharacterController characterController : characters) {
             characterController.setServer(server);
         }
-        for (final InteractiveObjectController interactiveController : interactiveObjects){
+        for (final InteractiveObjectController interactiveController : interactiveObjects) {
             interactiveController.setServer(server);
         }
     }
-    
-    public void setClient (NetworkClient client){
-        for (final CharacterController characterController : characters){
+
+    public void setClient(NetworkClient client) {
+        for (final CharacterController characterController : characters) {
             characterController.setClient(client);
         }
         for (final InteractiveObjectController interactiveController : interactiveObjects) {
@@ -52,16 +51,14 @@ public class RoomController {
     }
 
     public void updateRoom() {
-        if (room.isActive()) {
-            for (final CharacterController characterController : characters) {
-                characterController.update();
-            }
-
-            for(final InteractiveObjectController interactiveObjectController : interactiveObjects) {
-                interactiveObjectController.update();
-            }
-            room.update();
+        for (final CharacterController characterController : characters) {
+            characterController.update();
         }
+
+        for (final InteractiveObjectController interactiveObjectController : interactiveObjects) {
+            interactiveObjectController.update();
+        }
+        room.update();
     }
 
     public synchronized void render(GameContainer gameContainer) {
@@ -111,9 +108,10 @@ public class RoomController {
         }
         return null;
     }
-    public boolean hasId(int id){
+
+    public boolean hasId(int id) {
         for (final CharacterController characterController : characters) {
-            if (characterController.getId() == id){
+            if (characterController.getId() == id) {
                 return true;
             }
         }
@@ -123,6 +121,7 @@ public class RoomController {
     public synchronized void addInteractiveObjectController(InteractiveObjectController interactiveObjectController) {
         interactiveObjects.add(interactiveObjectController);
     }
+
     public synchronized void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
         room.addInteractiveObject(interactiveObjectController.getInteractiveObject());
         interactiveObjects.add(interactiveObjectController);

@@ -118,12 +118,12 @@ public class RoomTest extends TestCase {
 		final INPCMove move = injector.getInstance(INPCMove.class);
 		NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
 				new Weapon(), 100, 0, "test", 10, move);
-		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
+		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()) == null);
 		GameCharacter gc1 = new GameCharacter();
 		room.addCharacter(gc1);
 		gc1.setPosition(new Vector2D(20, 20));
 		gc1.setHealth(0);
-		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
+		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()) == null);
 		GameCharacter gc2 = new GameCharacter();
 		GameCharacter gc3 = new GameCharacter();
 		room.addCharacter(gc2);

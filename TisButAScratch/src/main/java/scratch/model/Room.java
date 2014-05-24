@@ -186,12 +186,12 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D npcPosition) {
         if (getLivingPlayers().isEmpty()) {
-            return npcPosition;
+            return null;
         }
 
-        GameCharacter closestPlayer = getPlayers().get(0);
+        GameCharacter closestPlayer = null;
         for (final GameCharacter player : getLivingPlayers()) {
-            if (npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())) {
+            if (closestPlayer == null || npcPosition.distance(closestPlayer.getPosition()) > npcPosition.distance(player.getPosition())) {
                 closestPlayer = player;
             }
         }
