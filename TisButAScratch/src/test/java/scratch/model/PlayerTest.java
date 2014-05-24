@@ -22,7 +22,7 @@ public class PlayerTest extends TestCase {
     @Test
     public void testIsAttacking() {
         player.setAttacking(true);
-        assertTrue(player.isPromptingAnAttack());
+        assertTrue(player.isAttacking());
     }
 
     private void assertPlayerDirection(GameCharacter player, Vector2D vectorDirection, MoveDirection moveDirection){

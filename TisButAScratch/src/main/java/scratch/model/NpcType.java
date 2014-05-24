@@ -40,9 +40,8 @@ public final class NpcType extends GameCharacter {
     }
 
     @Override
-    public boolean isPromptingAnAttack() {
-
-        return getWeapon().hasCooledDown() && movementPattern.isPromptingAnAttack(this);
+    public boolean isAttacking() {
+        return movementPattern.isPromptingAnAttack(this);
     }
 
     @Override

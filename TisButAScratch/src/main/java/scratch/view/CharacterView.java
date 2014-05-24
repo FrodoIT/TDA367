@@ -40,7 +40,7 @@ public class CharacterView {
         Vector2D position = character.getPosition();
         Graphics graphics = gameContainer.getGraphics();
 
-        if (character.isPromptingAnAttack()){
+        if (character.isAttacking()){
             Rectangle2D.Double attackArea = character.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));

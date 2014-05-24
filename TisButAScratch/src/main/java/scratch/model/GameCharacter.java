@@ -89,8 +89,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     public void takeDamage(int dmg) {
         health = health - Math.abs(dmg);
-
-        if (Math.abs(dmg) > health) {
+        if (health < 0 ){
             health = 0;
         }
     }
@@ -138,7 +137,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
                 interact();
             }
 
-            if (isPromptingAnAttack()) {
+            if (isAttacking()) {
                 performAttack();
             }
         }
@@ -151,6 +150,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         );
     }
 
+    @Override
     public void setPosition(Vector2D position) {
         unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());
     }
@@ -175,8 +175,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         return interacting && interactIsCooledDown;
     }
 
-    public boolean isPromptingAnAttack() {
-        return attacking && getWeapon().hasCooledDown();
+    public boolean isAttacking() {
+        return attacking;
     }
 
     public void setHealth(int health) {

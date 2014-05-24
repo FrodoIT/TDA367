@@ -66,7 +66,7 @@ public class NpcTypeTest extends TestCase {
 		player.setPosition(new Vector2D(20,20));
 		npcType.setPosition(new Vector2D(30,30));
 		npcType.update();
-		assertTrue(npcType.isPromptingAnAttack());
+		assertTrue(npcType.isAttacking());
 	}
 
 	public void testSetMovementPattern(){
