@@ -63,7 +63,7 @@ public class GameCharacterTest extends TestCase {
                 && (testCharacter.getWeapon().equals(newGameCharacter.getWeapon()))
                 && testCharacter.getHealth() == newGameCharacter.getHealth()
                 && testCharacter.getMovementSpeed() == newGameCharacter.getMovementSpeed()
-                && testCharacter.getMoveDirection().equals(newGameCharacter.getMoveDirection())
+                && testCharacter.getMoveDirection() == (newGameCharacter.getMoveDirection())
                 && testCharacter.getImagePath().compareTo(newGameCharacter.getImagePath()) == 0));
 
     }

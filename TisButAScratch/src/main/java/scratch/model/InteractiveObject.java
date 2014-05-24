@@ -46,14 +46,14 @@ public class InteractiveObject implements KryoSerializable {
     public boolean equals(Object object) {
         if (this == object) {
             return true;
-        } else if (object == null || object.getClass() != InteractiveObject.class) {
+        } else if (object == null || !(object instanceof InteractiveObject)) {
             return false;
         }
         final InteractiveObject recievedObject = (InteractiveObject) object;
         if (this.getName().equals(recievedObject.getName())
                 && this.getPosition().equals(recievedObject.getPosition())
                 && this.getProperties().equals(recievedObject.getProperties())
-                && this.getType().equals(recievedObject.type)
+                && this.getType().equals(recievedObject.getType())
                 && this.getUnitTile().equals(recievedObject.getUnitTile())) {
             return true;
         }
@@ -85,8 +85,8 @@ public class InteractiveObject implements KryoSerializable {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (unitTile != null ? unitTile.hashCode() : 0);
-        result = 31 * result + (properties != null ? properties.hashCode() : 0);
-        return result;
+        return 31 * result + (properties != null ? properties.hashCode() : 0);
+        
     }
 
     @Override

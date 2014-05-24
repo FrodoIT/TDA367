@@ -30,16 +30,10 @@ public class DoorHandlerTest extends TestCase {
 
         final DoorHandler doorHandler = new DoorHandler();
         final Room room2;
-
-        room1 = new Room(
-                injector.getInstance(IMap.class),
-                doorHandler
-        );
-
-        room2 = new Room(
-                injector.getInstance(IMap.class),
-                doorHandler
-        );
+        final IMap map = injector.getInstance(IMap.class);
+        
+        room1 = new Room(map, doorHandler);
+        room2 = new Room(map, doorHandler);
 
         List<InteractiveObject> testDoorsRoom1 = getTestDoorsRoom1();
         doorHandler.addDoors(room2, testDoorsRoom1);

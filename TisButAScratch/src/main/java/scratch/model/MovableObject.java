@@ -1,35 +1,36 @@
 package scratch.model;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.KryoSerializable;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
-import java.awt.geom.Rectangle2D;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Anna on 2014-05-23.
  */
-public final class MovableObject extends InteractiveObject implements IMovableEntity{
-	private MoveDirection moveDirection;
+public final class MovableObject extends InteractiveObject implements IMovableEntity {
 
-	public MovableObject(String name, String type, int x, int y, int width, int height, HashMap<String, String> properties){
-		super(name, type, x,y,width,height,properties);
-		moveDirection=MoveDirection.NONE;
-	}
+    private MoveDirection moveDirection;
+
+    public MovableObject(String name, String type, int x, int y, int width, int height, Map<String, String> properties) {
+        super(name, type, x, y, width, height, properties);
+        moveDirection = MoveDirection.NONE;
+    }
+
     public MovableObject() {
 
     }
 
-	public MoveDirection getMoveDirection(){
-		return moveDirection;
-	}
+    @Override
+    public MoveDirection getMoveDirection() {
+        return moveDirection;
+    }
 
-
-	public void setMoveDirection(MoveDirection moveDirection){
-		this.moveDirection=moveDirection;
-	}
+    @Override
+    public void setMoveDirection(MoveDirection moveDirection) {
+        this.moveDirection = moveDirection;
+    }
 
     @Override
     public void write(Kryo kryo, Output output) {
@@ -45,20 +46,18 @@ public final class MovableObject extends InteractiveObject implements IMovableEn
 
     @Override
     public boolean equals(Object object) {
-        super.equals(object);
         if (this == object) {
             return true;
         } else if (object == null || object.getClass() != MovableObject.class) {
             return false;
         }
         final MovableObject recievedObject = (MovableObject) object;
-        return(this.getMoveDirection() == recievedObject.getMoveDirection());
+        return super.equals(recievedObject) && (this.getMoveDirection() == recievedObject.getMoveDirection());
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        return 31 * result + (moveDirection != null ? moveDirection.hashCode() : 0);
+        return 31 * super.hashCode() + (moveDirection != null ? moveDirection.hashCode() : 0);
 
     }
 }
