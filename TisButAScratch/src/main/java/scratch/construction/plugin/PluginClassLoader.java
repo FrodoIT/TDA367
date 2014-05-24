@@ -9,6 +9,8 @@ package scratch.construction.plugin;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +31,7 @@ public final class PluginClassLoader extends ClassLoader{
         try {
             return Files.readAllBytes(f.toPath());
         } catch (IOException e){
-            e.printStackTrace();
+            Logger.getLogger(PluginClassLoader.class.getName()).log(Level.SEVERE, null, e);
             return new byte[0];
         }
        
