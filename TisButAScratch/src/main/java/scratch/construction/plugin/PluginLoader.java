@@ -29,7 +29,7 @@ public final class PluginLoader {
     private static List<Class<?>> getPluginClasses (Class annotationType) {
         final List<File> files = FileScanner.getFiles(new File(PLUGIN_PATH));
         final PluginClassLoader pluginClassLoader = new PluginClassLoader();
-        final List<Class<?>> classList = new ArrayList<Class<?>>();
+        final List<Class<?>> classList = new ArrayList<>();
         for(final File file: files) {
             final String fileName = file.getName();
             final String strippedName = fileName.substring(0, fileName.indexOf(".class"));
@@ -39,7 +39,7 @@ public final class PluginLoader {
                     classList.add(loadedClass);
                 }
             }catch(ClassNotFoundException e) {
-                e.printStackTrace();
+                Logger.getLogger(PluginLoader.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return classList;
@@ -55,14 +55,11 @@ public final class PluginLoader {
             } catch (IllegalAccessException ex) {
                 Logger.getLogger(PluginLoader.class.getName()).log(Level.SEVERE, null, ex);
             } catch(InstantiationException exc) {
-                exc.printStackTrace();
+                Logger.getLogger(PluginLoader.class.getName()).log(Level.SEVERE, null, exc);
             }
 
-            if(newInstance != null) {
-                System.out.println(aClass.toString());
-                if(aClass.isAnnotationPresent(AIPlugin.class)) {
-                    map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
-                }
+            if(newInstance != null && aClass.isAnnotationPresent(AIPlugin.class)) {
+                map.put(aClass.getAnnotation(AIPlugin.class).id(),(Pluggable<?>) newInstance);
             }
         }
         return map;
