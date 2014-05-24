@@ -34,30 +34,30 @@ public class RoomController {
     }
     
     public void setServer (NetworkServer server) {
-        for (CharacterController characterController : characters){
+        for (final CharacterController characterController : characters){
             characterController.setServer(server);
         }
-        for (InteractiveObjectController interactiveController : interactiveObjects){
+        for (final InteractiveObjectController interactiveController : interactiveObjects){
             interactiveController.setServer(server);
         }
     }
     
     public void setClient (NetworkClient client){
-        for (CharacterController characterController : characters){
+        for (final CharacterController characterController : characters){
             characterController.setClient(client);
         }
-        for (InteractiveObjectController interactiveController : interactiveObjects) {
+        for (final InteractiveObjectController interactiveController : interactiveObjects) {
             interactiveController.setClient(client);
         }
     }
 
     public void updateRoom() {
         if (room.isActive()) {
-            for (CharacterController characterController : characters) {
+            for (final CharacterController characterController : characters) {
                 characterController.update();
             }
 
-            for(InteractiveObjectController interactiveObjectController : interactiveObjects) {
+            for(final InteractiveObjectController interactiveObjectController : interactiveObjects) {
                 interactiveObjectController.update();
             }
 
@@ -68,11 +68,11 @@ public class RoomController {
     public synchronized void render(GameContainer gameContainer) {
         roomView.render(gameContainer);
 
-        for (CharacterController characterController : characters) {
+        for (final CharacterController characterController : characters) {
             characterController.render(gameContainer);
         }
 
-        for (InteractiveObjectController interactiveObjectController : interactiveObjects) {
+        for (final InteractiveObjectController interactiveObjectController : interactiveObjects) {
             interactiveObjectController.render(gameContainer);
         }
     }
@@ -96,7 +96,7 @@ public class RoomController {
     }
 
     public synchronized void moveCharacter(int characterId, RoomController roomController) {
-        CharacterController characterToMove = getCharacterController(characterId);
+        final CharacterController characterToMove = getCharacterController(characterId);
 
         if (characterToMove != null) {
             removeCharacter(characterToMove);
@@ -105,7 +105,7 @@ public class RoomController {
     }
 
     private CharacterController getCharacterController(int characterId) {
-        for (CharacterController character : characters) {
+        for (final CharacterController character : characters) {
             if (character.getId() == characterId) {
                 return character;
             }
@@ -113,7 +113,7 @@ public class RoomController {
         return null;
     }
     public boolean hasId(int id){
-        for (CharacterController characterController : characters) {
+        for (final CharacterController characterController : characters) {
             if (characterController.getId() == id){
                 return true;
             }
