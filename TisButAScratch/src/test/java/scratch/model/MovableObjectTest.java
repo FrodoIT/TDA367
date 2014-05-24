@@ -21,8 +21,8 @@ public class MovableObjectTest extends TestCase {
 
     @Test
     public void testGetMoveDirection() throws Exception {
-        movableObject.setMoveDirection(MoveDirection.EAST);
-        assertTrue(movableObject.getMoveDirection() == MoveDirection.EAST);
+        movableObject.setMoveDirection(Direction.EAST);
+        assertTrue(movableObject.getMoveDirection() == Direction.EAST);
     }
 
     @Test

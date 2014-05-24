@@ -45,18 +45,18 @@ public class NpcTypeTest extends TestCase {
 
     @Test
     public void testUpdate() {
-        assertDirectionForMovement(new Vector2D(50, 50), MoveDirection.NONE);
-        assertDirectionForMovement(new Vector2D(40, 50), MoveDirection.EAST);
-        assertDirectionForMovement(new Vector2D(60, 50), MoveDirection.WEST);
-        assertDirectionForMovement(new Vector2D(50, 40), MoveDirection.SOUTH);
-        assertDirectionForMovement(new Vector2D(50, 70), MoveDirection.NORTH);
-        assertDirectionForMovement(new Vector2D(60, 70), MoveDirection.NORTHWEST);
-        assertDirectionForMovement(new Vector2D(40, 70), MoveDirection.NORTHEAST);
-        assertDirectionForMovement(new Vector2D(60, 40), MoveDirection.SOUTHWEST);
-        assertDirectionForMovement(new Vector2D(45, 40), MoveDirection.SOUTHEAST);
+        assertDirectionForMovement(new Vector2D(50, 50), Direction.NONE);
+        assertDirectionForMovement(new Vector2D(40, 50), Direction.EAST);
+        assertDirectionForMovement(new Vector2D(60, 50), Direction.WEST);
+        assertDirectionForMovement(new Vector2D(50, 40), Direction.SOUTH);
+        assertDirectionForMovement(new Vector2D(50, 70), Direction.NORTH);
+        assertDirectionForMovement(new Vector2D(60, 70), Direction.NORTHWEST);
+        assertDirectionForMovement(new Vector2D(40, 70), Direction.NORTHEAST);
+        assertDirectionForMovement(new Vector2D(60, 40), Direction.SOUTHWEST);
+        assertDirectionForMovement(new Vector2D(45, 40), Direction.SOUTHEAST);
     }
 
-    private void assertDirectionForMovement(Vector2D npcPosition, MoveDirection direction) {
+    private void assertDirectionForMovement(Vector2D npcPosition, Direction direction) {
         npcType.setPosition(npcPosition);
         npcType.update();
         assertSame(npcType.getMoveDirection(), direction);

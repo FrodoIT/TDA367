@@ -43,8 +43,8 @@ public class GameCharacterTest extends TestCase {
 
     @Test
     public void testSetMoveDirection() throws Exception {
-        testCharacter.setMoveDirection(MoveDirection.NORTH);
-        assertEquals(testCharacter.getMoveDirection(), MoveDirection.NORTH);
+        testCharacter.setMoveDirection(Direction.NORTH);
+        assertEquals(testCharacter.getMoveDirection(), Direction.NORTH);
     }
 
     @Test

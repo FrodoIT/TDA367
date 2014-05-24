@@ -4,7 +4,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.InteractiveObject;
-import scratch.model.MoveDirection;
+import scratch.model.Direction;
 
 import java.awt.geom.Rectangle2D;
 import java.util.logging.Level;
@@ -31,7 +31,7 @@ public class InteractiveObjectView {
                 }
             }
             Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
-            spriteHandler.render(gameContainer.getGraphics(), MoveDirection.NORTH, unitTile.getX(), unitTile.getY());
+            spriteHandler.render(gameContainer.getGraphics(), Direction.NORTH, unitTile.getX(), unitTile.getY());
         }
     }
 }

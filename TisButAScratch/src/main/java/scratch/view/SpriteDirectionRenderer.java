@@ -4,7 +4,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.MoveDirection;
+import scratch.model.Direction;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -13,15 +13,15 @@ public class SpriteDirectionRenderer {
 
     private static final int SOUTH = 0, EAST = 1, NORTH = 2, WEST = 3;
 
-    private final Map<MoveDirection, Animation> moveAnimations = new EnumMap<>(MoveDirection.class);
-    private final Map<MoveDirection, Image> lookDirections = new EnumMap<>(MoveDirection.class);
+    private final Map<Direction, Animation> moveAnimations = new EnumMap<>(Direction.class);
+    private final Map<Direction, Image> lookDirections = new EnumMap<>(Direction.class);
 
 
     private Animation sprite;
 
     //TODO the logic which lastMoveInput is used for can use sprite instead.
     // but the logic for matching MoveDirection with the repective animation needs to be done at one place or another
-    private MoveDirection lastMoveInput = MoveDirection.NONE;
+    private Direction lastMoveInput = Direction.NONE;
 
     private final int imagesPerDirection;
     private final TiledMap map;
@@ -60,25 +60,25 @@ public class SpriteDirectionRenderer {
         sprite = south;
 
 
-        moveAnimations.put(MoveDirection.NORTHWEST, west);
-        moveAnimations.put(MoveDirection.WEST, west);
-        moveAnimations.put(MoveDirection.SOUTHWEST, west);
-        moveAnimations.put(MoveDirection.NORTHEAST, east);
-        moveAnimations.put(MoveDirection.EAST, east);
-        moveAnimations.put(MoveDirection.SOUTHEAST, east);
-        moveAnimations.put(MoveDirection.NORTH, north);
-        moveAnimations.put(MoveDirection.SOUTH, south);
-        moveAnimations.put(MoveDirection.NONE, south);
+        moveAnimations.put(Direction.NORTHWEST, west);
+        moveAnimations.put(Direction.WEST, west);
+        moveAnimations.put(Direction.SOUTHWEST, west);
+        moveAnimations.put(Direction.NORTHEAST, east);
+        moveAnimations.put(Direction.EAST, east);
+        moveAnimations.put(Direction.SOUTHEAST, east);
+        moveAnimations.put(Direction.NORTH, north);
+        moveAnimations.put(Direction.SOUTH, south);
+        moveAnimations.put(Direction.NONE, south);
 
-        lookDirections.put(MoveDirection.NORTHWEST, movementWest[0]);
-        lookDirections.put(MoveDirection.WEST, movementWest[0]);
-        lookDirections.put(MoveDirection.SOUTHWEST, movementWest[0]);
-        lookDirections.put(MoveDirection.NORTHEAST, movementEast[0]);
-        lookDirections.put(MoveDirection.EAST, movementEast[0]);
-        lookDirections.put(MoveDirection.SOUTHEAST, movementEast[0]);
-        lookDirections.put(MoveDirection.NORTH, movementNorth[0]);
-        lookDirections.put(MoveDirection.SOUTH, movementSouth[0]);
-        lookDirections.put(MoveDirection.NONE, movementSouth[0]);
+        lookDirections.put(Direction.NORTHWEST, movementWest[0]);
+        lookDirections.put(Direction.WEST, movementWest[0]);
+        lookDirections.put(Direction.SOUTHWEST, movementWest[0]);
+        lookDirections.put(Direction.NORTHEAST, movementEast[0]);
+        lookDirections.put(Direction.EAST, movementEast[0]);
+        lookDirections.put(Direction.SOUTHEAST, movementEast[0]);
+        lookDirections.put(Direction.NORTH, movementNorth[0]);
+        lookDirections.put(Direction.SOUTH, movementSouth[0]);
+        lookDirections.put(Direction.NONE, movementSouth[0]);
     }
 
     /**
@@ -95,9 +95,9 @@ public class SpriteDirectionRenderer {
         }
     }
 
-    public void render(Graphics g, MoveDirection moveInput, double x, double y) {
+    public void render(Graphics g, Direction moveInput, double x, double y) {
 
-        if (moveInput == MoveDirection.NONE) {
+        if (moveInput == Direction.NONE) {
             g.drawImage(lookDirections.get(lastMoveInput), (float) x,(float) y);
             return;
         }

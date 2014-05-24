@@ -34,8 +34,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 	private int movementSpeed;
 	@Attribute
 	private int id;
-	@Element (type = MoveDirection.class, required = false)
-	private MoveDirection moveDirection = MoveDirection.SOUTH;
+	@Element (type = Direction.class, required = false)
+	private Direction moveDirection = Direction.SOUTH;
 	@Element
 	private String imagePath;
 	@Element (required = false)
@@ -61,7 +61,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         this.movementSpeed = movementSpeed;
         this.id = id;
         this.imagePath = imagePath;
-        moveDirection = MoveDirection.SOUTH;
+        moveDirection = Direction.SOUTH;
         nextMoveDirection = new Vector2D();
     }
 
@@ -96,7 +96,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     private void calculateMoveDirection(Vector2D newPosition) {
         if (getPosition().equals(newPosition)) {
-            moveDirection = MoveDirection.NONE;
+            moveDirection = Direction.NONE;
             return;
         }
 
@@ -113,15 +113,15 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
             return;
         }
 
-        final MoveDirection[] directions = {
-            MoveDirection.NORTHWEST,
-            MoveDirection.WEST,
-            MoveDirection.SOUTHWEST,
-            MoveDirection.SOUTH,
-            MoveDirection.SOUTHEAST,
-            MoveDirection.EAST,
-            MoveDirection.NORTHEAST,
-            MoveDirection.NORTH
+        final Direction[] directions = {
+            Direction.NORTHWEST,
+            Direction.WEST,
+            Direction.SOUTHWEST,
+            Direction.SOUTH,
+            Direction.SOUTHEAST,
+            Direction.EAST,
+            Direction.NORTHEAST,
+            Direction.NORTH
         };
         moveDirection = directions[(int) theta / 45];
     }
@@ -203,12 +203,12 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         return id;
     }
 
-    public MoveDirection getMoveDirection() {
+    public Direction getMoveDirection() {
         return moveDirection;
     }
 
     @Override
-    public void setMoveDirection(MoveDirection direction) {
+    public void setMoveDirection(Direction direction) {
         this.moveDirection = direction;
     }
 
@@ -236,7 +236,6 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         if (weapon.hasCooledDown()) {
             for (final CharacterChangeListener listener : listeners) {
                 listener.handleCharacterAttack(this);
-
             }
             weapon.startCooldown();
         }
@@ -307,7 +306,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         health = kryo.readObject(input, Integer.class);
         movementSpeed = kryo.readObject(input, Integer.class);
         id = kryo.readObject(input, Integer.class);
-        moveDirection = kryo.readObject(input, MoveDirection.class);
+        moveDirection = kryo.readObject(input, Direction.class);
         imagePath = kryo.readObject(input, String.class);
     }
 

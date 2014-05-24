@@ -3,12 +3,12 @@ package scratch.model;
  * @author Alma Ottedag
  * revised Ivar Josefsson 2014-03-29
  */
-public enum MoveDirection {
+public enum Direction {
 	NORTH(0, -1), SOUTH(0, 1), WEST(-1,0), EAST(1,0), NORTHEAST(1,-1), NORTHWEST(-1,-1), SOUTHEAST(1,1), SOUTHWEST(-1,1), NONE(0,0);
 
 	private final int x, y;
 
-	private MoveDirection(int x, int y) {
+	private Direction(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}

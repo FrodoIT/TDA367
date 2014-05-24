@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 import scratch.model.GameCharacter;
-import scratch.model.MoveDirection;
+import scratch.model.Direction;
 import scratch.model.Vector2D;
 
 public class CharacterView {
@@ -45,7 +45,7 @@ public class CharacterView {
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }
-        final MoveDirection input = character.getMoveDirection();
+        final Direction input = character.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(), position.getY());
 
     }

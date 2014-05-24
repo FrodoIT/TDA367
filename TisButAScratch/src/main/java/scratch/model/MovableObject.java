@@ -12,11 +12,11 @@ import java.util.Map;
  */
 public final class MovableObject extends InteractiveObject implements IMovableEntity {
 
-    private MoveDirection moveDirection;
+    private Direction moveDirection;
 
     public MovableObject(String name, String type, int x, int y, int width, int height, Map<String, String> properties) {
         super(name, type, x, y, width, height, properties);
-        moveDirection = MoveDirection.NONE;
+        moveDirection = Direction.NONE;
     }
 
     public MovableObject() {
@@ -24,12 +24,12 @@ public final class MovableObject extends InteractiveObject implements IMovableEn
     }
 
     @Override
-    public MoveDirection getMoveDirection() {
+    public Direction getMoveDirection() {
         return moveDirection;
     }
 
     @Override
-    public void setMoveDirection(MoveDirection moveDirection) {
+    public void setMoveDirection(Direction moveDirection) {
         this.moveDirection = moveDirection;
     }
 
@@ -42,7 +42,7 @@ public final class MovableObject extends InteractiveObject implements IMovableEn
     @Override
     public void read(Kryo kryo, Input input) {
         super.read(kryo, input);
-        moveDirection = kryo.readObject(input, MoveDirection.class);
+        moveDirection = kryo.readObject(input, Direction.class);
     }
 
     @Override
