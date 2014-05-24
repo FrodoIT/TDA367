@@ -120,11 +120,11 @@ public class RoomTest extends TestCase {
 				new Weapon(), 100, 0, "test", 10, move);
 		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
 		GameCharacter gc1 = new GameCharacter();
-                room.addCharacter(gc1);
-                gc1.setPosition(new Vector2D(20, 20));
-                gc1.setHealth(0);
-                assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
-                GameCharacter gc2 = new GameCharacter();
+		room.addCharacter(gc1);
+		gc1.setPosition(new Vector2D(20, 20));
+		gc1.setHealth(0);
+		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()).equals(testNpc.getPosition()));
+		GameCharacter gc2 = new GameCharacter();
 		GameCharacter gc3 = new GameCharacter();
 		room.addCharacter(gc2);
 		room.addCharacter(gc3);
@@ -138,23 +138,17 @@ public class RoomTest extends TestCase {
 	@Test
 	public void testGetCharacters() throws Exception {
 		GameCharacter gc1 = new GameCharacter();
-		GameCharacter gc2 = new GameCharacter();
 		room.addCharacter(gc1);
-		room.addCharacter(gc2);
-		assertEquals(room.getCharacters().size(), 2);
-		assertTrue(room.getCharacters().get(1).equals(gc2));
+		assertEquals(room.getCharacters().size(), 1);
+		assertTrue(room.getCharacters().get(0).equals(gc1));
 	}
 
 	@Test
 	public void testAddInteractiveObject() throws Exception {
 		InteractiveObject io1 = new InteractiveObject();
-		InteractiveObject io2 = new MovableObject();
 		room.addInteractiveObject(io1);
-		room.addInteractiveObject(io2);
-		assertEquals(room.getInteractiveObjects().size(), 2);
+		assertEquals(room.getInteractiveObjects().size(), 1);
 		assertTrue(room.getInteractiveObjects().get(0).equals(io1));
-		assertTrue(room.getInteractiveObjects().get(1).equals(io2));
-
 	}
 	@Test
 	public void testSerialization() throws Exception {
