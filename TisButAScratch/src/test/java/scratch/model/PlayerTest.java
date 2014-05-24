@@ -16,7 +16,6 @@ public class PlayerTest extends TestCase {
     @Before
     @Override
     public void setUp(){
-        final Injector injector = Guice.createInjector(new MockModule());
         player = new GameCharacter(new Rectangle2D.Double(0,0,32,32), new Weapon(), 10, 2, 1, "/res/playerSprite.tmx");
     }
 
