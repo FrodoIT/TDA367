@@ -54,7 +54,7 @@
  <objectgroup name="interactive" width="20" height="15">
   <object name="door4" type="object" x="479" y="253" width="32" height="32">
    <properties>
-    <property name="connection" value="2"/>
+    <property name="connection" value="11"/>
     <property name="id" value="404"/>
     <property name="objectType" value="door"/>
    </properties>
