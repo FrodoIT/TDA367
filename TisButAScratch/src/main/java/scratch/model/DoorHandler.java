@@ -55,14 +55,14 @@ public class DoorHandler {
 	}
 
 	public void addDoor(DoorHelper room, InteractiveObject interactiveObject) {
-		Set<InteractiveObject> objectList = roomDoorsMap.get(room);
+		Set<InteractiveObject> objectSet = roomDoorsMap.get(room);
 
-		if (objectList == null) {
-			objectList = new HashSet<>();
-			objectList.add(interactiveObject);
-			roomDoorsMap.put(room, objectList);
+		if (objectSet == null) {
+			objectSet = new HashSet<>();
+			objectSet.add(interactiveObject);
+			roomDoorsMap.put(room, objectSet);
 		} else {
-			objectList.add(interactiveObject);
+			objectSet.add(interactiveObject);
 		}
 
 
