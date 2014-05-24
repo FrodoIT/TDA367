@@ -295,14 +295,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     @Override
     public void write(Kryo kryo, Output output) {
         kryo.writeObject(output, characters);
-        /*
-         private Map<AbstractCharacter, Vector2D> characterMovementMap = new HashMap<>();
-         private List<AbstractCharacter> charactersInteracting = new ArrayList<>();
-         private List<AbstractCharacter> areaUnderAttack = new ArrayList<>();
-         private List<NpcType> npcs;
-         private final IMap map;
-         private List<IInteractiveObject> interactiveObjects;
-         private DoorHandler doorHandler;*/
+
     }
 
     @Override
