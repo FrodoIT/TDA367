@@ -86,7 +86,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     private void dealDamage() {
         for (final Attack attack : attacks) {
             for (final GameCharacter character : characters) {
-                if (character.getUnitTile().intersects(attack.getAttackTile())) {
+                if (character.getUnitTile().intersects(attack.getAttackTile()) && attack.dealDamage(character.getClass())) {
                     character.takeDamage(attack.getDamage());
                 }
             }

@@ -6,13 +6,17 @@
 
 package scratch.model;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import java.awt.geom.Rectangle2D;
 
 /**
  *
  * @author Ivar
  */
-public class Attack {
+public class Attack implements KryoSerializable{
     private Rectangle2D.Double attackTile;
     private Vector2D direction;
     private int damage;
@@ -26,6 +30,7 @@ public class Attack {
         this.attackTile = attackTile;
         this.direction = direction;
         this.damage = damage;
+        this.source = source;
     }
     
     public void update (){
@@ -42,7 +47,24 @@ public class Attack {
         return attackTile;
     }
     
+    public boolean dealDamage(Class<?> damageTo){
+        if (damageTo != source){
+            return true;
+        }
+        return false;
+    }
+    
     public int getDamage(){
         return damage;
+    }
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
