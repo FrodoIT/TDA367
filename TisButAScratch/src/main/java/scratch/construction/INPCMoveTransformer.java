@@ -5,8 +5,11 @@ import scratch.construction.plugin.AIPlugin;
 import scratch.construction.plugin.Pluggable;
 import scratch.construction.plugin.PluginLoader;
 import scratch.model.INPCMove;
+import scratch.model.StandardNpcPlugin;
 
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Anna on 2014-05-08.
@@ -23,8 +26,13 @@ public class INPCMoveTransformer implements Transform<INPCMove> {
 		}catch (NumberFormatException e){
 			e.printStackTrace();
 		}
-		return (INPCMove) plugins.get(id).clone();
-	}
+        try {
+            return (INPCMove) plugins.get(id).clone();
+        } catch (CloneNotSupportedException e) {
+            Logger.getLogger(INPCMoveTransformer.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return new StandardNpcPlugin();
+    }
 
 	@Override
 	public String write(INPCMove value) {
