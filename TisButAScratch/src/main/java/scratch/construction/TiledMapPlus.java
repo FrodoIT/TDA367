@@ -2,7 +2,10 @@ package scratch.construction;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.*;
+import scratch.model.IMap;
+import scratch.model.InteractiveObject;
+import scratch.model.MovableObject;
+import scratch.model.Vector2D;
 
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;

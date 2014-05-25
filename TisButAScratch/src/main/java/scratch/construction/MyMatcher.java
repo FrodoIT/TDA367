@@ -1,9 +1,10 @@
 package scratch.construction;
 
-import java.awt.geom.Rectangle2D;
 import org.simpleframework.xml.transform.Matcher;
 import org.simpleframework.xml.transform.Transform;
 import scratch.model.INPCMove;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * Created by Anna on 2014-05-08.

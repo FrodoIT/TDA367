@@ -1,9 +1,10 @@
 package scratch.model;
 
-import java.awt.geom.Rectangle2D;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.Weapon;
+
+import java.awt.geom.Rectangle2D;
 
 /**
  * A class that represents a character not controlled by the player

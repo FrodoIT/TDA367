@@ -7,8 +7,6 @@ package scratch.controller;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import org.newdawn.slick.GameContainer;
 import scratch.model.GameCharacter;
 import scratch.model.NpcType;
@@ -17,6 +15,9 @@ import scratch.network.NetworkServer;
 import scratch.network.PacketPlayerInput;
 import scratch.view.CharacterView;
 import scratch.view.NpcView;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 /**
  *

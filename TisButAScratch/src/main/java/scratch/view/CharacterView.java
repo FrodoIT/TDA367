@@ -1,17 +1,18 @@
 package scratch.view;
 
-import java.awt.geom.Rectangle2D;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.GameCharacter;
 import scratch.model.Direction;
+import scratch.model.GameCharacter;
 import scratch.model.Vector2D;
+
+import java.awt.geom.Rectangle2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CharacterView {
 

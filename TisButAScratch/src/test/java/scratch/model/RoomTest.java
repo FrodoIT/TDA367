@@ -1,8 +1,5 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import junit.framework.TestCase;

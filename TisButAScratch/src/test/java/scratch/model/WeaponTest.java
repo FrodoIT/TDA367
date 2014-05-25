@@ -1,14 +1,9 @@
 package scratch.model;
 
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import junit.framework.TestCase;
-import static junit.framework.TestCase.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 import scratch.model.weapons.Weapon;
-import scratch.network.Utilities;
 
 /**
  * Created by Anna on 2014-05-02.

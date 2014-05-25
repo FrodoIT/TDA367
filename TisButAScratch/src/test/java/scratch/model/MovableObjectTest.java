@@ -1,7 +1,6 @@
 package scratch.model;
 
 import junit.framework.TestCase;
-import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.Before;
 import org.junit.Test;
 

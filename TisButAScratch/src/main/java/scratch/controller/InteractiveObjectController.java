@@ -1,12 +1,12 @@
 package scratch.controller;
 
-import scratch.view.InteractiveObjectView;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import scratch.model.InteractiveObject;
 import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
+import scratch.view.InteractiveObjectView;
 
 public class InteractiveObjectController extends Listener {
     final private InteractiveObject interactiveObject;

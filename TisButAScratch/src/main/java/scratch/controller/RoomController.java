@@ -1,7 +1,5 @@
 package scratch.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.newdawn.slick.GameContainer;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
@@ -10,6 +8,9 @@ import scratch.model.Room;
 import scratch.network.NetworkClient;
 import scratch.network.NetworkServer;
 import scratch.view.RoomView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoomController {
 

@@ -2,11 +2,10 @@ package scratch.model;
 
 import junit.framework.TestCase;
 import nl.jqno.equalsverifier.EqualsVerifier;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.geom.Point2D;
-import org.junit.Before;
-import scratch.model.weapons.Weapon;
 
 /**
  * Created by pippin on 4/30/14.

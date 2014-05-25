@@ -1,11 +1,8 @@
 package scratch.model;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;

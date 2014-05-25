@@ -1,7 +1,10 @@
 package scratch.model.mockmodules;
 
 import com.google.inject.AbstractModule;
-import scratch.model.*;
+import scratch.model.IMap;
+import scratch.model.INPCMove;
+import scratch.model.IRoomData;
+import scratch.model.InteractiveObject;
 
 
 /**

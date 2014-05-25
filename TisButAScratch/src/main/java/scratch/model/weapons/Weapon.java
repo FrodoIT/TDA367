@@ -7,7 +7,6 @@ import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Inject;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 import scratch.utils.Cooldown;
 
 import java.awt.geom.Rectangle2D;

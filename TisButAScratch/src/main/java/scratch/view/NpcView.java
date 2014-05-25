@@ -10,7 +10,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import scratch.model.GameCharacter;
-import scratch.model.NpcType;
 import scratch.model.Vector2D;
 
 /**

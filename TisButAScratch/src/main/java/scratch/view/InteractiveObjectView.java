@@ -3,8 +3,8 @@ package scratch.view;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
-import scratch.model.InteractiveObject;
 import scratch.model.Direction;
+import scratch.model.InteractiveObject;
 
 import java.awt.geom.Rectangle2D;
 import java.util.logging.Level;
