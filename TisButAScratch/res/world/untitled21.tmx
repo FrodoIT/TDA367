@@ -12,16 +12,16 @@
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgQAAHRgaqgqFgHqmYUv2EzCPWvejqqR02uOwfSeYhm4stvsgxh5B5pNiBL/6xpRFSzKNEDbFqyQlPAAsabGmwBAAA
+   H4sIAAAAAAAAA2NgQAAHRgaqgqFgHqmYUv2EzCPWvejqqR02uOwfSeYhm4stvsgxh5B5pNiBL/6xpRFSzKNEDbFqyQlPAAsabGmwBAAA
   </data>
  </layer>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
+   H4sIAAAAAAAAAw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
   </data>
  </layer>
  <objectgroup name="interactive" width="20" height="15">
-  <object name="door1" type="object" x="120" y="28" width="32" height="32">
+  <object name="door1" type="door" x="120" y="28" width="32" height="32">
    <properties>
     <property name="connection" value="12"/>
     <property name="id" value="402"/>
@@ -49,7 +49,7 @@
     <property name="objectType" value="box"/>
    </properties>
   </object>
-  <object name="door1" type="object" x="0" y="256" width="32" height="32">
+  <object name="door2" type="door" x="0" y="256" width="32" height="32">
    <properties>
     <property name="connection" value="11"/>
     <property name="id" value="401"/>

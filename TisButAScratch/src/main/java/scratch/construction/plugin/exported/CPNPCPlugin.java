@@ -7,7 +7,6 @@ import scratch.model.INPCMove;
 import scratch.model.IRoomData;
 import scratch.model.NpcType;
 import scratch.model.Vector2D;
-import sun.plugin.dom.exception.PluginNotSupportedException;
 
 import java.awt.geom.Point2D;
 import java.util.Random;
