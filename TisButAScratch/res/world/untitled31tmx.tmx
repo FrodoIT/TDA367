@@ -12,12 +12,12 @@
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA2smRCYWICsBxemJhg1j3Lz6BFfMHOwmY2LTY77cfmJVPPw2UGpedQC1DSXUPiRahet/A0A6LMJ+7AEAAA=
+   H4sIAAAAAAAAA2NgwA2smRCYWICsBxemJhg1j3Lz6BFfMHOwmY2LTY77cfmJVPPw2UGpedQCtEpb1EoHtPA3AIs0DRywBAAA
   </data>
  </layer>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACw3DBXQVBAAAwD9QQgGREikJabYRG93dsICNkC4VJJUOFZDu7u7ukA5pUSQklG6lO+/eu+CgQCDEUPOaz/wWMMxwC1rIwhaxqMUsbglLWsrSlrGs5SxvBStaycpWsarVrG4Na1rL2kYYaZTR1rGuMcZaz/o2sKFf2cjGNrGpzWxuC1vayta28Wu/8Vvb2s7vbG8HO9rJznbxe3+wq93sbg972sve9rGv/fzRn/zZ/g5woL84yMEOcajDHO4IRzrK0Y5xrOMc7wQnOsnJTnGq05zuDGc6y9nOca7znO8CF7rIxS5xqctc7gpXusrVrnGt61zvBje6yc1ucau/us3t7nCnu9ztHve6z/3+5gEPesjDHvGox/zd4/7hn57wL096ytOe8W/Pes7zXvAf//Wil7zsFa96zeve8Ka3vO0d7/qf/3vP+z7woY987BOf+sznvvClr3ztG9/6zkCcQCDIOMb1Az80nvFNYEI/8mMTmdgkfmJSPzWZyU1hSlP5man93DSmNZ3pzeAXZjSTmc3il2Y1m9nNYU5zmds8BhtiqHnNZ34LGGa4BS1kYYtY1GIWt4QlLWVpy1jWcpa3ghWtZGWrWNVqVreGNa1lbSOMNMpo61jXGGN9D0XFXFOwBAAA
+   H4sIAAAAAAAAAw3DBXQVBAAAwD9QQgGREikJabYRG93dsICNkC4VJJUOFZDu7u7ukA5pUSQklG6lO+/eu+CgQCDEUPOaz/wWMMxwC1rIwhaxqMUsbglLWsrSlrGs5SxvBStaycpWsarVrG4Na1rL2kYYaZTR1rGuMcZaz/o2sKFf2cjGNrGpzWxuC1vayta28Wu/8Vvb2s7vbG8HO9rJznbxe3+wq93sbg972sve9rGv/fzRn/zZ/g5woL84yMEOcajDHO4IRzrK0Y5xrOMc7wQnOsnJTnGq05zuDGc6y9nOca7znO8CF7rIxS5xqctc7gpXusrVrnGt61zvBje6yc1ucau/us3t7nCnu9ztHve6z/3+5gEPesjDHvGox/zd4/7hn57wL096ytOe8W/Pes7zXvAf//Wil7zsFa96zeve8Ka3vO0d7/qf/3vP+z7woY987BOf+sznvvClr3ztG9/6zkCcQCDIOMb1Az80nvFNYEI/8mMTmdgkfmJSPzWZyU1hSlP5man93DSmNZ3pzeAXZjSTmc3il2Y1m9nNYU5zmds8BhtiqHnNZ34LGGa4BS1kYYtY1GIWt4QlLWVpy1jWcpa3ghWtZGWrWNVqVreGNa1lbSOMNMpo61jXGGN9D0XFXFOwBAAA
   </data>
  </layer>
  <objectgroup name="map" width="20" height="15"/>
