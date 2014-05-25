@@ -74,7 +74,7 @@ public class TiledMapPlus extends TiledMap implements IMap {
                 for (final String s : set) {
                     map.put(s,groupObject.props.getProperty(s));
                 }
-                if("box".compareTo(groupObject.props.getProperty("objectType")) == 0) {
+                if("box".equals(groupObject.props.getProperty("objectType"))) {
                     interactiveObjects.add(
                             new MovableObject(
                                     groupObject.name,
