@@ -25,8 +25,6 @@ public class DoorHandler {
         final Set<InteractiveObject> connectedDoors = doorMatchingMap.get( originDoor.getProperties().get("connection") );
         final InteractiveObject exitDoor = getOutDoor(connectedDoors, originDoor);
 
-        System.out.println("found door, is interacting");
-
         if ( ! exitDoor.equals(originDoor)) {
             for (final Map.Entry<DoorHelper, Set<InteractiveObject>> roomSetEntry : roomDoorsMap.entrySet()) {
                 if (roomSetEntry.getValue().contains(exitDoor)) {
