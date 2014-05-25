@@ -8,6 +8,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 import scratch.model.weapons.Weapon;
+import scratch.utils.Cooldown;
 
 import javax.annotation.concurrent.Immutable;
 import java.awt.geom.Rectangle2D;
@@ -45,14 +46,14 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     private Vector2D nextMoveDirection;
     private boolean interacting;
     private boolean attacking;
-    /*
-     @Element (type = Runnable.class, required = false)
-     private final Runnable cooldownReset = new Runnable() {
-     @Override
-     public void run() {
-     interactIsCooledDown = true;
-     }
-     };*/
+
+
+    private final Runnable cooldownReset = new Runnable() {
+        @Override
+        public void run() {
+            interactIsCooledDown = true;
+        }
+    };
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
@@ -81,7 +82,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     public void performInteractCooldown() {
         interactIsCooledDown = false;
-        //Cooldown.cooldown(500, cooldownReset);
+        Cooldown.cooldown(500, cooldownReset);
     }
 
     public void removeListener(CharacterChangeListener listener) {
