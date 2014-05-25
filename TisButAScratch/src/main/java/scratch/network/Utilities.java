@@ -13,12 +13,20 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
  * @author Cannonbait
  */
 public final class Utilities {
+
+    private static final String IP_PATTERN =
+            "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+                    "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     private Utilities() {
     }
@@ -49,28 +57,11 @@ public final class Utilities {
     //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till
 
     public static boolean validIP(String ip) {
-        String ipToCheck = ip;
-        try {
-            if (ipToCheck == null || ipToCheck.isEmpty()) {
-                return false;
-            }
-            ipToCheck = ipToCheck.trim();
-            final String[] parts = ipToCheck.split("\\.");
-            if (parts.length != 4) {
-                return false;
-            }
-            for (final String s : parts) {
-                final int i = Integer.parseInt(s);
-                if (i < 0 || 255 < i) {
-                    return false;
-                }
-            }
-            if (ipToCheck.endsWith(".")) {
-                return false;
-            }
-            return true;
-        } catch (NumberFormatException e) {
+        if (ip == null) {
             return false;
         }
+        Pattern pattern = Pattern.compile(IP_PATTERN);
+        Matcher matcher = pattern.matcher(ip);
+        return matcher.matches();
     }
 }
