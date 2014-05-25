@@ -34,10 +34,6 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
         movableEntities = new ArrayList<>();
     }
 
-    public Room() {
-        //used for serializing
-    }
-
     public void update() {
         dealDamage();
         updateAttacks();
