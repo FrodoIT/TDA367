@@ -233,7 +233,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
                 unitTile.y + 32 * lookingDirection.getY(),
                 weapon.getAttackArea().getWidth(),
                 weapon.getAttackArea().getHeight());
-        return new Attack(origin, new Vector2D(lookingDirection.getX(), lookingDirection.getY()), weapon.getDamage(), this.getClass());
+        return new Attack(origin, new Vector2D(lookingDirection.getX(), lookingDirection.getY()), weapon, this.getClass());
     }
 
     public void performAttack() {

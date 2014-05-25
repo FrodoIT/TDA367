@@ -7,32 +7,41 @@
 package scratch.model;
 
 import java.awt.geom.Rectangle2D;
+import scratch.model.weapons.Weapon;
 
 /**
  *
  * @author Ivar
  */
 public class Attack implements IMovableEntity{
+    private Vector2D startPosition;
     private Rectangle2D.Double attackTile;
     private Vector2D direction;
     private int damage;
     private Class<?> source;
     private boolean remain = true;
+    private int range;
     
     public Attack (){
         
     }
     
-    public Attack (Rectangle2D.Double attackTile, Vector2D direction, int damage, Class<?> source){
+    public Attack (Rectangle2D.Double attackTile, Vector2D direction, Weapon weapon, Class<?> source){
+        this.startPosition = new Vector2D(attackTile.getX(), attackTile.getY());
         this.attackTile = attackTile;
         this.direction = direction;
-        this.damage = damage;
+        this.damage = weapon.getDamage();
         this.source = source;
+        this.range = weapon.getRange();
     }
     
     public void update (){
-        final double x = attackTile.getX() + direction.getX();
-        final double y = attackTile.getY() + direction.getY();
+        final double x = attackTile.getX() + direction.getX()*5;
+        final double y = attackTile.getY() + direction.getY()*5;
+        if (Math.abs(startPosition.getX() - x) > range*32 ||
+            Math.abs(startPosition.getY() - y) > range*32){
+            remain = false;
+        }
         attackTile.setRect(x, y, attackTile.getWidth(), attackTile.getHeight());
     }
     
