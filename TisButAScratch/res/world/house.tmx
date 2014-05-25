@@ -21,54 +21,34 @@
   </data>
  </layer>
  <objectgroup name="interactive" width="20" height="15">
-  <object name="door1" type="door" x="120" y="28" width="32" height="32">
-   <properties>
-    <property name="connection" value="12"/>
-    <property name="id" value="402"/>
-    <property name="objectType" value="door"/>
-   </properties>
-  </object>
-  <object name="box1" type="object" x="160" y="32" width="28" height="28">
+  <object name="box1" type="object" x="365" y="252" width="28" height="28">
    <properties>
     <property name="id" value="221"/>
     <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
-  <object name="box2" type="object" x="160" y="0" width="28" height="27">
+  <object name="box2" type="object" x="399" y="348" width="28" height="27">
    <properties>
     <property name="id" value="222"/>
     <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
-  <object name="box3" type="object" x="160" y="64" width="28" height="27">
+  <object name="box3" type="object" x="309" y="320" width="28" height="27">
    <properties>
     <property name="id" value="223"/>
     <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
-  <object name="door2" type="door" x="0" y="256" width="32" height="32">
+  <object name="door2" type="door" x="78" y="289" width="32" height="32">
    <properties>
-    <property name="connection" value="11"/>
-    <property name="id" value="401"/>
+    <property name="connection" value="12"/>
+    <property name="id" value="410"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="npc" width="20" height="15">
-  <object name="npc2" type="hostile" x="512" y="352" width="41" height="38">
-   <properties>
-    <property name="id" value="202"/>
-    <property name="npcType" value="StandardEnemy"/>
-   </properties>
-  </object>
-  <object name="npc2" type="hostile" x="512" y="256" width="41" height="38">
-   <properties>
-    <property name="id" value="201"/>
-    <property name="npcType" value="StandardEnemy"/>
-   </properties>
-  </object>
- </objectgroup>
+ <objectgroup name="npc" width="20" height="15"/>
 </map>
