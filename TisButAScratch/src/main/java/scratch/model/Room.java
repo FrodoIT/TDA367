@@ -180,7 +180,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
             final GameCharacter gameCharacter = (GameCharacter) entity;
             if (gameCharacter.getTile().intersects(placeToPutArea)
                     && !(entityToPlace.getTile().equals(gameCharacter.getTile()))
-                    && gameCharacter.isAlive()) {
+                    && gameCharacter.isAlive()){
                 return true;
             }
         }

@@ -10,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
+import scratch.model.weapons.Weapon;
 
 /**
  *
@@ -21,7 +22,7 @@ public class AttackTest extends TestCase{
     @Before
     @Override
     public void setUp() throws Exception {
-        attack = new Attack(new Rectangle2D.Double(40, 40, 32, 32), new Vector2D(10, 5), 5, GameCharacter.class);
+        attack = new Attack(new Rectangle2D.Double(40, 40, 32, 32), new Vector2D(10, 5), new Weapon(), GameCharacter.class);
     }
     
     @Test

@@ -39,6 +39,7 @@ public class MovableObjectTest extends TestCase {
         assertEquals(movableObject, movableObject)  ;
         assertNotNull(movableObject);
         assertNotSame(32, movableObject);
+        assertFalse(movableObject.equals(null));
         assertNotSame(movableObject, new MovableObject());
         final HashMap<String,String> props = new HashMap<>();
         final MovableObject newObject = new MovableObject("testObject", "box", 32, 32, 32, 32, props);

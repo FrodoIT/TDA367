@@ -36,8 +36,8 @@ public class Attack implements IMovableEntity{
     }
     
     public void update (){
-        final double x = attackTile.getX() + direction.getX()*5;
-        final double y = attackTile.getY() + direction.getY()*5;
+        final double x = attackTile.getX() + direction.getX();
+        final double y = attackTile.getY() + direction.getY();
         if (Math.abs(startPosition.getX() - x) > range*32 ||
             Math.abs(startPosition.getY() - y) > range*32){
             remain = false;
