@@ -75,7 +75,7 @@ public final class MovableObject extends InteractiveObject implements IMovableEn
     }
 
     @Override
-    public Rectangle2D.Double getUnitTile() {
+    public Rectangle2D.Double getTile() {
         return super.getUnitTile();
     }
 }

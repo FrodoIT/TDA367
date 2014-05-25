@@ -56,7 +56,7 @@ public class GameCharacterTest extends TestCase {
     public void testSetCharacter() throws Exception {
         final GameCharacter newGameCharacter = new GameCharacter(new Rectangle2D.Double(0, 0, 1, 1), new Weapon(), 3, 5, 2, "/res/monsterSprite.tmx");
         testCharacter.setCharacter(newGameCharacter);
-        assertTrue(testCharacter.getUnitTile().equals(newGameCharacter.getUnitTile())
+        assertTrue(testCharacter.getTile().equals(newGameCharacter.getTile())
                 && testCharacter.getWeapon().equals(newGameCharacter.getWeapon())
                 && testCharacter.getHealth() == newGameCharacter.getHealth()
                 && testCharacter.getMovementSpeed() == newGameCharacter.getMovementSpeed()
@@ -143,7 +143,7 @@ public class GameCharacterTest extends TestCase {
 
     @Test
     public void testGetUnitTile() throws Exception {
-        assertTrue(testCharacter.getUnitTile().equals(
+        assertTrue(testCharacter.getTile().equals(
                 new Rectangle2D.Double(32, 32, 32, 32)));
     }
 

@@ -101,7 +101,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
             return;
         }
 
-        final Rectangle2D.Double unitTile = getUnitTile();
+        final Rectangle2D.Double unitTile = getTile();
         final double diffX = newPosition.getX() - unitTile.x;
         final double diffY = newPosition.getY() - unitTile.y;
 
@@ -181,7 +181,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         this.health = health;
     }
 
-    public Rectangle2D.Double getUnitTile() {
+    public Rectangle2D.Double getTile() {
         return unitTile;
     }
 
@@ -284,7 +284,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     }
 
     public void setCharacter(GameCharacter character) {
-        unitTile = character.getUnitTile();
+        unitTile = character.getTile();
         weapon = character.getWeapon();
         health = character.getHealth();
         movementSpeed = character.getMovementSpeed();

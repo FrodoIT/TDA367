@@ -12,11 +12,12 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Ivar
  */
-public class Attack{
+public class Attack implements IMovableEntity{
     private Rectangle2D.Double attackTile;
     private Vector2D direction;
     private int damage;
     private Class<?> source;
+    private boolean remain = true;
     
     public Attack (){
         
@@ -45,6 +46,7 @@ public class Attack{
     
     public boolean dealDamage(Class<?> damageTo){
         if (damageTo != source){
+            remain = false;
             return true;
         }
         return false;
@@ -52,6 +54,30 @@ public class Attack{
     
     public int getDamage(){
         return damage;
+    }
+    
+    public boolean isRemaining(){
+        return remain;
+    }
+
+    @Override
+    public Direction getMoveDirection() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setMoveDirection(Direction direction) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setPosition(Vector2D newPosition) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Rectangle2D.Double getTile() {
+        return attackTile;
     }
 
 }

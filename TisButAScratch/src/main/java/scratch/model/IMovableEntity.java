@@ -10,5 +10,5 @@ public interface IMovableEntity {
     void setMoveDirection(Direction direction);
     void setPosition(Vector2D newPosition);
     Vector2D getPosition();
-    Rectangle2D.Double getUnitTile();
+    Rectangle2D.Double getTile();
 }

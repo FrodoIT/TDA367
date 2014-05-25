@@ -39,10 +39,11 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     }
 
     public void update() {
-        //attacks.clear();
+        updateCharacterInteractions();
         updateCharacterMovements();
         updateCharacterInteractions();
         dealDamage();
+        updateAttacks();
 
     }
 
@@ -50,10 +51,22 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
         return !(getLivingPlayers().isEmpty());
     }
 
+    private void updateAttacks() {
+        List<Attack> remainingAttacks = new ArrayList<>();
+        for (final Attack attack : attacks) {
+            if (!(isColliding(attack, attack.getPosition()))) {
+                remainingAttacks.add(attack);
+                attack.update();
+            }
+        }
+        attacks = remainingAttacks;
+
+    }
+
     private void updateCharacterInteractions() {
         for (final GameCharacter character : charactersInteracting) {
             for (final InteractiveObject interactiveObject : interactiveObjects) {
-                if (character.getUnitTile().intersects(interactiveObject.getUnitTile())) {
+                if (character.getTile().intersects(interactiveObject.getUnitTile())) {
                     final String objectType = interactiveObject.getType();
                     if ("door".equals(objectType)) {
 
@@ -77,7 +90,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     private void dealDamage() {
         for (final Attack attack : attacks) {
             for (final GameCharacter character : characters) {
-                if (character.getUnitTile().intersects(attack.getAttackTile()) && attack.dealDamage(character.getClass())) {
+                if (character.getTile().intersects(attack.getAttackTile()) && attack.dealDamage(character.getClass())) {
                     character.takeDamage(attack.getDamage());
                 }
             }
@@ -92,24 +105,21 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
      * @return the best allowed position
      */
     private Vector2D allowedPosition(IMovableEntity entityToPlace, Vector2D toPosition) {
-        final Rectangle2D.Double unitTile = entityToPlace.getUnitTile();
+        final Rectangle2D.Double unitTile = entityToPlace.getTile();
         final double newX = toPosition.getX();
-        final double newXRight = newX + unitTile.getWidth();
         final double newY = toPosition.getY();
-        final double newYDown = newY + unitTile.getHeight();
         final double oldX = unitTile.getX();
         final double oldY = unitTile.getY();
         double returnX = oldX;
         double returnY = oldY;
 
         //Check if new X position is allowed
-        if (0 < newX && newXRight < getMapWidth() && !isColliding(entityToPlace, new Vector2D(newX, oldY))) {
+        if (!isColliding(entityToPlace, new Vector2D(newX, oldY))) {
             returnX = newX;
-
-            //Check if new Y position is allowed
-            if (0 < newY && newYDown < getMapHeight() && !isColliding(entityToPlace, new Vector2D(oldX, newY))) {
-                returnY = newY;
-            }
+        }
+        //Check if new Y position is allowed
+        if (!isColliding(entityToPlace, new Vector2D(oldX, newY))) {
+            returnY = newY;
         }
         return new Vector2D(returnX, returnY);
     }
@@ -126,6 +136,12 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
         final int tileSize = 32;
         final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
 
+        if (placeToPut.getX() < 0 || getMapWidth() < (placeToPut.getX() + entityToPlace.getTile().getWidth())) {
+            return true;
+        }
+        if (placeToPut.getY() < 0 || getMapHeight() < (placeToPut.getY() + entityToPlace.getTile().getHeight())) {
+            return true;
+        }
         for (final IMovableEntity entity : movableEntities) {
 
             if (isCollidingWithBox(entityToPlace, placeToPutArea, entity)) {
@@ -137,19 +153,23 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
             }
         }
 
-        final Rectangle2D.Double unitTile = entityToPlace.getUnitTile();
+        final Rectangle2D.Double unitTile = entityToPlace.getTile();
         final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
         final Vector2D northEast = new Vector2D(placeToPut.getX() + unitTile.getWidth() - 1, placeToPut.getY() + 1);
         final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + unitTile.getHeight() - 1);
         final Vector2D southEast = new Vector2D(placeToPut.getX() + unitTile.getWidth() - 1, placeToPut.getY() + unitTile.getHeight() - 1);
-        return map.isColliding(northWest) || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
+
+        return map.isColliding(northWest)
+                || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
     }
 
     private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
-        if (entity.getUnitTile().intersects(placeToPutArea)
-                && !entity.getUnitTile().equals(entityToPlace.getUnitTile())
+        if (entity.getTile().intersects(placeToPutArea)
+                && !entity.getTile().equals(entityToPlace.getTile())
                 && entity instanceof MovableObject) {
-            updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
+            if (entityToPlace instanceof GameCharacter) {
+                updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
+            }
             return true;
         }
         return false;
@@ -158,8 +178,8 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     private boolean isCollidingWithCharacter(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
         if (entity instanceof GameCharacter) {
             final GameCharacter gameCharacter = (GameCharacter) entity;
-            if (gameCharacter.getUnitTile().intersects(placeToPutArea)
-                    && !(entityToPlace.getUnitTile().equals(gameCharacter.getUnitTile()))
+            if (gameCharacter.getTile().intersects(placeToPutArea)
+                    && !(entityToPlace.getTile().equals(gameCharacter.getTile()))
                     && gameCharacter.isAlive()) {
                 return true;
             }
@@ -169,7 +189,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
 
     private void updateBoxPosition(GameCharacter character, IMovableEntity interactiveObject) {
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
-        final Rectangle2D.Double boxArea = interactiveObject.getUnitTile();
+        final Rectangle2D.Double boxArea = interactiveObject.getTile();
         final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX() * character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY() * character.getMovementSpeed());
         interactiveObject.setPosition(allowedPosition(interactiveObject, newPos));
     }
@@ -246,7 +266,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     public List<Attack> getAttacks() {
         return attacks;
     }
-    
+
     public void setAttacks(List<Attack> attacks) {
         this.attacks = attacks;
     }
