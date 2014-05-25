@@ -226,8 +226,8 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     public Rectangle2D.Double getAttackArea() {
         final int range = weapon.getRange();
         return new Rectangle2D.Double(
-                unitTile.x + (32 * range * lookingDirection.getX()),
-                unitTile.y + (32 * range * lookingDirection.getY()),
+                unitTile.x + 32 * range * lookingDirection.getX(),
+                unitTile.y + 32 * range * lookingDirection.getY(),
                 weapon.getAttackArea().width, weapon.getAttackArea().height);
     }
 

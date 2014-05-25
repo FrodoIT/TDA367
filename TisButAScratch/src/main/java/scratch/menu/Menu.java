@@ -16,8 +16,11 @@ import javax.swing.*;
  *
  * @author Ivar
  */
-public class Menu {
+public final class Menu {
 
+    private Menu() {
+    }
+    
     public static void mainMenu() throws SlickException {
 
         final JFrame menu = new MainMenu();
@@ -36,9 +39,4 @@ public class Menu {
         final AppGameContainer app = new AppGameContainer(controller);
         app.start();
     }
-
-    private Menu() {
-
-    }
-
 }

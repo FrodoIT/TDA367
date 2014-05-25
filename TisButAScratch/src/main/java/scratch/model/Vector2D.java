@@ -54,7 +54,7 @@ public final class Vector2D {
             return false;
         }
 
-        Vector2D vector2D = (Vector2D) o;
+        final Vector2D vector2D = (Vector2D) o;
 
         if (Double.compare(vector2D.magnitude, magnitude) != 0) {
             return false;

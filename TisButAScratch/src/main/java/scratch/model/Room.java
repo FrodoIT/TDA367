@@ -39,7 +39,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     public Room() {
-
+        //used for serializing
     }
 
     public void update() {
