@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TiledMapPlus.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.construction</a> &gt; <span class="el_source">TiledMapPlus.java</span></div><h1>TiledMapPlus.java</h1><pre class="source lang-java linenums">package scratch.construction;
+
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.tiled.TiledMap;
+import scratch.model.IMap;
+import scratch.model.InteractiveObject;
+import scratch.model.MovableObject;
+import scratch.model.Vector2D;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Created by tejp on 2014-05-08.
+ */
+public class TiledMapPlus extends TiledMap implements IMap {
+
+<span class="nc" id="L21">    private final List&lt;InteractiveObject&gt; interactiveObjects = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L22">    private final List&lt;NpcSpecification&gt; npcSpecifications = new ArrayList&lt;&gt;();</span>
+    private final int collisionIndex;
+    private final int id;
+
+    /**
+     * Create a new tile map based on a given TMX file
+     *
+     * @param ref The location of the tile map to load
+     * @throws org.newdawn.slick.SlickException Indicates a failure to load the
+     * tilemap
+     */
+    public TiledMapPlus(String ref) throws SlickException {
+<span class="nc" id="L34">        super(ref);</span>
+<span class="nc" id="L35">        id = Integer.parseInt(getMapProperty(&quot;id&quot;, &quot;0&quot;));</span>
+<span class="nc" id="L36">        collisionIndex = getLayerIndex(&quot;collision&quot;);</span>
+<span class="nc" id="L37">        initializeInteractiveObjects();</span>
+<span class="nc" id="L38">        initializeNpcSpecifications();</span>
+<span class="nc" id="L39">    }</span>
+
+    private void initializeNpcSpecifications() {
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for (final Object oGroup : objectGroups) {</span>
+<span class="nc" id="L43">            final ObjectGroup objectGroup = (ObjectGroup) oGroup;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (&quot;npc&quot;.compareTo(objectGroup.name) != 0) {</span>
+<span class="nc" id="L45">                continue;</span>
+            }
+
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            for (final Object gObject : objectGroup.objects) {</span>
+<span class="nc" id="L49">                final GroupObject groupObject = (GroupObject) gObject;</span>
+<span class="nc" id="L50">                npcSpecifications.add(new NpcSpecification(</span>
+                        groupObject.props.getProperty(&quot;npcType&quot;),
+                        Integer.parseInt(groupObject.props.getProperty(&quot;id&quot;)),
+                        new Rectangle2D.Double(
+                                groupObject.x,
+                                groupObject.y,
+                                groupObject.width,
+                                groupObject.height)));
+<span class="nc" id="L58">            }</span>
+<span class="nc" id="L59">        }</span>
+<span class="nc" id="L60">    }</span>
+
+    private void initializeInteractiveObjects() {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (final Object oGroup : objectGroups) {</span>
+<span class="nc" id="L64">            final ObjectGroup objectGroup = (ObjectGroup) oGroup;</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">            if (&quot;interactive&quot;.compareTo(objectGroup.name) != 0) {</span>
+<span class="nc" id="L66">                continue;</span>
+            }
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            for (final Object gObject : objectGroup.objects) {</span>
+<span class="nc" id="L70">                final GroupObject groupObject = (GroupObject) gObject;</span>
+
+<span class="nc" id="L72">                final Set&lt;String&gt; set = groupObject.props.stringPropertyNames();</span>
+<span class="nc" id="L73">                final HashMap&lt;String,String&gt; map = new HashMap&lt;&gt;();</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                for (final String s : set) {</span>
+<span class="nc" id="L75">                    map.put(s,groupObject.props.getProperty(s));</span>
+<span class="nc" id="L76">                }</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                if(&quot;box&quot;.equals(groupObject.props.getProperty(&quot;objectType&quot;))) {</span>
+<span class="nc" id="L78">                    interactiveObjects.add(</span>
+                            new MovableObject(
+                                    groupObject.name,
+                                    groupObject.type,
+                                    groupObject.x,
+                                    groupObject.y,
+                                    groupObject.width,
+                                    groupObject.height,
+                                    map
+                            ));
+                } else {
+
+<span class="nc" id="L90">                    interactiveObjects.add(</span>
+                            new InteractiveObject(
+                                    groupObject.name,
+                                    groupObject.type,
+                                    groupObject.x,
+                                    groupObject.y,
+                                    groupObject.width,
+                                    groupObject.height,
+                                    map
+                            ));
+                }
+<span class="nc" id="L101">            }</span>
+<span class="nc" id="L102">        }</span>
+<span class="nc" id="L103">    }</span>
+
+    @Override
+    public List&lt;NpcSpecification&gt; getNpcSpecifications() {
+<span class="nc" id="L107">        return npcSpecifications;</span>
+    }
+
+    @Override
+    public boolean hasInteractiveObject() {
+<span class="nc" id="L112">        return interactiveObjects.isEmpty();</span>
+    }
+
+    @Override
+    public boolean hasNpc() {
+<span class="nc" id="L117">        return npcSpecifications.isEmpty();</span>
+    }
+
+    @Override
+    public List&lt;InteractiveObject&gt; getInteractiveObjects() {
+<span class="nc" id="L122">        return interactiveObjects;</span>
+    }
+
+    @Override
+    public int getWidth() {
+<span class="nc" id="L127">        return super.getWidth() * getTileWidth();</span>
+    }
+
+    @Override
+    public int getHeight() {
+<span class="nc" id="L132">        return super.getHeight() * getTileHeight();</span>
+    }
+
+    public int getId() {
+<span class="nc" id="L136">        return id;</span>
+    }
+
+    @Override
+    public boolean isColliding(Vector2D coordinate) {
+        try {
+<span class="nc bnc" id="L142" title="All 2 branches missed.">            return getTileId((int) coordinate.getX() / getTileWidth(), (int) coordinate.getY() / getTileHeight(), collisionIndex) != 0;</span>
+<span class="nc" id="L143">        } catch (IndexOutOfBoundsException e) {</span>
+<span class="nc" id="L144">            return false;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

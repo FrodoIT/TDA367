@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NpcView.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.view</a> &gt; <span class="el_source">NpcView.java</span></div><h1>NpcView.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package scratch.view;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+import scratch.model.GameCharacter;
+import scratch.model.Vector2D;
+
+/**
+ *
+ * @author Cannonbait
+ */
+public class NpcView extends CharacterView {
+
+    private final GameCharacter character;
+    private final int maxHealth;
+
+    public NpcView(GameCharacter character) {
+<span class="nc" id="L25">        super(character);</span>
+<span class="nc" id="L26">        this.character = character;</span>
+<span class="nc" id="L27">        maxHealth = character.getHealth();</span>
+<span class="nc" id="L28">    }</span>
+
+    @Override
+    public void render(GameContainer gameContainer) {
+<span class="nc" id="L32">        super.render(gameContainer);</span>
+        //healthbar over npc
+<span class="nc" id="L34">        final Vector2D pos = character.getPosition();</span>
+
+        //get percentage of life left;
+<span class="nc" id="L37">        final double currentHealth = (double) (character.getHealth()) / maxHealth;</span>
+<span class="nc" id="L38">        final int fullLength = 50;</span>
+<span class="nc" id="L39">        final int height = 5;</span>
+
+<span class="nc" id="L41">        final Rectangle lifeGreen = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, (float) currentHealth * fullLength, height);</span>
+<span class="nc" id="L42">        final Rectangle lifeRed = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, fullLength, height);</span>
+
+<span class="nc" id="L44">        final Graphics g = gameContainer.getGraphics();</span>
+<span class="nc" id="L45">        g.setColor(Color.red);</span>
+<span class="nc" id="L46">        g.fill(lifeRed);</span>
+<span class="nc" id="L47">        g.setColor(Color.green);</span>
+<span class="nc" id="L48">        g.fill(lifeGreen);</span>
+
+<span class="nc" id="L50">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

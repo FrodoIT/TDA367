@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameCharacter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.model</a> &gt; <span class="el_source">GameCharacter.java</span></div><h1>GameCharacter.java</h1><pre class="source lang-java linenums">package scratch.model;
+
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoSerializable;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+import scratch.model.weapons.Weapon;
+import scratch.utils.Cooldown;
+
+import javax.annotation.concurrent.Immutable;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The interface for all Characters. Every character has a given health,
+ * position, damage, movement speed and weapon.
+ *
+ * @author Alma Ottedag revised 2014-03-27 by Ivar Josefsson
+ */
+@Immutable
+@Root
+public class GameCharacter implements KryoSerializable, IMovableEntity {
+
+<span class="fc" id="L28">    @Element(type = Rectangle2D.Double.class, required = false)</span>
+    private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
+    @Element(name = &quot;weapon&quot;)//(type = WeaponPath.class)
+    private Weapon weapon;
+    @Element
+    private int health;
+    @Element
+    private int movementSpeed;
+    @Attribute
+    private int id;
+<span class="fc" id="L38">    @Element(type = Direction.class, required = false)</span>
+    private Direction moveDirection = Direction.NONE;
+<span class="fc" id="L40">    @Element(type = Direction.class, required = false)</span>
+    private Direction lookingDirection = Direction.SOUTH;
+    @Element
+    private String imagePath;
+<span class="fc" id="L44">    @Element(required = false)</span>
+    private boolean interactIsCooledDown = true;
+    private Vector2D nextMoveDirection;
+    private boolean interacting;
+    private boolean attacking;
+
+
+<span class="fc" id="L51">    private final Runnable cooldownReset = new Runnable() {</span>
+        @Override
+        public void run() {
+<span class="fc" id="L54">            interactIsCooledDown = true;</span>
+<span class="fc" id="L55">        }</span>
+    };
+
+<span class="fc" id="L58">    final private List&lt;CharacterChangeListener&gt; listeners = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L60">    public GameCharacter(Rectangle2D.Double unitTile, Weapon weapon, int health, int movementSpeed, int id, String imagePath) {</span>
+<span class="fc" id="L61">        this.unitTile = new Rectangle2D.Double(unitTile.getX(), unitTile.getY(), unitTile.getWidth(), unitTile.getHeight());</span>
+<span class="fc" id="L62">        this.weapon = weapon;</span>
+<span class="fc" id="L63">        this.health = health;</span>
+<span class="fc" id="L64">        this.movementSpeed = movementSpeed;</span>
+<span class="fc" id="L65">        this.id = id;</span>
+<span class="fc" id="L66">        this.imagePath = imagePath;</span>
+<span class="fc" id="L67">        nextMoveDirection = new Vector2D();</span>
+<span class="fc" id="L68">    }</span>
+
+    public void registerListener(CharacterChangeListener listener) {
+<span class="fc" id="L71">        listeners.add(listener);</span>
+<span class="fc" id="L72">    }</span>
+
+    GameCharacter() {
+<span class="fc" id="L75">        super();</span>
+<span class="fc" id="L76">        nextMoveDirection = new Vector2D();</span>
+<span class="fc" id="L77">    }</span>
+
+    public void setId(int id) {
+<span class="fc" id="L80">        this.id = id;</span>
+<span class="fc" id="L81">    }</span>
+
+    public void performInteractCooldown() {
+<span class="fc" id="L84">        interactIsCooledDown = false;</span>
+<span class="fc" id="L85">        Cooldown.cooldown(500, cooldownReset);</span>
+<span class="fc" id="L86">    }</span>
+
+    public void removeListener(CharacterChangeListener listener) {
+<span class="fc" id="L89">        listeners.remove(listener);</span>
+<span class="fc" id="L90">    }</span>
+
+    public void takeDamage(int dmg) {
+<span class="fc" id="L93">        health = health - Math.abs(dmg);</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        if (health &lt; 0) {</span>
+<span class="fc" id="L95">            health = 0;</span>
+        }
+<span class="fc" id="L97">    }</span>
+
+    private void calculateMoveDirection(Vector2D newPosition) {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (getPosition().equals(newPosition)) {</span>
+<span class="fc" id="L101">            moveDirection = Direction.NONE;</span>
+<span class="fc" id="L102">            return;</span>
+        }
+
+<span class="fc" id="L105">        final Rectangle2D.Double unitTile = getTile();</span>
+<span class="fc" id="L106">        final double diffX = newPosition.getX() - unitTile.x;</span>
+<span class="fc" id="L107">        final double diffY = newPosition.getY() - unitTile.y;</span>
+
+        // 517.5 =
+        // 180 to avid negative angles
+        //+ 337.5 (360 - 22.5)
+<span class="fc" id="L112">        final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;</span>
+
+<span class="fc" id="L114">        final Direction[] directions = {</span>
+            Direction.NORTHWEST,
+            Direction.WEST,
+            Direction.SOUTHWEST,
+            Direction.SOUTH,
+            Direction.SOUTHEAST,
+            Direction.EAST,
+            Direction.NORTHEAST,
+            Direction.NORTH
+        };
+<span class="fc" id="L124">        lookingDirection = directions[(int) theta / 45];</span>
+<span class="fc" id="L125">        moveDirection = directions[(int) theta / 45];</span>
+<span class="fc" id="L126">    }</span>
+
+    public void update() {
+<span class="fc" id="L129">        final Vector2D newPosition = calculateNewPosition();</span>
+<span class="fc" id="L130">        calculateMoveDirection(newPosition);</span>
+
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        for (final CharacterChangeListener listener : getListeners()) {</span>
+<span class="fc" id="L133">            listener.handleCharacterMovement(this, newPosition);</span>
+
+<span class="fc bfc" id="L135" title="All 2 branches covered.">            if (isInteracting()) {</span>
+<span class="fc" id="L136">                interact();</span>
+            }
+
+<span class="fc bfc" id="L139" title="All 2 branches covered.">            if (isAttacking()) {</span>
+<span class="fc" id="L140">                performAttack();</span>
+            }
+<span class="fc" id="L142">        }</span>
+<span class="fc" id="L143">    }</span>
+
+    protected Vector2D calculateNewPosition() {
+<span class="fc" id="L146">        return new Vector2D(</span>
+                getPosition().getX() + nextMoveDirection.getX() * movementSpeed,
+                getPosition().getY() + nextMoveDirection.getY() * movementSpeed
+        );
+    }
+
+    @Override
+    public void setPosition(Vector2D position) {
+<span class="fc" id="L154">        unitTile.setRect(position.getX(), position.getY(), unitTile.getWidth(), unitTile.getHeight());</span>
+<span class="fc" id="L155">    }</span>
+
+    public void setInteracting(boolean interacting) {
+<span class="fc" id="L158">        this.interacting = interacting;</span>
+<span class="fc" id="L159">    }</span>
+
+    public void setAttacking(boolean attacking) {
+<span class="fc" id="L162">        this.attacking = attacking;</span>
+<span class="fc" id="L163">    }</span>
+
+    public void setNextMoveDirection(Vector2D moveDirection) {
+<span class="fc" id="L166">        this.nextMoveDirection = moveDirection.getNormalisedVector();</span>
+<span class="fc" id="L167">    }</span>
+
+    public Vector2D getNextMoveDirection() {
+<span class="fc" id="L170">        return nextMoveDirection;</span>
+    }
+
+    public boolean isInteracting() {
+<span class="fc bfc" id="L174" title="All 4 branches covered.">        return interacting &amp;&amp; interactIsCooledDown;</span>
+    }
+
+    public boolean isAttacking() {
+<span class="fc" id="L178">        return attacking;</span>
+    }
+
+    public void setHealth(int health) {
+<span class="fc" id="L182">        this.health = health;</span>
+<span class="fc" id="L183">    }</span>
+
+    public Rectangle2D.Double getTile() {
+<span class="fc" id="L186">        return unitTile;</span>
+    }
+
+    public Weapon getWeapon() {
+<span class="fc" id="L190">        return weapon;</span>
+    }
+
+    public int getHealth() {
+<span class="fc" id="L194">        return health;</span>
+    }
+
+    public int getMovementSpeed() {
+<span class="fc" id="L198">        return movementSpeed;</span>
+    }
+
+    public int getId() {
+<span class="fc" id="L202">        return id;</span>
+    }
+
+    public Direction getMoveDirection() {
+<span class="fc" id="L206">        return moveDirection;</span>
+    }
+
+    public Direction getLookingDirection() {
+<span class="fc" id="L210">        return lookingDirection;</span>
+    }
+
+    @Override
+    public void setMoveDirection(Direction direction) {
+<span class="fc" id="L215">        this.moveDirection = direction;</span>
+<span class="fc" id="L216">    }</span>
+
+    public int getDamage() {
+<span class="fc" id="L219">        return weapon.getDamage();</span>
+    }
+
+    @Override
+    public Vector2D getPosition() {
+<span class="fc" id="L224">        return new Vector2D(unitTile.getX(), unitTile.getY());</span>
+    }
+
+    public String getImagePath() {
+<span class="fc" id="L228">        return imagePath;</span>
+    }
+
+    public Attack getAttack() {
+<span class="fc" id="L232">        final Rectangle2D.Double origin = new Rectangle2D.Double(</span>
+                unitTile.x + 32 * lookingDirection.getX(),
+                unitTile.y + 32 * lookingDirection.getY(),
+                weapon.getAttackArea().getWidth(),
+                weapon.getAttackArea().getHeight());
+<span class="fc" id="L237">        return new Attack(origin, new Vector2D(lookingDirection.getX()*movementSpeed, lookingDirection.getY()*2), weapon, this.getClass());</span>
+    }
+
+    public void performAttack() {
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        if (weapon.hasCooledDown()) {</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">            for (final CharacterChangeListener listener : listeners) {</span>
+<span class="fc" id="L243">                listener.handleCharacterAttack(this);</span>
+<span class="fc" id="L244">            }</span>
+<span class="fc" id="L245">            weapon.startCooldown();</span>
+        }
+<span class="fc" id="L247">    }</span>
+
+    public void interact() {
+<span class="fc bfc" id="L250" title="All 2 branches covered.">        for (final CharacterChangeListener listener : listeners) {</span>
+<span class="fc" id="L251">            listener.handleCharacterInteraction(this);</span>
+<span class="fc" id="L252">        }</span>
+<span class="fc" id="L253">        performInteractCooldown();</span>
+<span class="fc" id="L254">    }</span>
+
+    public boolean isAlive() {
+<span class="fc bfc" id="L257" title="All 2 branches covered.">        return getHealth() &gt; 0;</span>
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+<span class="fc bfc" id="L262" title="All 2 branches covered.">        if (this == o) {</span>
+<span class="fc" id="L263">            return true;</span>
+        }
+<span class="fc bfc" id="L265" title="All 2 branches covered.">        if (!(o instanceof GameCharacter)) {</span>
+<span class="fc" id="L266">            return false;</span>
+        }
+
+<span class="fc" id="L269">        final GameCharacter character = (GameCharacter) o;</span>
+
+<span class="fc bfc" id="L271" title="All 2 branches covered.">        return id == character.id;</span>
+    }
+
+    @Override
+    public final int hashCode() {
+<span class="fc" id="L276">        return 31 * id;</span>
+    }
+
+    public List&lt;CharacterChangeListener&gt; getListeners() {
+<span class="fc" id="L280">        return listeners;</span>
+    }
+
+    public void setMovementSpeed(int movementSpeed) {
+<span class="fc" id="L284">        this.movementSpeed = movementSpeed;</span>
+<span class="fc" id="L285">    }</span>
+
+    public void setCharacter(GameCharacter character) {
+<span class="fc" id="L288">        unitTile = character.getTile();</span>
+<span class="fc" id="L289">        weapon = character.getWeapon();</span>
+<span class="fc" id="L290">        health = character.getHealth();</span>
+<span class="fc" id="L291">        movementSpeed = character.getMovementSpeed();</span>
+<span class="fc" id="L292">        moveDirection = character.getMoveDirection();</span>
+<span class="fc" id="L293">        lookingDirection = character.getLookingDirection();</span>
+<span class="fc" id="L294">        imagePath = character.getImagePath();</span>
+<span class="fc" id="L295">        attacking = character.isAttacking();</span>
+<span class="fc" id="L296">        interacting = character.isInteracting();</span>
+<span class="fc" id="L297">    }</span>
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+<span class="fc" id="L301">        kryo.writeObject(output, unitTile);</span>
+<span class="fc" id="L302">        kryo.writeObject(output, weapon);</span>
+<span class="fc" id="L303">        kryo.writeObject(output, health);</span>
+<span class="fc" id="L304">        kryo.writeObject(output, movementSpeed);</span>
+<span class="fc" id="L305">        kryo.writeObject(output, id);</span>
+<span class="fc" id="L306">        kryo.writeObject(output, moveDirection);</span>
+<span class="fc" id="L307">        kryo.writeObject(output, lookingDirection);</span>
+<span class="fc" id="L308">        kryo.writeObject(output, imagePath);</span>
+<span class="fc" id="L309">        kryo.writeObject(output, attacking);</span>
+<span class="fc" id="L310">        kryo.writeObject(output, interacting);</span>
+<span class="fc" id="L311">    }</span>
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+<span class="fc" id="L315">        unitTile = kryo.readObject(input, Rectangle2D.Double.class);</span>
+<span class="fc" id="L316">        weapon = kryo.readObject(input, Weapon.class);</span>
+<span class="fc" id="L317">        health = kryo.readObject(input, Integer.class);</span>
+<span class="fc" id="L318">        movementSpeed = kryo.readObject(input, Integer.class);</span>
+<span class="fc" id="L319">        id = kryo.readObject(input, Integer.class);</span>
+<span class="fc" id="L320">        moveDirection = kryo.readObject(input, Direction.class);</span>
+<span class="fc" id="L321">        lookingDirection = kryo.readObject(input, Direction.class);</span>
+<span class="fc" id="L322">        imagePath = kryo.readObject(input, String.class);</span>
+<span class="fc" id="L323">        attacking = kryo.readObject(input, Boolean.class);</span>
+<span class="fc" id="L324">        interacting = kryo.readObject(input, Boolean.class);</span>
+<span class="fc" id="L325">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

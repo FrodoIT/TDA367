@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32" backgroundcolor="#bfbfbf">
+ <properties>
+  <property name="id" value="300"/>
+ </properties>
+ <tileset firstgid="1" name="realmap1" tilewidth="32" tileheight="32">
+  <tileoffset x="-3" y="-3"/>
+  <image source="realmap1.jpg" width="640" height="480"/>
+ </tileset>
+ <tileset firstgid="301" name="bloodyroom" tilewidth="32" tileheight="32">
+  <image source="bloodyroom.png" width="640" height="480"/>
+ </tileset>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA2NgwA2smRCYWICsBxemJhg1j3Lz6BFfMHOwmY2LTY77cfmJVPPw2UGpedQCtEpb1EoHtPA3AIs0DRywBAAA
+  </data>
+ </layer>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAw3DBXQVBAAAwD9QQgGREikJabYRG93dsICNkC4VJJUOFZDu7u7ukA5pUSQklG6lO+/eu+CgQCDEUPOaz/wWMMxwC1rIwhaxqMUsbglLWsrSlrGs5SxvBStaycpWsarVrG4Na1rL2kYYaZTR1rGuMcZaz/o2sKFf2cjGNrGpzWxuC1vayta28Wu/8Vvb2s7vbG8HO9rJznbxe3+wq93sbg972sve9rGv/fzRn/zZ/g5woL84yMEOcajDHO4IRzrK0Y5xrOMc7wQnOsnJTnGq05zuDGc6y9nOca7znO8CF7rIxS5xqctc7gpXusrVrnGt61zvBje6yc1ucau/us3t7nCnu9ztHve6z/3+5gEPesjDHvGox/zd4/7hn57wL096ytOe8W/Pes7zXvAf//Wil7zsFa96zeve8Ka3vO0d7/qf/3vP+z7woY987BOf+sznvvClr3ztG9/6zkCcQCDIOMb1Az80nvFNYEI/8mMTmdgkfmJSPzWZyU1hSlP5man93DSmNZ3pzeAXZjSTmc3il2Y1m9nNYU5zmds8BhtiqHnNZ34LGGa4BS1kYYtY1GIWt4QlLWVpy1jWcpa3ghWtZGWrWNVqVreGNa1lbSOMNMpo61jXGGN9D0XFXFOwBAAA
+  </data>
+ </layer>
+ <objectgroup name="map" width="20" height="15"/>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door1" type="door" x="564" y="406" width="31" height="35">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="id" value="310"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="door2" type="door" x="65" y="64" width="32" height="32">
+   <properties>
+    <property name="connection" value="3"/>
+    <property name="id" value="311"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

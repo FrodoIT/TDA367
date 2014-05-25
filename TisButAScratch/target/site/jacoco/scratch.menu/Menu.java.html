@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Menu.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.menu</a> &gt; <span class="el_source">Menu.java</span></div><h1>Menu.java</h1><pre class="source lang-java linenums">/*
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
+package scratch.menu;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+import scratch.controller.GameController;
+import scratch.model.Game;
+
+import javax.swing.*;
+
+/**
+ *
+ * @author Ivar
+ */
+public final class Menu {
+
+<span class="nc" id="L21">    private Menu() {</span>
+<span class="nc" id="L22">    }</span>
+    
+    public static void mainMenu() throws SlickException {
+
+<span class="nc" id="L26">        final JFrame menu = new MainMenu();</span>
+<span class="nc" id="L27">        menu.setVisible(true);</span>
+
+<span class="nc" id="L29">    }</span>
+
+    public static void startGame(String ip) throws SlickException {
+<span class="nc" id="L32">        final Game game = new Game();</span>
+        final org.newdawn.slick.Game controller;
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (scratch.network.Utilities.validIP(ip)) {</span>
+<span class="nc" id="L35">            controller = new GameController(ip);</span>
+        } else {
+<span class="nc" id="L37">            controller = new GameController(game);</span>
+        }
+<span class="nc" id="L39">        final AppGameContainer app = new AppGameContainer(controller);</span>
+<span class="nc" id="L40">        app.start();</span>
+<span class="nc" id="L41">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

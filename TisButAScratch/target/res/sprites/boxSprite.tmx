@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="12" height="1" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="box" tilewidth="32" tileheight="32">
+  <image source="box.png" width="32" height="32"/>
+ </tileset>
+ <layer name="sprite" width="12" height="1">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NkYGBgJAEDACo904owAAAA
+  </data>
+ </layer>
+</map>

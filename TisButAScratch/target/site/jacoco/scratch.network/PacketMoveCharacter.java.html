@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PacketMoveCharacter.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.network</a> &gt; <span class="el_source">PacketMoveCharacter.java</span></div><h1>PacketMoveCharacter.java</h1><pre class="source lang-java linenums">package scratch.network;
+
+/**
+ * Created by tejp on 2014-05-21.
+ */
+public class PacketMoveCharacter {
+    private int characterId, fromRoomId, toRoomId;
+
+<span class="nc" id="L9">    public PacketMoveCharacter(int characterId, int fromRoomId, int toRoomId) {</span>
+<span class="nc" id="L10">        this.characterId = characterId;</span>
+<span class="nc" id="L11">        this.fromRoomId = fromRoomId;</span>
+<span class="nc" id="L12">        this.toRoomId = toRoomId;</span>
+<span class="nc" id="L13">    }</span>
+
+<span class="nc" id="L15">    public PacketMoveCharacter() {</span>
+        //used for serialization
+<span class="nc" id="L17">    }</span>
+
+    public int getCharacterId() {
+<span class="nc" id="L20">        return characterId;</span>
+    }
+
+    public int getFromRoomId() {
+<span class="nc" id="L24">        return fromRoomId;</span>
+    }
+
+    public int getToRoomId() {
+<span class="nc" id="L28">        return toRoomId;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

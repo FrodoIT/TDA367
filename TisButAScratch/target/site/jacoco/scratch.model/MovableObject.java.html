@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>MovableObject.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.model</a> &gt; <span class="el_source">MovableObject.java</span></div><h1>MovableObject.java</h1><pre class="source lang-java linenums">package scratch.model;
+
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
+import java.awt.geom.Rectangle2D;
+
+import java.util.Map;
+
+/**
+ * Created by Anna on 2014-05-23.
+ */
+public final class MovableObject extends InteractiveObject implements IMovableEntity {
+
+    private Direction moveDirection;
+
+    public MovableObject(String name, String type, int x, int y, int width, int height, Map&lt;String, String&gt; properties) {
+<span class="fc" id="L18">        super(name, type, x, y, width, height, properties);</span>
+<span class="fc" id="L19">        moveDirection = Direction.NONE;</span>
+<span class="fc" id="L20">    }</span>
+
+    public MovableObject() {
+<span class="fc" id="L23">        super();</span>
+<span class="fc" id="L24">    }</span>
+
+    @Override
+    public Direction getMoveDirection() {
+<span class="fc" id="L28">        return moveDirection;</span>
+    }
+
+    @Override
+    public void setMoveDirection(Direction moveDirection) {
+<span class="fc" id="L33">        this.moveDirection = moveDirection;</span>
+<span class="fc" id="L34">    }</span>
+
+    @Override
+    public void write(Kryo kryo, Output output) {
+<span class="fc" id="L38">        super.write(kryo, output);</span>
+<span class="fc" id="L39">        kryo.writeObject(output, moveDirection);</span>
+<span class="fc" id="L40">    }</span>
+
+    @Override
+    public void read(Kryo kryo, Input input) {
+<span class="fc" id="L44">        super.read(kryo, input);</span>
+<span class="fc" id="L45">        moveDirection = kryo.readObject(input, Direction.class);</span>
+<span class="fc" id="L46">    }</span>
+
+    @Override
+    public boolean equals(Object object) {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (this == object) {</span>
+<span class="fc" id="L51">            return true;</span>
+<span class="pc bpc" id="L52" title="2 of 4 branches missed.">        } else if (object == null || object.getClass() != MovableObject.class) {</span>
+<span class="nc" id="L53">            return false;</span>
+        }
+<span class="fc" id="L55">        final MovableObject recievedObject = (MovableObject) object;</span>
+<span class="pc bpc" id="L56" title="2 of 4 branches missed.">        return super.equals(recievedObject) &amp;&amp; this.getMoveDirection() == recievedObject.getMoveDirection();</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        return 31 * super.hashCode() + (moveDirection != null ? moveDirection.hashCode() : 0);</span>
+
+    }
+    
+    
+    //These methods are requested by findbugs
+    @Override
+    public void setPosition(Vector2D newPosition) {
+<span class="fc" id="L69">        super.setPosition(newPosition);</span>
+<span class="fc" id="L70">    }</span>
+
+    @Override
+    public Vector2D getPosition() {
+<span class="fc" id="L74">        return super.getPosition();</span>
+    }
+
+    @Override
+    public Rectangle2D.Double getTile() {
+<span class="fc" id="L79">        return super.getUnitTile();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

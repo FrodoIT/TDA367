@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PacketAttacks.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.network</a> &gt; <span class="el_source">PacketAttacks.java</span></div><h1>PacketAttacks.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package scratch.network;
+
+import java.util.List;
+import scratch.model.Attack;
+
+/**
+ *
+ * @author Ivar
+ */
+public class PacketAttacks {
+    private int id;
+    private List&lt;Attack&gt; attacks;
+    
+<span class="nc" id="L20">    public PacketAttacks(){</span>
+        
+<span class="nc" id="L22">    }</span>
+    
+<span class="nc" id="L24">    public PacketAttacks(int id, List&lt;Attack&gt; attacks){</span>
+<span class="nc" id="L25">        this.id = id;</span>
+<span class="nc" id="L26">        this.attacks = attacks;</span>
+<span class="nc" id="L27">    }</span>
+    
+    public int getId(){
+<span class="nc" id="L30">        return id;</span>
+    }
+    
+    public List&lt;Attack&gt; getAttacks(){
+<span class="nc" id="L34">        return attacks;</span>
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

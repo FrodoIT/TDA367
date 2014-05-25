@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="id" value="200"/>
+ </properties>
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="19" y="19"/>
+  <image source="tmw_desert_spacing.png" width="265" height="199"/>
+ </tileset>
+ <tileset firstgid="49" name="fancyRoom" tilewidth="32" tileheight="32">
+  <image source="fancyRoom.png" width="640" height="480"/>
+ </tileset>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgQAAHRgaqgqFgHqmYUv2EzCPWvejqqR02uOwfSeYhm4stvsgxh5B5pNiBL/6xpRFSzKNEDbFqyQlPAAsabGmwBAAA
+  </data>
+ </layer>
+ <layer name="background" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
+  </data>
+ </layer>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door1" type="door" x="0" y="256" width="32" height="32">
+   <properties>
+    <property name="connection" value="1"/>
+    <property name="id" value="210"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="door2" type="door" x="129" y="31" width="32" height="32">
+   <properties>
+    <property name="connection" value="2"/>
+    <property name="id" value="211"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="508" y="277" width="32" height="32">
+   <properties>
+    <property name="id" value="232"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="188" y="3" width="32" height="28">
+   <properties>
+    <property name="id" value="320"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="189" y="43" width="32" height="28">
+   <properties>
+    <property name="id" value="321"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="263" y="66" width="32" height="28">
+   <properties>
+    <property name="id" value="322"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc1" type="hostile" x="356" y="418" width="32" height="32">
+   <properties>
+    <property name="id" value="230"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="490" y="355" width="32" height="32">
+   <properties>
+    <property name="id" value="231"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

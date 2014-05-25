@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Room.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.model</a> &gt; <span class="el_source">Room.java</span></div><h1>Room.java</h1><pre class="source lang-java linenums">package scratch.model;
+
+import com.google.inject.Inject;
+
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Represents a single room and the contents in it.
+ *
+ * @author Ivar Josefsson
+ *
+ */
+public final class Room implements IRoomData, CharacterChangeListener, DoorHelper {
+
+    @Inject
+    private List&lt;IMovableEntity&gt; movableEntities;
+    private List&lt;GameCharacter&gt; characters;
+<span class="fc" id="L22">    private final Map&lt;GameCharacter, Vector2D&gt; characterMovementMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L23">    private final List&lt;GameCharacter&gt; charactersInteracting = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">    private List&lt;Attack&gt; attacks = new ArrayList&lt;&gt;();</span>
+    private IMap map;
+    private List&lt;InteractiveObject&gt; interactiveObjects;
+    private DoorHandler doorHandler;
+
+<span class="fc" id="L29">    public Room(IMap collisionMap, DoorHandler doorHandler) {</span>
+<span class="fc" id="L30">        this.map = collisionMap;</span>
+<span class="fc" id="L31">        this.doorHandler = doorHandler;</span>
+<span class="fc" id="L32">        characters = new ArrayList();</span>
+<span class="fc" id="L33">        interactiveObjects = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L34">        movableEntities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L35">    }</span>
+
+    public void update() {
+<span class="fc" id="L38">        dealDamage();</span>
+<span class="fc" id="L39">        updateAttacks();</span>
+<span class="fc" id="L40">        updateCharacterMovements();</span>
+<span class="fc" id="L41">        updateCharacterInteractions();</span>
+
+<span class="fc" id="L43">    }</span>
+
+    public boolean isActive() {
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        return !(getLivingPlayers().isEmpty());</span>
+    }
+
+    private void updateAttacks() {
+<span class="fc" id="L50">        List&lt;Attack&gt; remainingAttacks = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        for (final Attack attack : attacks) {</span>
+<span class="pc bpc" id="L52" title="3 of 4 branches missed.">            if (!(isColliding(attack, attack.getPosition())) &amp;&amp; attack.isRemaining()) {</span>
+<span class="nc" id="L53">                remainingAttacks.add(attack);</span>
+<span class="nc" id="L54">                attack.update();</span>
+            }
+<span class="fc" id="L56">        }</span>
+<span class="fc" id="L57">        attacks = remainingAttacks;</span>
+
+<span class="fc" id="L59">    }</span>
+
+    private void updateCharacterInteractions() {
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (final GameCharacter character : charactersInteracting) {</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            for (final InteractiveObject interactiveObject : interactiveObjects) {</span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">                if (character.getTile().intersects(interactiveObject.getUnitTile())) {</span>
+<span class="fc" id="L65">                    final String objectType = interactiveObject.getType();</span>
+<span class="pc bpc" id="L66" title="1 of 2 branches missed.">                    if (&quot;door&quot;.equals(objectType)) {</span>
+
+<span class="fc" id="L68">                        doorHandler.interactHappened(this, character, interactiveObject);</span>
+<span class="fc" id="L69">                        break;</span>
+                    }
+                }
+<span class="fc" id="L72">            }</span>
+<span class="fc" id="L73">        }</span>
+<span class="fc" id="L74">        charactersInteracting.clear();</span>
+<span class="fc" id="L75">    }</span>
+
+    private void updateCharacterMovements() {
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        for (final Map.Entry&lt;GameCharacter, Vector2D&gt; inputEntry : characterMovementMap.entrySet()) {</span>
+<span class="fc" id="L79">            final GameCharacter character = inputEntry.getKey();</span>
+<span class="fc" id="L80">            character.setPosition(allowedPosition(character, inputEntry.getValue()));</span>
+<span class="fc" id="L81">        }</span>
+<span class="fc" id="L82">        characterMovementMap.clear();</span>
+<span class="fc" id="L83">    }</span>
+
+    private void dealDamage() {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        for (final Attack attack : attacks) {</span>
+<span class="fc bfc" id="L87" title="All 2 branches covered.">            for (final GameCharacter character : characters) {</span>
+<span class="fc bfc" id="L88" title="All 4 branches covered.">                if (character.getTile().intersects(attack.getAttackTile()) &amp;&amp; attack.dealDamage(character.getClass())) {</span>
+<span class="fc" id="L89">                    character.takeDamage(attack.getDamage());</span>
+                }
+<span class="fc" id="L91">            }</span>
+<span class="fc" id="L92">        }</span>
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Called to determine the best allowed position
+     *
+     * @param entityToPlace the character with being moved
+     * @param toPosition the position we want to end at
+     * @return the best allowed position
+     */
+    private Vector2D allowedPosition(IMovableEntity entityToPlace, Vector2D toPosition) {
+<span class="fc" id="L103">        final Rectangle2D.Double unitTile = entityToPlace.getTile();</span>
+<span class="fc" id="L104">        final double newX = toPosition.getX();</span>
+<span class="fc" id="L105">        final double newY = toPosition.getY();</span>
+<span class="fc" id="L106">        final double oldX = unitTile.getX();</span>
+<span class="fc" id="L107">        final double oldY = unitTile.getY();</span>
+<span class="fc" id="L108">        double returnX = oldX;</span>
+<span class="fc" id="L109">        double returnY = oldY;</span>
+
+        //Check if new X position is allowed
+<span class="fc bfc" id="L112" title="All 2 branches covered.">        if (!isColliding(entityToPlace, new Vector2D(newX, oldY))) {</span>
+<span class="fc" id="L113">            returnX = newX;</span>
+        }
+        //Check if new Y position is allowed
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (!isColliding(entityToPlace, new Vector2D(oldX, newY))) {</span>
+<span class="fc" id="L117">            returnY = newY;</span>
+        }
+<span class="fc" id="L119">        return new Vector2D(returnX, returnY);</span>
+    }
+
+    /**
+     * Checks if there's a collision at the given coordinates
+     *
+     *
+     * @param entityToPlace A &quot;hitbox&quot; of the object to place at placeToPut
+     * @param placeToPut the place to put objectToPlace at
+     * @return true if there is a collision
+     */
+    private boolean isColliding(IMovableEntity entityToPlace, Vector2D placeToPut) {
+<span class="fc" id="L131">        final int tileSize = 32;</span>
+<span class="fc" id="L132">        final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);</span>
+
+<span class="pc bpc" id="L134" title="2 of 4 branches missed.">        if (placeToPut.getX() &lt; 0 || getMapWidth() &lt; (placeToPut.getX() + entityToPlace.getTile().getWidth())) {</span>
+<span class="nc" id="L135">            return true;</span>
+        }
+<span class="pc bpc" id="L137" title="2 of 4 branches missed.">        if (placeToPut.getY() &lt; 0 || getMapHeight() &lt; (placeToPut.getY() + entityToPlace.getTile().getHeight())) {</span>
+<span class="nc" id="L138">            return true;</span>
+        }
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        for (final IMovableEntity entity : movableEntities) {</span>
+
+<span class="fc bfc" id="L142" title="All 2 branches covered.">            if (isCollidingWithBox(entityToPlace, placeToPutArea, entity)) {</span>
+<span class="fc" id="L143">                return true;</span>
+            }
+
+<span class="fc bfc" id="L146" title="All 2 branches covered.">            if (isCollidingWithCharacter(entityToPlace, placeToPutArea, entity)) {</span>
+<span class="fc" id="L147">                return true;</span>
+            }
+<span class="fc" id="L149">        }</span>
+
+<span class="fc" id="L151">        final Rectangle2D.Double unitTile = entityToPlace.getTile();</span>
+<span class="fc" id="L152">        final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);</span>
+<span class="fc" id="L153">        final Vector2D northEast = new Vector2D(placeToPut.getX() + unitTile.getWidth() - 1, placeToPut.getY() + 1);</span>
+<span class="fc" id="L154">        final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + unitTile.getHeight() - 1);</span>
+<span class="fc" id="L155">        final Vector2D southEast = new Vector2D(placeToPut.getX() + unitTile.getWidth() - 1, placeToPut.getY() + unitTile.getHeight() - 1);</span>
+
+<span class="pc bpc" id="L157" title="4 of 8 branches missed.">        return map.isColliding(northWest)</span>
+                || map.isColliding(northEast) || map.isColliding(southEast) || map.isColliding(southWest);
+    }
+
+    private boolean isCollidingWithBox(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
+<span class="fc bfc" id="L162" title="All 6 branches covered.">        if (entity.getTile().intersects(placeToPutArea)</span>
+                &amp;&amp; !entity.getTile().equals(entityToPlace.getTile())
+                &amp;&amp; entity instanceof MovableObject) {
+<span class="pc bpc" id="L165" title="1 of 2 branches missed.">            if (entityToPlace.getClass() == GameCharacter.class) {</span>
+<span class="fc" id="L166">                updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);</span>
+            }
+<span class="fc" id="L168">            return true;</span>
+        }
+<span class="fc" id="L170">        return false;</span>
+    }
+
+    private boolean isCollidingWithCharacter(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
+<span class="fc bfc" id="L174" title="All 2 branches covered.">        if (entity instanceof GameCharacter) {</span>
+<span class="fc" id="L175">            final GameCharacter gameCharacter = (GameCharacter) entity;</span>
+<span class="pc bpc" id="L176" title="1 of 6 branches missed.">            if (gameCharacter.getTile().intersects(placeToPutArea)</span>
+                    &amp;&amp; !(entityToPlace.getTile().equals(gameCharacter.getTile()))
+                    &amp;&amp; gameCharacter.isAlive()){
+<span class="fc" id="L179">                return true;</span>
+            }
+        }
+<span class="fc" id="L182">        return false;</span>
+    }
+
+    private void updateBoxPosition(GameCharacter character, IMovableEntity interactiveObject) {
+<span class="fc" id="L186">        final Vector2D nextMoveDirection = character.getNextMoveDirection();</span>
+<span class="fc" id="L187">        final Rectangle2D.Double boxArea = interactiveObject.getTile();</span>
+<span class="fc" id="L188">        final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX() * character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY() * character.getMovementSpeed());</span>
+<span class="pc bpc" id="L189" title="1 of 2 branches missed.">        if (!(isColliding(interactiveObject, newPos))){</span>
+<span class="nc" id="L190">            interactiveObject.setPosition(newPos);</span>
+        }
+        
+<span class="fc" id="L193">    }</span>
+
+    @Override
+    public Vector2D getClosestPlayerPosition(Vector2D npcPosition) {
+<span class="fc bfc" id="L197" title="All 2 branches covered.">        if (getLivingPlayers().isEmpty()) {</span>
+<span class="fc" id="L198">            return null;</span>
+        }
+
+<span class="fc" id="L201">        GameCharacter closestPlayer = null;</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">        for (final GameCharacter player : getLivingPlayers()) {</span>
+<span class="pc bpc" id="L203" title="1 of 4 branches missed.">            if (closestPlayer == null || npcPosition.distance(closestPlayer.getPosition()) &gt; npcPosition.distance(player.getPosition())) {</span>
+<span class="fc" id="L204">                closestPlayer = player;</span>
+            }
+<span class="fc" id="L206">        }</span>
+<span class="fc" id="L207">        return closestPlayer.getPosition();</span>
+    }
+
+    public void addInteractiveObject(InteractiveObject interactiveObject) {
+<span class="fc bfc" id="L211" title="All 2 branches covered.">        if (interactiveObject instanceof MovableObject) {</span>
+<span class="fc" id="L212">            movableEntities.add((MovableObject) interactiveObject);</span>
+        }
+<span class="fc" id="L214">        this.interactiveObjects.add(interactiveObject);</span>
+<span class="fc" id="L215">    }</span>
+
+    public boolean addCharacter(GameCharacter character) {
+<span class="fc" id="L218">        character.registerListener(this);</span>
+<span class="fc" id="L219">        movableEntities.add(character);</span>
+<span class="fc" id="L220">        return characters.add(character);</span>
+    }
+
+    public boolean removeCharacter(GameCharacter character) {
+<span class="fc" id="L224">        character.removeListener(this);</span>
+<span class="fc" id="L225">        movableEntities.remove(character);</span>
+<span class="fc" id="L226">        return characters.remove(character);</span>
+    }
+
+    @Override
+    public void handleCharacterMovement(GameCharacter character, Vector2D movement) {
+<span class="fc" id="L231">        characterMovementMap.put(character, movement);</span>
+<span class="fc" id="L232">    }</span>
+
+    @Override
+    public void handleCharacterAttack(GameCharacter character) {
+<span class="fc" id="L236">        attacks.add(character.getAttack());</span>
+<span class="fc" id="L237">    }</span>
+
+    /**
+     *
+     * @return: the total height of the map in pixels
+     */
+    private int getMapHeight() {
+<span class="fc" id="L244">        return map.getHeight();</span>
+    }
+
+    /**
+     *
+     * @return: the total width of the map in pixels
+     */
+    private int getMapWidth() {
+<span class="fc" id="L252">        return map.getWidth();</span>
+    }
+
+    public int getId() {
+<span class="fc" id="L256">        return map.getId();</span>
+    }
+
+    @Override
+    public List&lt;GameCharacter&gt; getCharacters() {
+<span class="fc" id="L261">        return characters;</span>
+    }
+
+    public List&lt;Attack&gt; getAttacks() {
+<span class="fc" id="L265">        return attacks;</span>
+    }
+
+    public void setAttacks(List&lt;Attack&gt; attacks) {
+<span class="fc" id="L269">        this.attacks = attacks;</span>
+<span class="fc" id="L270">    }</span>
+
+    public List&lt;InteractiveObject&gt; getInteractiveObjects() {
+<span class="fc" id="L273">        return interactiveObjects;</span>
+    }
+
+    @Override
+    public IMap getMap() {
+<span class="fc" id="L278">        return map;</span>
+    }
+
+    public Map&lt;GameCharacter, Vector2D&gt; getCharacterMovementMap() {
+<span class="fc" id="L282">        return characterMovementMap;</span>
+    }
+
+    public List&lt;GameCharacter&gt; getCharacterInteractAreaMap() {
+<span class="fc" id="L286">        return charactersInteracting;</span>
+    }
+
+    public DoorHandler getDoorHandler() {
+<span class="fc" id="L290">        return doorHandler;</span>
+    }
+
+    @Override
+    public void handleCharacterInteraction(GameCharacter character) {
+<span class="fc" id="L295">        charactersInteracting.add(character);</span>
+<span class="fc" id="L296">    }</span>
+
+    private List&lt;GameCharacter&gt; getPlayers() {
+<span class="fc" id="L299">        final List&lt;GameCharacter&gt; players = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        for (final GameCharacter character : characters) {</span>
+<span class="fc bfc" id="L301" title="All 2 branches covered.">            if (character.getClass() != NpcType.class) {</span>
+<span class="fc" id="L302">                players.add(character);</span>
+            }
+<span class="fc" id="L304">        }</span>
+<span class="fc" id="L305">        return players;</span>
+    }
+
+    private List&lt;GameCharacter&gt; getLivingPlayers() {
+<span class="fc" id="L309">        final List&lt;GameCharacter&gt; players = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L310" title="All 2 branches covered.">        for (final GameCharacter player : getPlayers()) {</span>
+<span class="fc bfc" id="L311" title="All 2 branches covered.">            if (player.isAlive()) {</span>
+<span class="fc" id="L312">                players.add(player);</span>
+            }
+<span class="fc" id="L314">        }</span>
+<span class="fc" id="L315">        return players;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

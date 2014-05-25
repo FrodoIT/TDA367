@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>SimpleNPCPlugin.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.construction.plugin.exported</a> &gt; <span class="el_source">SimpleNPCPlugin.java</span></div><h1>SimpleNPCPlugin.java</h1><pre class="source lang-java linenums">package scratch.construction.plugin.exported;
+
+import com.google.inject.Inject;
+import scratch.construction.plugin.AIPlugin;
+import scratch.construction.plugin.Pluggable;
+import scratch.model.INPCMove;
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Vector2D;
+
+import java.awt.geom.Point2D;
+
+/**
+ * Moves NPC toward the Player.
+ */
+@AIPlugin(id = 1)
+<span class="nc" id="L17">public final class SimpleNPCPlugin implements Pluggable&lt;SimpleNPCPlugin&gt;, INPCMove {</span>
+
+    @Inject
+
+    private IRoomData roomData;
+
+    @Override
+    public SimpleNPCPlugin get() {
+<span class="nc" id="L25">        return this;</span>
+    }
+
+    @Override
+    public SimpleNPCPlugin clone() throws CloneNotSupportedException{
+<span class="nc" id="L30">	    super.clone();</span>
+<span class="nc" id="L31">        final SimpleNPCPlugin plugin = new SimpleNPCPlugin();</span>
+<span class="nc" id="L32">        plugin.roomData = this.roomData;</span>
+<span class="nc" id="L33">        return plugin;</span>
+    }
+
+    @Override
+    public Vector2D calculateNewPosition(NpcType npc) {
+<span class="nc" id="L38">        final Vector2D npcPosition = npc.getPosition();</span>
+<span class="nc" id="L39">        final Vector2D playerPos = roomData.getClosestPlayerPosition(npcPosition);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (playerPos == null){</span>
+<span class="nc" id="L41">            return npcPosition;</span>
+        }
+<span class="nc" id="L43">        final Vector2D directionVector = new Vector2D(new Point2D.Double(npcPosition.getX(), npcPosition.getY()),</span>
+                new Point2D.Double(playerPos.getX(), playerPos.getY())).getNormalisedVector();
+<span class="nc" id="L45">        final int moveSpeed = npc.getMovementSpeed();</span>
+<span class="nc" id="L46">        return new Vector2D(npcPosition.getX() + directionVector.getX() * moveSpeed,</span>
+                npcPosition.getY() + directionVector.getY() * moveSpeed);
+
+    }
+
+    @Override
+    public boolean isPromptingAnAttack(NpcType npc) {
+
+<span class="nc" id="L54">        final Vector2D pos = npc.getPosition();</span>
+<span class="nc" id="L55">        final Vector2D closestPlayer = roomData.getClosestPlayerPosition(pos);</span>
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if (closestPlayer != null &amp;&amp; isWithinRange(closestPlayer, pos)) {</span>
+<span class="nc" id="L57">            return true;</span>
+        }
+<span class="nc" id="L59">        return false;</span>
+    }
+
+    @Override
+    public void setRoomData(IRoomData roomData
+    ) {
+<span class="nc" id="L65">        this.roomData = roomData;</span>
+<span class="nc" id="L66">    }</span>
+
+    private boolean isWithinRange(Vector2D playerPos, Vector2D npcPos) {
+        //+16 to get the center of the character, playerpos returns the point of the right high corner
+<span class="nc" id="L70">        final Vector2D vector2D = new Vector2D(new Point2D.Double(playerPos.getX() + 16, playerPos.getY() + 16),</span>
+                new Point2D.Double(npcPos.getX() + 16, npcPos.getY() + 16));
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        return vector2D.getMagnitude() &lt;= 48;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

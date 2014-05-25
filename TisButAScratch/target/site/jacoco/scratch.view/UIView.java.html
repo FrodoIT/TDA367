@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UIView.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.view</a> &gt; <span class="el_source">UIView.java</span></div><h1>UIView.java</h1><pre class="source lang-java linenums">package scratch.view;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+import scratch.model.GameCharacter;
+
+/**
+ * Created by Anna on 2014-05-19.
+ */
+public class UIView {
+
+	private GameCharacter character;
+	private final double maxHealth;
+
+<span class="nc" id="L17">	public UIView(GameCharacter character) {</span>
+<span class="nc" id="L18">		this.character = character;</span>
+<span class="nc" id="L19">		maxHealth=character.getHealth();</span>
+<span class="nc" id="L20">	}</span>
+
+	public void setCharacter(GameCharacter character) {
+<span class="nc" id="L23">		this.character=character;</span>
+<span class="nc" id="L24">	}</span>
+
+	public void render(GameContainer gameContainer){
+<span class="nc" id="L27">		final Graphics g = gameContainer.getGraphics();</span>
+
+		//get percentage of life left;
+<span class="nc" id="L30">		final double currentHealth = (double)(character.getHealth())/maxHealth;</span>
+<span class="nc" id="L31">        final int yPos = gameContainer.getHeight()-30;</span>
+
+<span class="nc" id="L33">        final int height=10;</span>
+<span class="nc" id="L34">        final double fullLength = 620;</span>
+
+<span class="nc" id="L36">        final Rectangle lifebarGreen = new Rectangle(10, yPos, (int) (currentHealth*fullLength), height);</span>
+<span class="nc" id="L37">        final Rectangle lifebarRed = new Rectangle(10, yPos, (int) fullLength, height);</span>
+
+<span class="nc" id="L39">		g.setColor(Color.white);</span>
+<span class="nc" id="L40">		g.drawString(&quot;Life&quot;, 10, gameContainer.getHeight() - 50);</span>
+<span class="nc" id="L41">		g.setColor(Color.red);</span>
+<span class="nc" id="L42">		g.fill(lifebarRed);</span>
+<span class="nc" id="L43">		g.setColor(Color.green);</span>
+<span class="nc" id="L44">		g.fill(lifebarGreen);</span>
+
+<span class="nc" id="L46">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

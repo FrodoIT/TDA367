@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NpcFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.construction</a> &gt; <span class="el_source">NpcFactory.java</span></div><h1>NpcFactory.java</h1><pre class="source lang-java linenums">package scratch.construction;
+
+import scratch.model.IRoomData;
+import scratch.model.NpcType;
+import scratch.model.Room;
+import scratch.model.Vector2D;
+
+import java.util.*;
+
+public final class NpcFactory {
+
+    public static final String KEY = &quot;npc_factory&quot;;
+    private final List&lt;Room&gt; rooms;
+    private final Map&lt;Room, List&lt;NpcType&gt;&gt; roomNpcsMap;
+
+<span class="nc" id="L16">    public NpcFactory(List&lt;Room&gt; rooms) {</span>
+<span class="nc" id="L17">        roomNpcsMap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L18">        this.rooms = rooms;</span>
+<span class="nc" id="L19">        loadNpcsFromMap();</span>
+<span class="nc" id="L20">    }</span>
+
+    public Collection&lt;NpcType&gt; getNpcsForRoom(Room room) {
+<span class="nc" id="L23">        return roomNpcsMap.get(room);</span>
+    }
+
+    public void loadNpcsFromMap() {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (final Room room : rooms) {</span>
+<span class="nc" id="L28">            final List&lt;NpcSpecification&gt; npcSpecs = room.getMap().getNpcSpecifications();</span>
+<span class="nc" id="L29">            final List&lt;NpcType&gt; npcs = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">            for (final NpcSpecification npc : npcSpecs) {</span>
+<span class="nc" id="L32">                npcs.add(</span>
+                        loadNpc(
+                                npc.getPluginName(),
+                                new Vector2D(npc.getArea().getX(), npc.getArea().getY()),
+                                npc.getId(),
+                                room)
+                );
+<span class="nc" id="L39">            }</span>
+
+<span class="nc" id="L41">            roomNpcsMap.put(room, npcs);</span>
+<span class="nc" id="L42">        }</span>
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Method for reading an xml file. If creating new xml, please follow the
+     * structure in StanardEnemy.xml and add to res-map. If new
+     * weapon/NPCMOVEplugin is created you will need to add them to the
+     * respective transformer class.
+     *
+     * @param file the name of the xmlfile without extension, eg &quot;StandardEnemy&quot;
+     * Do NOT add location.
+     * @param position The position the npc should have
+     * @return A npc with the attributes as in the xml file.
+     */
+	private synchronized NpcType loadNpc(String file, Vector2D position, int id, IRoomData room){
+<span class="nc" id="L57">		final NpcType npc = (NpcType) new LoadXMLObject().loadObject(&quot;NpcType&quot;, file);</span>
+
+<span class="nc" id="L59">        npc.setPosition(position);</span>
+<span class="nc" id="L60">        npc.setId(id);</span>
+<span class="nc" id="L61">        npc.getMovementPattern().setRoomData(room);</span>
+
+<span class="nc" id="L63">        return npc;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

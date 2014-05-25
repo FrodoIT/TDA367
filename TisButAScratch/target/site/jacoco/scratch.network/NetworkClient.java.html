@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>NetworkClient.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.network</a> &gt; <span class="el_source">NetworkClient.java</span></div><h1>NetworkClient.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package scratch.network;
+
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Listener;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author Cannonbait
+ */
+public class NetworkClient {
+    private final String ip;
+    private final Client client;
+
+<span class="nc" id="L23">    public NetworkClient(String ip){</span>
+<span class="nc" id="L24">        this.ip = ip;</span>
+<span class="nc" id="L25">        client = new Client(32768, 8196);</span>
+<span class="nc" id="L26">        Utilities.kryoRegister(client.getKryo());</span>
+
+<span class="nc" id="L28">    }</span>
+
+    public void start(Listener listener){
+<span class="nc" id="L31">        client.start();</span>
+
+        try {
+<span class="nc" id="L34">            client.connect(5000, ip, 54555, 54777);</span>
+<span class="nc" id="L35">        } catch (IOException e) {</span>
+<span class="nc" id="L36">            Logger.getLogger(NetworkClient.class.getName()).log(Level.SEVERE, &quot;Could not connect to server, expect disaster&quot;, e);</span>
+<span class="nc" id="L37">        }</span>
+<span class="nc" id="L38">        addListener(listener);</span>
+<span class="nc" id="L39">    }</span>
+    
+    public void send(Object object){
+<span class="nc" id="L42">        client.sendTCP(object);</span>
+<span class="nc" id="L43">    }</span>
+    
+    public void addListener(Listener listener){
+<span class="nc" id="L46">        client.addListener(listener);</span>
+<span class="nc" id="L47">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

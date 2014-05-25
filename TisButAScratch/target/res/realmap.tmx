@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="15" tilewidth="32" tileheight="32" backgroundcolor="#bebebe">
+ <properties>
+  <property name="id" value="1"/>
+ </properties>
+ <tileset firstgid="1" name="tmw_desert_spacing" tilewidth="32" tileheight="32" spacing="1" margin="1">
+  <tileoffset x="-1" y="-1"/>
+  <image source="tmw_desert_spacing.png" trans="ffffff" width="265" height="199"/>
+ </tileset>
+ <tileset firstgid="49" name="lol" tilewidth="32" tileheight="32">
+  <image source="mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="241" name="lolmiddle" tilewidth="32" tileheight="32" margin="16">
+  <image source="mack__s_tile_set__a2_by_draymondc-d2z3z4d.png" trans="ffffff" width="512" height="384"/>
+ </tileset>
+ <tileset firstgid="406" name="Hanzo-RuinsTown01VScopy" tilewidth="32" tileheight="32">
+  <image source="Hanzo-RuinsTown01VScopy.png" trans="ffffff" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="662" name="4tilesets" tilewidth="32" tileheight="32">
+  <image source="4tilesets.png" trans="ffffff" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="1686" name="möbler" tilewidth="32" tileheight="32">
+  <image source="mack__s_tile_set__d_by_draymondc-d2z3zfp.png" trans="ffffff" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="1942" name="tilee" tilewidth="32" tileheight="32">
+  <image source="tilee.png" trans="ffffff" width="512" height="512"/>
+ </tileset>
+ <layer name="collision" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgIA7IEakOmz4YJsc8XPqxqaOGecTaRyygljnI5mHDpKhHF8emhxh34LKLWDfLoakhBuCLN2LU0do8YuyjZvqiFqC2m/DFOSUYAExjLFGwBAAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 7" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMgqEBAGlKTgywBAAA
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC3NiYGBwIgIrEYmJMWukmUesWcSYR4pZhMwj1axRPIoHGgMAGss/7rAEAAA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 4" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoC9Yx8TAsJ4JVWweI/nmnQOadR5qnhorA4M6K/lmoQNqm+cGNMsdaiYMa1DBfJiZINqDCubB3InNvNWMCEwNwMeIwIPRvOOMCDwYzaMWYOFgYGDloJ55IkCzREkw7zUwPN4A8VsC4QIAeyK3yrAEAAA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC3NhYWBIhmJDBtzgJiMDw0IgXoSGLzOiqksBmpMKNQsZYzNvIxBvQsOP0cwLYmZgCAHiUChGN+8UUP12IH4JxAeB+BAULwHipUC8GYt5oUhmIpsHom8B1ZtyMDD8RNO3BcjfSqR5yOAWmnoYOAIUPwrE6qwQDAPmTAwMFkBsCcTWQLwbqGYPEO+F+vMFknlpQH3prJhmgwDITA0g/g5U7wE0xxOIvYH4NFT/WSDtjsSHAS827Oa5A83ywGEXPpDFhnBnOpJ7QXQGGeZ14XAfLUENE3XN6wGa10tlM6kFtjMisBU0DYLSJLI4OjZjQk23VkjqjyNhL2gaBKW744y4sRtUDSzdeiGpBwB+wgbrsAQAAA==
+  </data>
+ </layer>
+ <layer name="Tile Layer 5" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgYGBwZWGgCJxiZ2DIYGNgyGTDLt/JRLqZHUCzOnGYRwrYxAihQW4EYWqZRy6oAIaFGivl7oCBDiTz1FkhWAPJfBugvC0UI4PfQH/8AeK/OPyTAzQjF4jdgdgDiL2gceEDNceXxDjtAZrRC8R9QJwBxFlQ82Kg5sSSkUaQQRfUvByoObkUmgcDZVQyZyiAt8wDZzex4QwAGSCHy7AEAAA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="20" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC1vNxMCwBojXAvEGID7AzsBwEIgPsUP4pILTQD1ngPgsEF8AYaA5F4H4EjuEjw3MY0TQi4B4MSNC7jVQzxsgfgvEoczEuWEjkv5NQPZmJD430AweIOZlhpgHw8Sa58oEMQ/mziCg3hACZpmi+fsgknmHgOzDjJjuxGUGiHZjY2BwB+JOqJgAlnCFmYsMHDhQ+SlAfalY9CoAxXJYGRhygTiPFSLmxYbbbTBQAtRXCoonJDNh+nqA5vQC8W+gm/4wEmceCIDMKmZB8LNw6MMlTgh04dCHLo4ehwMFQqFhAQqTUhb8aokBJkAzTNHMuYsnHRILYOH1BmjWWyzmoYcnMeELSu8Ai/+NCLAEAAA=
+  </data>
+ </layer>
+ <objectgroup name="npc" width="20" height="15">
+  <object name="npc1" type="hostile" x="443" y="329">
+   <properties>
+    <property name="id" value="101"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc2" type="hostile" x="549" y="330">
+   <properties>
+    <property name="id" value="102"/>
+    <property name="npcType" value="StandardEnemy"/>
+   </properties>
+  </object>
+  <object name="npc3" type="hostile" x="357" y="225">
+   <properties>
+    <property name="id" value="103"/>
+    <property name="npcType" value="CPEnemy"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="interactive" width="20" height="15">
+  <object name="door1" type="object" x="477" y="251" width="37" height="30">
+   <properties>
+    <property name="connection" value="1"/>
+    <property name="id" value="110"/>
+    <property name="objectType" value="door"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="map" width="20" height="15"/>
+</map>

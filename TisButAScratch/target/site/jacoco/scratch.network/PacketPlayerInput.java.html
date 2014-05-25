@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>PacketPlayerInput.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.network</a> &gt; <span class="el_source">PacketPlayerInput.java</span></div><h1>PacketPlayerInput.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package scratch.network;
+
+import org.newdawn.slick.Input;
+import scratch.model.Vector2D;
+
+/**
+ *
+ * @author Ivar
+ */
+public class PacketPlayerInput {
+    private int id;
+    private Vector2D movementDirection;
+    private boolean attacking, interacting;
+    
+<span class="nc" id="L21">    public PacketPlayerInput(){</span>
+        //used for serialization
+<span class="nc" id="L23">    }</span>
+    
+<span class="nc" id="L25">    public PacketPlayerInput(int id, Input input){</span>
+<span class="nc" id="L26">        this.id = id;</span>
+<span class="nc" id="L27">        calculateMovementDirection(input);</span>
+<span class="nc" id="L28">        setAttack(input);</span>
+<span class="nc" id="L29">        setInteract(input);</span>
+<span class="nc" id="L30">    }</span>
+    
+    public int getId(){
+<span class="nc" id="L33">        return id;</span>
+    }
+    
+    public Vector2D getMovementDirection(){
+<span class="nc" id="L37">        return movementDirection;</span>
+    }
+    
+    public boolean isAttacking(){
+<span class="nc" id="L41">        return attacking;</span>
+    }
+    
+    public boolean isInteracting(){
+<span class="nc" id="L45">        return interacting;</span>
+    }
+    
+    private void calculateMovementDirection(Input input){
+<span class="nc" id="L49">        final boolean southKey = input.isKeyDown(Input.KEY_DOWN);</span>
+<span class="nc" id="L50">        final boolean westKey = input.isKeyDown(Input.KEY_LEFT);</span>
+<span class="nc" id="L51">        final boolean eastKey = input.isKeyDown(Input.KEY_RIGHT);</span>
+<span class="nc" id="L52">        final boolean northKey = input.isKeyDown(Input.KEY_UP);</span>
+
+<span class="nc bnc" id="L54" title="All 4 branches missed.">        if (southKey &amp;&amp; westKey) {</span>
+<span class="nc" id="L55">            movementDirection = new Vector2D(-1, 1);</span>
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        } else if (southKey &amp;&amp; eastKey) {</span>
+<span class="nc" id="L57">            movementDirection = new Vector2D(1, 1);</span>
+<span class="nc bnc" id="L58" title="All 4 branches missed.">        } else if (northKey &amp;&amp; westKey) {</span>
+<span class="nc" id="L59">            movementDirection = new Vector2D(-1, -1);</span>
+<span class="nc bnc" id="L60" title="All 4 branches missed.">        } else if (northKey &amp;&amp; eastKey) {</span>
+<span class="nc" id="L61">            movementDirection = new Vector2D(1, -1);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        } else if (southKey) {</span>
+<span class="nc" id="L63">            movementDirection = new Vector2D(0, 1);</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        } else if (northKey) {</span>
+<span class="nc" id="L65">            movementDirection = new Vector2D(0, -1);</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        } else if (westKey) {</span>
+<span class="nc" id="L67">            movementDirection = new Vector2D(-1, 0);</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        } else if (eastKey) {</span>
+<span class="nc" id="L69">            movementDirection = new Vector2D(1, 0);</span>
+        } else {
+<span class="nc" id="L71">            movementDirection = new Vector2D(0, 0);</span>
+        }
+<span class="nc" id="L73">    }</span>
+    
+    private void  setAttack(Input input){
+<span class="nc" id="L76">        attacking = input.isKeyDown(Input.KEY_X);</span>
+<span class="nc" id="L77">    }</span>
+    
+    private void setInteract(Input input){
+<span class="nc" id="L80">        interacting = input.isKeyDown(Input.KEY_Z);</span>
+<span class="nc" id="L81">    }</span>
+    
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

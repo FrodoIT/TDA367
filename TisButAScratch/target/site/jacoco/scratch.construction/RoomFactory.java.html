@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RoomFactory.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.construction</a> &gt; <span class="el_source">RoomFactory.java</span></div><h1>RoomFactory.java</h1><pre class="source lang-java linenums">package scratch.construction;
+
+import org.newdawn.slick.SlickException;
+import scratch.model.DoorHandler;
+import scratch.model.InteractiveObject;
+import scratch.model.NpcType;
+import scratch.model.Room;
+import scratch.utils.FileScanner;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * The Room factory is the main factory for creating rooms. It uses all sub-factories to store
+ * objects and npcs in the given room, which are in turn loaded from the given TiledMap.
+ * @author André Samuelsson
+ *
+ */
+public final class RoomFactory {
+
+<span class="nc" id="L27">    private final List&lt;Room&gt; rooms = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L28">    private final List&lt;TiledMapPlus&gt; tiledMaps = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">    private final DoorHandler doorHandler = new DoorHandler();</span>
+    private final Map&lt;Integer, String&gt; interactiveObjectImageMap;
+
+<span class="nc" id="L32">    public RoomFactory() {</span>
+<span class="nc" id="L33">        interactiveObjectImageMap = new TreeMap&lt;Integer, String&gt;();</span>
+<span class="nc" id="L34">        loadMaps();</span>
+<span class="nc" id="L35">        setUpRooms();</span>
+<span class="nc" id="L36">        addInteractiveObjectstoRooms();</span>
+<span class="nc" id="L37">        setupDoorHandler();</span>
+<span class="nc" id="L38">        addNpcstoRoom();</span>
+<span class="nc" id="L39">    }</span>
+
+
+    private void loadMaps(){
+<span class="nc" id="L43">        final List&lt;File&gt; worldFiles = FileScanner.getFiles(new File(&quot;res/world/&quot;));</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for(final File room: worldFiles){</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            if(room.getName().endsWith(&quot;.tmx&quot;)){</span>
+                try {
+<span class="nc" id="L47">                    tiledMaps.add(new TiledMapPlus(room.getCanonicalPath()));</span>
+<span class="nc" id="L48">                } catch (IOException | SlickException e) {</span>
+<span class="nc" id="L49">                    Logger.getLogger(RoomFactory.class.getName()).log(Level.SEVERE, null, e);</span>
+<span class="nc" id="L50">                }</span>
+            }
+<span class="nc" id="L52">        }</span>
+<span class="nc" id="L53">    }</span>
+
+    private void setUpRooms() {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for(final TiledMapPlus tiledMap: tiledMaps){</span>
+<span class="nc" id="L57">            rooms.add(new Room(tiledMap, doorHandler));</span>
+<span class="nc" id="L58">        }</span>
+<span class="nc" id="L59">    }</span>
+
+    /**
+     * gets all doors from all rooms.
+     * it is the doorHandlers job to make sure a player is moved
+     * from one door to another when a door is interacted with
+     */
+    private void setupDoorHandler() {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (final Room room : rooms) {</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            for (final InteractiveObject interactiveObject : room.getInteractiveObjects()) {</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                if (&quot;door&quot;.equals(interactiveObject.getProperties().get(&quot;objectType&quot;))) {</span>
+<span class="nc" id="L71">                    doorHandler.addDoor(room, interactiveObject);</span>
+                }
+<span class="nc" id="L73">            }</span>
+<span class="nc" id="L74">        }</span>
+<span class="nc" id="L75">    }</span>
+
+    public Map&lt;Integer, String&gt; getInteractiveObjectImageMap() {
+<span class="nc" id="L78">        return interactiveObjectImageMap;</span>
+    }
+
+    private void addInteractiveObjectstoRooms() {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (final Room room : rooms) {</span>
+<span class="nc" id="L83">            final TiledMapPlus map = (TiledMapPlus)room.getMap();</span>
+<span class="nc bnc" id="L84" title="All 2 branches missed.">            for (final InteractiveObject interactiveObject : map.getInteractiveObjects()) {</span>
+<span class="nc" id="L85">                room.addInteractiveObject(interactiveObject);</span>
+<span class="nc" id="L86">            }</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+
+    private void addNpcstoRoom(){
+<span class="nc" id="L91">        final NpcFactory npcFactory = new NpcFactory(rooms);</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        for (final Room room : rooms) {</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">            for (final NpcType npcType : npcFactory.getNpcsForRoom(room)) {</span>
+<span class="nc" id="L94">                room.addCharacter(npcType);</span>
+<span class="nc" id="L95">            }</span>
+<span class="nc" id="L96">        }</span>
+<span class="nc" id="L97">    }</span>
+
+    public DoorHandler getDoorHandler (){
+<span class="nc" id="L100">        return doorHandler;</span>
+    }
+
+    public List&lt;Room&gt; getRooms() {
+<span class="nc" id="L104">        return rooms;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

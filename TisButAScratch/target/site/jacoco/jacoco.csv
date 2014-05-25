@@ -1,0 +1,61 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+TisButAScratch,scratch,Main,5,0,0,0,4,0,2,0,2,0
+TisButAScratch,scratch.menu,MainMenu,937,0,4,0,115,0,8,0,6,0
+TisButAScratch,scratch.menu,Menu,37,0,2,0,12,0,4,0,3,0
+TisButAScratch,scratch.menu,MainMenu.new ActionListener() {...},10,0,0,0,3,0,2,0,2,0
+TisButAScratch,scratch.menu,MainMenu.new Runnable() {...},9,0,0,0,3,0,2,0,2,0
+TisButAScratch,scratch.menu,MainMenu.new ActionListener() {...},13,0,0,0,4,0,2,0,2,0
+TisButAScratch,scratch.menu,MainMenu.new ActionListener() {...},13,0,0,0,4,0,2,0,2,0
+TisButAScratch,scratch.model.weapons,Weapon.new Runnable() {...},0,12,0,0,0,3,0,2,0,2
+TisButAScratch,scratch.model.weapons,Weapon,3,224,7,15,0,40,7,16,0,12
+TisButAScratch,scratch.construction.plugin.exported,CPNPCPlugin,103,9,8,0,17,2,10,1,6,1
+TisButAScratch,scratch.construction.plugin.exported,SimpleNPCPlugin,130,0,8,0,22,0,11,0,7,0
+TisButAScratch,scratch.controller,CharacterController,128,0,16,0,36,0,18,0,10,0
+TisButAScratch,scratch.controller,InteractiveObjectController,60,0,4,0,19,0,10,0,8,0
+TisButAScratch,scratch.controller,RoomController,353,0,36,0,83,0,34,0,16,0
+TisButAScratch,scratch.controller,DoorController,48,0,0,0,10,0,2,0,2,0
+TisButAScratch,scratch.controller,ServerController,180,0,4,0,42,0,10,0,8,0
+TisButAScratch,scratch.controller,UIController,17,0,0,0,6,0,3,0,3,0
+TisButAScratch,scratch.controller,GameController,75,0,6,0,24,0,10,0,7,0
+TisButAScratch,scratch.controller,ClientController,230,0,24,0,51,0,20,0,8,0
+TisButAScratch,scratch.construction.plugin,PluginClassLoader,55,0,0,0,10,0,3,0,3,0
+TisButAScratch,scratch.construction.plugin,PluginLoader,176,0,16,0,38,0,13,0,5,0
+TisButAScratch,scratch.model,Vector2D,0,201,0,18,0,34,0,19,0,10
+TisButAScratch,scratch.model,DoorHandler,0,218,1,13,0,46,1,13,0,7
+TisButAScratch,scratch.model,Direction,5,133,0,0,0,8,1,5,1,5
+TisButAScratch,scratch.model,Room,19,674,17,71,5,137,16,60,0,32
+TisButAScratch,scratch.model,GameCharacter.new Runnable() {...},0,12,0,0,0,3,0,2,0,2
+TisButAScratch,scratch.model,StandardNpcPlugin,9,0,0,0,4,0,4,0,4,0
+TisButAScratch,scratch.model,InteractiveObject,6,220,9,13,1,41,9,15,0,13
+TisButAScratch,scratch.model,NpcType,3,33,0,0,2,10,1,5,1,5
+TisButAScratch,scratch.model,Game,0,39,0,4,0,12,0,8,0,6
+TisButAScratch,scratch.model,GameCharacter,0,681,0,28,0,134,0,54,0,40
+TisButAScratch,scratch.model,Attack,10,142,1,5,2,28,3,12,2,10
+TisButAScratch,scratch.model,MovableObject,4,94,5,7,1,24,5,12,0,11
+TisButAScratch,scratch.construction,MyMatcher,21,0,4,0,6,0,4,0,2,0
+TisButAScratch,scratch.construction,LoadXMLObject,90,0,8,0,19,0,7,0,3,0
+TisButAScratch,scratch.construction,NpcFactory,96,0,4,0,20,0,6,0,4,0
+TisButAScratch,scratch.construction,TiledMapPlus,259,0,18,0,45,0,20,0,11,0
+TisButAScratch,scratch.construction,INPCMoveTransformer,38,0,0,0,12,0,4,0,4,0
+TisButAScratch,scratch.construction,NpcSpecification,21,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.construction,RectangleTransformer,42,0,2,0,7,0,4,0,3,0
+TisButAScratch,scratch.construction,RoomFactory,211,0,20,0,48,0,19,0,9,0
+TisButAScratch,scratch.network,PacketMoveCharacter,24,0,0,0,10,0,5,0,5,0
+TisButAScratch,scratch.network,NetworkClient,52,0,0,0,16,0,4,0,4,0
+TisButAScratch,scratch.network,PacketPlayerInput,154,0,24,0,38,0,21,0,9,0
+TisButAScratch,scratch.network,Utilities,110,0,2,0,31,0,4,0,3,0
+TisButAScratch,scratch.network,PacketAddCharacter,18,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.network,PacketRemoveCharacter,18,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.network,NetworkServer,50,0,0,0,17,0,5,0,5,0
+TisButAScratch,scratch.network,PacketNewConnection,18,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.network,PacketAttacks,18,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.network,PacketNewCharacter,18,0,0,0,8,0,4,0,4,0
+TisButAScratch,scratch.utils,Cooldown,3,12,0,0,2,3,1,2,1,2
+TisButAScratch,scratch.utils,FileScanner,37,0,6,0,9,0,5,0,2,0
+TisButAScratch,scratch.view,RoomView,12,0,0,0,5,0,2,0,2,0
+TisButAScratch,scratch.view,UIView,82,0,0,0,20,0,3,0,3,0
+TisButAScratch,scratch.view,CharacterView,69,0,2,0,17,0,3,0,2,0
+TisButAScratch,scratch.view,InteractiveObjectView,51,0,4,0,13,0,4,0,2,0
+TisButAScratch,scratch.view,SpriteDirectionRenderer,313,0,10,0,57,0,8,0,3,0
+TisButAScratch,scratch.view,AttackView,34,0,0,0,6,0,2,0,2,0
+TisButAScratch,scratch.view,NpcView,82,0,0,0,17,0,2,0,2,0

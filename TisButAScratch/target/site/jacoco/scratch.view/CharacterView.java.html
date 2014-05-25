@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CharacterView.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.view</a> &gt; <span class="el_source">CharacterView.java</span></div><h1>CharacterView.java</h1><pre class="source lang-java linenums">package scratch.view;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.tiled.TiledMap;
+import scratch.model.Direction;
+import scratch.model.GameCharacter;
+import scratch.model.Vector2D;
+
+import java.awt.geom.Rectangle2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class CharacterView {
+
+    private final GameCharacter character;
+    private SpriteDirectionRenderer spriteHandler;
+
+<span class="nc" id="L22">    public CharacterView(GameCharacter character) {</span>
+<span class="nc" id="L23">        this.character = character;</span>
+        try {
+<span class="nc" id="L25">            spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));</span>
+<span class="nc" id="L26">        } catch (SlickException e) {</span>
+<span class="nc" id="L27">            Logger.getLogger(CharacterView.class.getName()).log(Level.SEVERE, null, e);</span>
+
+<span class="nc" id="L29">        }</span>
+<span class="nc" id="L30">    }</span>
+
+    public void render(GameContainer gameContainer) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if (spriteHandler == null) {</span>
+            try {
+<span class="nc" id="L35">                spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));</span>
+<span class="nc" id="L36">            } catch (SlickException ex) {</span>
+<span class="nc" id="L37">                Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);</span>
+<span class="nc" id="L38">            }</span>
+        }
+<span class="nc" id="L40">        final Vector2D position = character.getPosition();</span>
+<span class="nc" id="L41">        final Graphics graphics = gameContainer.getGraphics();</span>
+<span class="nc" id="L42">        final Direction input = character.getMoveDirection();</span>
+<span class="nc" id="L43">        spriteHandler.render(graphics, input, position.getX(), position.getY());</span>
+
+<span class="nc" id="L45">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

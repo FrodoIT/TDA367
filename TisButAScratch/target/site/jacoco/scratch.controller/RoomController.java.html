@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>RoomController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.controller</a> &gt; <span class="el_source">RoomController.java</span></div><h1>RoomController.java</h1><pre class="source lang-java linenums">package scratch.controller;
+
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
+import org.newdawn.slick.GameContainer;
+import scratch.construction.TiledMapPlus;
+import scratch.model.GameCharacter;
+import scratch.model.InteractiveObject;
+import scratch.model.Room;
+import scratch.network.NetworkClient;
+import scratch.network.NetworkServer;
+import scratch.view.RoomView;
+
+import java.util.ArrayList;
+import java.util.List;
+import scratch.model.Attack;
+import scratch.network.PacketAttacks;
+import scratch.view.AttackView;
+
+public class RoomController extends Listener {
+
+    private final Room room;
+    private final RoomView roomView;
+    private final List&lt;CharacterController&gt; characters;
+    private final List&lt;InteractiveObjectController&gt; interactiveObjects;
+    private NetworkServer server;
+
+<span class="nc" id="L28">    public RoomController(Room room) {</span>
+<span class="nc" id="L29">        this.roomView = new RoomView((TiledMapPlus) room.getMap());</span>
+<span class="nc" id="L30">        this.room = room;</span>
+<span class="nc" id="L31">        characters = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">        for (final GameCharacter character : room.getCharacters()) {</span>
+<span class="nc" id="L33">            characters.add(new CharacterController(character));</span>
+<span class="nc" id="L34">        }</span>
+
+<span class="nc" id="L36">        interactiveObjects = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        for (final InteractiveObject interactiveObject : room.getInteractiveObjects()) {</span>
+<span class="nc" id="L38">            interactiveObjects.add(new InteractiveObjectController(interactiveObject));</span>
+<span class="nc" id="L39">        }</span>
+<span class="nc" id="L40">    }</span>
+
+    public void setServer(NetworkServer server) {
+<span class="nc" id="L43">        this.server = server;</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">        for (final CharacterController characterController : characters) {</span>
+<span class="nc" id="L45">            characterController.setServer(server);</span>
+<span class="nc" id="L46">        }</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">        for (final InteractiveObjectController interactiveController : interactiveObjects) {</span>
+<span class="nc" id="L48">            interactiveController.setServer(server);</span>
+<span class="nc" id="L49">        }</span>
+<span class="nc" id="L50">    }</span>
+
+    public void setClient(NetworkClient client) {
+<span class="nc" id="L53">        client.addListener(this);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">        for (final CharacterController characterController : characters) {</span>
+<span class="nc" id="L55">            characterController.setClient(client);</span>
+<span class="nc" id="L56">        }</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        for (final InteractiveObjectController interactiveController : interactiveObjects) {</span>
+<span class="nc" id="L58">            interactiveController.setClient(client);</span>
+<span class="nc" id="L59">        }</span>
+<span class="nc" id="L60">    }</span>
+
+    public void updateRoom() {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        for (final CharacterController characterController : characters) {</span>
+<span class="nc" id="L64">            characterController.update();</span>
+<span class="nc" id="L65">        }</span>
+
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (final InteractiveObjectController interactiveObjectController : interactiveObjects) {</span>
+<span class="nc" id="L68">            interactiveObjectController.update();</span>
+<span class="nc" id="L69">        }</span>
+<span class="nc" id="L70">        room.update();</span>
+<span class="nc" id="L71">        server.sendTCP(new PacketAttacks(getId(), room.getAttacks()));</span>
+<span class="nc" id="L72">    }</span>
+
+    public synchronized void render(GameContainer gameContainer) {
+<span class="nc" id="L75">        roomView.render(gameContainer);</span>
+
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (final CharacterController characterController : characters) {</span>
+<span class="nc" id="L78">            characterController.render(gameContainer);</span>
+<span class="nc" id="L79">        }</span>
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">        for (final InteractiveObjectController interactiveObjectController : interactiveObjects) {</span>
+<span class="nc" id="L82">            interactiveObjectController.render(gameContainer);</span>
+<span class="nc" id="L83">        }</span>
+
+<span class="nc" id="L85">        AttackView view = new AttackView();</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        for (final Attack attack : room.getAttacks()) {</span>
+<span class="nc" id="L87">            view.render(gameContainer, attack);</span>
+<span class="nc" id="L88">        }</span>
+<span class="nc" id="L89">    }</span>
+
+    public RoomView getRoomView() {
+<span class="nc" id="L92">        return roomView;</span>
+    }
+
+    public int getId() {
+<span class="nc" id="L96">        return room.getId();</span>
+    }
+
+    public synchronized void addCharacter(CharacterController characterController) {
+<span class="nc" id="L100">        room.addCharacter(characterController.getCharacter());</span>
+<span class="nc" id="L101">        characters.add(characterController);</span>
+<span class="nc" id="L102">    }</span>
+
+    public synchronized void removeCharacter(CharacterController characterController) {
+<span class="nc" id="L105">        room.removeCharacter(characterController.getCharacter());</span>
+<span class="nc" id="L106">        characters.remove(characterController);</span>
+<span class="nc" id="L107">    }</span>
+
+    public synchronized void moveCharacter(int characterId, RoomController roomController) {
+<span class="nc" id="L110">        final CharacterController characterToMove = getCharacterController(characterId);</span>
+
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (characterToMove != null) {</span>
+<span class="nc" id="L113">            removeCharacter(characterToMove);</span>
+<span class="nc" id="L114">            roomController.addCharacter(characterToMove);</span>
+        }
+<span class="nc" id="L116">    }</span>
+
+    private CharacterController getCharacterController(int characterId) {
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        for (final CharacterController character : characters) {</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            if (character.getId() == characterId) {</span>
+<span class="nc" id="L121">                return character;</span>
+            }
+<span class="nc" id="L123">        }</span>
+<span class="nc" id="L124">        return null;</span>
+    }
+
+    public Room getRoom() {
+<span class="nc" id="L128">        return room;</span>
+    }
+
+    public boolean hasId(int id) {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        for (final CharacterController characterController : characters) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">            if (characterController.getId() == id) {</span>
+<span class="nc" id="L134">                return true;</span>
+            }
+<span class="nc" id="L136">        }</span>
+<span class="nc" id="L137">        return false;</span>
+    }
+
+    public synchronized void addInteractiveObjectController(InteractiveObjectController interactiveObjectController) {
+<span class="nc" id="L141">        interactiveObjects.add(interactiveObjectController);</span>
+<span class="nc" id="L142">    }</span>
+
+    public synchronized void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
+<span class="nc" id="L145">        room.addInteractiveObject(interactiveObjectController.getInteractiveObject());</span>
+<span class="nc" id="L146">        interactiveObjects.add(interactiveObjectController);</span>
+<span class="nc" id="L147">    }</span>
+
+    @Override
+    public void received(Connection connection, Object object) {
+<span class="nc bnc" id="L151" title="All 2 branches missed.">        if (object.getClass() == PacketAttacks.class) {</span>
+<span class="nc" id="L152">            PacketAttacks attacks = (PacketAttacks) object;</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if (attacks.getId() == getId()) {</span>
+<span class="nc" id="L154">                room.setAttacks(attacks.getAttacks());</span>
+            }
+        }
+<span class="nc" id="L157">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

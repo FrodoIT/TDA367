@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="12" height="1" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="monsters-32x32" tilewidth="32" tileheight="32">
+  <image source="monsters-32x32.png" width="384" height="256"/>
+ </tileset>
+ <layer name="sprite" width="12" height="1">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAw3Dhw0AIAwAoL7krOv/u4SEEhHVZnc4TZfb4/X5AZVjrmMwAAAA
+  </data>
+ </layer>
+</map>

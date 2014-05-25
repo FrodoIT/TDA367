@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>LoadXMLObject.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.construction</a> &gt; <span class="el_source">LoadXMLObject.java</span></div><h1>LoadXMLObject.java</h1><pre class="source lang-java linenums">package scratch.construction;
+
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+import scratch.model.GameCharacter;
+import scratch.model.NpcType;
+import scratch.model.weapons.Weapon;
+
+import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * Created by Anna on 2014-05-18.
+ */
+<span class="nc" id="L16">public class LoadXMLObject {</span>
+<span class="nc" id="L17">	private final static Serializer SERIALIZER = new Persister(new MyMatcher());</span>
+
+	public Object loadObject (String loadObject, String file){
+<span class="nc bnc" id="L20" title="All 2 branches missed.">		if (file.trim().isEmpty()){</span>
+<span class="nc" id="L21">            throw new IllegalArgumentException(&quot;Tried to load file: &quot; + file + &quot;. It is not a proper filename&quot;);</span>
+        }
+<span class="nc" id="L23">        final StringBuilder fileBuild = new StringBuilder();</span>
+<span class="nc" id="L24">        fileBuild.append(&quot;res/&quot;);</span>
+<span class="nc" id="L25">		fileBuild.append(file.trim());</span>
+<span class="nc" id="L26">		fileBuild.append(&quot;.xml&quot;);</span>
+<span class="nc" id="L27">        final File source = new File(fileBuild.toString());</span>
+        try {
+<span class="nc bnc" id="L29" title="All 2 branches missed.">            if(&quot;NpcType&quot;.equals(loadObject)) {</span>
+<span class="nc" id="L30">				return SERIALIZER.read(NpcType.class, source);</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">			}else if(&quot;GameCharacter&quot;.equals(loadObject)) {</span>
+<span class="nc" id="L32">				return SERIALIZER.read(GameCharacter.class, source);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">			}else if(&quot;Weapon&quot;.equals(loadObject)){</span>
+<span class="nc" id="L34">				return SERIALIZER.read(Weapon.class, source);</span>
+			}
+<span class="nc" id="L36">		} catch (Exception e) {</span>
+<span class="nc" id="L37">            Logger.getLogger(LoadXMLObject.class.getName()).log(Level.SEVERE, null, e);</span>
+<span class="nc" id="L38">		}</span>
+<span class="nc" id="L39">        return null;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>

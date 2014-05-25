@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: scratch.model.InteractiveObjectTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.091 sec - in scratch.model.InteractiveObjectTest

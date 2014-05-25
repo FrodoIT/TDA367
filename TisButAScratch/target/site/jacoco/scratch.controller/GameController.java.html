@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameController.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TisButAScratch</a> &gt; <a href="index.source.html" class="el_package">scratch.controller</a> &gt; <span class="el_source">GameController.java</span></div><h1>GameController.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package scratch.controller;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import scratch.model.Game;
+
+/**
+ *
+ * @author Ivar
+ */
+public class GameController implements org.newdawn.slick.Game {
+
+    private final boolean host;
+    private ServerController server;
+    private final ClientController client;
+
+<span class="nc" id="L23">    public GameController(String ip) {</span>
+<span class="nc" id="L24">        host = false;</span>
+<span class="nc" id="L25">        client = new ClientController(ip);</span>
+<span class="nc" id="L26">    }</span>
+
+<span class="nc" id="L28">    public GameController(Game game) {</span>
+<span class="nc" id="L29">        host = true;</span>
+<span class="nc" id="L30">        server = new ServerController(game);</span>
+<span class="nc" id="L31">        client = new ClientController(&quot;127.0.0.1&quot;);</span>
+<span class="nc" id="L32">    }</span>
+
+    @Override
+    public void init(GameContainer container) throws SlickException {
+<span class="nc" id="L36">        container.setTargetFrameRate(60);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (host) {</span>
+<span class="nc" id="L38">            server.init(container);</span>
+        }
+<span class="nc" id="L40">        client.init(container);</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">        if (host) {</span>
+<span class="nc" id="L46">            server.update(container, delta);</span>
+        }
+<span class="nc" id="L48">        client.update(container, delta);</span>
+<span class="nc" id="L49">    }</span>
+
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+<span class="nc" id="L53">        client.render(container, g);</span>
+<span class="nc" id="L54">    }</span>
+
+    @Override
+    public boolean closeRequested() {
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (host){</span>
+<span class="nc" id="L59">            server.closeRequested();</span>
+        }
+<span class="nc" id="L61">        return true;</span>
+    }
+
+    @Override
+    public String getTitle() {
+<span class="nc" id="L66">        return &quot;'Tis but a scratch&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.0.201403182114</span></div></body></html>
