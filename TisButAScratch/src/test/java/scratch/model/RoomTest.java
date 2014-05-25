@@ -157,19 +157,6 @@ public class RoomTest extends TestCase {
     }
 
     @Test
-    public void testSerialization() throws Exception {
-        /*Kryo kryo = new Kryo();
-         Output output = new Output(200);
-
-         room.write(kryo, output);
-         Room newRoom = new Room();
-         Input input = new Input(output.getBuffer());
-         room.read(kryo, input);
-         assertTrue(room.equals(newRoom)); */
-
-    }
-
-    @Test
     public void testGetRoomId() throws Exception {
         assertEquals(room.getId(), 1);
 

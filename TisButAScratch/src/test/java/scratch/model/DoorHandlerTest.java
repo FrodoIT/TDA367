@@ -30,6 +30,7 @@ public class DoorHandlerTest extends TestCase {
         final Injector injector = Guice.createInjector(new MockModule());
 
         final DoorHandler doorHandler = new DoorHandler();
+        doorHandler.addListener(null);
         final Room room2;
         final IMap map = injector.getInstance(IMap.class);
         

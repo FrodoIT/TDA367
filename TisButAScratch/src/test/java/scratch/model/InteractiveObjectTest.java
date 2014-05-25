@@ -1,5 +1,8 @@
 package scratch.model;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -76,16 +79,14 @@ public class InteractiveObjectTest extends TestCase {
     
     @Test
     public void testSerialization() {
-        //TODO Error in Jacoco "Error while instrumenting class",
-        /*Kryo kryo = new Kryo();
+        Kryo kryo = new Kryo();
         Output output = new Output(200);
-        Utilities.kryoRegister(kryo);
         
         interactiveObject.write(kryo, output);
         InteractiveObject newInstance = new InteractiveObject();
         Input input = new Input(output.getBuffer());
         newInstance.read(kryo, input);
         assertTrue(interactiveObject.equals(newInstance));
-        */
+        
     }
 }
