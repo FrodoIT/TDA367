@@ -31,9 +31,14 @@ To place a monster, create an interactive layer npc and place an object in the m
 Give the object a property by the name "npcType" without quotationmarks and where the name of the XML file is given as value, e.g "StandardEnemy".
 
 
+Compilation
+===========
 
 To compile the project the VM needs to be supplied with the argument "-Djava.library.path=lib/"
 
+
+Sprites for characters
+======================
 How to change Sprite for PlayerView:
 	Create your sprite using Tiled : mapeditor.org
 	You will need 4 direcitons. and each direciton will use an equal number of tiles. for example a row in tiled can look like
