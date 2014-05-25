@@ -16,7 +16,7 @@ import java.awt.geom.Rectangle2D;
  *
  * @author Ivar
  */
-public class Attack implements KryoSerializable{
+public class Attack{
     private Rectangle2D.Double attackTile;
     private Vector2D direction;
     private int damage;
@@ -58,13 +58,4 @@ public class Attack implements KryoSerializable{
         return damage;
     }
 
-    @Override
-    public void write(Kryo kryo, Output output) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void read(Kryo kryo, Input input) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

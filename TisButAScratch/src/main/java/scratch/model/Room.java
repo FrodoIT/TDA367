@@ -25,7 +25,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     private List<GameCharacter> characters;
     private final Map<GameCharacter, Vector2D> characterMovementMap = new HashMap<>();
     private final List<GameCharacter> charactersInteracting = new ArrayList<>();
-    private final List<Attack> attacks = new ArrayList<>();
+    private List<Attack> attacks = new ArrayList<>();
     private IMap map;
     private List<InteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
@@ -43,9 +43,10 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     }
 
     public void update() {
+        //attacks.clear();
         updateCharacterInteractions();
         updateCharacterMovements();
-        updateCharacterAttacks();
+        dealDamage();
 
     }
 
@@ -75,12 +76,6 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
             character.setPosition(allowedPosition(character, inputEntry.getValue()));
         }
         characterMovementMap.clear();
-    }
-
-    private void updateCharacterAttacks() {
-        
-        dealDamage();
-        attacks.clear();
     }
 
     private void dealDamage() {
@@ -254,6 +249,10 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
 
     public List<Attack> getAttacks() {
         return attacks;
+    }
+    
+    public void setAttacks(List<Attack> attacks) {
+        this.attacks = attacks;
     }
 
     public List<InteractiveObject> getInteractiveObjects() {

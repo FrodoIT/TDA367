@@ -46,9 +46,12 @@ public final class Utilities {
         kryo.register(InteractiveObject.class);
         kryo.register(HashMap.class);
         kryo.register(MovableObject.class);
+        kryo.register(Attack.class);
+        kryo.register(Class.class);
         
         //Packets
         kryo.register(PacketAddCharacter.class);
+        kryo.register(PacketAttacks.class);
         kryo.register(PacketGameData.class);
         kryo.register(PacketMoveCharacter.class);
         kryo.register(PacketNewCharacter.class);

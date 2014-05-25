@@ -1,5 +1,7 @@
 package scratch.controller;
 
+import com.esotericsoftware.kryonet.Connection;
+import com.esotericsoftware.kryonet.Listener;
 import org.newdawn.slick.GameContainer;
 import scratch.construction.TiledMapPlus;
 import scratch.model.GameCharacter;
@@ -11,13 +13,17 @@ import scratch.view.RoomView;
 
 import java.util.ArrayList;
 import java.util.List;
+import scratch.model.Attack;
+import scratch.network.PacketAttacks;
+import scratch.view.AttackView;
 
-public class RoomController {
+public class RoomController extends Listener {
 
     private final Room room;
     private final RoomView roomView;
     private final List<CharacterController> characters;
     private final List<InteractiveObjectController> interactiveObjects;
+    private NetworkServer server;
 
     public RoomController(Room room) {
         this.roomView = new RoomView((TiledMapPlus) room.getMap());
@@ -34,6 +40,7 @@ public class RoomController {
     }
 
     public void setServer(NetworkServer server) {
+        this.server = server;
         for (final CharacterController characterController : characters) {
             characterController.setServer(server);
         }
@@ -43,6 +50,7 @@ public class RoomController {
     }
 
     public void setClient(NetworkClient client) {
+        client.addListener(this);
         for (final CharacterController characterController : characters) {
             characterController.setClient(client);
         }
@@ -60,6 +68,7 @@ public class RoomController {
             interactiveObjectController.update();
         }
         room.update();
+        server.sendTCP(new PacketAttacks(getId(), room.getAttacks()));
     }
 
     public synchronized void render(GameContainer gameContainer) {
@@ -71,6 +80,11 @@ public class RoomController {
 
         for (final InteractiveObjectController interactiveObjectController : interactiveObjects) {
             interactiveObjectController.render(gameContainer);
+        }
+
+        AttackView view = new AttackView();
+        for (final Attack attack : room.getAttacks()) {
+            view.render(gameContainer, attack);
         }
     }
 
@@ -109,8 +123,8 @@ public class RoomController {
         }
         return null;
     }
-    
-    public Room getRoom(){
+
+    public Room getRoom() {
         return room;
     }
 
@@ -130,5 +144,15 @@ public class RoomController {
     public synchronized void addInteractiveObject(InteractiveObjectController interactiveObjectController) {
         room.addInteractiveObject(interactiveObjectController.getInteractiveObject());
         interactiveObjects.add(interactiveObjectController);
+    }
+
+    @Override
+    public void received(Connection connection, Object object) {
+        if (object.getClass() == PacketAttacks.class) {
+            PacketAttacks attacks = (PacketAttacks) object;
+            if (attacks.getId() == getId()) {
+                room.setAttacks(attacks.getAttacks());
+            }
+        }
     }
 }
