@@ -37,8 +37,6 @@ public final class PluginLoader {
         final List<Class<?>> classList = new ArrayList<>();
         for (final File file : files) {
             final String fileName = file.getName();
-            System.out.println("Lookin for files: " + folder.toString());
-            System.out.println("Filename is: " + fileName.toString());
             final String strippedName = fileName.substring(0, fileName.indexOf(".class"));
             try {
                 final Class loadedClass = pluginClassLoader.loadClass(strippedName);
