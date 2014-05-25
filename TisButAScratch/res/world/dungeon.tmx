@@ -22,16 +22,16 @@
  </layer>
  <objectgroup name="map" width="20" height="15"/>
  <objectgroup name="interactive" width="20" height="15">
-  <object name="door1" type="object" x="564" y="406" width="31" height="35">
+  <object name="door1" type="door" x="564" y="406" width="31" height="35">
    <properties>
-    <property name="connection" value="12"/>
-    <property name="id" value="404"/>
+    <property name="connection" value="2"/>
+    <property name="id" value="310"/>
     <property name="objectType" value="door"/>
    </properties>
   </object>
-  <object name="door2" type="object" x="66" y="59" width="32" height="32">
+  <object name="door2" type="door" x="65" y="64" width="32" height="32">
    <properties>
-    <property name="connection" value="13"/>
+    <property name="connection" value="3"/>
     <property name="id" value="311"/>
     <property name="objectType" value="door"/>
    </properties>
