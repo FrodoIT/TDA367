@@ -54,7 +54,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
     private void updateAttacks() {
         List<Attack> remainingAttacks = new ArrayList<>();
         for (final Attack attack : attacks) {
-            if (!(isColliding(attack, attack.getPosition()))) {
+            if (!(isColliding(attack, attack.getPosition())) && attack.isRemaining()) {
                 remainingAttacks.add(attack);
                 attack.update();
             }
