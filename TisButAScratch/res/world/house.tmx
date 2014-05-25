@@ -60,13 +60,13 @@
  <objectgroup name="npc" width="20" height="15">
   <object name="npc1" type="hostile" x="356" y="418" width="32" height="32">
    <properties>
-    <property name="id" value="102"/>
+    <property name="id" value="230"/>
     <property name="npcType" value="StandardEnemy"/>
    </properties>
   </object>
   <object name="npc2" type="hostile" x="490" y="355" width="32" height="32">
    <properties>
-    <property name="id" value="102"/>
+    <property name="id" value="231"/>
     <property name="npcType" value="StandardEnemy"/>
    </properties>
   </object>
