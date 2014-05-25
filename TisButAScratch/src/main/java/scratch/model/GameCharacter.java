@@ -313,8 +313,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     @Override
     public
             void read(Kryo kryo, Input input) {
-        unitTile = kryo.readObject(input, Rectangle2D.Double.class
-        );
+        unitTile = kryo.readObject(input, Rectangle2D.Double.class);
         weapon = kryo.readObject(input, Weapon.class);
         health = kryo.readObject(input, Integer.class);
         movementSpeed = kryo.readObject(input, Integer.class);

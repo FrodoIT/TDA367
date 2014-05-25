@@ -10,7 +10,9 @@ import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Anna on 2014-05-02.
@@ -60,7 +62,14 @@ public class RoomTest extends TestCase {
         room.update();
         assertTrue(room.getCharacterInteractAreaMap().isEmpty());
         assertTrue(room.getCharacterMovementMap().isEmpty());
-
+    }
+    
+    @Test
+    public void testSetAttacks(){
+        List<Attack> attacks = new ArrayList<>();
+        attacks.add(new Attack());
+        room.setAttacks(attacks);
+        assertEquals(room.getAttacks(), attacks);
     }
 
     private void putCharactersInRoom(GameCharacter testPlayer, NpcType testNpc) {
