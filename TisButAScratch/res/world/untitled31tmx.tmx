@@ -29,14 +29,7 @@
     <property name="objectType" value="door"/>
    </properties>
   </object>
-  <object name="box1" type="object" x="63" y="55" width="34" height="34">
-   <properties>
-    <property name="id" value="501"/>
-    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
-    <property name="objectType" value="box"/>
-   </properties>
-  </object>
-  <object name="door2" type="object" x="64" y="57" width="32" height="32">
+  <object name="door2" type="object" x="66" y="59" width="32" height="32">
    <properties>
     <property name="connection" value="13"/>
     <property name="id" value="311"/>
