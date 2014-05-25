@@ -102,7 +102,7 @@ public class SpriteDirectionRenderer {
             return;
         }
 
-        if (moveInput == lastMoveInput) {
+        if (moveInput.equals(lastMoveInput)) {
             sprite.stop();
             sprite = moveAnimations.get(moveInput);
             sprite.start();

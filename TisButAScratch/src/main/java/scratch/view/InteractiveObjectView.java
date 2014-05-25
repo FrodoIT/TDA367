@@ -21,7 +21,7 @@ public class InteractiveObjectView {
 
     public void render(GameContainer gameContainer) {
         //This should not be needed
-        String imagePath = interactiveObject.getProperties().get("imagePath");
+        final String imagePath = interactiveObject.getProperties().get("imagePath");
         if (imagePath != null) {
             if (spriteHandler == null) {
                 try {
@@ -30,7 +30,7 @@ public class InteractiveObjectView {
                     Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
+            final Rectangle2D.Double unitTile = interactiveObject.getUnitTile();
             spriteHandler.render(gameContainer.getGraphics(), Direction.NORTH, unitTile.getX(), unitTile.getY());
         }
     }

@@ -15,7 +15,7 @@ import scratch.model.Vector2D;
 
 public class CharacterView {
 
-    private GameCharacter character;
+    private final GameCharacter character;
     private SpriteDirectionRenderer spriteHandler;
 
     public CharacterView(GameCharacter character) {
@@ -23,8 +23,7 @@ public class CharacterView {
         try {
             spriteHandler = new SpriteDirectionRenderer(new TiledMap(character.getImagePath()));
         } catch (SlickException e) {
-            spriteHandler = null;
-            e.printStackTrace();
+            Logger.getLogger(CharacterView.class.getName()).log(Level.SEVERE, null, e);
 
         }
     }
@@ -37,11 +36,11 @@ public class CharacterView {
                 Logger.getLogger(NpcView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        Vector2D position = character.getPosition();
-        Graphics graphics = gameContainer.getGraphics();
+        final Vector2D position = character.getPosition();
+        final Graphics graphics = gameContainer.getGraphics();
 
         if (character.isAttacking()){
-            Rectangle2D.Double attackArea = character.getAttackArea();
+            final Rectangle2D.Double attackArea = character.getAttackArea();
             graphics.setColor(Color.red);
             graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
         }

@@ -15,7 +15,7 @@ public class PacketNewConnection {
     private int roomId;
     
     public PacketNewConnection(){
-        
+        //used for serialization
     }
     
     public PacketNewConnection(int id, int roomId){

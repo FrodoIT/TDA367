@@ -25,7 +25,7 @@ public class GameTest extends TestCase {
         game = new Game();
         rooms.add(new Room(new MockIMap(), new DoorHandler()));
 
-        NpcType npcType = new NpcType(new Rectangle2D.Double(0, 0, 32, 32),
+        final NpcType npcType = new NpcType(new Rectangle2D.Double(0, 0, 32, 32),
                 new Weapon(),
                 10,
                 2,
@@ -47,8 +47,9 @@ public class GameTest extends TestCase {
 
     }
 
+    @Test
     public void testAddPlayerWithoutRooms() {
-        Game game = new Game();
+        final Game game = new Game();
         assertFalse(game.addPlayer(player));
         game.setMap(new ArrayList<Room>());
         assertFalse(game.addPlayer(player));

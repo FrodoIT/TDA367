@@ -62,6 +62,7 @@ public class NpcTypeTest extends TestCase {
         assertSame(npcType.getMoveDirection(), direction);
     }
 
+    @Test
 	public void testAttacking(){
 		player.setPosition(new Vector2D(20,20));
 		npcType.setPosition(new Vector2D(30,30));
@@ -69,8 +70,9 @@ public class NpcTypeTest extends TestCase {
 		assertTrue(npcType.isAttacking());
 	}
 
+    @Test
 	public void testSetMovementPattern(){
-		INPCMove newMovementPattern = new CPNPCPlugin();
+		final INPCMove newMovementPattern = new CPNPCPlugin();
 		npcType.setMovementPattern(newMovementPattern);
 		assertTrue(npcType.getMovementPattern().equals(newMovementPattern));
 

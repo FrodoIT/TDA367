@@ -12,6 +12,7 @@ public class PacketRemoveCharacter {
     }
 
     public PacketRemoveCharacter() {
+        //used for serialization
     }
 
     public int getRoomId() {

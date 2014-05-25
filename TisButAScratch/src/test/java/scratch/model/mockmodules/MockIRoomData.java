@@ -38,7 +38,7 @@ public class MockIRoomData implements IRoomData {
 
     @Override
     public Vector2D getClosestPlayerPosition(Vector2D position) {
-        for (GameCharacter character : characters) {
+        for (final GameCharacter character : characters) {
             return character.getPosition();
         }
         return position;

@@ -11,6 +11,9 @@ import com.esotericsoftware.kryonet.Server;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import scratch.model.GameCharacter;
 import scratch.model.InteractiveObject;
 
@@ -22,7 +25,7 @@ import scratch.model.InteractiveObject;
  */
 public class NetworkServer /*implements PropertyChangeListener*/{
 
-    private Server server;
+    private final Server server;
 
     public NetworkServer() {
         server = new Server();
@@ -35,7 +38,7 @@ public class NetworkServer /*implements PropertyChangeListener*/{
         try {
             server.bind(54555, 54777);
         } catch (IOException e) {
-            System.out.println("Could not bind to ports, multiplayer will not be available");
+            Logger.getLogger(NetworkClient.class.getName()).log(Level.SEVERE, "Could not bind to ports, multiplayer will not be available", e);
         }
         server.addListener(listener);
     }

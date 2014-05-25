@@ -17,7 +17,7 @@ public class PacketNewCharacter {
     private GameCharacter character;
     
     public PacketNewCharacter(){
-        
+        //used for serialization
     }
     
     public PacketNewCharacter(int roomId, GameCharacter character){

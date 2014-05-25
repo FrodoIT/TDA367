@@ -13,6 +13,7 @@ public class PacketMoveCharacter {
     }
 
     public PacketMoveCharacter() {
+        //used for serialization
     }
 
     public int getCharacterId() {

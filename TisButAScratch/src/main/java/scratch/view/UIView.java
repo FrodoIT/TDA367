@@ -24,17 +24,17 @@ public class UIView {
 	}
 
 	public void render(GameContainer gameContainer){
-		Graphics g = gameContainer.getGraphics();
+		final Graphics g = gameContainer.getGraphics();
 
 		//get percentage of life left;
-		double currentHealth = (double)(character.getHealth())/maxHealth;
-                int yPos = gameContainer.getHeight()-30;
-                
-                final int height=10;
-                final double fullLength = 620;
-                
-		Rectangle lifebarGreen = new Rectangle(10, yPos, (int) (currentHealth*fullLength), height);
-		Rectangle lifebarRed = new Rectangle(10, yPos, (int) fullLength, height);
+		final double currentHealth = (double)(character.getHealth())/maxHealth;
+        final int yPos = gameContainer.getHeight()-30;
+
+        final int height=10;
+        final double fullLength = 620;
+
+        final Rectangle lifebarGreen = new Rectangle(10, yPos, (int) (currentHealth*fullLength), height);
+        final Rectangle lifebarRed = new Rectangle(10, yPos, (int) fullLength, height);
 
 		g.setColor(Color.white);
 		g.drawString("Life", 10, gameContainer.getHeight() - 50);

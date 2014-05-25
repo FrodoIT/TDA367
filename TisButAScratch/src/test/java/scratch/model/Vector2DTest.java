@@ -50,7 +50,7 @@ public class Vector2DTest extends TestCase {
     }
 
     public void testEmptyConstructor() {
-        Vector2D vector2D = new Vector2D();
+        final Vector2D vector2D = new Vector2D();
         assertEquals(vector2D.getMagnitude(), 0.d);
         assertEquals(vector2D.getX(), 0.d);
         assertEquals(vector2D.getY(), 0.d);
@@ -63,7 +63,7 @@ public class Vector2DTest extends TestCase {
 
     @Test
     public void testDistance() {
-        Vector2D toPoint = new Vector2D(5, 8);
+        final Vector2D toPoint = new Vector2D(5, 8);
         assertEquals(5.d, vectorPoint.distance(toPoint), epsilon);
 
     }

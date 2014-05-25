@@ -134,9 +134,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     private boolean isColliding(IMovableEntity entityToPlace, Vector2D placeToPut) {
         final int tileSize = 32;
         final Rectangle2D.Double placeToPutArea = new Rectangle2D.Double(placeToPut.getX(), placeToPut.getY(), tileSize, tileSize);
-        final Rectangle2D.Double unitTile = entityToPlace.getUnitTile();
 
-        for (IMovableEntity entity : movableEntities) {
+        for (final IMovableEntity entity : movableEntities) {
 
             if (isCollidingWithBox(entityToPlace, placeToPutArea, entity)) {
                 return true;
@@ -147,6 +146,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
             }
         }
 
+        final Rectangle2D.Double unitTile = entityToPlace.getUnitTile();
         final Vector2D northWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + 1);
         final Vector2D northEast = new Vector2D(placeToPut.getX() + unitTile.getWidth() - 1, placeToPut.getY() + 1);
         final Vector2D southWest = new Vector2D(placeToPut.getX() + 1, placeToPut.getY() + unitTile.getHeight() - 1);
@@ -166,7 +166,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     private boolean isCollidingWithCharacter(IMovableEntity entityToPlace, Rectangle2D.Double placeToPutArea, IMovableEntity entity) {
         if (entity instanceof GameCharacter) {
-            GameCharacter gameCharacter = (GameCharacter) entity;
+            final GameCharacter gameCharacter = (GameCharacter) entity;
             if (gameCharacter.getUnitTile().intersects(placeToPutArea)
                     && !(entityToPlace.getUnitTile().equals(gameCharacter.getUnitTile()))
                     && gameCharacter.isAlive()) {
@@ -283,9 +283,9 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private List<GameCharacter> getPlayers() {
-        List<GameCharacter> players = new ArrayList<>();
+        final List<GameCharacter> players = new ArrayList<>();
         for (final GameCharacter character : characters) {
-            if (!(character.getClass() == NpcType.class)) {
+            if (character.getClass() != NpcType.class) {
                 players.add(character);
             }
         }
@@ -293,7 +293,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private List<GameCharacter> getLivingPlayers() {
-        List<GameCharacter> players = new ArrayList<>();
+        final List<GameCharacter> players = new ArrayList<>();
         for (final GameCharacter player : getPlayers()) {
             if (player.isAlive()) {
                 players.add(player);

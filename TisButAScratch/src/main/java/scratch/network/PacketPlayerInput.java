@@ -19,7 +19,7 @@ public class PacketPlayerInput {
     private boolean attacking, interacting;
     
     public PacketPlayerInput(){
-        
+        //used for serialization
     }
     
     public PacketPlayerInput(int id, Input input){
@@ -37,11 +37,11 @@ public class PacketPlayerInput {
         return movementDirection;
     }
     
-    public boolean getAttacking(){
+    public boolean isAttacking(){
         return attacking;
     }
     
-    public boolean getInteracting(){
+    public boolean isInteracting(){
         return interacting;
     }
     
@@ -52,21 +52,15 @@ public class PacketPlayerInput {
         final boolean northKey = input.isKeyDown(Input.KEY_UP);
 
         if (southKey && westKey) {
-            //Southwest
             movementDirection = new Vector2D(-1, 1);
-
         } else if (southKey && eastKey) {
             movementDirection = new Vector2D(1, 1);
-
         } else if (northKey && westKey) {
             movementDirection = new Vector2D(-1, -1);
-
         } else if (northKey && eastKey) {
             movementDirection = new Vector2D(1, -1);
-
         } else if (southKey) {
             movementDirection = new Vector2D(0, 1);
-
         } else if (northKey) {
             movementDirection = new Vector2D(0, -1);
         } else if (westKey) {

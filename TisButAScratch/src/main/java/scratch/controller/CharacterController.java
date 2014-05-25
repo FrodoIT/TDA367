@@ -91,8 +91,8 @@ public class CharacterController extends Listener {
             final PacketPlayerInput input = (PacketPlayerInput) object;
             if (input.getId() == character.getId()){
                 character.setNextMoveDirection(input.getMovementDirection());
-                character.setAttacking(input.getAttacking());
-                character.setInteracting(input.getInteracting());
+                character.setAttacking(input.isAttacking());
+                character.setInteracting(input.isInteracting());
             }
         }
     }

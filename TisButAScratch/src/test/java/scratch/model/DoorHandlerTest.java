@@ -9,8 +9,6 @@ import scratch.model.mockmodules.MockModule;
 import scratch.model.weapons.Weapon;
 
 import java.awt.geom.Rectangle2D;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +19,15 @@ public class DoorHandlerTest extends TestCase {
     private Room room1;
     private GameCharacter character;
 
+    private static final String CONNECTION_PROPERTY = "connection";
+    private static final String OBJECT_TYPE_DOOR = "door";
+
     @Before
     @Override
     public void setUp() throws Exception {
         super.setUp();
 
-        Injector injector = Guice.createInjector(new MockModule());
+        final Injector injector = Guice.createInjector(new MockModule());
 
         final DoorHandler doorHandler = new DoorHandler();
         final Room room2;
@@ -35,15 +36,15 @@ public class DoorHandlerTest extends TestCase {
         room1 = new Room(map, doorHandler);
         room2 = new Room(map, doorHandler);
 
-        List<InteractiveObject> testDoorsRoom1 = getTestDoorsRoom1();
+        final List<InteractiveObject> testDoorsRoom1 = getTestDoorsRoom1();
         doorHandler.addDoors(room2, testDoorsRoom1);
-        for (InteractiveObject iInteractiveObject : testDoorsRoom1) {
+        for (final InteractiveObject iInteractiveObject : testDoorsRoom1) {
             room1.addInteractiveObject(iInteractiveObject);
         }
 
-        List<InteractiveObject> testDoorsRoom2 = getTestDoorsRoom2();
+        final List<InteractiveObject> testDoorsRoom2 = getTestDoorsRoom2();
         doorHandler.addDoors(room1, testDoorsRoom2);
-        for (InteractiveObject iInteractiveObject : testDoorsRoom2) {
+        for (final InteractiveObject iInteractiveObject : testDoorsRoom2) {
             room2.addInteractiveObject(iInteractiveObject);
         }
 
@@ -80,32 +81,33 @@ public class DoorHandlerTest extends TestCase {
 
         Map<String, String> properties;
 
+
         properties = new HashMap<>();
         properties.put("id", "100");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door1", "door", 0, 0, 32, 32, properties)
+                new InteractiveObject("door1", OBJECT_TYPE_DOOR, 0, 0, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "101");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door2", "door", 64, 64, 32, 32, properties)
+                new InteractiveObject("door2", OBJECT_TYPE_DOOR, 64, 64, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "102");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door3", "door", 0, 64, 32, 32, properties)
+                new InteractiveObject("door3", OBJECT_TYPE_DOOR, 0, 64, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "103");
-        properties.put("connection", "2");
+        properties.put(CONNECTION_PROPERTY, "2");
         doors.add(
-                new InteractiveObject("door4", "door", 64, 0, 32, 32, properties)
+                new InteractiveObject("door4", OBJECT_TYPE_DOOR, 64, 0, 32, 32, properties)
         );
 
         return doors;
@@ -118,30 +120,30 @@ public class DoorHandlerTest extends TestCase {
 
         properties = new HashMap<>();
         properties.put("id", "200");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door1", "door", 0, 0, 32, 32, properties)
+                new InteractiveObject("door1", OBJECT_TYPE_DOOR, 0, 0, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "201");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door2", "door", 64, 64, 32, 32, properties)
+                new InteractiveObject("door2", OBJECT_TYPE_DOOR, 64, 64, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "202");
-        properties.put("connection", "1");
+        properties.put(CONNECTION_PROPERTY, "1");
         doors.add(
-                new InteractiveObject("door3", "door", 0, 64, 32, 32, properties)
+                new InteractiveObject("door3", OBJECT_TYPE_DOOR, 0, 64, 32, 32, properties)
         );
 
         properties = new HashMap<>();
         properties.put("id", "203");
-        properties.put("connection", "3");
+        properties.put(CONNECTION_PROPERTY, "3");
         doors.add(
-                new InteractiveObject("door4", "door", 64, 0, 32, 32, properties)
+                new InteractiveObject("door4", OBJECT_TYPE_DOOR, 64, 0, 32, 32, properties)
         );
 
         return doors;

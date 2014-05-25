@@ -12,6 +12,7 @@ public class PacketAddCharacter {
     }
 
     public PacketAddCharacter() {
+        //used for serialization
     }
 
     public int getRoomId() {

@@ -32,17 +32,17 @@ public class NpcView extends CharacterView {
     public void render(GameContainer gameContainer) {
         super.render(gameContainer);
         //healthbar over npc
-        Vector2D pos = character.getPosition();
+        final Vector2D pos = character.getPosition();
 
         //get percentage of life left;
-        double currentHealth = (double) (character.getHealth()) / maxHealth;
-        int fullLength = 50;
-        int height = 5;
+        final double currentHealth = (double) (character.getHealth()) / maxHealth;
+        final int fullLength = 50;
+        final int height = 5;
 
-        Rectangle lifeGreen = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, (float) currentHealth * fullLength, height);
-        Rectangle lifeRed = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, fullLength, height);
+        final Rectangle lifeGreen = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, (float) currentHealth * fullLength, height);
+        final Rectangle lifeRed = new Rectangle((float) pos.getX() - 10, (float) pos.getY() - 10, fullLength, height);
 
-        Graphics g = gameContainer.getGraphics();
+        final Graphics g = gameContainer.getGraphics();
         g.setColor(Color.red);
         g.fill(lifeRed);
         g.setColor(Color.green);

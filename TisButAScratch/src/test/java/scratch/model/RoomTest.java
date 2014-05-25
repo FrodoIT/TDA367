@@ -44,7 +44,7 @@ public class RoomTest extends TestCase {
         room.addCharacter(testPlayer);
         testPlayer.setMovementSpeed(0);
         final INPCMove move = injector.getInstance(INPCMove.class);
-        NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
+        final NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
                 new Weapon(), 100, 0, "test", 10, move);
         testNpc.setNextMoveDirection(new Vector2D());
         putCharactersInRoom(testPlayer, testNpc);
@@ -80,13 +80,13 @@ public class RoomTest extends TestCase {
 		room.addInteractiveObject(testObject);
 
 		//test so a player cannot move to a occupied position
-		Vector2D originalPosition = new Vector2D(60,60);
+		final Vector2D originalPosition = new Vector2D(60,60);
 		testPlayer.setPosition(originalPosition);
 		room.update();
 		assertTrue(testPlayer.getPosition().equals(originalPosition));
 
 		//test so player can move to a free position
-		Vector2D newPosition = new Vector2D(12,12);
+		final Vector2D newPosition = new Vector2D(12,12);
 		room.getCharacterMovementMap().clear();
 		testObject.setPosition(newPosition);
 		room.getCharacterMovementMap().put(testPlayer, newPosition);
@@ -94,7 +94,7 @@ public class RoomTest extends TestCase {
 		assertTrue(testPlayer.getPosition().equals(newPosition));
 
 		//test to player cannot collide with box
-		Vector2D onBoxPosition = new Vector2D(10,10);
+		final Vector2D onBoxPosition = new Vector2D(10,10);
 		room.getCharacterMovementMap().clear();
 		room.getCharacterMovementMap().put(testPlayer, onBoxPosition);
 		room.update();
@@ -116,16 +116,16 @@ public class RoomTest extends TestCase {
 	@Test
 	public void testGetClosestPlayerPosition() throws Exception {
 		final INPCMove move = injector.getInstance(INPCMove.class);
-		NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
+		final NpcType testNpc = new NpcType(new Rectangle2D.Double(50, 55, 100, 100),
 				new Weapon(), 100, 0, "test", 10, move);
 		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()) == null);
-		GameCharacter gc1 = new GameCharacter();
+		final GameCharacter gc1 = new GameCharacter();
 		room.addCharacter(gc1);
 		gc1.setPosition(new Vector2D(20, 20));
 		gc1.setHealth(0);
 		assertTrue(room.getClosestPlayerPosition(testNpc.getPosition()) == null);
-		GameCharacter gc2 = new GameCharacter();
-		GameCharacter gc3 = new GameCharacter();
+		final GameCharacter gc2 = new GameCharacter();
+		final GameCharacter gc3 = new GameCharacter();
 		room.addCharacter(gc2);
 		room.addCharacter(gc3);
 		gc2.setPosition(new Vector2D(0,0));
@@ -145,7 +145,7 @@ public class RoomTest extends TestCase {
 
 	@Test
 	public void testAddInteractiveObject() throws Exception {
-		InteractiveObject io1 = new InteractiveObject();
+		final InteractiveObject io1 = new InteractiveObject();
 		room.addInteractiveObject(io1);
 		assertEquals(room.getInteractiveObjects().size(), 1);
 		assertTrue(room.getInteractiveObjects().get(0).equals(io1));

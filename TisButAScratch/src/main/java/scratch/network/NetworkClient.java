@@ -9,6 +9,8 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +33,7 @@ public class NetworkClient {
         try {
             client.connect(5000, ip, 54555, 54777);
         } catch (IOException e) {
-            System.out.println("Could not connect to server, expect disaster");
+            Logger.getLogger(NetworkClient.class.getName()).log(Level.SEVERE, "Could not connect to server, expect disaster", e);
         }
         addListener(listener);
     }

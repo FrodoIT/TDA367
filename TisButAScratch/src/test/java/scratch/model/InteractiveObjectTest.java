@@ -19,7 +19,7 @@ public class InteractiveObjectTest extends TestCase {
 
     @Before
     public void setUp(){
-        HashMap<String,String> props = new HashMap<>();
+        final HashMap<String,String> props = new HashMap<>();
         interactiveObject = new InteractiveObject("testObject", "box", 32, 32, 32, 32, props);
     }
     
@@ -31,9 +31,8 @@ public class InteractiveObjectTest extends TestCase {
     }
 	@Test
 	public void testSetObject(){
-		InteractiveObject newInteractiveObject = new InteractiveObject("newTestObject", "door",0,0,0,0, new HashMap());
+		final InteractiveObject newInteractiveObject = new InteractiveObject("newTestObject", "door",0,0,0,0, new HashMap());
 		interactiveObject.setObject(newInteractiveObject);
-		System.out.println(interactiveObject + " " + newInteractiveObject);
 		assertTrue(interactiveObject.getProperties().equals(newInteractiveObject.getProperties()) &&
 				interactiveObject.getUnitTile().equals(newInteractiveObject.getUnitTile()) &&
 				interactiveObject.getName().equals(newInteractiveObject.getName()) &&
@@ -61,7 +60,7 @@ public class InteractiveObjectTest extends TestCase {
     
     @Test
     public void testSetPosition() {
-        Double epsilon = 0.001;
+        final Double epsilon = 0.001;
         interactiveObject.setPosition(new Vector2D(50, 50));
         assertTrue(interactiveObject.getPosition().getX() - 50.0 < epsilon);
         assertTrue(interactiveObject.getPosition().getY() - 50.0 < epsilon);
@@ -69,13 +68,13 @@ public class InteractiveObjectTest extends TestCase {
     
     @Test
     public void testEquals() {
-        assertTrue(interactiveObject.equals(interactiveObject));
-        assertFalse(interactiveObject.equals(null));
-        assertFalse(interactiveObject.equals(32));
-        assertFalse(interactiveObject.equals(new InteractiveObject()));
-        HashMap<String,String> props = new HashMap<>();
-        InteractiveObject newObject = new InteractiveObject("testObject", "box", 32, 32, 32, 32, props);
-        assertTrue(interactiveObject.equals(newObject));
+        assertEquals(interactiveObject, interactiveObject);
+        assertNotNull(interactiveObject);
+        assertNotSame(32, interactiveObject);
+        assertNotSame(interactiveObject, new InteractiveObject());
+        final HashMap<String,String> props = new HashMap<>();
+        final InteractiveObject newObject = new InteractiveObject("testObject", "box", 32, 32, 32, 32, props);
+        assertEquals(interactiveObject, newObject);
     }
     
     @Test

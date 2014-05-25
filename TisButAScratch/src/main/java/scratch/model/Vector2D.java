@@ -68,16 +68,14 @@ public final class Vector2D {
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = vectorInfo != null ? vectorInfo.hashCode() : 0;
-        temp = Double.doubleToLongBits(magnitude);
+        final int result = vectorInfo != null ? vectorInfo.hashCode() : 0;
+        final long temp = Double.doubleToLongBits(magnitude);
         return 31 * result + (int) (temp ^ (temp >>> 32));
     }
 
     public double distance(Vector2D toPosition) {
-        double xDiff = getX() - toPosition.getX();
-        double yDiff = getY() - toPosition.getY();
+        final double xDiff = getX() - toPosition.getX();
+        final double yDiff = getY() - toPosition.getY();
         return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
     }
 }

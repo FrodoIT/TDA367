@@ -50,21 +50,21 @@ public class GameCharacterTest extends TestCase {
     @Test
     public void testSetInteracting() throws Exception {
         testCharacter.setInteracting(true);
-        assertEquals(testCharacter.isInteracting(), true);
+        assertTrue(testCharacter.isInteracting());
         testCharacter.setInteracting(false);
-        assertEquals(testCharacter.isInteracting(), false);
+        assertFalse(testCharacter.isInteracting());
     }
 
     @Test
     public void testSetCharacter() throws Exception {
-        GameCharacter newGameCharacter = new GameCharacter(new Rectangle2D.Double(0, 0, 1, 1), new Weapon(), 3, 5, 2, "/res/monsterSprite.tmx");
+        final GameCharacter newGameCharacter = new GameCharacter(new Rectangle2D.Double(0, 0, 1, 1), new Weapon(), 3, 5, 2, "/res/monsterSprite.tmx");
         testCharacter.setCharacter(newGameCharacter);
-        assertTrue((testCharacter.getUnitTile().equals(newGameCharacter.getUnitTile())
-                && (testCharacter.getWeapon().equals(newGameCharacter.getWeapon()))
+        assertTrue(testCharacter.getUnitTile().equals(newGameCharacter.getUnitTile())
+                && testCharacter.getWeapon().equals(newGameCharacter.getWeapon())
                 && testCharacter.getHealth() == newGameCharacter.getHealth()
                 && testCharacter.getMovementSpeed() == newGameCharacter.getMovementSpeed()
                 && testCharacter.getMoveDirection() == (newGameCharacter.getMoveDirection())
-                && testCharacter.getImagePath().compareTo(newGameCharacter.getImagePath()) == 0));
+                && testCharacter.getImagePath().compareTo(newGameCharacter.getImagePath()) == 0);
 
     }
 
@@ -77,7 +77,7 @@ public class GameCharacterTest extends TestCase {
 
     @Test
     public void testGetNextMoveDirection() throws Exception {
-        Vector2D newVector = new Vector2D(13, 13);
+        final Vector2D newVector = new Vector2D(13, 13);
         testCharacter.setNextMoveDirection(newVector);
         assertTrue(testCharacter.getNextMoveDirection().equals(newVector.getNormalisedVector()));
     }
@@ -112,7 +112,7 @@ public class GameCharacterTest extends TestCase {
 
     @Test
     public void testGetPosition() throws Exception {
-        Vector2D pos = testCharacter.getPosition();
+        final Vector2D pos = testCharacter.getPosition();
         assertEquals(32, pos.getX(), epsilon);
         assertEquals(32, pos.getY(), epsilon);
     }
