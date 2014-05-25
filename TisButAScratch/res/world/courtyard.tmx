@@ -17,12 +17,12 @@
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgYGDQYWQgCIhRg00tiA3D5JiHSz82eREopoZ5IkSaR4z7RbBgXAAmj+4fXHp1CJiHz7+44gWbe9HtJiX+CLHJNQ+fOCnpFR+gVjoY7AA5nQxWDAIAGYCTiLAEAAA=
+   H4sIAAAAAAAAC2NgYGDQYWQgCIhRg00tiA3D5JiHSz82eREopoZ5IkSaR4z7RbBgXAAmj+4fXHp1CJiHz7+44gWbe9HtJiX+CLHJNQ+fOCnpFR+gVjoY7AA5nQxWDAIAGYCTiLAEAAA=
   </data>
  </layer>
  <layer name="background" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAAw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
+   H4sIAAAAAAAACw3DA5QQBgAA0Ms2lm0um3fxkG1uLS7b2LJtY6u2bJtbteyWbdd/7/88AQEBec1nfgtY0EIWtohFLWZxS1jSUpa2jGUNNMhylreCFa1kZYMNMdQwq1jVala3hjWtZW3rWNd61reBDW1kY5vY1GY2t4UtbWVrf/Jn2/iLbW1nezvY0U7+ame72NVudreHPe1lb/vY1372d4ADHeRghzjUYQ53hL/5uyMd5WjHONZxjneCE53kZKc41WlOd4YzneVs5zjXec53gQtd5GKXuNRlLneFK13lH/7pate41r/823Wud4Mb3eRmt7jVbW53hzvd5W73uNd97veABz3kYY941GMe94QnPeVp//Ffz3jWc/7neS940Ute9opXveZ1b3jTW972jv9713ve94EPfeRjn/jUZz73hS995Wvf+NZ3vveDH/3kZ7/41W8GhMPwRjCikYxsFKMazejGMKaxjG0c4xrP+CYwoYlM7A8mManJTG4KU5rK1KYxrelMbwYzmsnMZjGr2cxuDnOay9z+aB7zms/8FrCghSxsEYtazOKWsKSlLG0ZyxpokOUsbwUrWsnKBhtiqGFWsarVrG4Na1rL2taxrvWsbwMb+h3Q8njFsAQAAA==
   </data>
  </layer>
  <objectgroup name="npc" width="20" height="15">
@@ -42,7 +42,7 @@
     <property name="objectType" value="door"/>
    </properties>
   </object>
-  <object name="box1" type="object" x="288" y="359" width="34" height="34">
+  <object name="box1" type="object" x="280" y="338" width="34" height="34">
    <properties>
     <property name="id" value="120"/>
     <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
@@ -54,6 +54,20 @@
     <property name="connection" value="3"/>
     <property name="id" value="111"/>
     <property name="objectType" value="door"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="404" y="344" width="34" height="34">
+   <properties>
+    <property name="id" value="121"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
+    <property name="objectType" value="box"/>
+   </properties>
+  </object>
+  <object name="box1" type="object" x="483" y="325" width="34" height="34">
+   <properties>
+    <property name="id" value="122"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
+    <property name="objectType" value="box"/>
    </properties>
   </object>
  </objectgroup>
