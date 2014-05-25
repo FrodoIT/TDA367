@@ -29,5 +29,4 @@
 
 # Maven
 **/log/
-**/target/
 **/pom.properties
