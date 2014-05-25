@@ -31,21 +31,21 @@
   <object name="box1" type="object" x="160" y="32" width="28" height="28">
    <properties>
     <property name="id" value="221"/>
-    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
   <object name="box2" type="object" x="160" y="0" width="28" height="27">
    <properties>
     <property name="id" value="222"/>
-    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
   <object name="box3" type="object" x="160" y="64" width="28" height="27">
    <properties>
     <property name="id" value="223"/>
-    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>

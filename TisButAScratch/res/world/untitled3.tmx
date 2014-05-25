@@ -17,7 +17,7 @@
  </tileset>
  <layer name="collision" width="20" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgYGDQYWQgCIhRg00tiA3D5JiHSz82eWL9Qax51ACkmoPuH5h+bOLEuJUY87CpJ8df+Mwj5G5S0gMx4gNlHjH2UTN9UQsQiqfBgEEAAIsqVcawBAAA
+   H4sIAAAAAAAAC2NgYGDQYWQgCIhRg00tiA3D5JiHSz82eREopoZ5IkSaR4z7RbBgXAAmj+4fXHp1CJiHz7+44gWbe9HtJiX+CLHJNQ+fOCnpFR+gVjoY7AA5nQxWDAIAGYCTiLAEAAA=
   </data>
  </layer>
  <layer name="background" width="20" height="15">
@@ -45,11 +45,6 @@
    </properties>
   </object>
  </objectgroup>
- <layer name="Tile Layer 3" width="20" height="15">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWDGTQxMjA0A3EL40C7ZBSMgoEHAJ0Wd+OwBAAA
-  </data>
- </layer>
  <objectgroup name="map" width="20" height="15"/>
  <objectgroup name="interactive" width="20" height="15">
   <object name="door4" type="object" x="479" y="253" width="32" height="32">
@@ -62,7 +57,7 @@
   <object name="box1" type="object" x="288" y="359" width="34" height="34">
    <properties>
     <property name="id" value="501"/>
-    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>

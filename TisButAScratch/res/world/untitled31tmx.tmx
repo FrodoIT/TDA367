@@ -32,7 +32,7 @@
   <object name="box1" type="object" x="63" y="55" width="34" height="34">
    <properties>
     <property name="id" value="501"/>
-    <property name="imagePath" value="/res/sprites/playerSprite.tmx"/>
+    <property name="imagePath" value="/res/sprites/boxSprite.tmx"/>
     <property name="objectType" value="box"/>
    </properties>
   </object>
