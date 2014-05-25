@@ -18,14 +18,14 @@ import java.util.Map;
  * @author Ivar Josefsson
  *
  */
-public final class Room implements IRoomData, CharacterChangeListener, KryoSerializable, DoorHelper {
+public final class Room implements IRoomData, CharacterChangeListener, DoorHelper {
 
     @Inject
     private List<IMovableEntity> movableEntities;
     private List<GameCharacter> characters;
     private final Map<GameCharacter, Vector2D> characterMovementMap = new HashMap<>();
     private final List<GameCharacter> charactersInteracting = new ArrayList<>();
-    private final List<GameCharacter> areaUnderAttack = new ArrayList<>();
+    private final List<Attack> attacks = new ArrayList<>();
     private IMap map;
     private List<InteractiveObject> interactiveObjects;
     private DoorHandler doorHandler;
@@ -78,16 +78,16 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
     }
 
     private void updateCharacterAttacks() {
+        
         dealDamage();
-        areaUnderAttack.clear();
+        attacks.clear();
     }
 
     private void dealDamage() {
-        for (final GameCharacter attackingCharacter : areaUnderAttack) {
+        for (final Attack attack : attacks) {
             for (final GameCharacter character : characters) {
-                if (character.getUnitTile().intersects(attackingCharacter.getAttackArea())
-                        && !attackingCharacter.getClass().equals(character.getClass())) {
-                    character.takeDamage(attackingCharacter.getDamage());
+                if (character.getUnitTile().intersects(attack.getAttackTile())) {
+                    character.takeDamage(attack.getDamage());
                 }
             }
         }
@@ -224,7 +224,7 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
 
     @Override
     public void handleCharacterAttack(GameCharacter character) {
-        areaUnderAttack.add(character);
+        attacks.add(character.getAttack());
     }
 
     /**
@@ -252,8 +252,8 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
         return characters;
     }
 
-    public List<GameCharacter> getAreaUnderAttack() {
-        return areaUnderAttack;
+    public List<Attack> getAttacks() {
+        return attacks;
     }
 
     public List<InteractiveObject> getInteractiveObjects() {
@@ -300,16 +300,5 @@ public final class Room implements IRoomData, CharacterChangeListener, KryoSeria
             }
         }
         return players;
-    }
-
-    @Override
-    public void write(Kryo kryo, Output output) {
-        kryo.writeObject(output, characters);
-
-    }
-
-    @Override
-    public void read(Kryo kryo, Input input) {
-        characters = kryo.readObject(input, ArrayList.class);
     }
 }

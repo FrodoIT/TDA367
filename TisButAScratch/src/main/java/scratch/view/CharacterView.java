@@ -39,12 +39,6 @@ public class CharacterView {
         }
         final Vector2D position = character.getPosition();
         final Graphics graphics = gameContainer.getGraphics();
-
-        if (character.isAttacking()){
-            final Rectangle2D.Double attackArea = character.getAttackArea();
-            graphics.setColor(Color.red);
-            graphics.fill(new Rectangle((int) attackArea.getX(), (int) attackArea.getY(), (int) attackArea.getWidth(), (int) attackArea.getHeight()));
-        }
         final Direction input = character.getMoveDirection();
         spriteHandler.render(graphics, input, position.getX(), position.getY());
 

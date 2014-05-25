@@ -24,35 +24,35 @@ import java.util.List;
 @Root
 public class GameCharacter implements KryoSerializable, IMovableEntity {
 
-	@Element (type = Rectangle2D.Double.class, required = false)
-	private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
-	@Element (name="weapon")//(type = WeaponPath.class)
-	private Weapon weapon;
-	@Element
-	private int health;
-	@Element
-	private int movementSpeed;
-	@Attribute
-	private int id;
-	@Element (type = Direction.class, required = false)
-	private Direction moveDirection = Direction.NONE;
-        @Element (type = Direction.class, required = false)
-        private Direction lookingDirection = Direction.SOUTH;
-	@Element
-	private String imagePath;
-	@Element (required = false)
-	private boolean interactIsCooledDown = true;
-	private Vector2D nextMoveDirection;
-	private boolean interacting;
-	private boolean attacking;
-/*
-	@Element (type = Runnable.class, required = false)
-	private final Runnable cooldownReset = new Runnable() {
-		@Override
-		public void run() {
-			interactIsCooledDown = true;
-		}
-	};*/
+    @Element(type = Rectangle2D.Double.class, required = false)
+    private Rectangle2D.Double unitTile = new Rectangle2D.Double(0, 0, 32, 32);
+    @Element(name = "weapon")//(type = WeaponPath.class)
+    private Weapon weapon;
+    @Element
+    private int health;
+    @Element
+    private int movementSpeed;
+    @Attribute
+    private int id;
+    @Element(type = Direction.class, required = false)
+    private Direction moveDirection = Direction.NONE;
+    @Element(type = Direction.class, required = false)
+    private Direction lookingDirection = Direction.SOUTH;
+    @Element
+    private String imagePath;
+    @Element(required = false)
+    private boolean interactIsCooledDown = true;
+    private Vector2D nextMoveDirection;
+    private boolean interacting;
+    private boolean attacking;
+    /*
+     @Element (type = Runnable.class, required = false)
+     private final Runnable cooldownReset = new Runnable() {
+     @Override
+     public void run() {
+     interactIsCooledDown = true;
+     }
+     };*/
 
     final private List<CharacterChangeListener> listeners = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
 
     public void takeDamage(int dmg) {
         health = health - Math.abs(dmg);
-        if (health < 0 ){
+        if (health < 0) {
             health = 0;
         }
     }
@@ -109,7 +109,6 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         // 180 to avid negative angles
         //+ 337.5 (360 - 22.5)
         final double theta = (Math.toDegrees(Math.atan2(diffX, diffY)) + 517.5) % 360;
-
 
         final Direction[] directions = {
             Direction.NORTHWEST,
@@ -205,7 +204,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     public Direction getMoveDirection() {
         return moveDirection;
     }
-    
+
     public Direction getLookingDirection() {
         return lookingDirection;
     }
@@ -219,20 +218,22 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         return weapon.getDamage();
     }
 
+    @Override
     public Vector2D getPosition() {
         return new Vector2D(unitTile.getX(), unitTile.getY());
     }
 
-    public Rectangle2D.Double getAttackArea() {
-        final int range = weapon.getRange();
-        return new Rectangle2D.Double(
-                unitTile.x + 32 * range * lookingDirection.getX(),
-                unitTile.y + 32 * range * lookingDirection.getY(),
-                weapon.getAttackArea().width, weapon.getAttackArea().height);
-    }
-
     public String getImagePath() {
         return imagePath;
+    }
+
+    public Attack getAttack() {
+        final Rectangle2D.Double origin = new Rectangle2D.Double(
+                unitTile.x + 32 * lookingDirection.getX(),
+                unitTile.y + 32 * lookingDirection.getY(),
+                weapon.getAttackArea().getWidth(),
+                weapon.getAttackArea().getHeight());
+        return new Attack(origin, new Vector2D(lookingDirection.getX(), lookingDirection.getY()), weapon.getDamage(), this.getClass());
     }
 
     public void performAttack() {
@@ -310,8 +311,10 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
     }
 
     @Override
-    public void read(Kryo kryo, Input input) {
-        unitTile = kryo.readObject(input, Rectangle2D.Double.class);
+    public
+            void read(Kryo kryo, Input input) {
+        unitTile = kryo.readObject(input, Rectangle2D.Double.class
+        );
         weapon = kryo.readObject(input, Weapon.class);
         health = kryo.readObject(input, Integer.class);
         movementSpeed = kryo.readObject(input, Integer.class);

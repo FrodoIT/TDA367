@@ -53,12 +53,12 @@ public class RoomTest extends TestCase {
 	    testPlayer.setInteracting(true);
         testPlayer.update();
         assertFalse(room.getCharacterMovementMap().isEmpty());
-        assertFalse(room.getAreaUnderAttack().isEmpty());
+        assertFalse(room.getAttacks().isEmpty());
         assertFalse(room.getCharacterInteractAreaMap().isEmpty());
         assertFalse(room.getCharacterMovementMap().isEmpty());
 	    assertFalse(room.getCharacterInteractAreaMap().isEmpty());
 	    room.update();
-        assertTrue(room.getAreaUnderAttack().isEmpty());
+        assertTrue(room.getAttacks().isEmpty());
         assertTrue(room.getCharacterInteractAreaMap().isEmpty());
         assertTrue(room.getCharacterMovementMap().isEmpty());
 
