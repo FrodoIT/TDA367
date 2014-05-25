@@ -3,6 +3,7 @@ package scratch.model;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import java.awt.geom.Rectangle2D;
 
 import java.util.Map;
 
@@ -59,5 +60,22 @@ public final class MovableObject extends InteractiveObject implements IMovableEn
     public int hashCode() {
         return 31 * super.hashCode() + (moveDirection != null ? moveDirection.hashCode() : 0);
 
+    }
+    
+    
+    //These methods are requested by findbugs
+    @Override
+    public void setPosition(Vector2D newPosition) {
+        super.setPosition(newPosition);
+    }
+
+    @Override
+    public Vector2D getPosition() {
+        return super.getPosition();
+    }
+
+    @Override
+    public Rectangle2D.Double getUnitTile() {
+        return super.getUnitTile();
     }
 }
