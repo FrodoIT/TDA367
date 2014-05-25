@@ -18,7 +18,13 @@ import java.util.logging.Logger;
  */
 public final class PluginClassLoader extends ClassLoader{
     public static final String EXPORTED_PACKAGE = "scratch.construction.plugin.exported";
-    
+
+    private final String folderInUse;
+
+    public PluginClassLoader(String folder) {
+        folderInUse = folder;
+    }
+
     @Override
     public Class<?> findClass (String name) {
         final byte[] data = loadClassData(name);
@@ -26,7 +32,7 @@ public final class PluginClassLoader extends ClassLoader{
     }
     
     private byte[] loadClassData(String name){
-        final File f = new File(PluginLoader.PLUGIN_PATH +name+".class");
+        final File f = new File(folderInUse +name+".class");
 
         try {
             return Files.readAllBytes(f.toPath());

@@ -21,24 +21,31 @@ import java.util.logging.Logger;
  * @author Ivar
  */
 public final class PluginLoader {
-    public static final String PLUGIN_PATH = "target/classes/scratch/construction/plugin/exported/";
+    public static final String PLUGIN_PATH = "plugin/";
+    public static final String IDE_PLUGIN_PATH = "target/classes/scratch/construction/plugin/exported/";
 
     private PluginLoader() {
     }
 
-    private static List<Class<?>> getPluginClasses (Class annotationType) {
-        final List<File> files = FileScanner.getFiles(new File(PLUGIN_PATH));
-        final PluginClassLoader pluginClassLoader = new PluginClassLoader();
+    private static List<Class<?>> getPluginClasses(Class annotationType) {
+        final File folder = getValidFolder();
+        if (folder == null) {
+            return new ArrayList<>();
+        }
+        final List<File> files = FileScanner.getFiles(folder);
+        final PluginClassLoader pluginClassLoader = new PluginClassLoader(folder.getPath() + "/");
         final List<Class<?>> classList = new ArrayList<>();
-        for(final File file: files) {
+        for (final File file : files) {
             final String fileName = file.getName();
+            System.out.println("Lookin for files: " + folder.toString());
+            System.out.println("Filename is: " + fileName.toString());
             final String strippedName = fileName.substring(0, fileName.indexOf(".class"));
             try {
                 final Class loadedClass = pluginClassLoader.loadClass(strippedName);
-                if(loadedClass.getAnnotation(annotationType) != null) {
+                if (loadedClass.getAnnotation(annotationType) != null) {
                     classList.add(loadedClass);
                 }
-            }catch(ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
                 Logger.getLogger(PluginLoader.class.getName()).log(Level.SEVERE, null, e);
             }
         }
@@ -67,5 +74,18 @@ public final class PluginLoader {
 
     public static Map<Integer,Pluggable<?>> loadPlugins(Class anotationType) {
         return getPluginsFromPluginClasses(getPluginClasses(anotationType));
+    }
+
+    public static File getValidFolder() {
+        File[] folderToCheck = {
+                new File(PLUGIN_PATH),
+                new File(IDE_PLUGIN_PATH)
+        };
+        for (File folder : folderToCheck) {
+            if (folder.exists()) {
+                return folder;
+            }
+        }
+        return null;
     }
 }
