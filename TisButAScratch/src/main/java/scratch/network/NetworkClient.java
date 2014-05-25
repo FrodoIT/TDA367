@@ -22,7 +22,7 @@ public class NetworkClient {
 
     public NetworkClient(String ip){
         this.ip = ip;
-        client = new Client();
+        client = new Client(32768, 8196);
         Utilities.kryoRegister(client.getKryo());
 
     }

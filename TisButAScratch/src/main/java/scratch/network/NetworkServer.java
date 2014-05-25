@@ -18,12 +18,12 @@ import java.util.logging.Logger;
  *
  * @author Cannonbait
  */
-public class NetworkServer /*implements PropertyChangeListener*/{
+public class NetworkServer {
 
     private final Server server;
 
     public NetworkServer() {
-        server = new Server();
+        server = new Server(32768, 8196);
         Utilities.kryoRegister(server.getKryo());
 
     }
@@ -44,5 +44,9 @@ public class NetworkServer /*implements PropertyChangeListener*/{
 
     public void addListener(Listener listener){
         server.addListener(listener);
+    }
+    
+    public void closeRequested(){
+        server.close();
     }
 }

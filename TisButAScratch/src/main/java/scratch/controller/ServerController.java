@@ -17,7 +17,6 @@ import scratch.network.PacketNewConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import scratch.network.PacketGameData;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -90,5 +89,9 @@ public final class ServerController extends Listener {
     @Override
     public synchronized void connected(Connection connection) {
         addPlayer(connection);
+    }
+    
+    public void closeRequested(){
+        networkServer.closeRequested();
     }
 }

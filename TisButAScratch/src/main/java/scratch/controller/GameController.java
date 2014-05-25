@@ -55,6 +55,9 @@ public class GameController implements org.newdawn.slick.Game {
 
     @Override
     public boolean closeRequested() {
+        if (host){
+            server.closeRequested();
+        }
         return true;
     }
 

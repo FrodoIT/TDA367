@@ -52,7 +52,6 @@ public final class Utilities {
         //Packets
         kryo.register(PacketAddCharacter.class);
         kryo.register(PacketAttacks.class);
-        kryo.register(PacketGameData.class);
         kryo.register(PacketMoveCharacter.class);
         kryo.register(PacketNewCharacter.class);
         kryo.register(PacketNewConnection.class);
