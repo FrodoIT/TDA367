@@ -1,5 +1,8 @@
 package scratch.model;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import junit.framework.TestCase;
@@ -178,14 +181,14 @@ public class GameCharacterTest extends TestCase {
     @Test
     public void testSerialization() {
         //TODO Error in Jacoco "Error while instrumenting class",
-        /*Kryo kryo = new Kryo();
+        Kryo kryo = new Kryo();
         Output output = new Output(200);
 
         testCharacter.write(kryo, output);
         GameCharacter newGameCharacter = new GameCharacter();
         Input input = new Input(output.getBuffer());
         newGameCharacter.read(kryo, input);
-        assertTrue(testCharacter.equals(newGameCharacter));*/
+        assertTrue(testCharacter.equals(newGameCharacter));
     }
 
 }
