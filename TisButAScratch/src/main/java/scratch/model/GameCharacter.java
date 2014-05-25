@@ -306,6 +306,7 @@ public class GameCharacter implements KryoSerializable, IMovableEntity {
         kryo.writeObject(output, imagePath);
         kryo.writeObject(output, attacking);
         kryo.writeObject(output, interacting);
+        output.close();
     }
 
     @Override

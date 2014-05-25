@@ -40,18 +40,21 @@ public final class Utilities {
         kryo.register(Rectangle2D.Double.class);
         kryo.register(Weapon.class);
         kryo.register(Direction.class);
-        kryo.register(PacketNewConnection.class);
-        kryo.register(PacketAddCharacter.class);
-        kryo.register(PacketRemoveCharacter.class);
-        kryo.register(PacketMoveCharacter.class);
-        kryo.register(PacketPlayerInput.class);
         kryo.register(Vector2D.class);
         kryo.register(Point2D.class);
         kryo.register(Point2D.Double.class);
         kryo.register(InteractiveObject.class);
         kryo.register(HashMap.class);
-        kryo.register(PacketNewCharacter.class);
         kryo.register(MovableObject.class);
+        
+        //Packets
+        kryo.register(PacketAddCharacter.class);
+        kryo.register(PacketGameData.class);
+        kryo.register(PacketMoveCharacter.class);
+        kryo.register(PacketNewCharacter.class);
+        kryo.register(PacketNewConnection.class);
+        kryo.register(PacketPlayerInput.class);
+        kryo.register(PacketRemoveCharacter.class);
     }
 
     //använd nätverksgrejerna i java: köra genom en metod som gör om från hostname till

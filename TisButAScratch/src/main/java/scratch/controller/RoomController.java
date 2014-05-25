@@ -109,6 +109,10 @@ public class RoomController {
         }
         return null;
     }
+    
+    public Room getRoom(){
+        return room;
+    }
 
     public boolean hasId(int id) {
         for (final CharacterController characterController : characters) {

@@ -17,6 +17,7 @@ import scratch.network.PacketNewConnection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import scratch.network.PacketGameData;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -73,6 +74,8 @@ public final class ServerController extends Listener {
     private void addPlayer(Connection connection) {
         final int roomId = 100;
         connection.sendTCP(new PacketNewConnection(nextPlayerId, roomId));
+        //We'd like to send all roomData to client but we're having issues with serialization
+        //connection.sendTCP(new PacketGameData(roomControllerMap.values()));
         final GameCharacter newPlayer = loadPlayer("StandardPlayer", new Vector2D(200, 300), nextPlayerId);
         game.addPlayer(newPlayer);
         final CharacterController playerController = new CharacterController(newPlayer);

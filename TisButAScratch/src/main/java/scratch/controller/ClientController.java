@@ -11,6 +11,7 @@ import scratch.network.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import scratch.model.GameCharacter;
 
 /**
  * The main controller class to control updates, rendering, initiating and
@@ -82,6 +83,19 @@ public final class ClientController extends Listener {
             roomControllerMap.get(roomId).addCharacter(characterController);
             if (characterController.getId() == getId()){
                 uiController = new UIController(characterController.getCharacter());
+            }
+        } else if (object.getClass() == GameCharacter.class){
+            GameCharacter character = (GameCharacter)object;
+            boolean found = false;
+            for (final RoomController roomController : roomControllerMap.values()){
+                if (roomController.hasId(character.getId())){
+                    found = true;
+                }
+            }
+            if (!found){
+                CharacterController controller = new CharacterController(character);
+                controller.setClient(networkClient);
+                roomControllerMap.get(100).addCharacter(controller);
             }
         }
     }
