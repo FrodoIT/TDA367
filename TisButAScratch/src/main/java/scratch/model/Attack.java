@@ -81,7 +81,7 @@ public class Attack implements IMovableEntity{
 
     @Override
     public void setPosition(Vector2D newPosition) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        attackTile.setRect(newPosition.getX(), newPosition.getY(), attackTile.getWidth(), attackTile.getHeight());
     }
 
     @Override

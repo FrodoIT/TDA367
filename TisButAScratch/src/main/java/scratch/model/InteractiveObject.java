@@ -42,7 +42,7 @@ public class InteractiveObject implements KryoSerializable {
     public boolean equals(Object object) {
         if (this == object) {
             return true;
-        } else if (object == null || !(object instanceof InteractiveObject)) {
+        } else if (!(object instanceof InteractiveObject)) {
             return false;
         }
         final InteractiveObject recievedObject = (InteractiveObject) object;

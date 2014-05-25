@@ -29,6 +29,9 @@ public class AttackTest extends TestCase{
     public void testUpdate(){
         attack.update();
         assertEquals(attack.getPosition(), new Vector2D(50, 45));
+        attack.setPosition(new Vector2D(200, 200));
+        attack.update();
+        assertFalse(attack.isRemaining());
     }
     
     
