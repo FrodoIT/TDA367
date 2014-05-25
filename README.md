@@ -1,6 +1,36 @@
 TDA367
 ======
 
+Gameplay
+=======
+Arrowkeys for movement
+X for attack
+Z for interact
+
+
+XML
+===
+To configure XML, look at the current XML files. Your xml for monster files should have the following tags:
+
+<NPCType id=(Any number/Redacted)>
+	<health>10 (max health of NPC)</health>
+	<imagePath>(Path to the imageSprite the NPC should use)</imagePath>
+	<weapon damage="10">
+		<range>2 (how far the weapon should reach)</range>
+		<attackInterval>100 (Delay between attacks, in ms)</attackInterval>
+	</weapon>
+	<unitTile>32, 32 (Size of the NPC, should not be changed)</unitTile>
+
+	<movementPattern>2(what AI the NPC uses)</movementPattern>
+	<movementSpeed>1 (speed of the NPC movement) </movementSpeed>
+</NPCType>
+
+
+
+To place a monster, create an interactive layer npc and place an object in the map.
+Give the object a property by the name "npcType" without quotationmarks and where the name of the XML file is given as value, e.g "StandardEnemy".
+
+
 
 To compile the project the VM needs to be supplied with the argument "-Djava.library.path=lib/"
 
@@ -19,3 +49,5 @@ How to change Sprite for PlayerView:
 	
 	observe that you can use as many images for each direction as you want aslong as all directions use an equal number of images
 	IMPORTANT: name your layer: "sprite"
+
+
