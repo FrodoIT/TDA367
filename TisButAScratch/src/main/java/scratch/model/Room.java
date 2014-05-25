@@ -162,7 +162,7 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
         if (entity.getTile().intersects(placeToPutArea)
                 && !entity.getTile().equals(entityToPlace.getTile())
                 && entity instanceof MovableObject) {
-            if (entityToPlace instanceof GameCharacter) {
+            if (entityToPlace.getClass() == GameCharacter.class) {
                 updateBoxPosition((GameCharacter) entityToPlace, (MovableObject) entity);
             }
             return true;
@@ -186,7 +186,10 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
         final Vector2D nextMoveDirection = character.getNextMoveDirection();
         final Rectangle2D.Double boxArea = interactiveObject.getTile();
         final Vector2D newPos = new Vector2D(boxArea.getX() + nextMoveDirection.getX() * character.getMovementSpeed(), boxArea.getY() + nextMoveDirection.getY() * character.getMovementSpeed());
-        interactiveObject.setPosition(allowedPosition(interactiveObject, newPos));
+        if (!(isColliding(interactiveObject, newPos))){
+            interactiveObject.setPosition(newPos);
+        }
+        
     }
 
     @Override
