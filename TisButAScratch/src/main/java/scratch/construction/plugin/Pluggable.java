@@ -12,5 +12,5 @@ package scratch.construction.plugin;
  */
 public interface Pluggable<T> extends Cloneable{
     T get();
-    T clone();
+    T clone() throws CloneNotSupportedException;
 }

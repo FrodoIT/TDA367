@@ -7,6 +7,7 @@ import scratch.model.INPCMove;
 import scratch.model.IRoomData;
 import scratch.model.NpcType;
 import scratch.model.Vector2D;
+import sun.plugin.dom.exception.PluginNotSupportedException;
 
 import java.awt.geom.Point2D;
 import java.util.Random;
@@ -27,7 +28,8 @@ public final class CPNPCPlugin implements Pluggable<CPNPCPlugin>, INPCMove {
     }
 
     @Override
-    public CPNPCPlugin clone() {
+    public CPNPCPlugin clone() throws CloneNotSupportedException{
+	    super.clone();
         final CPNPCPlugin plugin = new CPNPCPlugin();
         plugin.roomData = this.roomData;
         return plugin;
