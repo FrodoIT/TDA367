@@ -40,8 +40,8 @@ public final class Room implements IRoomData, CharacterChangeListener, DoorHelpe
 
     public void update() {
         //attacks.clear();
-        updateCharacterInteractions();
         updateCharacterMovements();
+        updateCharacterInteractions();
         dealDamage();
 
     }
